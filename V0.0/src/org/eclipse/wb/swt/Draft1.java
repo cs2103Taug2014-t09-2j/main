@@ -47,6 +47,7 @@ public class Draft1 {
 	 */
 	
 	// Trial command to push
+	// trial merge update
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
