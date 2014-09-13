@@ -208,11 +208,11 @@ public class Draft1 {
 
 			private static CommandTypes determineCmd(String str) {
 				if (cmd.equals("start")) {
-					return COMMANDS.START;
+					return CommandTypes.START;
 				} else if (cmd.equals("done")) {
-					return COMMANDS.DONE;
+					return CommandTypes.DONE;
 				} else if (cmd.equals("edit")) {
-					return COMMANDS.EDIT;
+					return CommandTypes.EDIT;
 				} 
 			}
 
