@@ -216,20 +216,28 @@ public class Draft1 {
 				} 
 			}
 
-			public void actionPerformed(ActionEvent arg0) {
+			/* Read in input and split input into 2parts: command and the rest
+			*
+			* Return an array containing 2 String elements
+			*/ 
+			private static String[] readInput(){
 				String input = commandBox.getText();
-				String arrString[] = input.split(" ", 2);
-				String command = arrString[0];
+				return input.split(" ", 2);
+			}
+
+			public void actionPerformed(ActionEvent arg0) {
+				String arrString[] = readInput();
+				CommandTypes command = determineCmd(arrString[0]);
 				String theRest = arrString[1];
 
 				switch (command) {
-				case "start":
+				case START:
 					displayAll();
 					// empty the command box
 					commandBox.setText("");
 					break;
 
-				case "edit":
+				case EDIT:
 					String arrString2[] = theRest.split(" ", 3);
 					String date = arrString2[0];
 					String number = arrString2[1];
@@ -242,7 +250,7 @@ public class Draft1 {
 					}
 					break;
 
-				case "done":
+				case DONE:
 					System.out.println(theRest);
 					if (theRest.length() == 6) {
 						try {
