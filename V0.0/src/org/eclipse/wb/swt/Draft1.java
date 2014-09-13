@@ -202,6 +202,20 @@ public class Draft1 {
 		commandBox.addActionListener(new ActionListener() {
 			private BufferedWriter bw;
 
+			enum CommandTypes {
+				START, EDIT, DONE
+			};
+
+			private static CommandTypes determineCmd(String str) {
+				if (cmd.equals("start")) {
+					return COMMANDS.START;
+				} else if (cmd.equals("done")) {
+					return COMMANDS.DONE;
+				} else if (cmd.equals("edit")) {
+					return COMMANDS.EDIT;
+				} 
+			}
+
 			public void actionPerformed(ActionEvent arg0) {
 				String input = commandBox.getText();
 				String arrString[] = input.split(" ", 2);
