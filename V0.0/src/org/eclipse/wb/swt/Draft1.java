@@ -18,6 +18,8 @@ import java.awt.event.InputMethodListener;
 import java.awt.event.InputMethodEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -199,6 +201,16 @@ public class Draft1 {
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
 		commandBox = new JTextField();
+		//prompt the user to type start
+		commandBox.setText("Please type \"start\" to start!");
+
+		// when the mouse clicks the command box, empty the command box
+		commandBox.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent arg0) {
+				commandBox.setText("");
+			}
+		});
+
 		commandBox.addActionListener(new ActionListener() {
 			private BufferedWriter bw;
 
@@ -213,14 +225,15 @@ public class Draft1 {
 					return CommandTypes.DONE;
 				} else if (cmd.equals("edit")) {
 					return CommandTypes.EDIT;
-				} 
+				}
 			}
 
-			/* Read in input and split input into 2parts: command and the rest
-			*
-			* Return an array containing 2 String elements
-			*/ 
-			private static String[] readInput(){
+			/*
+			 * Read in input and split input into 2parts: command and the rest
+			 * 
+			 * Return an array containing 2 String elements
+			 */
+			private static String[] readInput() {
 				String input = commandBox.getText();
 				return input.split(" ", 2);
 			}
@@ -271,7 +284,7 @@ public class Draft1 {
 
 				}
 			}
-			
+
 			private void doneTaskClear(String date) throws IOException {
 				fileName = date + ".txt";
 				clearFile(fileName);
@@ -280,7 +293,7 @@ public class Draft1 {
 
 				// set the command box to be empty
 				commandBox.setText("");
-				
+
 			}
 
 			private void doneTaskSpecified(String date, String number)
