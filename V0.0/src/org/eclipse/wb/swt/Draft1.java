@@ -242,15 +242,23 @@ public class Draft1 {
 
 			public void actionPerformed(ActionEvent arg0) {
 				String arrString[] = readInput();
+				
+				//if the command is "start"
+				//initialize the content of all the task boxes
+				if(arrString[0].equals("start")){
+					displayAll();
+					commandBox.setText("");
+				}
 				CommandTypes command = determineCmd(arrString[0]);
 				String theRest = arrString[1];
 
 				switch (command) {
-				case START:
+				/*case START:
 					displayAll();
 					// empty the command box
 					commandBox.setText("");
 					break;
+				*/
 
 				case EDIT:
 					String arrString2[] = theRest.split(" ", 3);
