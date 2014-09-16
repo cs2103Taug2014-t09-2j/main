@@ -43,7 +43,23 @@ public class Draft1 {
 	private JTextField commandBox;
 	private String fileName = null;
 	private JTextComponent date1;
+	
+	enum CommandTypes {
+		START, EDIT, DONE, INVALID
+	};
 
+	private static CommandTypes determineCmd(String str) {
+		if (str.equals("start")) {
+			return CommandTypes.START;
+		} else if (str.equals("done")) {
+			return CommandTypes.DONE;
+		} else if (str.equals("edit")) {
+			return CommandTypes.EDIT;
+		} else {
+			return CommandTypes.INVALID;
+		}
+	}
+	
 	/**
 	 * Launch the application.
 	 */
@@ -214,26 +230,12 @@ public class Draft1 {
 		commandBox.addActionListener(new ActionListener() {
 			private BufferedWriter bw;
 
-			enum CommandTypes {
-				START, EDIT, DONE
-			};
-
-			private static CommandTypes determineCmd(String str) {
-				if (cmd.equals("start")) {
-					return CommandTypes.START;
-				} else if (cmd.equals("done")) {
-					return CommandTypes.DONE;
-				} else if (cmd.equals("edit")) {
-					return CommandTypes.EDIT;
-				}
-			}
-
 			/*
 			 * Read in input and split input into 2parts: command and the rest
 			 * 
 			 * Return an array containing 2 String elements
 			 */
-			private static String[] readInput() {
+			private String[] readInput() {
 				String input = commandBox.getText();
 				return input.split(" ", 2);
 			}
