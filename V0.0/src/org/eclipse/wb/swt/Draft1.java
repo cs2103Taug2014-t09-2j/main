@@ -536,7 +536,7 @@ public class Draft1 {
 				}
 			}
 
-			private void editTask(String date, String number,
+			public void editTask(String date, String number,
 					String modification) throws IOException {
 
 				fileName = date + ".txt";
