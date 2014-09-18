@@ -259,14 +259,15 @@ public class Draft1 {
 					commandBox.setText("");
 					break;
 				*/
-
+				//format input: edit date number time modification 
 				case EDIT:
-					String arrString2[] = theRest.split(" ", 3);
+					String arrString2[] = theRest.split(" ", 4);
 					String date = arrString2[0];
 					String number = arrString2[1];
-					String modification = arrString2[2];
+					String time = arrString2[2];
+					String modification = arrString2[3];
 					try {
-						editTask(date, number, modification);
+						editTask(date, number, time, modification);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -536,7 +537,7 @@ public class Draft1 {
 				}
 			}
 
-			public void editTask(String date, String number,
+			public void editTask(String date, String number, String time,
 					String modification) throws IOException {
 
 				fileName = date + ".txt";
@@ -558,10 +559,12 @@ public class Draft1 {
 				int position = Integer.parseInt(number);
 				String toBeRemoved = currDateTask.get(position - 1);
 				currDateTask.remove(toBeRemoved);
+				
+				String modificationFinal = "(" + time + ") " + modification;
 
 				// edit 121212 1 modification
 				// insert the modification into the arrayList
-				currDateTask.add(position - 1, modification);
+				currDateTask.add(position - 1, modificationFinal);
 
 				// clear the file
 				clearFile(fileName);
