@@ -43,9 +43,11 @@ public class Draft1 {
 	private JTextField commandBox;
 	private String fileName = null;
 	private JTextComponent date1;
-	
+
+	static CommandUndo undoHistory = new CommandUndo();
+
 	enum CommandTypes {
-		START, EDIT, DONE, INVALID
+		START, EDIT, DONE, INVALID, UNDO
 	};
 
 	private static CommandTypes determineCmd(String str) {
@@ -59,14 +61,11 @@ public class Draft1 {
 			return CommandTypes.INVALID;
 		}
 	}
-	
+
 	/**
 	 * Launch the application.
 	 */
 
-	// Trial command to push
-	// trial merge update
-	// Trial For Made
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -217,7 +216,7 @@ public class Draft1 {
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
 		commandBox = new JTextField();
-		//prompt the user to type start
+		// prompt the user to type start
 		commandBox.setText("Please type \"start\" to start!");
 
 		// when the mouse clicks the command box, empty the command box
@@ -242,57 +241,67 @@ public class Draft1 {
 
 			public void actionPerformed(ActionEvent arg0) {
 				String arrString[] = readInput();
-				
-				//if the command is "start"
-				//initialize the content of all the task boxes
-				if(arrString[0].equals("start")){
+
+				// if the command is "start"
+				// initialize the content of all the task boxes
+				if (arrString[0].equals("start")) {
 					displayAll();
 					commandBox.setText("");
-				}
-				CommandTypes command = determineCmd(arrString[0]);
-				String theRest = arrString[1];
+					
+				} else if (arrString[0].equals("undo")) {
+					undoHistory.printReverseCommand();
+					
+				} else {
+					CommandTypes command = determineCmd(arrString[0]);
+					String theRest = arrString[1];
 
-				switch (command) {
-				/*case START:
-					displayAll();
-					// empty the command box
-					commandBox.setText("");
-					break;
-				*/
-				//format input: edit date number time modification 
-				case EDIT:
-					String arrString2[] = theRest.split(" ", 4);
-					String date = arrString2[0];
-					String number = arrString2[1];
-					String time = arrString2[2];
-					String modification = arrString2[3];
-					try {
-						editTask(date, number, time, modification);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					break;
+					switch (command) {
+					/*
+					 * case START: displayAll(); // empty the command box
+					 * commandBox.setText(""); break;
+					 */
+					// format input: edit date number time modification
+					case EDIT:
+						// Reverse Edit Command
 
-				case DONE:
-					System.out.println(theRest);
-					if (theRest.length() == 6) {
+						// Actual Edit Command
+						String arrString2[] = theRest.split(" ", 4);
+						String date = arrString2[0];
+						String number = arrString2[1];
+						String time = arrString2[2];
+						String modification = arrString2[3];
 						try {
-							doneTaskClear(theRest);
+							editTask(date, number, time, modification);
 						} catch (IOException e) {
+							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-					} else {
-						String arrString3[] = theRest.split(" ", 2);
-						String doneDate = arrString3[0];
-						String doneNumber = arrString3[1];
-						try {
-							doneTaskSpecified(doneDate, doneNumber);
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-					}
+						break;
 
+					case DONE:
+						// Reverse Edit Command
+
+						// Actual Edit Command
+						// System.out.println(theRest);
+						if (theRest.length() == 6) {
+							try {
+								doneTaskClear(theRest);
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+						} else {
+							String arrString3[] = theRest.split(" ", 2);
+							String doneDate = arrString3[0];
+							String doneNumber = arrString3[1];
+							try {
+								doneTaskSpecified(doneDate, doneNumber);
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+						}
+						break;
+
+					}
 				}
 			}
 
@@ -559,7 +568,7 @@ public class Draft1 {
 				int position = Integer.parseInt(number);
 				String toBeRemoved = currDateTask.get(position - 1);
 				currDateTask.remove(toBeRemoved);
-				
+
 				String modificationFinal = "(" + time + ") " + modification;
 
 				// edit 121212 1 modification
