@@ -40,6 +40,7 @@ import java.util.logging.Logger;
 public class Draft1 {
 	
 	// Hello
+	//Ngoc Anh
 	private JFrame frame;
 	private JTextField commandBox;
 	private String fileName = null;
