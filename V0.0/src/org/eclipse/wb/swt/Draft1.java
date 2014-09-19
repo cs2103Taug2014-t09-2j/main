@@ -283,11 +283,12 @@ public class Draft1 {
 						break;
 					
 					case ADD:
-						String addString[] = theRest.split(" ", 2);
+						String addString[] = theRest.split(" ", 3);
 						String date1 = addString[0];
-						String task = addString[1];
+						String time1 = addString[1];
+						String task = addString[2];
 						try {
-							addTask(date1, task);
+							addTask(date1, time1, task);
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -321,13 +322,14 @@ public class Draft1 {
 				}
 			}
 			
-			private void addTask(String date, String task) throws IOException {
+			private void addTask(String date, String time, String task) throws IOException {
 				//Create the name of the text file
 				String fileName = date + ".txt";
+				String content = "(" + time + ") " + task;
 				ArrayList<String> list = new ArrayList<String>();
 				//Check if the text file exists, if it does, add its content to a list and return the list
 				list = isFileExist(fileName);
-				list.add(task);
+				list.add(content);
 				writeToFile(list, fileName);
 				displayAll();
 			}
