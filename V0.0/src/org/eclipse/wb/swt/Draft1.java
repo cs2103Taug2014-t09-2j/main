@@ -616,7 +616,7 @@ public class Draft1 {
 				String toBeRemoved = currDateTask.get(position - 1);
 				currDateTask.remove(toBeRemoved);
 
-				String modificationFinal = "(" + time + ") " + modification;
+				String modificationFinal = "[" + time + "] " + modification;
 
 				// edit 121212 1 modification
 				// insert the modification into the arrayList
