@@ -57,6 +57,8 @@ public class Draft1 {
 			return CommandTypes.DONE;
 		} else if (str.equals("edit")) {
 			return CommandTypes.EDIT;
+		} else if (str.equals("undo")) {
+			return CommandTypes.UNDO;
 		} else {
 			return CommandTypes.INVALID;
 		}
