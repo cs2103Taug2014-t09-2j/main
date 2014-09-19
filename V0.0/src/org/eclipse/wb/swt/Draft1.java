@@ -38,7 +38,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Draft1 {
-
+	
+	// Hello
 	private JFrame frame;
 	private JTextField commandBox;
 	private String fileName = null;
