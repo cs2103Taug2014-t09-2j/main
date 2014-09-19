@@ -47,12 +47,14 @@ public class Draft1 {
 	static CommandUndo undoHistory = new CommandUndo();
 
 	enum CommandTypes {
-		START, EDIT, DONE, INVALID, UNDO
+		START, ADD, EDIT, DONE, INVALID, UNDO
 	};
 
 	private static CommandTypes determineCmd(String str) {
 		if (str.equals("start")) {
 			return CommandTypes.START;
+		} else if (str.equals("add")) {
+			return CommandTypes.ADD;
 		} else if (str.equals("done")) {
 			return CommandTypes.DONE;
 		} else if (str.equals("edit")) {
@@ -279,6 +281,18 @@ public class Draft1 {
 							e.printStackTrace();
 						}
 						break;
+					
+					case ADD:
+						String addString[] = theRest.split(" ", 2);
+						String date1 = addString[0];
+						String task = addString[1];
+						try {
+							addTask(date1, task);
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						break;
 
 					case DONE:
 						// Reverse Edit Command
@@ -305,6 +319,35 @@ public class Draft1 {
 
 					}
 				}
+			}
+			
+			private void addTask(String date, String task) throws IOException {
+				//Create the name of the text file
+				String fileName = date + ".txt";
+				ArrayList<String> list = new ArrayList<String>();
+				//Check if the text file exists, if it does, add its content to a list and return the list
+				list = isFileExist(fileName);
+				list.add(task);
+				writeToFile(list, fileName);
+				displayAll();
+			}
+			
+			public ArrayList<String> isFileExist(String fileName) throws IOException{
+				ArrayList<String> list = new ArrayList<String>();
+				try {
+					File file = new File(fileName);
+					if (file.exists()){
+						String line;
+						BufferedReader br = new BufferedReader(new FileReader(fileName));
+						while ((line = br.readLine()) != null) {
+							list.add(line); //File already exists, add its content to the list
+						}
+						br.close();
+					}
+				} catch (FileNotFoundException e){
+					list.clear(); // Clear all corrupted data
+				}
+				return list;
 			}
 
 			private void doneTaskClear(String date) throws IOException {
