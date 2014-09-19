@@ -1,5 +1,5 @@
 package org.eclipse.wb.swt;
-
+//Comment
 import java.awt.EventQueue;
 
 import javax.swing.BorderFactory;
