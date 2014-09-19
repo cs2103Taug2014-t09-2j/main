@@ -325,7 +325,7 @@ public class Draft1 {
 			private void addTask(String date, String time, String task) throws IOException {
 				//Create the name of the text file
 				String fileName = date + ".txt";
-				String content = "(" + time + ") " + task;
+				String content = "[" + time + "] " + task;
 				ArrayList<String> list = new ArrayList<String>();
 				//Check if the text file exists, if it does, add its content to a list and return the list
 				list = isFileExist(fileName);
