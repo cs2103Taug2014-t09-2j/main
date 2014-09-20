@@ -475,7 +475,6 @@ public class Draft1 {
 							commandDone runDone = new commandDone(theRest);
 							try {
 								runDone.clearDateTaskAll();
-								//doneTaskClear(theRest);
 							} catch (FileNotFoundException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
@@ -486,12 +485,7 @@ public class Draft1 {
 							commandDone runDone = new commandDone(arrString3[0],arrString3[1]);
 							runDone.clearDateTaskSpecific();
 							displayAll();
-							/*
-							try {
-								doneTaskSpecified(doneDate, doneNumber);
-							} catch (IOException e) {
-								e.printStackTrace();
-							}*/
+							
 						}
 						break;
 
