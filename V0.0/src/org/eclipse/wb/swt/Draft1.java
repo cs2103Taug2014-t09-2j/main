@@ -42,7 +42,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class Draft1 {
-	
+
 	private JFrame frame;
 	private JTextField commandBox;
 	private String fileName = null;
@@ -104,21 +104,20 @@ public class Draft1 {
 		frame = new JFrame();
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowActivated(WindowEvent arg0) {
-				
+
 				BufferedReader reader = null;
-				
-				//obtain the current date
+
+				// obtain the current date
 				DateFormat dateFormat = new SimpleDateFormat("ddMMyy");
 				Date currDate = new Date();
 				String currDateString = dateFormat.format(currDate);
 				for (int i = 1; i < 10; i++) {
-					//check for each date whether the files exists or not
+					// check for each date whether the files exists or not
 					fileName = currDateString + ".txt";
 					File file = new File(fileName);
-					
-					//check if the today's file does not exist
-					if(!file.exists())
-					{
+
+					// check if the today's file does not exist
+					if (!file.exists()) {
 						PrintWriter writer = null;
 						try {
 							writer = new PrintWriter(fileName, "UTF-8");
@@ -164,11 +163,217 @@ public class Draft1 {
 		JLabel lblGeneralTask = new JLabel("General Task");
 		lblGeneralTask.setBounds(416, 205, 97, 14);
 		frame.getContentPane().add(lblGeneralTask);
+		Border border = BorderFactory.createLineBorder(Color.WHITE);
+
+		final JTextArea date1 = new JTextArea();
+		date1.setEditable(false);
+		date1.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+		// create padding inside the text area
+		// Border border = BorderFactory.createLineBorder(Color.BLACK);
+		date1.setBorder(BorderFactory.createCompoundBorder(border,
+				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+		date1.setBackground(new Color(255, 215, 0));
+		date1.addMouseListener(new MouseAdapter() {
+			@SuppressWarnings("deprecation")
+			public void mouseClicked(MouseEvent arg0) {
+				date1.resize(250, 250);
+				date1.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 20));
+			}
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseExited(MouseEvent e) {
+				date1.resize(123, 113);
+				date1.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+			}
+		});
+		date1.setLineWrap(true);
+		date1.setBounds(20, 59, 123, 114);
+		frame.getContentPane().add(date1);
+
+		final JTextArea date2 = new JTextArea();
+		date2.addMouseListener(new MouseAdapter() {
+			@SuppressWarnings("deprecation")
+			public void mouseClicked(MouseEvent arg0) {
+				date2.resize(250, 250);
+				date2.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 20));
+			}
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseExited(MouseEvent e) {
+				date2.resize(123, 113);
+				date2.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+			}
+		});
+		date2.setLineWrap(true);
+		date2.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+		date2.setEditable(false);
+		// Border border = BorderFactory.createLineBorder(Color.BLACK);
+		date2.setBorder(BorderFactory.createCompoundBorder(border,
+				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+		date2.setBounds(147, 59, 123, 114);
+		frame.getContentPane().add(date2);
+
+		final JTextArea date3 = new JTextArea();
+		date3.setLineWrap(true);
+		date3.addMouseListener(new MouseAdapter() {
+			@SuppressWarnings("deprecation")
+			public void mouseClicked(MouseEvent arg0) {
+				date3.resize(250, 250);
+				date3.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 20));
+			}
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseExited(MouseEvent e) {
+				date3.resize(123, 113);
+				date3.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+			}
+		});
+		date3.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+		date3.setEditable(false);
+		date3.setBorder(BorderFactory.createCompoundBorder(border,
+				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+		date3.setBackground(new Color(255, 215, 0));
+		date3.setBounds(273, 59, 123, 114);
+		frame.getContentPane().add(date3);
+
+		final JTextArea date4 = new JTextArea();
+		date4.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+		date4.addMouseListener(new MouseAdapter() {
+			@SuppressWarnings("deprecation")
+			public void mouseClicked(MouseEvent arg0) {
+				date4.resize(250, 250);
+				date4.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 20));
+			}
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseExited(MouseEvent e) {
+				date4.resize(123, 113);
+				date4.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+			}
+		});
+		date4.setEditable(false);
+		date4.setLineWrap(true);
+		date4.setBounds(20, 176, 123, 114);
+		frame.getContentPane().add(date4);
+		date4.setBorder(BorderFactory.createCompoundBorder(border,
+				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+
+		final JTextArea date6 = new JTextArea();
+		date6.setLineWrap(true);
+		date6.addMouseListener(new MouseAdapter() {
+			@SuppressWarnings("deprecation")
+			public void mouseClicked(MouseEvent arg0) {
+				date6.resize(250, 250);
+				date6.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 20));
+			}
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseExited(MouseEvent e) {
+				date6.resize(123, 113);
+				date6.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+			}
+		});
+		date6.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+		date6.setEditable(false);
+		date6.setBounds(273, 176, 123, 114);
+		frame.getContentPane().add(date6);
+		date6.setBorder(BorderFactory.createCompoundBorder(border,
+				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+
+		final JTextArea date5 = new JTextArea();
+		date5.setLineWrap(true);
+		date5.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+		date5.setEditable(false);
+		date5.addMouseListener(new MouseAdapter() {
+			@SuppressWarnings("deprecation")
+			public void mouseClicked(MouseEvent arg0) {
+				date5.resize(250, 250);
+				date5.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 20));
+			}
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseExited(MouseEvent e) {
+				date5.resize(123, 113);
+				date5.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+			}
+		});
+		date5.setBackground(new Color(255, 215, 0));
+		date5.setBounds(147, 176, 123, 114);
+		frame.getContentPane().add(date5);
+		date5.setBorder(BorderFactory.createCompoundBorder(border,
+				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+
+		final JTextArea date7 = new JTextArea();
+		date7.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+		date7.setEditable(false);
+		date7.addMouseListener(new MouseAdapter() {
+			@SuppressWarnings("deprecation")
+			public void mouseClicked(MouseEvent arg0) {
+				date7.resize(250, 250);
+				date7.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 20));
+			}
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseExited(MouseEvent e) {
+				date7.resize(123, 113);
+				date7.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+			}
+		});
+		date7.setBackground(new Color(255, 215, 0));
+		date7.setLineWrap(true);
+		date7.setBounds(20, 292, 123, 114);
+		frame.getContentPane().add(date7);
+		date7.setBorder(BorderFactory.createCompoundBorder(border,
+				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+
+		final JTextArea date9 = new JTextArea();
+		date9.setLineWrap(true);
+		date9.addMouseListener(new MouseAdapter() {
+			@SuppressWarnings("deprecation")
+			public void mouseClicked(MouseEvent arg0) {
+				date9.resize(250, 250);
+				date9.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 20));
+			}
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseExited(MouseEvent e) {
+				date9.resize(123, 113);
+				date9.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+			}
+		});
+		date9.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+		date9.setEditable(false);
+		date9.setBackground(new Color(255, 215, 0));
+		date9.setBounds(273, 292, 123, 114);
+		frame.getContentPane().add(date9);
+		date9.setBorder(BorderFactory.createCompoundBorder(border,
+				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+
+		final JTextArea date8 = new JTextArea();
+		date8.setLineWrap(true);
+		date8.addMouseListener(new MouseAdapter() {
+			@SuppressWarnings("deprecation")
+			public void mouseClicked(MouseEvent arg0) {
+				date8.resize(250, 250);
+				date8.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 20));
+			}
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseExited(MouseEvent e) {
+				date8.resize(123, 113);
+				date8.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+			}
+		});
+		date8.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+		date8.setEditable(false);
+		date8.setBounds(147, 292, 123, 114);
+		frame.getContentPane().add(date8);
+		date8.setBorder(BorderFactory.createCompoundBorder(border,
+				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
 		JTextArea missingBox = new JTextArea();
 		missingBox.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
 		missingBox.setEditable(false);
-		Border border = BorderFactory.createLineBorder(Color.WHITE);
 		missingBox.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(20, 5, 5, 5)));
 		missingBox.setBackground(new Color(255, 99, 71));
@@ -184,89 +389,6 @@ public class Draft1 {
 		generalTaskBox.setBackground(new Color(30, 144, 255));
 		generalTaskBox.setBounds(406, 198, 168, 208);
 		frame.getContentPane().add(generalTaskBox);
-
-		final JTextArea date1 = new JTextArea();
-		date1.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
-		// create padding inside the text area
-		// Border border = BorderFactory.createLineBorder(Color.BLACK);
-		date1.setBorder(BorderFactory.createCompoundBorder(border,
-				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-		date1.setEditable(false);
-		date1.setBackground(new Color(255, 215, 0));
-		date1.setLineWrap(true);
-		date1.setBounds(20, 59, 123, 114);
-		frame.getContentPane().add(date1);
-
-		final JTextArea date2 = new JTextArea();
-		date2.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
-		date2.setEditable(false);
-		// Border border = BorderFactory.createLineBorder(Color.BLACK);
-		date2.setBorder(BorderFactory.createCompoundBorder(border,
-				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-		date2.setBounds(147, 59, 123, 114);
-		frame.getContentPane().add(date2);
-
-		final JTextArea date3 = new JTextArea();
-		date3.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
-		date3.setEditable(false);
-		date3.setBorder(BorderFactory.createCompoundBorder(border,
-				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-		date3.setBackground(new Color(255, 215, 0));
-		date3.setBounds(273, 59, 123, 114);
-		frame.getContentPane().add(date3);
-
-		final JTextArea date4 = new JTextArea();
-		date4.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
-		date4.setEditable(false);
-		date4.setLineWrap(true);
-		date4.setBounds(20, 176, 123, 114);
-		frame.getContentPane().add(date4);
-		date4.setBorder(BorderFactory.createCompoundBorder(border,
-				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-
-		final JTextArea date6 = new JTextArea();
-		date6.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
-		date6.setEditable(false);
-		date6.setBounds(273, 176, 123, 114);
-		frame.getContentPane().add(date6);
-		date6.setBorder(BorderFactory.createCompoundBorder(border,
-				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-
-		final JTextArea date5 = new JTextArea();
-		date5.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
-		date5.setEditable(false);
-		date5.setBackground(new Color(255, 215, 0));
-		date5.setBounds(147, 176, 123, 114);
-		frame.getContentPane().add(date5);
-		date5.setBorder(BorderFactory.createCompoundBorder(border,
-				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-
-		final JTextArea date7 = new JTextArea();
-		date7.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
-		date7.setEditable(false);
-		date7.setBackground(new Color(255, 215, 0));
-		date7.setLineWrap(true);
-		date7.setBounds(20, 292, 123, 114);
-		frame.getContentPane().add(date7);
-		date7.setBorder(BorderFactory.createCompoundBorder(border,
-				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-
-		final JTextArea date9 = new JTextArea();
-		date9.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
-		date9.setEditable(false);
-		date9.setBackground(new Color(255, 215, 0));
-		date9.setBounds(273, 292, 123, 114);
-		frame.getContentPane().add(date9);
-		date9.setBorder(BorderFactory.createCompoundBorder(border,
-				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-
-		final JTextArea date8 = new JTextArea();
-		date8.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
-		date8.setEditable(false);
-		date8.setBounds(147, 292, 123, 114);
-		frame.getContentPane().add(date8);
-		date8.setBorder(BorderFactory.createCompoundBorder(border,
-				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
 		commandBox = new JTextField();
 		// prompt the user to type start
@@ -300,10 +422,10 @@ public class Draft1 {
 				if (arrString[0].equals("start")) {
 					displayAll();
 					commandBox.setText("");
-					
+
 				} else if (arrString[0].equals("undo")) {
 					undoHistory.printReverseCommand();
-					
+
 				} else {
 					CommandTypes command = determineCmd(arrString[0]);
 					String theRest = arrString[1];
@@ -330,7 +452,7 @@ public class Draft1 {
 							e.printStackTrace();
 						}
 						break;
-					
+
 					case ADD:
 						String addString[] = theRest.split(" ", 3);
 						String date1 = addString[0];
@@ -370,32 +492,37 @@ public class Draft1 {
 					}
 				}
 			}
-			
-			private void addTask(String date, String time, String task) throws IOException {
-				//Create the name of the text file
+
+			private void addTask(String date, String time, String task)
+					throws IOException {
+				// Create the name of the text file
 				String fileName = date + ".txt";
 				String content = "[" + time + "] " + task;
 				ArrayList<String> list = new ArrayList<String>();
-				//Check if the text file exists, if it does, add its content to a list and return the list
+				// Check if the text file exists, if it does, add its content to
+				// a list and return the list
 				list = isFileExist(fileName);
 				list.add(content);
 				writeToFile(list, fileName);
 				displayAll();
 			}
-			
-			public ArrayList<String> isFileExist(String fileName) throws IOException{
+
+			public ArrayList<String> isFileExist(String fileName)
+					throws IOException {
 				ArrayList<String> list = new ArrayList<String>();
 				try {
 					File file = new File(fileName);
-					if (file.exists()){
+					if (file.exists()) {
 						String line;
-						BufferedReader br = new BufferedReader(new FileReader(fileName));
+						BufferedReader br = new BufferedReader(new FileReader(
+								fileName));
 						while ((line = br.readLine()) != null) {
-							list.add(line); //File already exists, add its content to the list
+							list.add(line); // File already exists, add its
+											// content to the list
 						}
 						br.close();
 					}
-				} catch (FileNotFoundException e){
+				} catch (FileNotFoundException e) {
 					list.clear(); // Clear all corrupted data
 				}
 				return list;
