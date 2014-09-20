@@ -39,12 +39,6 @@ import java.util.logging.Logger;
 
 public class Draft1 {
 	
-	// Hello
-<<<<<<< HEAD
-	//Ngoc Anh
-=======
-	// Benedict
->>>>>>> branch 'master' of https://github.com/cs2103Taug2014-t09-2j/main.git
 	private JFrame frame;
 	private JTextField commandBox;
 	private String fileName = null;
