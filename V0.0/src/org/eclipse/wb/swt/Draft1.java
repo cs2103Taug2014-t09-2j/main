@@ -428,7 +428,7 @@ public class Draft1 {
 
 				} else {
 					CommandTypes command = determineCmd(arrString[0]);
-					String theRest = arrString[1];
+					String theRest = arrString[1].trim();
 
 					switch (command) {
 					/*
@@ -470,22 +470,28 @@ public class Draft1 {
 						// Reverse Edit Command
 
 						// Actual Edit Command
-						// System.out.println(theRest);
+						// System.out.println(theRest);		
 						if (theRest.length() == 6) {
+							commandDone runDone = new commandDone(theRest);
 							try {
-								doneTaskClear(theRest);
-							} catch (IOException e) {
+								runDone.clearDateTaskAll();
+								//doneTaskClear(theRest);
+							} catch (FileNotFoundException e) {
+								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
+							displayAll();
 						} else {
 							String arrString3[] = theRest.split(" ", 2);
-							String doneDate = arrString3[0];
-							String doneNumber = arrString3[1];
+							commandDone runDone = new commandDone(arrString3[0],arrString3[1]);
+							runDone.clearDateTaskSpecific();
+							displayAll();
+							/*
 							try {
 								doneTaskSpecified(doneDate, doneNumber);
 							} catch (IOException e) {
 								e.printStackTrace();
-							}
+							}*/
 						}
 						break;
 
