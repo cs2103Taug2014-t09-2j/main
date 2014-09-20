@@ -28,6 +28,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -36,6 +38,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class Draft1 {
 	
@@ -98,6 +102,51 @@ public class Draft1 {
 	private void initialize() {
 
 		frame = new JFrame();
+		frame.addWindowListener(new WindowAdapter() {
+			public void windowActivated(WindowEvent arg0) {
+				
+				BufferedReader reader = null;
+				
+				//obtain the current date
+				DateFormat dateFormat = new SimpleDateFormat("ddMMyy");
+				Date currDate = new Date();
+				String currDateString = dateFormat.format(currDate);
+				for (int i = 1; i < 10; i++) {
+					//check for each date whether the files exists or not
+					fileName = currDateString + ".txt";
+					File file = new File(fileName);
+					
+					//check if the today's file does not exist
+					if(!file.exists())
+					{
+						PrintWriter writer = null;
+						try {
+							writer = new PrintWriter(fileName, "UTF-8");
+						} catch (FileNotFoundException
+								| UnsupportedEncodingException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						writer.println(currDateString);
+						writer.close();
+					}
+
+					String dt = currDateString; // Start date
+					SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
+					Calendar c = Calendar.getInstance();
+					try {
+						c.setTime(sdf.parse(dt));
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					c.add(Calendar.DATE, 1); // number of days to add
+					dt = sdf.format(c.getTime()); // dt is now the new date
+					currDateString = dt; // update the current date for the next
+											// loop
+				}
+			}
+		});
 		frame.setBounds(100, 100, 600, 457);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
