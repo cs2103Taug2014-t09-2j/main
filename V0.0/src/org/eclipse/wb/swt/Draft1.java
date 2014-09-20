@@ -472,7 +472,7 @@ public class Draft1 {
 						// Actual Edit Command
 						// System.out.println(theRest);		
 						if (theRest.length() == 6) {
-							commandDone runDone = new commandDone(theRest);
+							CommandDone runDone = new CommandDone(theRest);
 							try {
 								runDone.clearDateTaskAll();
 							} catch (FileNotFoundException e) {
@@ -482,7 +482,7 @@ public class Draft1 {
 							displayAll();
 						} else {
 							String arrString3[] = theRest.split(" ", 2);
-							commandDone runDone = new commandDone(arrString3[0],arrString3[1]);
+							CommandDone runDone = new CommandDone(arrString3[0],arrString3[1]);
 							runDone.clearDateTaskSpecific();
 							displayAll();
 							

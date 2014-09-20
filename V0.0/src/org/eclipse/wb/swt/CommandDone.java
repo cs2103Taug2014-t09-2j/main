@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * 
  */
 
-public class commandDone {
+public class CommandDone {
 
 	String date; // fileName
 	int position;
@@ -17,14 +17,14 @@ public class commandDone {
 
 	// Constructor
 	// Specific task
-	public commandDone(String date, String position) {
+	public CommandDone(String date, String position) {
 		this.date = date;
 		this.position = Integer.parseInt(position);
 		// System.out.println("executed 1");
 	}
 
 	// All task in a date
-	public commandDone(String date) {
+	public CommandDone(String date) {
 		this.date = date;
 		// System.out.println("executed 2");
 	}
@@ -36,7 +36,7 @@ public class commandDone {
 		ArrayList<String> currDateTask = new ArrayList<>();
 
 		// read the content of the file, put in the list
-		currDateTask = (new readFile(fileName)).readContents();
+		currDateTask = (new ReadFile(fileName)).readContents();
 
 		// check if valid
 		if (position - 1 < currDateTask.size()) {
@@ -47,7 +47,7 @@ public class commandDone {
 		}
 
 		// write in file
-		(new writeFile(fileName, currDateTask)).writeContents();
+		(new WriteFile(fileName, currDateTask)).writeContents();
 
 	}
 

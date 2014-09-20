@@ -5,13 +5,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class readFile {
+public class ReadFile {
 
 	String fileName;
 	ArrayList<String> currDateTask;
 
 	// Constructor
-	public readFile(String fileName) {
+	public ReadFile(String fileName) {
 		this.fileName = fileName;
 		currDateTask = new ArrayList<>();
 	}

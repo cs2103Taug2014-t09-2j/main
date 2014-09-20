@@ -6,12 +6,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class writeFile {
+public class WriteFile {
 	String fileName;
 	ArrayList<String> currDateTask;
 
 	// Constructor
-	public writeFile(String fileName, ArrayList<String> currDateTask) {
+	public WriteFile(String fileName, ArrayList<String> currDateTask) {
 		this.fileName = fileName;
 		this.currDateTask = currDateTask;
 	}
