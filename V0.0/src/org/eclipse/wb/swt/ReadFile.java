@@ -22,7 +22,12 @@ public class ReadFile {
 		try {
 			String curr;
 			br = new BufferedReader(new FileReader(fileName));
+			int _ignore = 2;
 			while ((curr = br.readLine()) != null) {
+				if (_ignore > 0){ //ignore first 2 lines
+					_ignore -= 1;
+					continue;
+				}
 				currDateTask.add(curr);
 			}
 			br.close();
