@@ -22,6 +22,8 @@ public class CommandEdit {
 			editTime();
 		} else if (specification.equals("task")){
 			editTask();
+		} else if (specification.equals("all")) {
+			editAll();
 		}
 	}
 	
@@ -35,10 +37,10 @@ public class CommandEdit {
 		int position = Integer.parseInt(index);
 		String toBeRemoved = currDateTask.get(position+1);
 		//Split toBeRemoved string to 2parts and get the task
-		String removed = toBeRemoved.split(" ", 2)[1];
+		String keep = toBeRemoved.split(" ", 2)[1];
 		currDateTask.remove(toBeRemoved);
 
-		String modificationFinal = String.format(CONTENT_TO_DISPLAY, modification, removed);
+		String modificationFinal = String.format(CONTENT_TO_DISPLAY, modification, keep);
 
 		// insert the modification into the arrayList
 		currDateTask.add(position - 1, modificationFinal);
@@ -58,11 +60,29 @@ public class CommandEdit {
 		currDateTask.remove(toBeRemoved);
 
 		//Split toBeRemoved string to 2parts and get the time
-		String removed = toBeRemoved.split(" ", 2)[0];
-		removed = removed.substring(1, removed.length()-1);
-		String modificationFinal = String.format(CONTENT_TO_DISPLAY, removed, modification);
+		String keep = toBeRemoved.split(" ", 2)[0];
+		keep = keep.substring(1, keep.length()-1);
+		String modificationFinal = String.format(CONTENT_TO_DISPLAY, keep, modification);
 
 		// insert the modification into the arrayList
+		currDateTask.add(position - 1, modificationFinal);
+
+		(new WriteFile(fileName, currDateTask)).writeContents();
+	}
+	
+	public void editAll() throws IOException {
+		String fileName = date + ".txt";
+		ArrayList<String> currDateTask = new ArrayList<String>();
+		currDateTask = (new ReadFile(fileName)).readContents();
+		
+		// delete the task with the given index number in the date
+		int position = Integer.parseInt(index);
+		String toBeRemoved = currDateTask.get(position - 1);
+		currDateTask.remove(toBeRemoved);
+		
+		String[] modification = specification.split(" ", 2);
+		String modificationFinal = String.format(CONTENT_TO_DISPLAY, modification[0], modification[1]);
+		
 		currDateTask.add(position - 1, modificationFinal);
 
 		(new WriteFile(fileName, currDateTask)).writeContents();
