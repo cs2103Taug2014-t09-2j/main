@@ -407,7 +407,13 @@ public class Draft1 {
 					commandBox.setText("");
 
 				} else if (arrString[0].equals("undo")) {
-					undoHistory.printReverseCommand();
+					try {
+						undoHistory.runReverseCommand();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					displayAll();
 
 				} else {
 					CommandTypes command = determineCmd(arrString[0]);
@@ -449,6 +455,7 @@ public class Draft1 {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
+						undoHistory.copyAddCommandToReverse(date1,time1, task);
 						break;
 
 					case DONE:
@@ -457,9 +464,9 @@ public class Draft1 {
 						// Actual Edit Command
 						// System.out.println(theRest);		
 						if (theRest.length() == 6) {
-							CommandDone runDone = new CommandDone(theRest);
+							undoHistory.copyDoneCommandToReverseAll(theRest);
 							try {
-								runDone.clearDateTaskAll();
+								(new CommandDone(theRest)).clearDateTaskAll();
 							} catch (FileNotFoundException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
@@ -467,8 +474,7 @@ public class Draft1 {
 							displayAll();
 						} else {
 							String arrString3[] = theRest.split(" ", 2);
-							CommandDone runDone = new CommandDone(arrString3[0],arrString3[1]);
-							runDone.clearDateTaskSpecific();
+							(new CommandDone(arrString3[0],arrString3[1])).clearDateTaskSpecific();
 							displayAll();
 							
 						}
