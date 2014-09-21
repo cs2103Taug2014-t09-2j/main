@@ -41,7 +41,7 @@ public class CommandEdit {
 		String modificationFinal = String.format(CONTENT_TO_DISPLAY, modification, removed);
 
 		// insert the modification into the arrayList
-		currDateTask.add(position + 1, modificationFinal);
+		currDateTask.add(position - 1, modificationFinal);
 
 		(new WriteFile(fileName, currDateTask)).writeContents();
 	}
