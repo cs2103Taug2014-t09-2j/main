@@ -58,6 +58,7 @@ public class CommandDone {
 		if (file_object.exists()) {
 			file_object = new File(fileName);
 			PrintWriter pw = new PrintWriter(file_object);
+			pw.write(date);
 			pw.write("");
 			pw.close();
 			System.out.println("Success Clear");

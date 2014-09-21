@@ -1,5 +1,2 @@
 210914
 
-call dad
-!! call her
-! Call Pizza
