@@ -159,10 +159,6 @@ public class Draft1 {
 		JLabel lblMissingThis = new JLabel("Missing This?");
 		lblMissingThis.setBounds(416, 17, 97, 14);
 		frame.getContentPane().add(lblMissingThis);
-
-		JLabel lblGeneralTask = new JLabel("General Task");
-		lblGeneralTask.setBounds(416, 205, 97, 14);
-		frame.getContentPane().add(lblGeneralTask);
 		Border border = BorderFactory.createLineBorder(Color.WHITE);
 
 		final JTextArea date1 = new JTextArea();
@@ -174,15 +170,13 @@ public class Draft1 {
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 		date1.setBackground(new Color(255, 215, 0));
 		date1.addMouseListener(new MouseAdapter() {
-			@SuppressWarnings("deprecation")
 			public void mouseClicked(MouseEvent arg0) {
-				date1.resize(250, 250);
+				date1.setSize(250, 250);
 				date1.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 20));
 			}
-			@SuppressWarnings("deprecation")
 			@Override
 			public void mouseExited(MouseEvent e) {
-				date1.resize(123, 113);
+				date1.setSize(123, 113);
 				date1.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
 			}
 		});
@@ -192,15 +186,13 @@ public class Draft1 {
 
 		final JTextArea date2 = new JTextArea();
 		date2.addMouseListener(new MouseAdapter() {
-			@SuppressWarnings("deprecation")
 			public void mouseClicked(MouseEvent arg0) {
-				date2.resize(250, 250);
+				date2.setSize(250, 250);
 				date2.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 20));
 			}
-			@SuppressWarnings("deprecation")
 			@Override
 			public void mouseExited(MouseEvent e) {
-				date2.resize(123, 113);
+				date2.setSize(123, 113);
 				date2.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
 			}
 		});
@@ -216,15 +208,13 @@ public class Draft1 {
 		final JTextArea date3 = new JTextArea();
 		date3.setLineWrap(true);
 		date3.addMouseListener(new MouseAdapter() {
-			@SuppressWarnings("deprecation")
 			public void mouseClicked(MouseEvent arg0) {
-				date3.resize(250, 250);
+				date3.setSize(250, 250);
 				date3.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 20));
 			}
-			@SuppressWarnings("deprecation")
 			@Override
 			public void mouseExited(MouseEvent e) {
-				date3.resize(123, 113);
+				date3.setSize(123, 113);
 				date3.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
 			}
 		});
@@ -239,15 +229,13 @@ public class Draft1 {
 		final JTextArea date4 = new JTextArea();
 		date4.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
 		date4.addMouseListener(new MouseAdapter() {
-			@SuppressWarnings("deprecation")
 			public void mouseClicked(MouseEvent arg0) {
-				date4.resize(250, 250);
+				date4.setSize(250, 250);
 				date4.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 20));
 			}
-			@SuppressWarnings("deprecation")
 			@Override
 			public void mouseExited(MouseEvent e) {
-				date4.resize(123, 113);
+				date4.setSize(123, 113);
 				date4.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
 			}
 		});
@@ -258,18 +246,37 @@ public class Draft1 {
 		date4.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
+		final JTextArea date5 = new JTextArea();
+		date5.setLineWrap(true);
+		date5.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+		date5.setEditable(false);
+		date5.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent arg0) {
+				date5.setSize(250, 250);
+				date5.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 20));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				date5.setSize(123, 113);
+				date5.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+			}
+		});
+		date5.setBackground(new Color(255, 215, 0));
+		date5.setBounds(147, 176, 123, 114);
+		frame.getContentPane().add(date5);
+		date5.setBorder(BorderFactory.createCompoundBorder(border,
+				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+		
 		final JTextArea date6 = new JTextArea();
 		date6.setLineWrap(true);
 		date6.addMouseListener(new MouseAdapter() {
-			@SuppressWarnings("deprecation")
 			public void mouseClicked(MouseEvent arg0) {
-				date6.resize(250, 250);
+				date6.setSize(250, 250);
 				date6.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 20));
 			}
-			@SuppressWarnings("deprecation")
 			@Override
 			public void mouseExited(MouseEvent e) {
-				date6.resize(123, 113);
+				date6.setSize(123, 113);
 				date6.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
 			}
 		});
@@ -280,42 +287,17 @@ public class Draft1 {
 		date6.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
-		final JTextArea date5 = new JTextArea();
-		date5.setLineWrap(true);
-		date5.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
-		date5.setEditable(false);
-		date5.addMouseListener(new MouseAdapter() {
-			@SuppressWarnings("deprecation")
-			public void mouseClicked(MouseEvent arg0) {
-				date5.resize(250, 250);
-				date5.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 20));
-			}
-			@SuppressWarnings("deprecation")
-			@Override
-			public void mouseExited(MouseEvent e) {
-				date5.resize(123, 113);
-				date5.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
-			}
-		});
-		date5.setBackground(new Color(255, 215, 0));
-		date5.setBounds(147, 176, 123, 114);
-		frame.getContentPane().add(date5);
-		date5.setBorder(BorderFactory.createCompoundBorder(border,
-				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-
 		final JTextArea date7 = new JTextArea();
 		date7.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
 		date7.setEditable(false);
 		date7.addMouseListener(new MouseAdapter() {
-			@SuppressWarnings("deprecation")
 			public void mouseClicked(MouseEvent arg0) {
-				date7.resize(250, 250);
+				date7.setSize(250, 250);
 				date7.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 20));
 			}
-			@SuppressWarnings("deprecation")
 			@Override
 			public void mouseExited(MouseEvent e) {
-				date7.resize(123, 113);
+				date7.setSize(123, 113);
 				date7.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
 			}
 		});
@@ -326,41 +308,16 @@ public class Draft1 {
 		date7.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
-		final JTextArea date9 = new JTextArea();
-		date9.setLineWrap(true);
-		date9.addMouseListener(new MouseAdapter() {
-			@SuppressWarnings("deprecation")
-			public void mouseClicked(MouseEvent arg0) {
-				date9.resize(250, 250);
-				date9.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 20));
-			}
-			@SuppressWarnings("deprecation")
-			@Override
-			public void mouseExited(MouseEvent e) {
-				date9.resize(123, 113);
-				date9.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
-			}
-		});
-		date9.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
-		date9.setEditable(false);
-		date9.setBackground(new Color(255, 215, 0));
-		date9.setBounds(273, 292, 123, 114);
-		frame.getContentPane().add(date9);
-		date9.setBorder(BorderFactory.createCompoundBorder(border,
-				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-
 		final JTextArea date8 = new JTextArea();
 		date8.setLineWrap(true);
 		date8.addMouseListener(new MouseAdapter() {
-			@SuppressWarnings("deprecation")
 			public void mouseClicked(MouseEvent arg0) {
-				date8.resize(250, 250);
+				date8.setSize(250, 250);
 				date8.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 20));
 			}
-			@SuppressWarnings("deprecation")
 			@Override
 			public void mouseExited(MouseEvent e) {
-				date8.resize(123, 113);
+				date8.setSize(123, 113);
 				date8.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
 			}
 		});
@@ -371,6 +328,32 @@ public class Draft1 {
 		date8.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
+		final JTextArea date9 = new JTextArea();
+		date9.setLineWrap(true);
+		date9.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent arg0) {
+				date9.setSize(250, 250);
+				date9.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 20));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				date9.setSize(123, 113);
+				date9.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+			}
+		});
+		date9.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+		date9.setEditable(false);
+		date9.setBackground(new Color(255, 215, 0));
+		date9.setBounds(273, 292, 123, 114);
+		frame.getContentPane().add(date9);
+		date9.setBorder(BorderFactory.createCompoundBorder(border,
+				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+		
+		//created later to fix box resizing overlap problem
+		JLabel lblGeneralTask = new JLabel("General Task");
+		lblGeneralTask.setBounds(416, 205, 97, 14);
+		frame.getContentPane().add(lblGeneralTask);
+		
 		JTextArea missingBox = new JTextArea();
 		missingBox.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
 		missingBox.setEditable(false);
