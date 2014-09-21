@@ -459,7 +459,9 @@ public class Draft1 {
 						String time1 = addString[1];
 						String task = addString[2];
 						try {
-							addTask(date1, time1, task);
+							(new CommandAdd(date1,time1,task)).addTask();
+							displayAll();
+							//addTask(date1,time1,task);
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -493,40 +495,40 @@ public class Draft1 {
 				}
 			}
 
-			private void addTask(String date, String time, String task)
-					throws IOException {
-				// Create the name of the text file
-				String fileName = date + ".txt";
-				String content = "[" + time + "] " + task;
-				ArrayList<String> list = new ArrayList<String>();
-				// Check if the text file exists, if it does, add its content to
-				// a list and return the list
-				list = isFileExist(fileName);
-				list.add(content);
-				writeToFile(list, fileName);
-				displayAll();
-			}
-
-			public ArrayList<String> isFileExist(String fileName)
-					throws IOException {
-				ArrayList<String> list = new ArrayList<String>();
-				try {
-					File file = new File(fileName);
-					if (file.exists()) {
-						String line;
-						BufferedReader br = new BufferedReader(new FileReader(
-								fileName));
-						while ((line = br.readLine()) != null) {
-							list.add(line); // File already exists, add its
-											// content to the list
-						}
-						br.close();
-					}
-				} catch (FileNotFoundException e) {
-					list.clear(); // Clear all corrupted data
-				}
-				return list;
-			}
+//			private void addTask(String date, String time, String task)
+//					throws IOException {
+//				// Create the name of the text file
+//				String fileName = date + ".txt";
+//				String content = "[" + time + "] " + task;
+//				ArrayList<String> list = new ArrayList<String>();
+//				// Check if the text file exists, if it does, add its content to
+//				// a list and return the list
+//				list = isFileExist(fileName);
+//				list.add(content);
+//				writeToFile(list, fileName);
+//				displayAll();
+//			}
+//
+//			public ArrayList<String> isFileExist(String fileName)
+//					throws IOException {
+//				ArrayList<String> list = new ArrayList<String>();
+//				try {
+//					File file = new File(fileName);
+//					if (file.exists()) {
+//						String line;
+//						BufferedReader br = new BufferedReader(new FileReader(
+//								fileName));
+//						while ((line = br.readLine()) != null) {
+//							list.add(line); // File already exists, add its
+//											// content to the list
+//						}
+//						br.close();
+//					}
+//				} catch (FileNotFoundException e) {
+//					list.clear(); // Clear all corrupted data
+//				}
+//				return list;
+//			}
 
 			private void doneTaskClear(String date) throws IOException {
 				fileName = date + ".txt";
