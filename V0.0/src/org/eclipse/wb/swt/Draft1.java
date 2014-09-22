@@ -127,7 +127,7 @@ public class Draft1 {
 			}
 
 		});
-		frame.setBounds(100, 100, 600, 457);
+		frame.setBounds(100, 100, 600, 459);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
@@ -138,6 +138,7 @@ public class Draft1 {
 		frame.getContentPane().add(lblIdo);
 
 		JLabel lblMissingThis = new JLabel("Missing This?");
+		lblMissingThis.setFont(new Font("Rockwell", Font.PLAIN, 12));
 		lblMissingThis.setBounds(416, 17, 97, 14);
 		frame.getContentPane().add(lblMissingThis);
 		Border border = BorderFactory.createLineBorder(Color.WHITE);
@@ -339,12 +340,8 @@ public class Draft1 {
 		date9.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
-		// created later to fix box resizing overlap problem
-		JLabel lblGeneralTask = new JLabel("General Task");
-		lblGeneralTask.setBounds(416, 205, 97, 14);
-		frame.getContentPane().add(lblGeneralTask);
-
 		final JTextArea missingBox = new JTextArea();
+		missingBox.setLineWrap(true);
 		missingBox.setFont(new Font("Rockwell", Font.PLAIN, 12));
 		missingBox.setEditable(false);
 		missingBox.setBorder(BorderFactory.createCompoundBorder(border,
@@ -354,6 +351,8 @@ public class Draft1 {
 		frame.getContentPane().add(missingBox);
 
 		final JTextArea generalTaskBox = new JTextArea();
+		generalTaskBox.setText("General Tasks");
+		generalTaskBox.setLineWrap(true);
 		generalTaskBox.setFont(new Font("Rockwell", Font.PLAIN, 12));
 		generalTaskBox.setEditable(false);
 		// Border border = BorderFactory.createLineBorder(Color.BLACK);
