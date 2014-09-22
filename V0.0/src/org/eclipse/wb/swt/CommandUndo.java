@@ -15,7 +15,7 @@ public class CommandUndo {
 
 	public void copyAddCommandToReverse(String date, String time, String task) {
 		int arrLine = (new CommandSearchCurrDate(date, time, task)).searchStringPosition();
-		System.out.println("done " + date + " " + arrLine);
+		//System.out.println("done " + date + " " + arrLine);
 		commandHistory.push("done " + date + " " + arrLine);
 		
 	}
@@ -26,7 +26,7 @@ public class CommandUndo {
 		int location = Integer.parseInt(position);
 		String str = currDateTask.get(location-1);
 		String[] arrStr = str.split(" ", 2);
-		System.out.println("add " + date + " " + arrStr[0].substring(1,arrStr[0].length()-1) + " " + arrStr[1]);
+		//System.out.println("add " + date + " " + arrStr[0].substring(1,arrStr[0].length()-1) + " " + arrStr[1]);
 		commandHistory.push("add " + date + " " + arrStr[0].substring(1,arrStr[0].length()-1) + " " + arrStr[1]);
 	}
 	
@@ -48,18 +48,19 @@ public class CommandUndo {
 		// Store new position
 		int newindex = 0;
 		String[] arrStr = oldInfo.split(" ", 2); // contains old time and task
-		System.out.println("1 " + arrStr[0] + " 2 " + arrStr[1]);
+		//System.out.println("1 " + arrStr[0] + " 2 " + arrStr[1]);
 		if(choice.equals("time")){
 			newindex = (new CommandSearchCurrDate(date, update, arrStr[1])).searchStringPosition();
-			System.out.println("edit " + date + " " + newindex + " " + choice + " " + arrStr[0].substring(1,arrStr[0].length()-1));
+			//System.out.println("edit " + date + " " + newindex + " " + choice + " " + arrStr[0].substring(1,arrStr[0].length()-1));
 			commandHistory.push("edit " + date + " " + newindex + " " + choice + " " + arrStr[0].substring(1,arrStr[0].length()-1));
 		} else if(choice.equals("task")){
 			newindex = (new CommandSearchCurrDate(date, arrStr[0].substring(1,arrStr[0].length()-1), update)).searchStringPosition();
 			commandHistory.push("edit " + date + " " + newindex + " " + choice + " " + arrStr[1]);
 		} else if(choice.equals("all")){
-			String[] arrStr2 = oldInfo.split(" ", 2);
+			String[] arrStr2 = update.split(" ", 2);
 			newindex = (new CommandSearchCurrDate(date, arrStr2[0], arrStr2[1])).searchStringPosition();
-			commandHistory.push("edit " + date + " " + newindex + " " + choice + " " + oldInfo);
+			//System.out.println("edit " + date + " " + newindex + " " + choice + " " + arrStr[0].substring(1,arrStr[0].length()-1) + " " + arrStr[1]);
+			commandHistory.push("edit " + date + " " + newindex + " " + choice + " " + arrStr[0].substring(1,arrStr[0].length()-1) + " " + arrStr[1]);
 		}
 	}
 
@@ -88,7 +89,7 @@ public class CommandUndo {
 					(new CommandAdd(arrStrAdd[0],arrStrAdd[1],arrStrAdd[2])).addTask();
 				}else if(arrStr[0].equals("edit")){
 					String[] arrStrE = arrStr[1].split(" ", 4);
-					System.out.println(arrStrE[0] + arrStrE[1] + arrStrE[2] + arrStrE[3]);
+					//System.out.println(arrStrE[0] + arrStrE[1] + arrStrE[2] + arrStrE[3]);
 					(new CommandEdit(arrStrE[0],arrStrE[1],arrStrE[2],arrStrE[3])).edit();
 				}
 			}
