@@ -416,12 +416,16 @@ public class Draft1 {
 						String number = arrString2[1];
 						String time = arrString2[2];
 						String modification = arrString2[3];
+						String oldInfo = (new CommandSearchCurrDate(date, number)).searchString();
 						try {
-							editTask(date, number, time, modification);
+							(new CommandEdit(date, number, time, modification)).edit();
+							//editTask(date, number, time, modification);
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
-						}
+						}						
+						undoHistory.copyEditCommandToReverse(date, number, time, modification, oldInfo);
+						displayAll();
 						break;
 
 					case ADD:
