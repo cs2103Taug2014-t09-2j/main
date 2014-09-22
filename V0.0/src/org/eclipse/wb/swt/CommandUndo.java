@@ -14,7 +14,7 @@ public class CommandUndo {
 	}
 
 	public void copyAddCommandToReverse(String date, String time, String task) {
-		int arrLine = (new CommandSearchCurrDate(date, time, task)).searchString();
+		int arrLine = (new CommandSearchCurrDate(date, time, task)).searchStringPosition();
 		System.out.println("done " + date + " " + arrLine);
 		commandHistory.push("done " + date + " " + arrLine);
 		
@@ -42,9 +42,25 @@ public class CommandUndo {
 		commandHistory.push(Integer.toString(originalSize));
 	}
 
-	public void copyEditCommandToReverse(String date, int position,
-			String update) {
-
+	public void copyEditCommandToReverse(String date, String position, String choice, 
+			String update, String oldInfo) {
+		// Store old choice
+		// Store new position
+		int newindex = 0;
+		String[] arrStr = oldInfo.split(" ", 2); // contains old time and task
+		System.out.println("1 " + arrStr[0] + " 2 " + arrStr[1]);
+		if(choice.equals("time")){
+			newindex = (new CommandSearchCurrDate(date, update, arrStr[1])).searchStringPosition();
+			System.out.println("edit " + date + " " + newindex + " " + choice + " " + arrStr[0].substring(1,arrStr[0].length()-1));
+			commandHistory.push("edit " + date + " " + newindex + " " + choice + " " + arrStr[0].substring(1,arrStr[0].length()-1));
+		} else if(choice.equals("task")){
+			newindex = (new CommandSearchCurrDate(date, arrStr[0].substring(1,arrStr[0].length()-1), update)).searchStringPosition();
+			commandHistory.push("edit " + date + " " + newindex + " " + choice + " " + arrStr[1]);
+		} else if(choice.equals("all")){
+			String[] arrStr2 = oldInfo.split(" ", 2);
+			newindex = (new CommandSearchCurrDate(date, arrStr2[0], arrStr2[1])).searchStringPosition();
+			commandHistory.push("edit " + date + " " + newindex + " " + choice + " " + oldInfo);
+		}
 	}
 
 	// Print command to be executed
@@ -70,6 +86,10 @@ public class CommandUndo {
 				}else if (arrStr[0].equals("add")){
 					String[] arrStrAdd = arrStr[1].split(" ", 3);
 					(new CommandAdd(arrStrAdd[0],arrStrAdd[1],arrStrAdd[2])).addTask();
+				}else if(arrStr[0].equals("edit")){
+					String[] arrStrE = arrStr[1].split(" ", 4);
+					System.out.println(arrStrE[0] + arrStrE[1] + arrStrE[2] + arrStrE[3]);
+					(new CommandEdit(arrStrE[0],arrStrE[1],arrStrE[2],arrStrE[3])).edit();
 				}
 			}
 		} else {
