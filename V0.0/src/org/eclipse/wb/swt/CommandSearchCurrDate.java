@@ -7,6 +7,7 @@ public class CommandSearchCurrDate {
 	String date;
 	String time;
 	String task;
+	String position;
 	ArrayList<String> currDateTask;
 
 	// For CommandAdd
@@ -17,8 +18,14 @@ public class CommandSearchCurrDate {
 		this.time = time;
 		this.task = task;
 	}
+	
+	public CommandSearchCurrDate(String date, String position) {
+		currDateTask = new ArrayList<>();
+		this.date = date;
+		this.position = position;
+	}
 
-	public int searchString() {
+	public int searchStringPosition() {
 		int arrLine = 0;
 		currDateTask = (new ReadFile(date + ".txt")).readContents();
 		for (int i = 0; i < currDateTask.size(); i++) {
@@ -28,5 +35,11 @@ public class CommandSearchCurrDate {
 			}
 		}
 		return arrLine;
+	}
+	
+	public String searchString() {
+		currDateTask = (new ReadFile(date + ".txt")).readContents();
+		System.out.println(currDateTask.get(Integer.parseInt(position)-1));
+		return currDateTask.get(Integer.parseInt(position)-1);
 	}
 }
