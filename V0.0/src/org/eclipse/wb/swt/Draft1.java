@@ -152,7 +152,7 @@ public class Draft1 {
 
 		JLabel lblIdo = new JLabel("iDO++");
 		lblIdo.setForeground(Color.ORANGE);
-		lblIdo.setFont(new Font("Bauhaus 93", Font.PLAIN, 24));
+		lblIdo.setFont(new Font("Helvetica", Font.BOLD, 24));
 		lblIdo.setBounds(10, 11, 90, 36);
 		frame.getContentPane().add(lblIdo);
 
@@ -163,7 +163,7 @@ public class Draft1 {
 
 		final JTextArea date1 = new JTextArea();
 		date1.setEditable(false);
-		date1.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+		date1.setFont(new Font("Rockwell", Font.PLAIN, 12));
 		// create padding inside the text area
 		// Border border = BorderFactory.createLineBorder(Color.BLACK);
 		date1.setBorder(BorderFactory.createCompoundBorder(border,
@@ -172,12 +172,12 @@ public class Draft1 {
 		date1.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
 				date1.setSize(250, 250);
-				date1.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 20));
+				date1.setFont(new Font("Rockwell", Font.PLAIN, 20));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				date1.setSize(123, 113);
-				date1.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+				date1.setFont(new Font("Rockwell", Font.PLAIN, 12));
 			}
 		});
 		date1.setLineWrap(true);
@@ -188,16 +188,16 @@ public class Draft1 {
 		date2.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
 				date2.setSize(250, 250);
-				date2.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 20));
+				date2.setFont(new Font("Rockwell", Font.PLAIN, 20));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				date2.setSize(123, 113);
-				date2.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+				date2.setFont(new Font("Rockwell", Font.PLAIN, 12));
 			}
 		});
 		date2.setLineWrap(true);
-		date2.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+		date2.setFont(new Font("Rockwell", Font.PLAIN, 12));
 		date2.setEditable(false);
 		// Border border = BorderFactory.createLineBorder(Color.BLACK);
 		date2.setBorder(BorderFactory.createCompoundBorder(border,
@@ -210,15 +210,15 @@ public class Draft1 {
 		date3.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
 				date3.setSize(250, 250);
-				date3.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 20));
+				date3.setFont(new Font("Rockwell", Font.PLAIN, 20));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				date3.setSize(123, 113);
-				date3.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+				date3.setFont(new Font("Rockwell", Font.PLAIN, 12));
 			}
 		});
-		date3.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+		date3.setFont(new Font("Rockwell", Font.PLAIN, 12));
 		date3.setEditable(false);
 		date3.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
@@ -227,16 +227,16 @@ public class Draft1 {
 		frame.getContentPane().add(date3);
 
 		final JTextArea date4 = new JTextArea();
-		date4.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+		date4.setFont(new Font("Rockwell", Font.PLAIN, 12));
 		date4.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
 				date4.setSize(250, 250);
-				date4.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 20));
+				date4.setFont(new Font("Rockwell", Font.PLAIN, 20));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				date4.setSize(123, 113);
-				date4.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+				date4.setFont(new Font("Rockwell", Font.PLAIN, 12));
 			}
 		});
 		date4.setEditable(false);
@@ -248,17 +248,17 @@ public class Draft1 {
 
 		final JTextArea date5 = new JTextArea();
 		date5.setLineWrap(true);
-		date5.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+		date5.setFont(new Font("Rockwell", Font.PLAIN, 12));
 		date5.setEditable(false);
 		date5.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
 				date5.setSize(250, 250);
-				date5.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 20));
+				date5.setFont(new Font("Rockwell", Font.PLAIN, 20));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				date5.setSize(123, 113);
-				date5.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+				date5.setFont(new Font("Rockwell", Font.PLAIN, 12));
 			}
 		});
 		date5.setBackground(new Color(255, 215, 0));
@@ -272,15 +272,15 @@ public class Draft1 {
 		date6.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
 				date6.setSize(250, 250);
-				date6.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 20));
+				date6.setFont(new Font("Rockwell", Font.PLAIN, 20));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				date6.setSize(123, 113);
-				date6.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+				date6.setFont(new Font("Rockwell", Font.PLAIN, 12));
 			}
 		});
-		date6.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+		date6.setFont(new Font("Rockwell", Font.PLAIN, 12));
 		date6.setEditable(false);
 		date6.setBounds(273, 176, 123, 114);
 		frame.getContentPane().add(date6);
@@ -288,17 +288,17 @@ public class Draft1 {
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
 		final JTextArea date7 = new JTextArea();
-		date7.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+		date7.setFont(new Font("Rockwell", Font.PLAIN, 12));
 		date7.setEditable(false);
 		date7.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
 				date7.setSize(250, 250);
-				date7.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 20));
+				date7.setFont(new Font("Rockwell", Font.PLAIN, 20));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				date7.setSize(123, 113);
-				date7.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+				date7.setFont(new Font("Rockwell", Font.PLAIN, 12));
 			}
 		});
 		date7.setBackground(new Color(255, 215, 0));
@@ -313,15 +313,15 @@ public class Draft1 {
 		date8.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
 				date8.setSize(250, 250);
-				date8.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 20));
+				date8.setFont(new Font("Rockwell", Font.PLAIN, 20));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				date8.setSize(123, 113);
-				date8.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+				date8.setFont(new Font("Rockwell", Font.PLAIN, 12));
 			}
 		});
-		date8.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+		date8.setFont(new Font("Rockwell", Font.PLAIN, 12));
 		date8.setEditable(false);
 		date8.setBounds(147, 292, 123, 114);
 		frame.getContentPane().add(date8);
@@ -333,15 +333,15 @@ public class Draft1 {
 		date9.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
 				date9.setSize(250, 250);
-				date9.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 20));
+				date9.setFont(new Font("Rockwell", Font.PLAIN, 20));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				date9.setSize(123, 113);
-				date9.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+				date9.setFont(new Font("Rockwell", Font.PLAIN, 12));
 			}
 		});
-		date9.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+		date9.setFont(new Font("Rockwell", Font.PLAIN, 12));
 		date9.setEditable(false);
 		date9.setBackground(new Color(255, 215, 0));
 		date9.setBounds(273, 292, 123, 114);
@@ -355,7 +355,7 @@ public class Draft1 {
 		frame.getContentPane().add(lblGeneralTask);
 		
 		JTextArea missingBox = new JTextArea();
-		missingBox.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+		missingBox.setFont(new Font("Rockwell", Font.PLAIN, 12));
 		missingBox.setEditable(false);
 		missingBox.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(20, 5, 5, 5)));
@@ -364,7 +364,7 @@ public class Draft1 {
 		frame.getContentPane().add(missingBox);
 
 		final JTextArea generalTaskBox = new JTextArea();
-		generalTaskBox.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+		generalTaskBox.setFont(new Font("Rockwell", Font.PLAIN, 12));
 		generalTaskBox.setEditable(false);
 		// Border border = BorderFactory.createLineBorder(Color.BLACK);
 		generalTaskBox.setBorder(BorderFactory.createCompoundBorder(border,
