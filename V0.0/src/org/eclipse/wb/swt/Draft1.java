@@ -46,8 +46,6 @@ public class Draft1 {
 	private JFrame frame;
 	private JTextField commandBox;
 	private String fileName = null;
-	private JTextComponent date1;
-
 	static CommandUndo undoHistory = new CommandUndo();
 
 	enum CommandTypes {
@@ -105,8 +103,6 @@ public class Draft1 {
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowActivated(WindowEvent arg0) {
 
-				BufferedReader reader = null;
-
 				// obtain the current date
 				DateFormat dateFormat = new SimpleDateFormat("ddMMyy");
 				Date currDate = new Date();
@@ -129,20 +125,7 @@ public class Draft1 {
 						writer.println(currDateString);
 						writer.close();
 					}
-
-					String dt = currDateString; // Start date
-					SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
-					Calendar c = Calendar.getInstance();
-					try {
-						c.setTime(sdf.parse(dt));
-					} catch (ParseException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					c.add(Calendar.DATE, 1); // number of days to add
-					dt = sdf.format(c.getTime()); // dt is now the new date
-					currDateString = dt; // update the current date for the next
-											// loop
+					currDateString = DateUpdate.getNextDate(currDateString);
 				}
 			}
 		});
