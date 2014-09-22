@@ -35,7 +35,7 @@ public class CommandEdit {
 		
 		// delete the task with the given index number in the date
 		int position = Integer.parseInt(index);
-		String toBeRemoved = currDateTask.get(position+1);
+		String toBeRemoved = currDateTask.get(position-1);
 		//Split toBeRemoved string to 2parts and get the task
 		String keep = toBeRemoved.split(" ", 2)[1];
 		currDateTask.remove(toBeRemoved);
