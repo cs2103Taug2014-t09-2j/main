@@ -474,6 +474,7 @@ public class Draft1 {
 							displayAll();
 						} else {
 							String arrString3[] = theRest.split(" ", 2);
+							undoHistory.copyDoneCommandToReverseSpecific(arrString3[0],arrString3[1]);
 							(new CommandDone(arrString3[0],arrString3[1])).clearDateTaskSpecific();
 							displayAll();
 							
@@ -519,50 +520,50 @@ public class Draft1 {
 //				return list;
 //			}
 
-			private void doneTaskClear(String date) throws IOException {
-				fileName = date + ".txt";
-				clearFile(fileName);
-				// then display in the UI
-				displayAll();
-
-				// set the command box to be empty
-				commandBox.setText("");
-
-			}
-
-			private void doneTaskSpecified(String date, String number)
-					throws IOException {
-				fileName = date + ".txt";
-				ArrayList<String> currDateTask;
-				currDateTask = new ArrayList<>();
-
-				// read the content of the file, put in the list
-				BufferedReader br = null;
-				try {
-					String curr;
-					br = new BufferedReader(new FileReader(fileName));
-					while ((curr = br.readLine()) != null) {
-						currDateTask.add(curr);
-					}
-				} catch (IOException ee) {
-					ee.printStackTrace();
-				}
-
-				// delete the specific task in the date
-				int position = Integer.parseInt(number);
-				String toBeRemoved = currDateTask.get(position - 1);
-				currDateTask.remove(toBeRemoved);
-
-				// write to the file
-				writeToFile(currDateTask, fileName);
-
-				// then display in the UI
-				displayAll();
-
-				// set the command box to be empty
-				commandBox.setText("");
-
-			}
+//			private void doneTaskClear(String date) throws IOException {
+//				fileName = date + ".txt";
+//				clearFile(fileName);
+//				// then display in the UI
+//				displayAll();
+//
+//				// set the command box to be empty
+//				commandBox.setText("");
+//
+//			}
+//
+//			private void doneTaskSpecified(String date, String number)
+//					throws IOException {
+//				fileName = date + ".txt";
+//				ArrayList<String> currDateTask;
+//				currDateTask = new ArrayList<>();
+//
+//				// read the content of the file, put in the list
+//				BufferedReader br = null;
+//				try {
+//					String curr;
+//					br = new BufferedReader(new FileReader(fileName));
+//					while ((curr = br.readLine()) != null) {
+//						currDateTask.add(curr);
+//					}
+//				} catch (IOException ee) {
+//					ee.printStackTrace();
+//				}
+//
+//				// delete the specific task in the date
+//				int position = Integer.parseInt(number);
+//				String toBeRemoved = currDateTask.get(position - 1);
+//				currDateTask.remove(toBeRemoved);
+//
+//				// write to the file
+//				writeToFile(currDateTask, fileName);
+//
+//				// then display in the UI
+//				displayAll();
+//
+//				// set the command box to be empty
+//				commandBox.setText("");
+//
+//			}
 
 			// THIS IS STUB
 			private void displayAll() {

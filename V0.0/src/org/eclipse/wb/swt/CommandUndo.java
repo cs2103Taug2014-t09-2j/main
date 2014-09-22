@@ -20,8 +20,14 @@ public class CommandUndo {
 		
 	}
 
-	public void copyDoneCommandToReverseSpecific(String date, int position) {
-
+	public void copyDoneCommandToReverseSpecific(String date, String position) {
+		ArrayList<String> currDateTask = new ArrayList<>();
+		currDateTask = (new ReadFile(date+".txt")).readContents();
+		int location = Integer.parseInt(position);
+		String str = currDateTask.get(location-1);
+		String[] arrStr = str.split(" ", 2);
+		System.out.println("add " + date + " " + arrStr[0].substring(1,arrStr[0].length()-1) + " " + arrStr[1]);
+		commandHistory.push("add " + date + " " + arrStr[0].substring(1,arrStr[0].length()-1) + " " + arrStr[1]);
 	}
 	
 	public void copyDoneCommandToReverseAll(String date) {
@@ -29,9 +35,9 @@ public class CommandUndo {
 		currDateTask = (new ReadFile(date+".txt")).readContents();
 		int originalSize = currDateTask.size();
 		for(int i = 0; i < originalSize; i++){
-			String[] str = (currDateTask.get(i)).split(" ", 2);
-			//System.out.println(date + " " + str[0].substring(1,str[0].length()-1) + " " + str[1]);
-			commandHistory.push(date + " " + str[0].substring(1,str[0].length()-1) + " " + str[1]);
+			String[] arrStr = (currDateTask.get(i)).split(" ", 2);
+			//System.out.println(date + " " + arrStr[0].substring(1,arrStr[0].length()-1) + " " + arrStr[1]);
+			commandHistory.push(date + " " + arrStr[0].substring(1,arrStr[0].length()-1) + " " + arrStr[1]);
 		}
 		commandHistory.push(Integer.toString(originalSize));
 	}
@@ -61,6 +67,9 @@ public class CommandUndo {
 				if(arrStr[0].equals("done")){
 					String[] arrStrDS = arrStr[1].split(" ", 2);
 					(new CommandDone(arrStrDS[0],arrStrDS[1])).clearDateTaskSpecific();
+				}else if (arrStr[0].equals("add")){
+					String[] arrStrAdd = arrStr[1].split(" ", 3);
+					(new CommandAdd(arrStrAdd[0],arrStrAdd[1],arrStrAdd[2])).addTask();
 				}
 			}
 		} else {
