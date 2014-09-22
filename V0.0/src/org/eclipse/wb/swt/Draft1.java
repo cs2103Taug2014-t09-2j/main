@@ -155,6 +155,7 @@ public class Draft1 {
 				date1.setSize(250, 250);
 				date1.setFont(new Font("Rockwell", Font.PLAIN, 20));
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				date1.setSize(123, 113);
@@ -171,6 +172,7 @@ public class Draft1 {
 				date2.setSize(250, 250);
 				date2.setFont(new Font("Rockwell", Font.PLAIN, 20));
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				date2.setSize(123, 113);
@@ -193,6 +195,7 @@ public class Draft1 {
 				date3.setSize(250, 250);
 				date3.setFont(new Font("Rockwell", Font.PLAIN, 20));
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				date3.setSize(123, 113);
@@ -214,6 +217,7 @@ public class Draft1 {
 				date4.setSize(250, 250);
 				date4.setFont(new Font("Rockwell", Font.PLAIN, 20));
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				date4.setSize(123, 113);
@@ -236,6 +240,7 @@ public class Draft1 {
 				date5.setSize(250, 250);
 				date5.setFont(new Font("Rockwell", Font.PLAIN, 20));
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				date5.setSize(123, 113);
@@ -247,7 +252,7 @@ public class Draft1 {
 		frame.getContentPane().add(date5);
 		date5.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-		
+
 		final JTextArea date6 = new JTextArea();
 		date6.setLineWrap(true);
 		date6.addMouseListener(new MouseAdapter() {
@@ -255,6 +260,7 @@ public class Draft1 {
 				date6.setSize(250, 250);
 				date6.setFont(new Font("Rockwell", Font.PLAIN, 20));
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				date6.setSize(123, 113);
@@ -276,6 +282,7 @@ public class Draft1 {
 				date7.setSize(250, 250);
 				date7.setFont(new Font("Rockwell", Font.PLAIN, 20));
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				date7.setSize(123, 113);
@@ -296,6 +303,7 @@ public class Draft1 {
 				date8.setSize(250, 250);
 				date8.setFont(new Font("Rockwell", Font.PLAIN, 20));
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				date8.setSize(123, 113);
@@ -316,6 +324,7 @@ public class Draft1 {
 				date9.setSize(250, 250);
 				date9.setFont(new Font("Rockwell", Font.PLAIN, 20));
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				date9.setSize(123, 113);
@@ -329,12 +338,12 @@ public class Draft1 {
 		frame.getContentPane().add(date9);
 		date9.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-		
-		//created later to fix box resizing overlap problem
+
+		// created later to fix box resizing overlap problem
 		JLabel lblGeneralTask = new JLabel("General Task");
 		lblGeneralTask.setBounds(416, 205, 97, 14);
 		frame.getContentPane().add(lblGeneralTask);
-		
+
 		final JTextArea missingBox = new JTextArea();
 		missingBox.setFont(new Font("Rockwell", Font.PLAIN, 12));
 		missingBox.setEditable(false);
@@ -401,15 +410,8 @@ public class Draft1 {
 					String theRest = arrString[1].trim();
 
 					switch (command) {
-					/*
-					 * case START: displayAll(); // empty the command box
-					 * commandBox.setText(""); break;
-					 */
 					// format input: edit date number time modification
 					case EDIT:
-						// Reverse Edit Command
-
-						// Actual Edit Command
 						String arrString2[] = theRest.split(" ", 4);
 						String date = arrString2[0];
 						String number = arrString2[1];
@@ -429,21 +431,21 @@ public class Draft1 {
 						String time1 = addString[1];
 						String task = addString[2];
 						try {
-							(new CommandAdd(date1,time1,task)).addTask();
+							(new CommandAdd(date1, time1, task)).addTask();
 							displayAll();
-							//addTask(date1,time1,task);
+							// addTask(date1,time1,task);
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
-						undoHistory.copyAddCommandToReverse(date1,time1, task);
+						undoHistory.copyAddCommandToReverse(date1, time1, task);
 						break;
 
 					case DONE:
 						// Reverse Edit Command
 
 						// Actual Edit Command
-						// System.out.println(theRest);		
+						// System.out.println(theRest);
 						if (theRest.length() == 6) {
 							undoHistory.copyDoneCommandToReverseAll(theRest);
 							try {
@@ -455,118 +457,40 @@ public class Draft1 {
 							displayAll();
 						} else {
 							String arrString3[] = theRest.split(" ", 2);
-							undoHistory.copyDoneCommandToReverseSpecific(arrString3[0],arrString3[1]);
-							(new CommandDone(arrString3[0],arrString3[1])).clearDateTaskSpecific();
+							undoHistory.copyDoneCommandToReverseSpecific(
+									arrString3[0], arrString3[1]);
+							(new CommandDone(arrString3[0], arrString3[1]))
+									.clearDateTaskSpecific();
 							displayAll();
-							
+
 						}
 						break;
 
 					}
 				}
 			}
-
-//			private void addTask(String date, String time, String task)
-//					throws IOException {
-//				// Create the name of the text file
-//				String fileName = date + ".txt";
-//				String content = "[" + time + "] " + task;
-//				ArrayList<String> list = new ArrayList<String>();
-//				// Check if the text file exists, if it does, add its content to
-//				// a list and return the list
-//				list = isFileExist(fileName);
-//				list.add(content);
-//				writeToFile(list, fileName);
-//				displayAll();
-//			}
-//
-//			public ArrayList<String> isFileExist(String fileName)
-//					throws IOException {
-//				ArrayList<String> list = new ArrayList<String>();
-//				try {
-//					File file = new File(fileName);
-//					if (file.exists()) {
-//						String line;
-//						BufferedReader br = new BufferedReader(new FileReader(
-//								fileName));
-//						while ((line = br.readLine()) != null) {
-//							list.add(line); // File already exists, add its
-//											// content to the list
-//						}
-//						br.close();
-//					}
-//				} catch (FileNotFoundException e) {
-//					list.clear(); // Clear all corrupted data
-//				}
-//				return list;
-//			}
-
-//			private void doneTaskClear(String date) throws IOException {
-//				fileName = date + ".txt";
-//				clearFile(fileName);
-//				// then display in the UI
-//				displayAll();
-//
-//				// set the command box to be empty
-//				commandBox.setText("");
-//
-//			}
-//
-//			private void doneTaskSpecified(String date, String number)
-//					throws IOException {
-//				fileName = date + ".txt";
-//				ArrayList<String> currDateTask;
-//				currDateTask = new ArrayList<>();
-//
-//				// read the content of the file, put in the list
-//				BufferedReader br = null;
-//				try {
-//					String curr;
-//					br = new BufferedReader(new FileReader(fileName));
-//					while ((curr = br.readLine()) != null) {
-//						currDateTask.add(curr);
-//					}
-//				} catch (IOException ee) {
-//					ee.printStackTrace();
-//				}
-//
-//				// delete the specific task in the date
-//				int position = Integer.parseInt(number);
-//				String toBeRemoved = currDateTask.get(position - 1);
-//				currDateTask.remove(toBeRemoved);
-//
-//				// write to the file
-//				writeToFile(currDateTask, fileName);
-//
-//				// then display in the UI
-//				displayAll();
-//
-//				// set the command box to be empty
-//				commandBox.setText("");
-//
-//			}
-
-			// THIS IS STUB
+			
+			/*
+			 * This method will display the contents for each box in the UI
+			 */
 			private void displayAll() {
 				BufferedReader reader = null;
-				// read the general task file
 				fileName = "general.txt";
 				try {
 					reader = new BufferedReader(new FileReader(fileName));
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				try {
 					generalTaskBox.read(reader, this);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 
-				String prevDateString = DateUpdate.getPrevDate(DateUpdate.getCurrDate());
+				String prevDateString = DateUpdate.getPrevDate(DateUpdate
+						.getCurrDate());
 				// read the missing task file
-				fileName = prevDateString+".txt";
+				fileName = prevDateString + ".txt";
 				try {
 					reader = new BufferedReader(new FileReader(fileName));
 				} catch (FileNotFoundException e) {
@@ -593,20 +517,8 @@ public class Draft1 {
 						e.printStackTrace();
 					}
 					displayDateTask(i, currDateString);
-					// date1.read(reader, this);
-					String dt = currDateString; // Start date
-					SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
-					Calendar c = Calendar.getInstance();
-					try {
-						c.setTime(sdf.parse(dt));
-					} catch (ParseException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					c.add(Calendar.DATE, 1); // number of days to add
-					dt = sdf.format(c.getTime()); // dt is now the new date
-					currDateString = dt; // update the current date for the next
-											// loop
+					// update the current date for the next loop
+					currDateString = DateUpdate.getNextDate(currDateString);
 				}
 			}
 
