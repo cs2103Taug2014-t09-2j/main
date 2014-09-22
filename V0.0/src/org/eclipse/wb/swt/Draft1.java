@@ -103,10 +103,7 @@ public class Draft1 {
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowActivated(WindowEvent arg0) {
 
-				// obtain the current date
-				DateFormat dateFormat = new SimpleDateFormat("ddMMyy");
-				Date currDate = new Date();
-				String currDateString = dateFormat.format(currDate);
+				String currDateString = DateUpdate.getCurrDate();
 				for (int i = 1; i < 10; i++) {
 					// check for each date whether the files exists or not
 					fileName = currDateString + ".txt";
@@ -128,6 +125,7 @@ public class Draft1 {
 					currDateString = DateUpdate.getNextDate(currDateString);
 				}
 			}
+
 		});
 		frame.setBounds(100, 100, 600, 457);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -337,7 +335,7 @@ public class Draft1 {
 		lblGeneralTask.setBounds(416, 205, 97, 14);
 		frame.getContentPane().add(lblGeneralTask);
 		
-		JTextArea missingBox = new JTextArea();
+		final JTextArea missingBox = new JTextArea();
 		missingBox.setFont(new Font("Rockwell", Font.PLAIN, 12));
 		missingBox.setEditable(false);
 		missingBox.setBorder(BorderFactory.createCompoundBorder(border,
@@ -550,14 +548,7 @@ public class Draft1 {
 
 			// THIS IS STUB
 			private void displayAll() {
-				// TODO Auto-generated method stub
-
 				BufferedReader reader = null;
-
-				// obtain the current date
-				DateFormat dateFormat = new SimpleDateFormat("ddMMyy");
-				Date currDate = new Date();
-				String currDateString = dateFormat.format(currDate);
 				// read the general task file
 				fileName = "general.txt";
 				try {
@@ -573,8 +564,25 @@ public class Draft1 {
 					e.printStackTrace();
 				}
 
+				String prevDateString = DateUpdate.getPrevDate(DateUpdate.getCurrDate());
+				// read the missing task file
+				fileName = prevDateString+".txt";
+				try {
+					reader = new BufferedReader(new FileReader(fileName));
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try {
+					missingBox.read(reader, this);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
 				// loop to display all the date tasks
 				// NOTE: i starts from 1
+				String currDateString = DateUpdate.getCurrDate();
 				for (int i = 1; i < 10; i++) {
 					// display 9 task starting from today's date
 					fileName = currDateString + ".txt";

@@ -1,10 +1,21 @@
 package org.eclipse.wb.swt;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class DateUpdate {
+	
+	public static String getCurrDate() {
+		// obtain the current date
+		DateFormat dateFormat = new SimpleDateFormat("ddMMyy");
+		Date currDate = new Date();
+		String currDateString = dateFormat.format(currDate);
+		return currDateString;
+	}
+	
 	public static String getNextDate(String currDateString){
 		String dt = currDateString; // Start date
 		SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
