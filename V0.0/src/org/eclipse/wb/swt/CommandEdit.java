@@ -1,4 +1,4 @@
-package org.eclipse.wb.swt;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class CommandEdit {
 		
 		// delete the task with the given index number in the date
 		int position = Integer.parseInt(index);
-		String toBeRemoved = currDateTask.get(position-1);
+		String toBeRemoved = currDateTask.get(position+1);
 		//Split toBeRemoved string to 2parts and get the task
 		String keep = toBeRemoved.split(" ", 2)[1];
 		currDateTask.remove(toBeRemoved);
@@ -80,8 +80,8 @@ public class CommandEdit {
 		String toBeRemoved = currDateTask.get(position - 1);
 		currDateTask.remove(toBeRemoved);
 		
-		String[] modification = specification.split(" ", 2);
-		String modificationFinal = String.format(CONTENT_TO_DISPLAY, modification[0], modification[1]);
+		String[] change = modification.split(" ", 2);
+		String modificationFinal = String.format(CONTENT_TO_DISPLAY, change[0], change[1]);
 		
 		currDateTask.add(position - 1, modificationFinal);
 
