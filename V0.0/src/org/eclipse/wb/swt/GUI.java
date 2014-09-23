@@ -364,7 +364,7 @@ public class GUI {
 
 		commandBox = new JTextField();
 		// prompt the user to type start
-		commandBox.setText("Please type \"start\" to start!");
+		commandBox.setText("Please type the command here!");
 
 		// when the mouse clicks the command box, empty the command box
 		commandBox.addMouseListener(new MouseAdapter() {
@@ -476,7 +476,7 @@ public class GUI {
 			/*
 			 * This method will display the contents for each box in the UI
 			 */
-			private void displayAll() {
+			public final void displayAll() {
 				BufferedReader reader = null;
 				fileName = "general.txt";
 				try {
@@ -525,7 +525,7 @@ public class GUI {
 				}
 			}
 
-			private void displayDateTask(int i, String myDate) {
+			public void  displayDateTask(int i, String myDate) {
 				BufferedReader reader = null;
 				// TODO Auto-generated method stub
 				switch (i) {
@@ -748,5 +748,193 @@ public class GUI {
 		commandBox.setBounds(94, 21, 302, 25);
 		frame.getContentPane().add(commandBox);
 		commandBox.setColumns(10);
-	}
+		
+		BufferedReader reader = null;
+		fileName = "general.txt";
+		try {
+			reader = new BufferedReader(new FileReader(fileName));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		try {
+			generalTaskBox.read(reader, this);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		String prevDateString = DateUpdate.getPrevDate(DateUpdate
+				.getCurrDate());
+		// read the missing task file
+		fileName = prevDateString + ".txt";
+		try {
+			reader = new BufferedReader(new FileReader(fileName));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			missingBox.read(reader, this);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		// loop to display all the date tasks
+		// NOTE: i starts from 1
+		String currDateString = DateUpdate.getCurrDate();
+		for (int i = 1; i < 10; i++) {
+			// display 9 task starting from today's date
+			fileName = currDateString + ".txt";
+			try {
+				reader = new BufferedReader(new FileReader(fileName));
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			//BufferedReader reader = null;
+			// TODO Auto-generated method stub
+			switch (i) {
+			case 1:
+				try {
+					reader = new BufferedReader(new FileReader(fileName));
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try {
+					date1.read(reader, this);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+
+			case 2:
+				try {
+					reader = new BufferedReader(new FileReader(fileName));
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try {
+					date2.read(reader, this);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+
+			case 3:
+				try {
+					reader = new BufferedReader(new FileReader(fileName));
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try {
+					date3.read(reader, this);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+
+			case 4:
+				try {
+					reader = new BufferedReader(new FileReader(fileName));
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try {
+					date4.read(reader, this);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+
+			case 5:
+				try {
+					reader = new BufferedReader(new FileReader(fileName));
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try {
+					date5.read(reader, this);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+
+			case 6:
+				try {
+					reader = new BufferedReader(new FileReader(fileName));
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try {
+					date6.read(reader, this);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+
+			case 7:
+				try {
+					reader = new BufferedReader(new FileReader(fileName));
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try {
+					date7.read(reader, this);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+
+			case 8:
+				try {
+					reader = new BufferedReader(new FileReader(fileName));
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try {
+					date8.read(reader, this);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+
+			case 9:
+				try {
+					reader = new BufferedReader(new FileReader(fileName));
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try {
+					date9.read(reader, this);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+
+			}
+			// update the current date for the next loop
+			currDateString = DateUpdate.getNextDate(currDateString);
+		}
+		
+		
+
+	}	
 }

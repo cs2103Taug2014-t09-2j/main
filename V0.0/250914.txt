@@ -1,4 +1,3 @@
 250914
 
-call mon2
-call Jack today
+[11-12] Call Carlo
