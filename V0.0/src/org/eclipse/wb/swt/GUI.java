@@ -41,7 +41,7 @@ import java.util.logging.Logger;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class Draft1 {
+public class GUI {
 
 	private JFrame frame;
 	private JTextField commandBox;
@@ -76,7 +76,7 @@ public class Draft1 {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Draft1 window = new Draft1();
+					GUI window = new GUI();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -90,7 +90,7 @@ public class Draft1 {
 	 * 
 	 * @throws IOException
 	 */
-	public Draft1() throws IOException {
+	public GUI() throws IOException {
 		initialize();
 	}
 
