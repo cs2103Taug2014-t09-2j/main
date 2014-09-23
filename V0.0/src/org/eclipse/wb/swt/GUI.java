@@ -136,11 +136,6 @@ public class GUI {
 		lblIdo.setFont(new Font("Helvetica", Font.BOLD, 24));
 		lblIdo.setBounds(10, 11, 90, 36);
 		frame.getContentPane().add(lblIdo);
-
-		JLabel lblMissingThis = new JLabel("Missing This?");
-		lblMissingThis.setFont(new Font("Rockwell", Font.PLAIN, 12));
-		lblMissingThis.setBounds(416, 17, 97, 14);
-		frame.getContentPane().add(lblMissingThis);
 		Border border = BorderFactory.createLineBorder(Color.WHITE);
 
 		final JTextArea date1 = new JTextArea();
@@ -339,15 +334,24 @@ public class GUI {
 		frame.getContentPane().add(date9);
 		date9.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+		
+		JLabel lblMissingThis = new JLabel("Missing This?");
+		lblMissingThis.setFont(new Font("Rockwell", Font.PLAIN, 12));
+		lblMissingThis.setBounds(412, 26, 123, 21);
+		frame.getContentPane().add(lblMissingThis);
+		
+		JLabel label = new JLabel("=====================");
+		label.setBounds(412, 45, 162, 8);
+		frame.getContentPane().add(label);
 
 		final JTextArea missingBox = new JTextArea();
 		missingBox.setLineWrap(true);
 		missingBox.setFont(new Font("Rockwell", Font.PLAIN, 12));
 		missingBox.setEditable(false);
 		missingBox.setBorder(BorderFactory.createCompoundBorder(border,
-				BorderFactory.createEmptyBorder(20, 5, 5, 5)));
+				BorderFactory.createEmptyBorder(35, 5, 5, 5)));
 		missingBox.setBackground(new Color(255, 99, 71));
-		missingBox.setBounds(406, 11, 168, 182);
+		missingBox.setBounds(406, 21, 168, 172);
 		frame.getContentPane().add(missingBox);
 
 		final JTextArea generalTaskBox = new JTextArea();
@@ -359,7 +363,7 @@ public class GUI {
 		generalTaskBox.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(10, 5, 5, 5)));
 		generalTaskBox.setBackground(new Color(30, 144, 255));
-		generalTaskBox.setBounds(406, 198, 168, 208);
+		generalTaskBox.setBounds(406, 194, 168, 212);
 		frame.getContentPane().add(generalTaskBox);
 
 		commandBox = new JTextField();
