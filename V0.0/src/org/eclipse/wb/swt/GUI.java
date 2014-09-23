@@ -749,6 +749,10 @@ public class GUI {
 		frame.getContentPane().add(commandBox);
 		commandBox.setColumns(10);
 		
+		/*
+		 * Populate the task boxes with the data in the source files
+		 */
+		
 		BufferedReader reader = null;
 		fileName = "general.txt";
 		try {
