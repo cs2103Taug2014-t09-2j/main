@@ -393,11 +393,9 @@ public class GUI {
 			public void actionPerformed(ActionEvent arg0) {
 				String arrString[] = readInput();
 
-				// if the command is "start"
 				// initialize the content of all the task boxes
-				if (arrString[0].equals("start")) {
-					displayAll();
-					commandBox.setText("");
+				if (arrString[0].equals("exit")) {
+					System.exit(0);
 
 				} else if (arrString[0].equals("undo")) {
 					try {
