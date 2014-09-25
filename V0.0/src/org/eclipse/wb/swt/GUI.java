@@ -393,6 +393,7 @@ public class GUI {
 
 				} else if (arrString[0].equals("undo")) {
 					try {
+						commandBox.setText("");
 						undoHistory.runReverseCommand();
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -407,6 +408,7 @@ public class GUI {
 					switch (command) {
 					// format input: edit date number time modification
 					case EDIT:
+						commandBox.setText("");
 						String arrString2[] = theRest.split(" ", 4);
 						String date = arrString2[0];
 						String number = arrString2[1];
@@ -425,6 +427,7 @@ public class GUI {
 						break;
 
 					case ADD:
+						commandBox.setText("");
 						String addString[] = theRest.split(" ", 3);
 						String date1 = addString[0];
 						String time1 = addString[1];
@@ -441,6 +444,7 @@ public class GUI {
 						break;
 
 					case DONE:
+						commandBox.setText("");
 						// Reverse Edit Command
 
 						// Actual Edit Command
