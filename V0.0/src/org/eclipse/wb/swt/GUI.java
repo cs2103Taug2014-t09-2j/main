@@ -139,6 +139,7 @@ public class GUI {
 		Border border = BorderFactory.createLineBorder(Color.WHITE);
 
 		final JTextArea date1 = new JTextArea();
+		date1.setWrapStyleWord(true);
 		date1.setEditable(false);
 		date1.setFont(new Font("Rockwell", Font.PLAIN, 12));
 		// create padding inside the text area
@@ -163,6 +164,7 @@ public class GUI {
 		frame.getContentPane().add(date1);
 
 		final JTextArea date2 = new JTextArea();
+		date2.setWrapStyleWord(true);
 		date2.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
 				date2.setSize(250, 250);
@@ -185,6 +187,7 @@ public class GUI {
 		frame.getContentPane().add(date2);
 
 		final JTextArea date3 = new JTextArea();
+		date3.setWrapStyleWord(true);
 		date3.setLineWrap(true);
 		date3.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
@@ -207,6 +210,7 @@ public class GUI {
 		frame.getContentPane().add(date3);
 
 		final JTextArea date4 = new JTextArea();
+		date4.setWrapStyleWord(true);
 		date4.setFont(new Font("Rockwell", Font.PLAIN, 12));
 		date4.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
@@ -228,6 +232,7 @@ public class GUI {
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
 		final JTextArea date5 = new JTextArea();
+		date5.setWrapStyleWord(true);
 		date5.setLineWrap(true);
 		date5.setFont(new Font("Rockwell", Font.PLAIN, 12));
 		date5.setEditable(false);
@@ -250,6 +255,7 @@ public class GUI {
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
 		final JTextArea date6 = new JTextArea();
+		date6.setWrapStyleWord(true);
 		date6.setLineWrap(true);
 		date6.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
@@ -271,6 +277,7 @@ public class GUI {
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
 		final JTextArea date7 = new JTextArea();
+		date7.setWrapStyleWord(true);
 		date7.setFont(new Font("Rockwell", Font.PLAIN, 12));
 		date7.setEditable(false);
 		date7.addMouseListener(new MouseAdapter() {
@@ -293,6 +300,7 @@ public class GUI {
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
 		final JTextArea date8 = new JTextArea();
+		date8.setWrapStyleWord(true);
 		date8.setLineWrap(true);
 		date8.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
@@ -314,6 +322,7 @@ public class GUI {
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
 		final JTextArea date9 = new JTextArea();
+		date9.setWrapStyleWord(true);
 		date9.setLineWrap(true);
 		date9.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
@@ -345,6 +354,7 @@ public class GUI {
 		frame.getContentPane().add(label);
 
 		final JTextArea missingBox = new JTextArea();
+		missingBox.setWrapStyleWord(true);
 		missingBox.setLineWrap(true);
 		missingBox.setFont(new Font("Rockwell", Font.PLAIN, 12));
 		missingBox.setEditable(false);
@@ -355,6 +365,7 @@ public class GUI {
 		frame.getContentPane().add(missingBox);
 
 		final JTextArea generalTaskBox = new JTextArea();
+		generalTaskBox.setWrapStyleWord(true);
 		generalTaskBox.setText("General Tasks");
 		generalTaskBox.setLineWrap(true);
 		generalTaskBox.setFont(new Font("Rockwell", Font.PLAIN, 12));
