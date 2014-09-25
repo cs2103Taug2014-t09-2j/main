@@ -12,32 +12,17 @@ import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
-import javax.swing.text.JTextComponent;
-
-import java.awt.event.InputMethodListener;
-import java.awt.event.InputMethodEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -389,8 +374,6 @@ public class GUI {
 		});
 
 		commandBox.addActionListener(new ActionListener() {
-			private BufferedWriter bw;
-
 			/*
 			 * Read in input and split input into 2parts: command and the rest
 			 * 
@@ -480,6 +463,9 @@ public class GUI {
 							displayAll();
 
 						}
+						break;
+					default:
+						
 						break;
 
 					}
@@ -677,84 +663,6 @@ public class GUI {
 					}
 					break;
 
-				}
-			}
-
-			public void editTask(String date, String number, String time,
-					String modification) throws IOException {
-
-				fileName = date + ".txt";
-				ArrayList<String> currDateTask;
-				currDateTask = new ArrayList<>();
-
-				// read the content of the file, put in the list
-				BufferedReader br = null;
-				try {
-					String curr;
-					br = new BufferedReader(new FileReader(fileName));
-					while ((curr = br.readLine()) != null) {
-						currDateTask.add(curr);
-					}
-				} catch (IOException ee) {
-					ee.printStackTrace();
-				}
-				// delete the specific task in the date
-				int position = Integer.parseInt(number);
-				String toBeRemoved = currDateTask.get(position - 1);
-				currDateTask.remove(toBeRemoved);
-
-				String modificationFinal = "[" + time + "] " + modification;
-
-				// edit 121212 1 modification
-				// insert the modification into the arrayList
-				currDateTask.add(position - 1, modificationFinal);
-
-				// clear the file
-				clearFile(fileName);
-
-				// write to the file
-				writeToFile(currDateTask, fileName);
-
-				// then display in the UI
-				displayAll();
-
-				// set the command box to be empty
-				commandBox.setText("");
-
-			}
-
-			private void writeToFile(ArrayList<String> currDateTask,
-					String fileName) throws IOException {
-				// TODO Auto-generated method stub
-				try {
-					File file = new File(fileName);
-					FileWriter fw = new FileWriter(file.getAbsoluteFile());
-					bw = new BufferedWriter(fw);
-					for (int i = 0; i < currDateTask.size(); i++) {
-
-						bw.write(currDateTask.get(i) + "\n");
-					}
-
-				} catch (IOException ee) {
-					ee.printStackTrace();
-				} finally {
-					// close the writer so that it can write to the file
-					bw.close();
-				}
-				System.out.println("DONE!");
-
-			}
-
-			private void clearFile(String fileName) {
-				// TODO Auto-generated method stub
-				try {
-					File file = new File(fileName);
-					FileWriter fw = new FileWriter(file.getAbsoluteFile());
-					BufferedWriter bw = new BufferedWriter(fw);
-					bw.write("");
-					bw.close();
-				} catch (IOException ee) {
-					ee.printStackTrace();
 				}
 			}
 		});
