@@ -399,7 +399,6 @@ public class GUI {
 					String theRest = arrString[1].trim();
 
 					switch (command) {
-					// format input: edit date number time modification
 					case EDIT:
 						commandBox.setText("");
 						String arrString2[] = theRest.split(" ", 4);
@@ -412,7 +411,6 @@ public class GUI {
 							(new CommandEdit(date, number, time, modification)).edit();
 							//editTask(date, number, time, modification);
 						} catch (IOException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}						
 						undoHistory.copyEditCommandToReverse(date, number, time, modification, oldInfo);
@@ -430,7 +428,6 @@ public class GUI {
 							displayAll();
 							// addTask(date1,time1,task);
 						} catch (IOException e1) {
-							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 						undoHistory.copyAddCommandToReverse(date1, time1, task);
@@ -438,16 +435,11 @@ public class GUI {
 
 					case DONE:
 						commandBox.setText("");
-						// Reverse Edit Command
-
-						// Actual Edit Command
-						// System.out.println(theRest);
 						if (theRest.length() == 6) {
 							undoHistory.copyDoneCommandToReverseAll(theRest);
 							try {
 								(new CommandDone(theRest)).clearDateTaskAll();
 							} catch (FileNotFoundException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 							displayAll();
@@ -494,13 +486,11 @@ public class GUI {
 				try {
 					reader = new BufferedReader(new FileReader(fileName));
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				try {
 					missingBox.read(reader, this);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 
@@ -513,7 +503,6 @@ public class GUI {
 					try {
 						reader = new BufferedReader(new FileReader(fileName));
 					} catch (FileNotFoundException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					displayDateTask(i, currDateString);
@@ -525,19 +514,16 @@ public class GUI {
 
 			public void  displayDateTask(int i, String myDate) {
 				BufferedReader reader = null;
-				// TODO Auto-generated method stub
 				switch (i) {
 				case 1:
 					try {
 						reader = new BufferedReader(new FileReader(fileName));
 					} catch (FileNotFoundException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					try {
 						date1.read(reader, this);
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					break;
@@ -546,13 +532,11 @@ public class GUI {
 					try {
 						reader = new BufferedReader(new FileReader(fileName));
 					} catch (FileNotFoundException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					try {
 						date2.read(reader, this);
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					break;
@@ -561,13 +545,11 @@ public class GUI {
 					try {
 						reader = new BufferedReader(new FileReader(fileName));
 					} catch (FileNotFoundException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					try {
 						date3.read(reader, this);
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					break;
@@ -576,13 +558,11 @@ public class GUI {
 					try {
 						reader = new BufferedReader(new FileReader(fileName));
 					} catch (FileNotFoundException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					try {
 						date4.read(reader, this);
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					break;
@@ -591,13 +571,11 @@ public class GUI {
 					try {
 						reader = new BufferedReader(new FileReader(fileName));
 					} catch (FileNotFoundException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					try {
 						date5.read(reader, this);
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					break;
@@ -606,13 +584,11 @@ public class GUI {
 					try {
 						reader = new BufferedReader(new FileReader(fileName));
 					} catch (FileNotFoundException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					try {
 						date6.read(reader, this);
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					break;
@@ -621,13 +597,11 @@ public class GUI {
 					try {
 						reader = new BufferedReader(new FileReader(fileName));
 					} catch (FileNotFoundException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					try {
 						date7.read(reader, this);
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					break;
@@ -636,13 +610,11 @@ public class GUI {
 					try {
 						reader = new BufferedReader(new FileReader(fileName));
 					} catch (FileNotFoundException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					try {
 						date8.read(reader, this);
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					break;
@@ -651,13 +623,11 @@ public class GUI {
 					try {
 						reader = new BufferedReader(new FileReader(fileName));
 					} catch (FileNotFoundException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					try {
 						date9.read(reader, this);
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					break;
@@ -693,13 +663,11 @@ public class GUI {
 		try {
 			reader = new BufferedReader(new FileReader(fileName));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
 			missingBox.read(reader, this);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -712,23 +680,19 @@ public class GUI {
 			try {
 				reader = new BufferedReader(new FileReader(fileName));
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			//BufferedReader reader = null;
-			// TODO Auto-generated method stub
 			switch (i) {
 			case 1:
 				try {
 					reader = new BufferedReader(new FileReader(fileName));
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				try {
 					date1.read(reader, this);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				break;
@@ -737,13 +701,11 @@ public class GUI {
 				try {
 					reader = new BufferedReader(new FileReader(fileName));
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				try {
 					date2.read(reader, this);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				break;
@@ -752,13 +714,11 @@ public class GUI {
 				try {
 					reader = new BufferedReader(new FileReader(fileName));
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				try {
 					date3.read(reader, this);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				break;
@@ -767,13 +727,11 @@ public class GUI {
 				try {
 					reader = new BufferedReader(new FileReader(fileName));
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				try {
 					date4.read(reader, this);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				break;
@@ -782,13 +740,11 @@ public class GUI {
 				try {
 					reader = new BufferedReader(new FileReader(fileName));
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				try {
 					date5.read(reader, this);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				break;
@@ -797,13 +753,11 @@ public class GUI {
 				try {
 					reader = new BufferedReader(new FileReader(fileName));
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				try {
 					date6.read(reader, this);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				break;
@@ -812,13 +766,11 @@ public class GUI {
 				try {
 					reader = new BufferedReader(new FileReader(fileName));
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				try {
 					date7.read(reader, this);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				break;
@@ -827,13 +779,11 @@ public class GUI {
 				try {
 					reader = new BufferedReader(new FileReader(fileName));
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				try {
 					date8.read(reader, this);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				break;
@@ -842,13 +792,11 @@ public class GUI {
 				try {
 					reader = new BufferedReader(new FileReader(fileName));
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				try {
 					date9.read(reader, this);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				break;
