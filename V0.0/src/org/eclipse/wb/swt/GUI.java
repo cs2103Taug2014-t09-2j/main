@@ -25,6 +25,8 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
 
 public class GUI {
 
@@ -328,15 +330,6 @@ public class GUI {
 		frame.getContentPane().add(date9);
 		date9.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-		
-		JLabel lblMissingThis = new JLabel("Missing This?");
-		lblMissingThis.setFont(new Font("Rockwell", Font.PLAIN, 12));
-		lblMissingThis.setBounds(412, 26, 123, 21);
-		frame.getContentPane().add(lblMissingThis);
-		
-		JLabel label = new JLabel("=====================");
-		label.setBounds(412, 45, 162, 8);
-		frame.getContentPane().add(label);
 
 		final JTextArea missingBox = new JTextArea();
 		missingBox.setWrapStyleWord(true);
@@ -344,7 +337,7 @@ public class GUI {
 		missingBox.setFont(new Font("Rockwell", Font.PLAIN, 12));
 		missingBox.setEditable(false);
 		missingBox.setBorder(BorderFactory.createCompoundBorder(border,
-				BorderFactory.createEmptyBorder(35, 5, 5, 5)));
+				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 		missingBox.setBackground(new Color(255, 99, 71));
 		missingBox.setBounds(406, 21, 168, 172);
 		frame.getContentPane().add(missingBox);
@@ -469,7 +462,7 @@ public class GUI {
 						}
 						break;
 					default:
-						
+
 						break;
 
 					}
@@ -480,6 +473,7 @@ public class GUI {
 			 * This method will display the contents for each box in the UI
 			 */
 			public final void displayAll() {
+				
 				BufferedReader reader = null;
 				fileName = "general.txt";
 				try {
@@ -526,6 +520,7 @@ public class GUI {
 					// update the current date for the next loop
 					currDateString = DateUpdate.getNextDate(currDateString);
 				}
+				
 			}
 
 			public void  displayDateTask(int i, String myDate) {
@@ -670,7 +665,7 @@ public class GUI {
 				}
 			}
 		});
-		commandBox.setBounds(94, 21, 302, 25);
+		commandBox.setBounds(102, 21, 294, 25);
 		frame.getContentPane().add(commandBox);
 		commandBox.setColumns(10);
 		
