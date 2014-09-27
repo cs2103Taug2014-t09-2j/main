@@ -396,6 +396,11 @@ public class GUI {
 					
 				} else {
 					CommandTypes command = determineCmd(inputArr[0]);
+					
+					/*
+					 * take all the words in the input except the first word
+					 * to be added to the file, depending on the command
+					 */
 					String theRest = inputArr[1].trim();
 
 					switch (command) {
