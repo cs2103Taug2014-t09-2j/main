@@ -3,11 +3,11 @@ package org.eclipse.wb.swt;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-public class isValidDate {
+public class IsValidDate {
 
 	static String date;
 
-	public isValidDate(String test) {
+	public IsValidDate(String test) {
 		date = test;
 		//System.out.println(date);
 	}

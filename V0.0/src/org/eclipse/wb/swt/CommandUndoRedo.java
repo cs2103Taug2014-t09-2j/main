@@ -27,7 +27,7 @@ public class CommandUndoRedo {
 		if (redoHistory.size() > undoHistory.size()) {
 			String input = redoHistory.pop();
 			String[] arrInput = input.split(" ", 2);
-			if ((new isValidDate(arrInput[1]).testValidDate())) {
+			if ((new IsValidDate(arrInput[1]).testValidDate())) {
 				try {
 					(new CommandDone(arrInput[1])).clearDateTaskAll();
 				} catch (FileNotFoundException e) {

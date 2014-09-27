@@ -452,7 +452,7 @@ public class GUI {
 						break;
 
 					case DONE:
-						if ((new isValidDate(theRest).testValidDate())) {
+						if ((new IsValidDate(theRest).testValidDate())) {
 							commandHistory.copyDoneAllCommandToReverse(theRest);
 							try {
 								(new CommandDone(theRest)).clearDateTaskAll();
