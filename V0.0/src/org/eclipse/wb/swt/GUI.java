@@ -370,33 +370,33 @@ public class GUI {
 			/*
 			 * Read in input and split input into 2parts: command and the rest
 			 * 
-			 * Return an array containing 2 String elements
 			 */
-			private String[] readInput() {
-				String input = commandBox.getText();
-				commandBox.setText("");
-				return input.split(" ", 2);
-			}
 
 			public void actionPerformed(ActionEvent arg0) {
-				String arrString[] = readInput();
+				String inputArr[] = commandBox.getText().split(" ",2);
+				//take care of the one word input 
+				if (inputArr.length==1) {
+					switch (inputArr[0]) {
+					case "exit":
+						System.exit(0);
+					case "undo":
+						try {
+							undoHistory.runReverseCommand();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						commandBox.setText("");
+						displayAll();
 
-				// initialize the content of all the task boxes
-				if (arrString[0].equals("exit")) {
-					System.exit(0);
-
-				} else if (arrString[0].equals("undo")) {
-					try {
-						undoHistory.runReverseCommand();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					default:
+						WarningPopUp.infoBox("Invalid Input", "WARNING");
+						commandBox.setText("");
 					}
-					displayAll();
-
+					
 				} else {
-					CommandTypes command = determineCmd(arrString[0]);
-					String theRest = arrString[1].trim();
+					CommandTypes command = determineCmd(inputArr[0]);
+					String theRest = inputArr[1].trim();
 
 					switch (command) {
 					case EDIT:
@@ -405,14 +405,18 @@ public class GUI {
 						String number = arrString2[1];
 						String time = arrString2[2];
 						String modification = arrString2[3];
-						String oldInfo = (new CommandSearchCurrDate(date, number)).searchString();
+						String oldInfo = (new CommandSearchCurrDate(date,
+								number)).searchString();
 						try {
-							(new CommandEdit(date, number, time, modification)).edit();
-							//editTask(date, number, time, modification);
+							(new CommandEdit(date, number, time, modification))
+									.edit();
+							// editTask(date, number, time, modification);
 						} catch (IOException e) {
 							e.printStackTrace();
-						}						
-						undoHistory.copyEditCommandToReverse(date, number, time, modification, oldInfo);
+						}
+						undoHistory.copyEditCommandToReverse(date, number,
+								time, modification, oldInfo);
+						commandBox.setText("");
 						displayAll();
 						break;
 
@@ -429,6 +433,7 @@ public class GUI {
 							e1.printStackTrace();
 						}
 						undoHistory.copyAddCommandToReverse(date1, time1, task);
+						commandBox.setText("");
 						break;
 
 					case DONE:
@@ -440,6 +445,7 @@ public class GUI {
 								e.printStackTrace();
 							}
 							displayAll();
+							commandBox.setText("");
 						} else {
 							String arrString3[] = theRest.split(" ", 2);
 							undoHistory.copyDoneCommandToReverseSpecific(
@@ -447,23 +453,24 @@ public class GUI {
 							(new CommandDone(arrString3[0], arrString3[1]))
 									.clearDateTaskSpecific();
 							displayAll();
-
+							commandBox.setText("");
 						}
 						break;
-					//other input will be displayed as invalid input	
-					default: WarningPopUp.infoBox("Invalid Input", "WARNING");
-
+					// other input will be displayed as invalid input
+					default:
+						WarningPopUp.infoBox("Invalid Input", "WARNING");
+						commandBox.setText("");
 						break;
 
 					}
 				}
 			}
-			
+
 			/*
 			 * This method will display the contents for each box in the UI
 			 */
 			public final void displayAll() {
-				
+
 				BufferedReader reader = null;
 				fileName = "general.txt";
 				try {
@@ -507,10 +514,10 @@ public class GUI {
 					// update the current date for the next loop
 					currDateString = DateUpdate.getNextDate(currDateString);
 				}
-				
+
 			}
 
-			public void  displayDateTask(int i, String myDate) {
+			public void displayDateTask(int i, String myDate) {
 				BufferedReader reader = null;
 				switch (i) {
 				case 1:
@@ -636,11 +643,11 @@ public class GUI {
 		commandBox.setBounds(102, 21, 294, 25);
 		frame.getContentPane().add(commandBox);
 		commandBox.setColumns(10);
-		
+
 		/*
 		 * Populate the task boxes with the data in the source files
 		 */
-		
+
 		BufferedReader reader = null;
 		fileName = "general.txt";
 		try {
@@ -654,8 +661,8 @@ public class GUI {
 			e.printStackTrace();
 		}
 
-		String prevDateString = DateUpdate.getPrevDate(DateUpdate
-				.getCurrDate());
+		String prevDateString = DateUpdate
+				.getPrevDate(DateUpdate.getCurrDate());
 		// read the missing task file
 		fileName = prevDateString + ".txt";
 		try {
@@ -680,7 +687,7 @@ public class GUI {
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
-			//BufferedReader reader = null;
+			// BufferedReader reader = null;
 			switch (i) {
 			case 1:
 				try {
@@ -803,8 +810,6 @@ public class GUI {
 			// update the current date for the next loop
 			currDateString = DateUpdate.getNextDate(currDateString);
 		}
-		
-		
 
-	}	
+	}
 }
