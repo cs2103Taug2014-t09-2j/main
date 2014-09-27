@@ -388,6 +388,7 @@ public class GUI {
 						}
 						commandBox.setText("");
 						displayAll();
+						break;
 
 					default:
 						WarningPopUp.infoBox("Invalid Input", "WARNING");
