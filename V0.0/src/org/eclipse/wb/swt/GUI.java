@@ -405,14 +405,17 @@ public class GUI {
 						String number = arrString2[1];
 						String time = arrString2[2];
 						String modification = arrString2[3];
-						String oldInfo = (new CommandSearchCurrDate(date, number)).searchString();
+						String oldInfo = (new CommandSearchCurrDate(date,
+								number)).searchString();
 						try {
-							(new CommandEdit(date, number, time, modification)).edit();
-							//editTask(date, number, time, modification);
+							(new CommandEdit(date, number, time, modification))
+									.edit();
+							// editTask(date, number, time, modification);
 						} catch (IOException e) {
 							e.printStackTrace();
-						}						
-						undoHistory.copyEditCommandToReverse(date, number, time, modification, oldInfo);
+						}
+						undoHistory.copyEditCommandToReverse(date, number,
+								time, modification, oldInfo);
 						displayAll();
 						break;
 
@@ -457,12 +460,12 @@ public class GUI {
 					}
 				}
 			}
-			
+
 			/*
 			 * This method will display the contents for each box in the UI
 			 */
 			public final void displayAll() {
-				
+
 				BufferedReader reader = null;
 				fileName = "general.txt";
 				try {
@@ -506,10 +509,10 @@ public class GUI {
 					// update the current date for the next loop
 					currDateString = DateUpdate.getNextDate(currDateString);
 				}
-				
+
 			}
 
-			public void  displayDateTask(int i, String myDate) {
+			public void displayDateTask(int i, String myDate) {
 				BufferedReader reader = null;
 				switch (i) {
 				case 1:
@@ -635,11 +638,11 @@ public class GUI {
 		commandBox.setBounds(102, 21, 294, 25);
 		frame.getContentPane().add(commandBox);
 		commandBox.setColumns(10);
-		
+
 		/*
 		 * Populate the task boxes with the data in the source files
 		 */
-		
+
 		BufferedReader reader = null;
 		fileName = "general.txt";
 		try {
@@ -653,8 +656,8 @@ public class GUI {
 			e.printStackTrace();
 		}
 
-		String prevDateString = DateUpdate.getPrevDate(DateUpdate
-				.getCurrDate());
+		String prevDateString = DateUpdate
+				.getPrevDate(DateUpdate.getCurrDate());
 		// read the missing task file
 		fileName = prevDateString + ".txt";
 		try {
@@ -679,7 +682,7 @@ public class GUI {
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
-			//BufferedReader reader = null;
+			// BufferedReader reader = null;
 			switch (i) {
 			case 1:
 				try {
@@ -802,8 +805,6 @@ public class GUI {
 			// update the current date for the next loop
 			currDateString = DateUpdate.getNextDate(currDateString);
 		}
-		
-		
 
-	}	
+	}
 }
