@@ -1,27 +1,90 @@
 package org.eclipse.wb.swt;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 // import java.util.ArrayList;
 import java.util.Stack;
 
-public class CommandUndo {
+public class CommandUndoRedo {
 
-	public Stack<String> commandHistory;
+	public Stack<String> undoHistory;
+	public Stack<String> redoHistory;
+	public Stack<String> executedUndoHistory;
 
-	public CommandUndo() {
-		commandHistory = new Stack<String>();
+	public CommandUndoRedo() {
+		undoHistory = new Stack<String>();
+		redoHistory = new Stack<String>();
+		executedUndoHistory = new Stack<String>();
+	}
+
+	public void storeOriginalCommand(String command, String remain) {
+		redoHistory.push((command + " " + remain).trim());
+
+	}
+
+	public void runRedo() {
+		if (redoHistory.size() > undoHistory.size()) {
+			String input = redoHistory.pop();
+			String[] arrInput = input.split(" ", 2);
+			if ((new isValidDate(arrInput[1]).testValidDate())) {
+				try {
+					(new CommandDone(arrInput[1])).clearDateTaskAll();
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				int counter = Integer.parseInt(executedUndoHistory.pop());
+				for (int i = 0; i < counter; i++) {
+					undoHistory.push(executedUndoHistory.pop());
+				}
+				undoHistory.push(Integer.toString(counter));
+
+			} else if (arrInput[0].equals("done")) {
+				String[] arrStrDS = arrInput[1].split(" ", 2);
+				(new CommandDone(arrStrDS[0], arrStrDS[1]))
+						.clearDateTaskSpecific();
+				undoHistory.push(executedUndoHistory.pop());
+
+			} else if (arrInput[0].equals("edit")) {
+				String[] arrStrE = arrInput[1].split(" ", 4);
+				try {
+					(new CommandEdit(arrStrE[0], arrStrE[1], arrStrE[2],
+							arrStrE[3])).edit();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				undoHistory.push(executedUndoHistory.pop());
+
+			} else if (arrInput[0].equals("add")) {
+				String[] arrStrAdd = arrInput[1].split(" ", 3);
+				try {
+					(new CommandAdd(arrStrAdd[0], arrStrAdd[1], arrStrAdd[2]))
+							.addTask();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				undoHistory.push(executedUndoHistory.pop());
+
+			}
+
+		} else {
+			System.out.println("Failed Redo");
+		}
+
 	}
 
 	public void copyAddCommandToReverse(String date, String time, String task) {
 		int arrLine = (new CommandSearchCurrDate(date, time, task))
 				.searchStringPosition();
 		// System.out.println("done " + date + " " + arrLine);
-		commandHistory.push("done " + date + " " + arrLine);
+		undoHistory.push("done " + date + " " + arrLine);
 
 	}
 
-	public void copyDoneCommandToReverseSpecific(String date, String position) {
+	public void copyDoneSpecificCommandToReverse(String date, String position) {
 		ArrayList<String> currDateTask = new ArrayList<>();
 		currDateTask = (new ReadFile(date + ".txt")).readContents();
 		int location = Integer.parseInt(position);
@@ -29,12 +92,12 @@ public class CommandUndo {
 		String[] arrStr = str.split(" ", 2);
 		// System.out.println("add " + date + " " +
 		// arrStr[0].substring(1,arrStr[0].length()-1) + " " + arrStr[1]);
-		commandHistory.push("add " + date + " "
+		undoHistory.push("add " + date + " "
 				+ arrStr[0].substring(1, arrStr[0].length() - 1) + " "
 				+ arrStr[1]);
 	}
 
-	public void copyDoneCommandToReverseAll(String date) {
+	public void copyDoneAllCommandToReverse(String date) {
 		ArrayList<String> currDateTask = new ArrayList<>();
 		currDateTask = (new ReadFile(date + ".txt")).readContents();
 		int originalSize = currDateTask.size();
@@ -44,11 +107,11 @@ public class CommandUndo {
 				// System.out.println(date + " " +
 				// arrStr[0].substring(1,arrStr[0].length()-1) + " " +
 				// arrStr[1]);
-				commandHistory.push(date + " "
+				undoHistory.push(date + " "
 						+ arrStr[0].substring(1, arrStr[0].length() - 1) + " "
 						+ arrStr[1]);
 			}
-			commandHistory.push(Integer.toString(originalSize));
+			undoHistory.push(Integer.toString(originalSize));
 		}
 	}
 
@@ -64,12 +127,12 @@ public class CommandUndo {
 					.searchStringPosition();
 			// System.out.println("edit " + date + " " + newindex + " " + choice
 			// + " " + arrStr[0].substring(1,arrStr[0].length()-1));
-			commandHistory.push("edit " + date + " " + newindex + " " + choice
+			undoHistory.push("edit " + date + " " + newindex + " " + choice
 					+ " " + arrStr[0].substring(1, arrStr[0].length() - 1));
 		} else if (choice.equals("task")) {
 			newindex = (new CommandSearchCurrDate(date, arrStr[0].substring(1,
 					arrStr[0].length() - 1), update)).searchStringPosition();
-			commandHistory.push("edit " + date + " " + newindex + " " + choice
+			undoHistory.push("edit " + date + " " + newindex + " " + choice
 					+ " " + arrStr[1]);
 		} else if (choice.equals("all")) {
 			String[] arrStr2 = update.split(" ", 2);
@@ -78,26 +141,29 @@ public class CommandUndo {
 			// System.out.println("edit " + date + " " + newindex + " " + choice
 			// + " " + arrStr[0].substring(1,arrStr[0].length()-1) + " " +
 			// arrStr[1]);
-			commandHistory.push("edit " + date + " " + newindex + " " + choice
+			undoHistory.push("edit " + date + " " + newindex + " " + choice
 					+ " " + arrStr[0].substring(1, arrStr[0].length() - 1)
 					+ " " + arrStr[1]);
 		}
 	}
 
 	// Print command to be executed
-	public void runReverseCommand() throws IOException {
-		if (!commandHistory.isEmpty()) {
-			String checkStr = commandHistory.pop();
+	public void runUndo() throws IOException {
+		if (!undoHistory.isEmpty()) {
+			String checkStr = undoHistory.pop();
 			if (checkStr.length() == 1) {
 				// For done all only, adds back in to date.txt
 				int popNo = Integer.parseInt(checkStr);
 				for (int i = 0; i < popNo; i++) {
-					// String[] arrStr = commandHistory.pop().split(" ", 3);
-					String str = commandHistory.pop();
+					// String[] arrStr = undoHistory.pop().split(" ", 3);
+					String str = undoHistory.pop();
+					executedUndoHistory.push(str);
 					String[] arrStr = str.split(" ", 3);
 					(new CommandAdd(arrStr[0], arrStr[1], arrStr[2])).addTask();
 				}
+				executedUndoHistory.push(checkStr);
 			} else {
+				executedUndoHistory.push(checkStr);
 				// For other commands
 				String[] arrStr = checkStr.split(" ", 2);
 				// System.out.println(arrStr[0]);
