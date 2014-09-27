@@ -33,10 +33,10 @@ public class GUI {
 	private JFrame frame;
 	private JTextField commandBox;
 	private String fileName = null;
-	static CommandUndo undoHistory = new CommandUndo();
+	static CommandUndoRedo commandHistory = new CommandUndoRedo();
 
 	enum CommandTypes {
-		START, ADD, EDIT, DONE, INVALID, UNDO
+		START, ADD, EDIT, DONE, INVALID, UNDO, REDO
 	};
 
 	private static CommandTypes determineCmd(String str) {
@@ -50,6 +50,8 @@ public class GUI {
 			return CommandTypes.EDIT;
 		} else if (str.equals("undo")) {
 			return CommandTypes.UNDO;
+		} else if (str.equals("redo")){
+			return CommandTypes.REDO;
 		} else {
 			return CommandTypes.INVALID;
 		}
@@ -381,11 +383,16 @@ public class GUI {
 						System.exit(0);
 					case "undo":
 						try {
-							undoHistory.runReverseCommand();
+							commandHistory.runUndo();
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
+						commandBox.setText("");
+						displayAll();
+						break;
+					case "redo":
+						commandHistory.runRedo();
 						commandBox.setText("");
 						displayAll();
 						break;
@@ -420,8 +427,9 @@ public class GUI {
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
-						undoHistory.copyEditCommandToReverse(date, number,
+						commandHistory.copyEditCommandToReverse(date, number,
 								time, modification, oldInfo);
+						commandHistory.storeOriginalCommand("edit", theRest);
 						commandBox.setText("");
 						displayAll();
 						break;
@@ -438,26 +446,29 @@ public class GUI {
 						} catch (IOException e1) {
 							e1.printStackTrace();
 						}
-						undoHistory.copyAddCommandToReverse(date1, time1, task);
+						commandHistory.copyAddCommandToReverse(date1, time1, task);
+						commandHistory.storeOriginalCommand("add", theRest);
 						commandBox.setText("");
 						break;
 
 					case DONE:
-						if (theRest.length() == 6) {
-							undoHistory.copyDoneCommandToReverseAll(theRest);
+						if ((new isValidDate(theRest).testValidDate())) {
+							commandHistory.copyDoneAllCommandToReverse(theRest);
 							try {
 								(new CommandDone(theRest)).clearDateTaskAll();
 							} catch (FileNotFoundException e) {
 								e.printStackTrace();
 							}
+							commandHistory.storeOriginalCommand("done", theRest);
 							displayAll();
 							commandBox.setText("");
 						} else {
 							String arrString3[] = theRest.split(" ", 2);
-							undoHistory.copyDoneCommandToReverseSpecific(
+							commandHistory.copyDoneSpecificCommandToReverse(
 									arrString3[0], arrString3[1]);
 							(new CommandDone(arrString3[0], arrString3[1]))
 									.clearDateTaskSpecific();
+							commandHistory.storeOriginalCommand("done", theRest);
 							displayAll();
 							commandBox.setText("");
 						}
