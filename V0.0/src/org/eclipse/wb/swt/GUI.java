@@ -374,6 +374,7 @@ public class GUI {
 			 */
 			private String[] readInput() {
 				String input = commandBox.getText();
+				commandBox.setText("");
 				return input.split(" ", 2);
 			}
 
@@ -386,7 +387,6 @@ public class GUI {
 
 				} else if (arrString[0].equals("undo")) {
 					try {
-						commandBox.setText("");
 						undoHistory.runReverseCommand();
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -400,7 +400,6 @@ public class GUI {
 
 					switch (command) {
 					case EDIT:
-						commandBox.setText("");
 						String arrString2[] = theRest.split(" ", 4);
 						String date = arrString2[0];
 						String number = arrString2[1];
@@ -418,7 +417,6 @@ public class GUI {
 						break;
 
 					case ADD:
-						commandBox.setText("");
 						String addString[] = theRest.split(" ", 3);
 						String date1 = addString[0];
 						String time1 = addString[1];
@@ -434,7 +432,6 @@ public class GUI {
 						break;
 
 					case DONE:
-						commandBox.setText("");
 						if (theRest.length() == 6) {
 							undoHistory.copyDoneCommandToReverseAll(theRest);
 							try {
