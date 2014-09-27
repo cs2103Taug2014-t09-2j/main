@@ -453,7 +453,8 @@ public class GUI {
 
 						}
 						break;
-					default:
+					//other input will be displayed as invalid input	
+					default: WarningPopUp.infoBox("Invalid Input", "WARNING");
 
 						break;
 
