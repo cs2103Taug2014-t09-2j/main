@@ -33,7 +33,9 @@ public class GUI {
 	private JFrame frame;
 	private JTextField commandBox;
 	private String fileName = null;
-	static CommandUndoRedo commandHistory = new CommandUndoRedo();
+
+	// static CommandUndoRedo commandHistory = new CommandUndoRedo();
+	static CommandHistory history = new CommandHistory();
 
 	enum CommandTypes {
 		START, ADD, EDIT, DONE, INVALID, UNDO, REDO
@@ -50,7 +52,7 @@ public class GUI {
 			return CommandTypes.EDIT;
 		} else if (str.equals("undo")) {
 			return CommandTypes.UNDO;
-		} else if (str.equals("redo")){
+		} else if (str.equals("redo")) {
 			return CommandTypes.REDO;
 		} else {
 			return CommandTypes.INVALID;
@@ -371,28 +373,29 @@ public class GUI {
 		commandBox.addActionListener(new ActionListener() {
 			/*
 			 * Read in input and split input into 2parts: command and the rest
-			 * 
 			 */
 
 			public void actionPerformed(ActionEvent arg0) {
-				String inputArr[] = commandBox.getText().split(" ",2);
-				//take care of the one word input 
-				if (inputArr.length==1) {
+				String inputArr[] = commandBox.getText().split(" ", 2);
+				// take care of the one word input
+				if (inputArr.length == 1) {
 					switch (inputArr[0]) {
 					case "exit":
 						System.exit(0);
 					case "undo":
-						try {
-							commandHistory.runUndo();
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+						// try {
+						// commandHistory.runUndo();
+						// } catch (IOException e) {
+						// // TODO Auto-generated catch block
+						// e.printStackTrace();
+						// }
+						history.runUndo();
 						commandBox.setText("");
 						displayAll();
 						break;
 					case "redo":
-						commandHistory.runRedo();
+						// commandHistory.runRedo();
+						history.runRedo();
 						commandBox.setText("");
 						displayAll();
 						break;
@@ -401,13 +404,13 @@ public class GUI {
 						WarningPopUp.infoBox("Invalid Input", "WARNING");
 						commandBox.setText("");
 					}
-					
+
 				} else {
 					CommandTypes command = determineCmd(inputArr[0]);
-					
+
 					/*
-					 * take all the words in the input except the first word
-					 * to be added to the file, depending on the command
+					 * take all the words in the input except the first word to
+					 * be added to the file, depending on the command
 					 */
 					String theRest = inputArr[1].trim();
 
@@ -418,8 +421,10 @@ public class GUI {
 						String number = arrString2[1];
 						String time = arrString2[2];
 						String modification = arrString2[3];
-						String oldInfo = (new CommandSearchCurrDate(date,
-								number)).searchString();
+						
+						
+						// String oldInfo = (new CommandSearchCurrDate(date,
+						// number)).searchString();
 						try {
 							(new CommandEdit(date, number, time, modification))
 									.edit();
@@ -427,9 +432,9 @@ public class GUI {
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
-						commandHistory.copyEditCommandToReverse(date, number,
-								time, modification, oldInfo);
-						commandHistory.storeOriginalCommand("edit", theRest);
+						// commandHistory.copyEditCommandToReverse(date,
+						// number,time, modification, oldInfo);
+						// commandHistory.storeOriginalCommand("edit", theRest);
 						commandBox.setText("");
 						displayAll();
 						break;
@@ -446,29 +451,34 @@ public class GUI {
 						} catch (IOException e1) {
 							e1.printStackTrace();
 						}
-						commandHistory.copyAddCommandToReverse(date1, time1, task);
-						commandHistory.storeOriginalCommand("add", theRest);
+						// commandHistory.copyAddCommandToReverse(date1,
+						// time1,task);
+						// commandHistory.storeOriginalCommand("add", theRest);
 						commandBox.setText("");
 						break;
 
 					case DONE:
 						if ((new IsValidDate(theRest).testValidDate())) {
-							commandHistory.copyDoneAllCommandToReverse(theRest);
+							history.recordHistory(theRest);
+							// commandHistory.copyDoneAllCommandToReverse(theRest);
 							try {
 								(new CommandDone(theRest)).clearDateTaskAll();
 							} catch (FileNotFoundException e) {
 								e.printStackTrace();
 							}
-							commandHistory.storeOriginalCommand("done", theRest);
+							// commandHistory.storeOriginalCommand("done",
+							// theRest);
 							displayAll();
 							commandBox.setText("");
 						} else {
 							String arrString3[] = theRest.split(" ", 2);
-							commandHistory.copyDoneSpecificCommandToReverse(
-									arrString3[0], arrString3[1]);
+							history.recordHistory(arrString3[0]);
+							// commandHistory.copyDoneSpecificCommandToReverse(
+							// arrString3[0], arrString3[1]);
 							(new CommandDone(arrString3[0], arrString3[1]))
 									.clearDateTaskSpecific();
-							commandHistory.storeOriginalCommand("done", theRest);
+							// commandHistory .storeOriginalCommand("done",
+							// theRest);
 							displayAll();
 							commandBox.setText("");
 						}
