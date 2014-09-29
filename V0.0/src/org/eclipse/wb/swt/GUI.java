@@ -421,8 +421,8 @@ public class GUI {
 						String number = arrString2[1];
 						String time = arrString2[2];
 						String modification = arrString2[3];
-						
-						
+						history.recordHistory(date);
+						history.clearHistorySave();
 						// String oldInfo = (new CommandSearchCurrDate(date,
 						// number)).searchString();
 						try {
@@ -435,6 +435,7 @@ public class GUI {
 						// commandHistory.copyEditCommandToReverse(date,
 						// number,time, modification, oldInfo);
 						// commandHistory.storeOriginalCommand("edit", theRest);
+						history.recordHistorySave(date);
 						commandBox.setText("");
 						displayAll();
 						break;
@@ -444,6 +445,8 @@ public class GUI {
 						String date1 = addString[0];
 						String time1 = addString[1];
 						String task = addString[2];
+						history.recordHistory(date1);
+						history.clearHistorySave();
 						try {
 							(new CommandAdd(date1, time1, task)).addTask();
 							displayAll();
@@ -454,12 +457,14 @@ public class GUI {
 						// commandHistory.copyAddCommandToReverse(date1,
 						// time1,task);
 						// commandHistory.storeOriginalCommand("add", theRest);
+						history.recordHistorySave(date1);
 						commandBox.setText("");
 						break;
 
 					case DONE:
 						if ((new IsValidDate(theRest).testValidDate())) {
-							
+							history.recordHistory(theRest);
+							history.clearHistorySave();
 							// commandHistory.copyDoneAllCommandToReverse(theRest);
 							try {
 								(new CommandDone(theRest)).clearDateTaskAll();
@@ -468,12 +473,12 @@ public class GUI {
 							}
 							// commandHistory.storeOriginalCommand("done",
 							// theRest);
-							
+							history.recordHistorySave(theRest);
 							displayAll();
 							commandBox.setText("");
 						} else {
 							String arrString3[] = theRest.split(" ", 2);
-							history.recordHistory(arrString3[1]);
+							history.recordHistory(arrString3[0]);
 							history.clearHistorySave();
 							// commandHistory.copyDoneSpecificCommandToReverse(
 							// arrString3[0], arrString3[1]);
@@ -481,7 +486,7 @@ public class GUI {
 									.clearDateTaskSpecific();
 							// commandHistory .storeOriginalCommand("done",
 							// theRest);
-							
+							history.recordHistorySave(arrString3[0]);
 							displayAll();
 							commandBox.setText("");
 						}
