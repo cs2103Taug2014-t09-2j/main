@@ -498,7 +498,7 @@ public class GUI {
 						//obtain the date to be zoomed in
 						int dateToBeZoomed = Integer.valueOf(theRest);
 						//check the date validity
-						if(!(dateToBeZoomed>0)&&(dateToBeZoomed<10)){
+						if(!(dateToBeZoomed>0)&(dateToBeZoomed<10)){
 							WarningPopUp.infoBox("Invalid Input!", "WARNING");
 							commandBox.setText("");
 						}
@@ -511,6 +511,34 @@ public class GUI {
 							case 2:
 								date2.setSize(250, 250);
 								date2.setFont(new Font("Rockwell", Font.PLAIN, 20));
+								break;
+							case 3:
+								date3.setSize(250, 250);
+								date3.setFont(new Font("Rockwell", Font.PLAIN, 20));
+								break;
+							case 4:
+								date4.setSize(250, 250);
+								date4.setFont(new Font("Rockwell", Font.PLAIN, 20));
+								break;
+							case 5:
+								date5.setSize(250, 250);
+								date5.setFont(new Font("Rockwell", Font.PLAIN, 20));
+								break;
+							case 6:
+								date6.setSize(250, 250);
+								date6.setFont(new Font("Rockwell", Font.PLAIN, 20));
+								break;
+							case 7:
+								date7.setSize(250, 250);
+								date7.setFont(new Font("Rockwell", Font.PLAIN, 20));
+								break;
+							case 8:
+								date8.setSize(250, 250);
+								date8.setFont(new Font("Rockwell", Font.PLAIN, 20));
+								break;
+							case 9:
+								date9.setSize(250, 250);
+								date9.setFont(new Font("Rockwell", Font.PLAIN, 20));
 								break;
 							default:
 								System.out.println("default");
