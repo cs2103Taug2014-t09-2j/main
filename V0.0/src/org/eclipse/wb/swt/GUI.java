@@ -523,48 +523,104 @@ public class GUI {
 								date2.setFont(new Font("Rockwell", Font.PLAIN,
 										20));
 								commandBox.setText("");
+								commandBox.addKeyListener(new KeyAdapter() {
+									public void keyPressed(KeyEvent e) {
+										date2.setSize(123, 113);
+										date2.setFont(new Font("Rockwell",
+												Font.PLAIN, 12));
+									}
+								});
 								break;
 							case 3:
 								date3.setSize(250, 250);
 								date3.setFont(new Font("Rockwell", Font.PLAIN,
 										20));
 								commandBox.setText("");
+								commandBox.addKeyListener(new KeyAdapter() {
+									public void keyPressed(KeyEvent e) {
+										date3.setSize(123, 113);
+										date3.setFont(new Font("Rockwell",
+												Font.PLAIN, 12));
+									}
+								});
 								break;
 							case 4:
 								date4.setSize(250, 250);
 								date4.setFont(new Font("Rockwell", Font.PLAIN,
 										20));
 								commandBox.setText("");
+								commandBox.addKeyListener(new KeyAdapter() {
+									public void keyPressed(KeyEvent e) {
+										date4.setSize(123, 113);
+										date4.setFont(new Font("Rockwell",
+												Font.PLAIN, 12));
+									}
+								});
 								break;
 							case 5:
 								date5.setSize(250, 250);
 								date5.setFont(new Font("Rockwell", Font.PLAIN,
 										20));
 								commandBox.setText("");
+								commandBox.addKeyListener(new KeyAdapter() {
+									public void keyPressed(KeyEvent e) {
+										date5.setSize(123, 113);
+										date5.setFont(new Font("Rockwell",
+												Font.PLAIN, 12));
+									}
+								});
 								break;
 							case 6:
 								date6.setSize(250, 250);
 								date6.setFont(new Font("Rockwell", Font.PLAIN,
 										20));
 								commandBox.setText("");
+								commandBox.addKeyListener(new KeyAdapter() {
+									public void keyPressed(KeyEvent e) {
+										date6.setSize(123, 113);
+										date6.setFont(new Font("Rockwell",
+												Font.PLAIN, 12));
+									}
+								});
 								break;
 							case 7:
 								date7.setSize(250, 250);
 								date7.setFont(new Font("Rockwell", Font.PLAIN,
 										20));
 								commandBox.setText("");
+								commandBox.addKeyListener(new KeyAdapter() {
+									public void keyPressed(KeyEvent e) {
+										date7.setSize(123, 113);
+										date7.setFont(new Font("Rockwell",
+												Font.PLAIN, 12));
+									}
+								});
 								break;
 							case 8:
 								date8.setSize(250, 250);
 								date8.setFont(new Font("Rockwell", Font.PLAIN,
 										20));
 								commandBox.setText("");
+								commandBox.addKeyListener(new KeyAdapter() {
+									public void keyPressed(KeyEvent e) {
+										date8.setSize(123, 113);
+										date8.setFont(new Font("Rockwell",
+												Font.PLAIN, 12));
+									}
+								});
 								break;
 							case 9:
 								date9.setSize(250, 250);
 								date9.setFont(new Font("Rockwell", Font.PLAIN,
 										20));
 								commandBox.setText("");
+								commandBox.addKeyListener(new KeyAdapter() {
+									public void keyPressed(KeyEvent e) {
+										date9.setSize(123, 113);
+										date9.setFont(new Font("Rockwell",
+												Font.PLAIN, 12));
+									}
+								});
 								break;
 							default:
 
