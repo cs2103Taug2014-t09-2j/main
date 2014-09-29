@@ -495,6 +495,16 @@ public class GUI {
 						break;
 						
 					case ZOOM:
+						//obtain the date to be zoomed in
+						String dateToBeZoomed = theRest;
+						//check the date validity
+						if(!new IsValidDate(dateToBeZoomed).testValidDate()){
+							WarningPopUp.infoBox("Invalid Date!", "WARNING");
+							commandBox.setText("");
+						}
+						else{
+							
+						}
 						
 					// other input will be displayed as invalid input
 					default:
