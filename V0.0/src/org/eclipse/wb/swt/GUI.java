@@ -38,7 +38,7 @@ public class GUI {
 	static CommandHistory history = new CommandHistory();
 
 	enum CommandTypes {
-		START, ADD, EDIT, DONE, INVALID, UNDO, REDO
+		START, ADD, EDIT, DONE, INVALID, UNDO, REDO, ZOOM
 	};
 
 	private static CommandTypes determineCmd(String str) {
@@ -54,6 +54,8 @@ public class GUI {
 			return CommandTypes.UNDO;
 		} else if (str.equals("redo")) {
 			return CommandTypes.REDO;
+		} else if (str.equals("zoom")){
+			return CommandTypes.ZOOM;
 		} else {
 			return CommandTypes.INVALID;
 		}
@@ -491,6 +493,9 @@ public class GUI {
 							commandBox.setText("");
 						}
 						break;
+						
+					case ZOOM:
+						
 					// other input will be displayed as invalid input
 					default:
 						WarningPopUp.infoBox("Invalid Input", "WARNING");
