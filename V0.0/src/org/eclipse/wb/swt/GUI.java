@@ -27,6 +27,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class GUI {
 
@@ -54,7 +56,7 @@ public class GUI {
 			return CommandTypes.UNDO;
 		} else if (str.equals("redo")) {
 			return CommandTypes.REDO;
-		} else if (str.equals("zoom")){
+		} else if (str.equals("zoom")) {
 			return CommandTypes.ZOOM;
 		} else {
 			return CommandTypes.INVALID;
@@ -493,69 +495,85 @@ public class GUI {
 							commandBox.setText("");
 						}
 						break;
-						
+
 					case ZOOM:
-						//obtain the date to be zoomed in
+						// obtain the date to be zoomed in
 						int dateToBeZoomed = Integer.valueOf(theRest);
-						//check the date validity
-						if(!((dateToBeZoomed>0)&&(dateToBeZoomed<10))){
+						// check the date validity
+						if (!((dateToBeZoomed > 0) && (dateToBeZoomed < 10))) {
 							WarningPopUp.infoBox("Invalid Input!", "WARNING");
-							commandBox.setText("");							
-						}
-						else{
-							switch(dateToBeZoomed){
+							commandBox.setText("");
+						} else {
+							switch (dateToBeZoomed) {
 							case 1:
 								DateBox1.setSize(250, 250);
-								DateBox1.setFont(new Font("Rockwell", Font.PLAIN, 20));
-								commandBox.setText("");	
+								DateBox1.setFont(new Font("Rockwell",
+										Font.PLAIN, 20));
+								commandBox.setText("");
+								commandBox.addKeyListener(new KeyAdapter() {
+									public void keyPressed(KeyEvent e) {
+										DateBox1.setSize(123, 113);
+										DateBox1.setFont(new Font("Rockwell",
+												Font.PLAIN, 12));
+									}
+								});
 								break;
 							case 2:
 								date2.setSize(250, 250);
-								date2.setFont(new Font("Rockwell", Font.PLAIN, 20));
-								commandBox.setText("");	
+								date2.setFont(new Font("Rockwell", Font.PLAIN,
+										20));
+								commandBox.setText("");
 								break;
 							case 3:
 								date3.setSize(250, 250);
-								date3.setFont(new Font("Rockwell", Font.PLAIN, 20));
-								commandBox.setText("");	
+								date3.setFont(new Font("Rockwell", Font.PLAIN,
+										20));
+								commandBox.setText("");
 								break;
 							case 4:
 								date4.setSize(250, 250);
-								date4.setFont(new Font("Rockwell", Font.PLAIN, 20));
-								commandBox.setText("");	
+								date4.setFont(new Font("Rockwell", Font.PLAIN,
+										20));
+								commandBox.setText("");
 								break;
 							case 5:
 								date5.setSize(250, 250);
-								date5.setFont(new Font("Rockwell", Font.PLAIN, 20));
-								commandBox.setText("");	
+								date5.setFont(new Font("Rockwell", Font.PLAIN,
+										20));
+								commandBox.setText("");
 								break;
 							case 6:
 								date6.setSize(250, 250);
-								date6.setFont(new Font("Rockwell", Font.PLAIN, 20));
-								commandBox.setText("");	
+								date6.setFont(new Font("Rockwell", Font.PLAIN,
+										20));
+								commandBox.setText("");
 								break;
 							case 7:
 								date7.setSize(250, 250);
-								date7.setFont(new Font("Rockwell", Font.PLAIN, 20));
-								commandBox.setText("");	
+								date7.setFont(new Font("Rockwell", Font.PLAIN,
+										20));
+								commandBox.setText("");
 								break;
 							case 8:
 								date8.setSize(250, 250);
-								date8.setFont(new Font("Rockwell", Font.PLAIN, 20));
-								commandBox.setText("");	
+								date8.setFont(new Font("Rockwell", Font.PLAIN,
+										20));
+								commandBox.setText("");
 								break;
 							case 9:
 								date9.setSize(250, 250);
-								date9.setFont(new Font("Rockwell", Font.PLAIN, 20));
-								commandBox.setText("");	
+								date9.setFont(new Font("Rockwell", Font.PLAIN,
+										20));
+								commandBox.setText("");
 								break;
 							default:
-				
+
 								break;
 							}
-							
-						}break;
-						
+
+						}
+						break;
+
 					// other input will be displayed as invalid input
 					default:
 						WarningPopUp.infoBox("Invalid Input", "WARNING");
