@@ -507,38 +507,47 @@ public class GUI {
 							case 1:
 								DateBox1.setSize(250, 250);
 								DateBox1.setFont(new Font("Rockwell", Font.PLAIN, 20));
+								commandBox.setText("");	
 								break;
 							case 2:
 								date2.setSize(250, 250);
 								date2.setFont(new Font("Rockwell", Font.PLAIN, 20));
+								commandBox.setText("");	
 								break;
 							case 3:
 								date3.setSize(250, 250);
 								date3.setFont(new Font("Rockwell", Font.PLAIN, 20));
+								commandBox.setText("");	
 								break;
 							case 4:
 								date4.setSize(250, 250);
 								date4.setFont(new Font("Rockwell", Font.PLAIN, 20));
+								commandBox.setText("");	
 								break;
 							case 5:
 								date5.setSize(250, 250);
 								date5.setFont(new Font("Rockwell", Font.PLAIN, 20));
+								commandBox.setText("");	
 								break;
 							case 6:
 								date6.setSize(250, 250);
 								date6.setFont(new Font("Rockwell", Font.PLAIN, 20));
+								commandBox.setText("");	
 								break;
 							case 7:
 								date7.setSize(250, 250);
 								date7.setFont(new Font("Rockwell", Font.PLAIN, 20));
+								commandBox.setText("");	
 								break;
 							case 8:
 								date8.setSize(250, 250);
 								date8.setFont(new Font("Rockwell", Font.PLAIN, 20));
+								commandBox.setText("");	
 								break;
 							case 9:
 								date9.setSize(250, 250);
 								date9.setFont(new Font("Rockwell", Font.PLAIN, 20));
+								commandBox.setText("");	
 								break;
 							default:
 				
