@@ -459,7 +459,8 @@ public class GUI {
 
 					case DONE:
 						if ((new IsValidDate(theRest).testValidDate())) {
-							history.recordHistory(theRest);
+							history.recordUndoHistory(theRest);
+							history.clearRedoHistory();
 							// commandHistory.copyDoneAllCommandToReverse(theRest);
 							try {
 								(new CommandDone(theRest)).clearDateTaskAll();
@@ -468,17 +469,20 @@ public class GUI {
 							}
 							// commandHistory.storeOriginalCommand("done",
 							// theRest);
+							history.recordRedoHistory(theRest);
 							displayAll();
 							commandBox.setText("");
 						} else {
 							String arrString3[] = theRest.split(" ", 2);
-							history.recordHistory(arrString3[0]);
+							history.recordUndoHistory(arrString3[0]);
+							history.clearRedoHistory();
 							// commandHistory.copyDoneSpecificCommandToReverse(
 							// arrString3[0], arrString3[1]);
 							(new CommandDone(arrString3[0], arrString3[1]))
 									.clearDateTaskSpecific();
 							// commandHistory .storeOriginalCommand("done",
 							// theRest);
+							history.recordRedoHistory(theRest);
 							displayAll();
 							commandBox.setText("");
 						}
