@@ -131,30 +131,30 @@ public class GUI {
 		frame.getContentPane().add(lblIdo);
 		Border border = BorderFactory.createLineBorder(Color.WHITE);
 
-		final JTextArea date1 = new JTextArea();
-		date1.setWrapStyleWord(true);
-		date1.setEditable(false);
-		date1.setFont(new Font("Rockwell", Font.PLAIN, 12));
+		final JTextArea DateBox1 = new JTextArea();
+		DateBox1.setWrapStyleWord(true);
+		DateBox1.setEditable(false);
+		DateBox1.setFont(new Font("Rockwell", Font.PLAIN, 12));
 		// create padding inside the text area
 		// Border border = BorderFactory.createLineBorder(Color.BLACK);
-		date1.setBorder(BorderFactory.createCompoundBorder(border,
+		DateBox1.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-		date1.setBackground(new Color(255, 215, 0));
-		date1.addMouseListener(new MouseAdapter() {
+		DateBox1.setBackground(new Color(255, 215, 0));
+		DateBox1.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
-				date1.setSize(250, 250);
-				date1.setFont(new Font("Rockwell", Font.PLAIN, 20));
+				DateBox1.setSize(250, 250);
+				DateBox1.setFont(new Font("Rockwell", Font.PLAIN, 20));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				date1.setSize(123, 113);
-				date1.setFont(new Font("Rockwell", Font.PLAIN, 12));
+				DateBox1.setSize(123, 113);
+				DateBox1.setFont(new Font("Rockwell", Font.PLAIN, 12));
 			}
 		});
-		date1.setLineWrap(true);
-		date1.setBounds(20, 59, 123, 114);
-		frame.getContentPane().add(date1);
+		DateBox1.setLineWrap(true);
+		DateBox1.setBounds(20, 59, 123, 114);
+		frame.getContentPane().add(DateBox1);
 
 		final JTextArea date2 = new JTextArea();
 		date2.setWrapStyleWord(true);
@@ -498,13 +498,26 @@ public class GUI {
 						//obtain the date to be zoomed in
 						int dateToBeZoomed = Integer.valueOf(theRest);
 						//check the date validity
-						if((dateToBeZoomed>0)&&(dateToBeZoomed<10)){
+						if(!(dateToBeZoomed>0)&&(dateToBeZoomed<10)){
 							WarningPopUp.infoBox("Invalid Input!", "WARNING");
 							commandBox.setText("");
 						}
 						else{
-							//switch(dateToBeZoomed)
-						}
+							switch(dateToBeZoomed){
+							case 1:
+								DateBox1.setSize(250, 250);
+								DateBox1.setFont(new Font("Rockwell", Font.PLAIN, 20));
+								break;
+							case 2:
+								date2.setSize(250, 250);
+								date2.setFont(new Font("Rockwell", Font.PLAIN, 20));
+								break;
+							default:
+								System.out.println("default");
+								break;
+							}
+							
+						}break;
 						
 					// other input will be displayed as invalid input
 					default:
@@ -577,7 +590,7 @@ public class GUI {
 						e.printStackTrace();
 					}
 					try {
-						date1.read(reader, this);
+						DateBox1.read(reader, this);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -746,7 +759,7 @@ public class GUI {
 					e.printStackTrace();
 				}
 				try {
-					date1.read(reader, this);
+					DateBox1.read(reader, this);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
