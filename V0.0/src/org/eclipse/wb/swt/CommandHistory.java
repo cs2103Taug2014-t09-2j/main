@@ -5,107 +5,105 @@ import java.util.Stack;
 
 public class CommandHistory {
 
-	public Stack<String> undoHistoryDate;
-	public Stack<String> redoHistoryDate;
-	// Switch over to Stack of Stack of Strings Stack<Stack<String>>
-	// public Stack<ArrayList<String>> undoHistoryAL;
-	// public Stack<ArrayList<String>> redoHistoryAL;
-
-	public Stack<String> undoHistoryStr;
-	public Stack<String> redoHistoryStr;
-
-	public Stack<Integer> undoHistoryInt;
-	public Stack<Integer> redoHistoryInt;
+	public Stack<String> historyDate;
+	public Stack<String> historyDateSave;
+	public Stack<ArrayList<String>> historyAL;
+	public Stack<ArrayList<String>> historyALSave;
 
 	public CommandHistory() {
-		undoHistoryDate = new Stack<String>();
-		redoHistoryDate = new Stack<String>();
-		// undoHistoryAL = new Stack<ArrayList<String>>();
-		// redoHistoryAL = new Stack<ArrayList<String>>();
-		undoHistoryStr = new Stack<String>();
-		redoHistoryStr = new Stack<String>();
-		undoHistoryInt = new Stack<Integer>();
-		redoHistoryInt = new Stack<Integer>();
+		historyDate = new Stack<String>();
+		historyDateSave = new Stack<String>();
+		historyAL = new Stack<ArrayList<String>>();
+		historyALSave = new Stack<ArrayList<String>>();
 	}
 
-	// When done,add,edit called
-	public void clearRedoHistory() {
-		while (!redoHistoryDate.empty()) {
-			redoHistoryDate.pop();
+	public void clearHistorySave() {
+		while (!historyALSave.empty()) {
+			historyALSave.pop();
 		}
-		while (!redoHistoryStr.empty()) {
-			redoHistoryStr.pop();
+		while (!historyDateSave.empty()) {
+			historyDateSave.pop();
 		}
-		while (!redoHistoryInt.empty()) {
-			redoHistoryInt.pop();
-		}
+
 	}
 
 	// Before the done,add,edit method starts
-	public void recordUndoHistory(String date) {
+	public void recordHistory(String date) {
 		String fileName = date + ".txt";
 		ArrayList<String> currDateTask = new ArrayList<>();
 		currDateTask = (new ReadFile(fileName)).readContents();
-		undoHistoryDate.push(fileName);
-		for (int i = 0; i < currDateTask.size(); i++) {
-			undoHistoryStr.push(currDateTask.get(i));
+		// Check if duplicate list
+		if (!historyAL.empty()) {
+			ArrayList<String> copy = new ArrayList<>();
+			copy = historyAL.pop();
+			historyAL.push(copy);
+			if (copy.size() == currDateTask.size()) {
+				for (int i = 0; i < copy.size(); i++) {
+					if (!copy.contains(currDateTask.get(i))) {
+						historyDate.push(fileName);
+						historyAL.push(currDateTask);
+						break;
+					}
+				}
+			} else {
+				historyDate.push(fileName);
+				historyAL.push(currDateTask);
+			}
+		} else {
+			historyDate.push(fileName);
+			historyAL.push(currDateTask);
 		}
-		undoHistoryInt.push(currDateTask.size());
+
+		// System.out.println("HD=" + historyDate.size());
 	}
-	
-	// After the done,add,edit method end
-	public void recordRedoHistory(String date) {
+
+	public void recordHistorySave(String date) {
 		String fileName = date + ".txt";
 		ArrayList<String> currDateTask = new ArrayList<>();
 		currDateTask = (new ReadFile(fileName)).readContents();
-		undoHistoryDate.push(fileName);
-		for (int i = 0; i < currDateTask.size(); i++) {
-			undoHistoryStr.push(currDateTask.get(i));
-		}
-		undoHistoryInt.push(currDateTask.size());
+		historyDateSave.push(fileName);
+		historyALSave.push(currDateTask);
+		// System.out.println("HDS=" + historyDateSave.size());
+
 	}
 
-	public void runUndo() {
-		if (!undoHistoryDate.empty()) {
-			String fileName = undoHistoryDate.pop();
-			int counter = undoHistoryInt.pop();
-			ArrayList<String> currDateTask = new ArrayList<>();
-			for (int i = 0; i < counter; i++) {
-				String task = undoHistoryStr.pop();
-				System.out.println(i + " " + task);
-				currDateTask.add(task);
-				redoHistoryStr.push(task);
+	public void runHistory(String cmd) {
+		if (cmd.equals("undo")) {
+			if (historyDate.size() != 1) {
+				String fileName = historyDate.pop();
+				ArrayList<String> currDateTask = new ArrayList<>();
+				currDateTask = historyAL.pop();
+				historyDateSave.push(fileName);
+				historyALSave.push(currDateTask);
+				(new WriteFile(fileName, currDateTask)).writeContents();
+
+			} else {
+				System.out.println("Undo Limit");
+				String fileName = historyDate.pop();
+				ArrayList<String> currDateTask = new ArrayList<>();
+				currDateTask = historyAL.pop();
+				(new WriteFile(fileName, currDateTask)).writeContents();
+				historyDate.push(fileName);
+				historyAL.push(currDateTask);
 			}
-			redoHistoryInt.push(counter);
-			redoHistoryDate.push(fileName);
+		} else if (cmd.equals("redo")) {
+			if (historyDateSave.size() != 1) {
+				String fileName = historyDateSave.pop();
+				ArrayList<String> currDateTask = new ArrayList<>();
+				currDateTask = historyALSave.pop();
+				historyDate.push(fileName);
+				historyAL.push(currDateTask);
+				(new WriteFile(fileName, currDateTask)).writeContents();
 
-			(new WriteFile(fileName, currDateTask)).writeContents();
-
-		} else {
-			System.out.println("Failed Undo");
-		}
-	}
-
-	// ArrayList does not copy actual contents
-	// Somehow copies exact contents making redo fail
-	public void runRedo() {
-		if (!redoHistoryDate.empty() && redoHistoryDate.size()-undoHistoryDate.size()==2) {
-			String fileName = redoHistoryDate.pop();
-			int counter = redoHistoryInt.pop();
-			ArrayList<String> currDateTask = new ArrayList<>();
-			for (int i = 0; i < counter; i++) {
-				String task = redoHistoryStr.pop();
-				System.out.println(i + " " + task);
-				currDateTask.add(task);
-				undoHistoryStr.push(task);
+			} else {
+				System.out.println("Redo Limit");
+				String fileName = historyDateSave.pop();
+				ArrayList<String> currDateTask = new ArrayList<>();
+				currDateTask = historyALSave.pop();
+				(new WriteFile(fileName, currDateTask)).writeContents();
+				historyDateSave.push(fileName);
+				historyALSave.push(currDateTask);
 			}
-			undoHistoryInt.push(counter);
-			undoHistoryDate.push(fileName);
-
-			(new WriteFile(fileName, currDateTask)).writeContents();
-			System.out.println("Works");
-		} else {
-			System.out.println("Failed Redo");
 		}
 	}
 
