@@ -124,8 +124,8 @@ public class GUI {
 		frame.getContentPane().setLayout(null);
 
 		JLabel lblIdo = new JLabel("iDO++");
-		lblIdo.setBounds(56, 0, 141, 59);
-		lblIdo.setForeground(new Color(255, 215, 0));
+		lblIdo.setBounds(30, 2, 141, 59);
+		lblIdo.setForeground(new Color(0, 0, 0));
 		lblIdo.setFont(new Font("Bauhaus 93", Font.BOLD, 40));
 		frame.getContentPane().add(lblIdo);
 
@@ -253,7 +253,7 @@ public class GUI {
 		frame.getContentPane().add(generalTaskBox);
 
 		commandBox = new JTextField();
-		commandBox.setBounds(228, 19, 401, 20);
+		commandBox.setBounds(181, 19, 455, 20);
 		// prompt the user to type start
 		commandBox.setText("Please type the command here!");
 
