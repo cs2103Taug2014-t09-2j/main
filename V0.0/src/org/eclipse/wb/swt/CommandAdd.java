@@ -106,7 +106,7 @@ public class CommandAdd {
 		}
 		String content = "[" + time + "] " + task;
 		if (time.equals("-")){
-			content = task;
+			content = "[all day] "+ task;
 		}
 		ArrayList<String> list = new ArrayList<String>();
 		// Check if the text file exists, if it does, add its content to
