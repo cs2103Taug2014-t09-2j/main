@@ -399,7 +399,7 @@ public class GUI {
 						break;
 					case "redo":
 						// commandHistory.runRedo();
-						history.runHistoryRedo();
+						String repeatCmd = history.runHistoryRedo();
 						commandBox.setText("");
 						displayAll();
 						break;
