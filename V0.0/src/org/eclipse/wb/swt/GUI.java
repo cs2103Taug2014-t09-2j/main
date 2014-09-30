@@ -130,7 +130,7 @@ public class GUI {
 		frame.getContentPane().add(lblIdo);
 
 		final JTextArea DateBox1 = new JTextArea();
-		DateBox1.setBounds(30, 64, 193, 197);
+		DateBox1.setBounds(30, 64, 200, 200);
 		DateBox1.setWrapStyleWord(true);
 		DateBox1.setEditable(false);
 		DateBox1.setFont(new Font("Rockwell", Font.PLAIN, 12));
@@ -155,7 +155,7 @@ public class GUI {
 		frame.getContentPane().add(DateBox1);
 
 		final JTextArea date2 = new JTextArea();
-		date2.setBounds(228, 64, 205, 197);
+		date2.setBounds(233, 64, 200, 200);
 		date2.setWrapStyleWord(true);
 		date2.setLineWrap(true);
 		date2.setFont(new Font("Rockwell", Font.PLAIN, 12));
@@ -167,7 +167,7 @@ public class GUI {
 		frame.getContentPane().add(date2);
 
 		final JTextArea date3 = new JTextArea();
-		date3.setBounds(438, 64, 191, 197);
+		date3.setBounds(436, 64, 200, 200);
 		date3.setWrapStyleWord(true);
 		date3.setLineWrap(true);
 		date3.setFont(new Font("Rockwell", Font.PLAIN, 12));
@@ -179,7 +179,7 @@ public class GUI {
 		frame.getContentPane().add(date3);
 
 		final JTextArea date4 = new JTextArea();
-		date4.setBounds(30, 266, 193, 198);
+		date4.setBounds(30, 266, 200, 200);
 		date4.setWrapStyleWord(true);
 		date4.setLineWrap(true);
 		date4.setFont(new Font("Rockwell", Font.PLAIN, 12));
@@ -192,7 +192,7 @@ public class GUI {
 		// Border border = BorderFactory.createLineBorder(Color.WHITE);
 
 		final JTextArea date5 = new JTextArea();
-		date5.setBounds(228, 266, 205, 198);
+		date5.setBounds(233, 266, 200, 200);
 		date5.setWrapStyleWord(true);
 		date5.setLineWrap(true);
 		date5.setFont(new Font("Rockwell", Font.PLAIN, 12));
@@ -204,7 +204,7 @@ public class GUI {
 		frame.getContentPane().add(date5);
 
 		final JTextArea date6 = new JTextArea();
-		date6.setBounds(438, 266, 191, 198);
+		date6.setBounds(436, 266, 200, 200);
 		date6.setWrapStyleWord(true);
 		date6.setLineWrap(true);
 		date6.setFont(new Font("Rockwell", Font.PLAIN, 12));
@@ -216,7 +216,7 @@ public class GUI {
 		frame.getContentPane().add(date6);
 
 		final JTextArea date7 = new JTextArea();
-		date7.setBounds(30, 469, 193, 207);
+		date7.setBounds(30, 469, 200, 200);
 		date7.setWrapStyleWord(true);
 		date7.setLineWrap(true);
 		date7.setFont(new Font("Rockwell", Font.PLAIN, 12));
@@ -228,7 +228,7 @@ public class GUI {
 		frame.getContentPane().add(date7);
 
 		final JTextArea missingBox = new JTextArea();
-		missingBox.setBounds(228, 469, 205, 207);
+		missingBox.setBounds(233, 469, 200, 200);
 		missingBox.setWrapStyleWord(true);
 		missingBox.setLineWrap(true);
 		missingBox.setFont(new Font("Rockwell", Font.PLAIN, 12));
@@ -240,7 +240,7 @@ public class GUI {
 		// missingBox.read(reader, this);
 
 		final JTextArea generalTaskBox = new JTextArea();
-		generalTaskBox.setBounds(438, 469, 191, 207);
+		generalTaskBox.setBounds(436, 469, 200, 200);
 		generalTaskBox.setWrapStyleWord(true);
 		generalTaskBox.setText("General Tasks");
 		generalTaskBox.setLineWrap(true);
