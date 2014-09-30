@@ -122,7 +122,7 @@ public class GUI {
 			}
 
 		});
-		frame.setBounds(100, 100, 600, 459);
+		frame.setBounds(100, 100, 677, 730);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
