@@ -408,11 +408,14 @@ public class GUI {
 						break;
 					case "redo":
 						// commandHistory.runRedo();
-						String repeatCmd = history.runHistoryRedo();
-						System.out.println(repeatCmd);
+						history.runHistoryRedo();
+//						String repeatCmd = history.runHistoryRedo();
+//						System.out.println(repeatCmd);
 						commandBox.setText("");
-						processCommand(DateBox1, date2, date3, date4, date5, date6,
-								date7, date8, date9,repeatCmd);
+//						if(repeatCmd.length()!=0){
+//						processCommand(DateBox1, date2, date3, date4, date5, date6,
+//								date7, date8, date9,repeatCmd);
+//						}
 						displayAll();
 						break;
 
@@ -432,11 +435,11 @@ public class GUI {
 
 					switch (command) {
 					case EDIT:
-						String arrString2[] = theRest.split(" ", 4);
-						String date = arrString2[0];
-						String number = arrString2[1];
-						String time = arrString2[2];
-						String modification = arrString2[3];
+						String editString[] = theRest.split(" ", 4);
+						String date = editString[0];
+						String number = editString[1];
+						String time = editString[2];
+						String modification = editString[3];
 						history.recordHistory(date);
 						history.recordInputHistory("edit " + theRest);
 						// String oldInfo = (new CommandSearchCurrDate(date,
@@ -490,12 +493,12 @@ public class GUI {
 							displayAll();
 							commandBox.setText("");
 						} else {
-							String arrString3[] = theRest.split(" ", 2);
-							history.recordHistory(arrString3[0]);
+							String doneString[] = theRest.split(" ", 2);
+							history.recordHistory(doneString[0]);
 							history.recordInputHistory("done " + theRest);
 							// commandHistory.copyDoneSpecificCommandToReverse(
-							// arrString3[0], arrString3[1]);
-							(new CommandDone(arrString3[0], arrString3[1]))
+							// doneString[0], doneString[1]);
+							(new CommandDone(doneString[0], doneString[1]))
 									.clearDateTaskSpecific();
 							// commandHistory .storeOriginalCommand("done",
 							// theRest);
