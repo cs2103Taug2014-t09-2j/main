@@ -411,6 +411,8 @@ public class GUI {
 						String repeatCmd = history.runHistoryRedo();
 						System.out.println(repeatCmd);
 						commandBox.setText("");
+						processCommand(DateBox1, date2, date3, date4, date5, date6,
+								date7, date8, date9,repeatCmd);
 						displayAll();
 						break;
 
