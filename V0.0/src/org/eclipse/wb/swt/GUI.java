@@ -161,6 +161,9 @@ public class GUI {
 		date2.setFont(new Font("Rockwell", Font.PLAIN, 12));
 		date2.setEditable(false);
 		date2.setBackground(new Color(255, 215, 0));
+		// create padding inside the text area
+		date2.setBorder(BorderFactory.createCompoundBorder(border,
+				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 		frame.getContentPane().add(date2);
 
 		final JTextArea date3 = new JTextArea();
@@ -170,6 +173,9 @@ public class GUI {
 		date3.setFont(new Font("Rockwell", Font.PLAIN, 12));
 		date3.setEditable(false);
 		date3.setBackground(new Color(255, 215, 0));
+		// create padding inside the text area
+		date3.setBorder(BorderFactory.createCompoundBorder(border,
+				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 		frame.getContentPane().add(date3);
 
 		final JTextArea date4 = new JTextArea();
@@ -180,7 +186,10 @@ public class GUI {
 		date4.setEditable(false);
 		date4.setBackground(new Color(255, 215, 0));
 		frame.getContentPane().add(date4);
-		//Border border = BorderFactory.createLineBorder(Color.WHITE);
+		// create padding inside the text area
+		date4.setBorder(BorderFactory.createCompoundBorder(border,
+				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+		// Border border = BorderFactory.createLineBorder(Color.WHITE);
 
 		final JTextArea date5 = new JTextArea();
 		date5.setBounds(228, 266, 205, 198);
@@ -189,6 +198,9 @@ public class GUI {
 		date5.setFont(new Font("Rockwell", Font.PLAIN, 12));
 		date5.setEditable(false);
 		date5.setBackground(new Color(255, 215, 0));
+		// create padding inside the text area
+		date5.setBorder(BorderFactory.createCompoundBorder(border,
+				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 		frame.getContentPane().add(date5);
 
 		final JTextArea date6 = new JTextArea();
@@ -198,6 +210,9 @@ public class GUI {
 		date6.setFont(new Font("Rockwell", Font.PLAIN, 12));
 		date6.setEditable(false);
 		date6.setBackground(new Color(255, 215, 0));
+		// create padding inside the text area
+		date6.setBorder(BorderFactory.createCompoundBorder(border,
+				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 		frame.getContentPane().add(date6);
 
 		final JTextArea date7 = new JTextArea();
@@ -207,6 +222,9 @@ public class GUI {
 		date7.setFont(new Font("Rockwell", Font.PLAIN, 12));
 		date7.setEditable(false);
 		date7.setBackground(new Color(255, 215, 0));
+		// create padding inside the text area
+		date7.setBorder(BorderFactory.createCompoundBorder(border,
+				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 		frame.getContentPane().add(date7);
 
 		final JTextArea missingBox = new JTextArea();
@@ -219,7 +237,7 @@ public class GUI {
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 		missingBox.setBackground(new Color(255, 99, 71));
 		frame.getContentPane().add(missingBox);
-		//missingBox.read(reader, this);
+		// missingBox.read(reader, this);
 
 		final JTextArea generalTaskBox = new JTextArea();
 		generalTaskBox.setBounds(438, 469, 191, 207);
@@ -259,8 +277,7 @@ public class GUI {
 			public void processCommand(final JTextArea DateBox1,
 					final JTextArea date2, final JTextArea date3,
 					final JTextArea date4, final JTextArea date5,
-					final JTextArea date6, final JTextArea date7,
-					String input) {
+					final JTextArea date6, final JTextArea date7, String input) {
 
 				history.trackCmd(input);
 				String inputArr[] = input.split(" ", 2);
@@ -615,7 +632,7 @@ public class GUI {
 		});
 		frame.getContentPane().add(commandBox);
 		commandBox.setColumns(10);
-		//generalTaskBox.read(reader, this);
+		// generalTaskBox.read(reader, this);
 
 		/*
 		 * Populate the task boxes with the data in the source files
@@ -628,7 +645,6 @@ public class GUI {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
 
 		String prevDateString = DateUpdate
 				.getPrevDate(DateUpdate.getCurrDate());
@@ -742,7 +758,7 @@ public class GUI {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				break;		
+				break;
 			}
 			// update the current date for the next loop
 			currDateString = DateUpdate.getNextDate(currDateString);
