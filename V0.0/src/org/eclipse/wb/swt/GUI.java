@@ -381,7 +381,7 @@ public class GUI {
 
 			public void actionPerformed(ActionEvent arg0) {
 				processCommand(DateBox1, date2, date3, date4, date5, date6,
-						date7, date8, date9,commandBox.getText());
+						date7, date8, date9, commandBox.getText());
 			}
 
 			public void processCommand(final JTextArea DateBox1,
@@ -389,6 +389,7 @@ public class GUI {
 					final JTextArea date4, final JTextArea date5,
 					final JTextArea date6, final JTextArea date7,
 					final JTextArea date8, final JTextArea date9, String input) {
+				
 				String inputArr[] = input.split(" ", 2);
 				// take care of the one word input
 				if (inputArr.length == 1) {
@@ -396,26 +397,12 @@ public class GUI {
 					case "exit":
 						System.exit(0);
 					case "undo":
-						// try {
-						// commandHistory.runUndo();
-						// } catch (IOException e) {
-						// // TODO Auto-generated catch block
-						// e.printStackTrace();
-						// }
 						history.runHistoryUndo();
 						commandBox.setText("");
 						displayAll();
 						break;
 					case "redo":
-						// commandHistory.runRedo();
-						history.runHistoryRedo();
-//						String repeatCmd = history.runHistoryRedo();
-//						System.out.println(repeatCmd);
-						commandBox.setText("");
-//						if(repeatCmd.length()!=0){
-//						processCommand(DateBox1, date2, date3, date4, date5, date6,
-//								date7, date8, date9,repeatCmd);
-//						}
+						
 						displayAll();
 						break;
 
@@ -432,7 +419,9 @@ public class GUI {
 					 * be added to the file, depending on the command
 					 */
 					String theRest = inputArr[1].trim();
-
+					String recordDate[] = theRest.split(" ", 2);
+					history.recordHistory(recordDate[0]);
+										
 					switch (command) {
 					case EDIT:
 						String editString[] = theRest.split(" ", 4);
@@ -440,10 +429,6 @@ public class GUI {
 						String number = editString[1];
 						String time = editString[2];
 						String modification = editString[3];
-						history.recordHistory(date);
-						history.recordInputHistory("edit " + theRest);
-						// String oldInfo = (new CommandSearchCurrDate(date,
-						// number)).searchString();
 						try {
 							(new CommandEdit(date, number, time, modification))
 									.edit();
@@ -451,9 +436,6 @@ public class GUI {
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
-						// commandHistory.copyEditCommandToReverse(date,
-						// number,time, modification, oldInfo);
-						// commandHistory.storeOriginalCommand("edit", theRest);
 						commandBox.setText("");
 						displayAll();
 						break;
@@ -463,45 +445,30 @@ public class GUI {
 						String date1 = addString[0];
 						String time1 = addString[1];
 						String task = addString[2];
-						history.recordHistory(date1);
-						history.recordInputHistory("add " + theRest);
+						
 						try {
 							(new CommandAdd(date1, time1, task)).addTask();
 							displayAll();
 							// addTask(date1,time1,task);
 						} catch (IOException e1) {
 							e1.printStackTrace();
-						}
-						// commandHistory.copyAddCommandToReverse(date1,
-						// time1,task);
-						// commandHistory.storeOriginalCommand("add", theRest);
+						}						
 						commandBox.setText("");
 						break;
 
 					case DONE:
-						if ((new IsValidDate(theRest).testValidDate())) {
-							history.recordHistory(theRest);
-							history.recordInputHistory("done " + theRest);
-							// commandHistory.copyDoneAllCommandToReverse(theRest);
+						if ((new IsValidDate(theRest).testValidDate())) {							
 							try {
 								(new CommandDone(theRest)).clearDateTaskAll();
 							} catch (FileNotFoundException e) {
 								e.printStackTrace();
 							}
-							// commandHistory.storeOriginalCommand("done",
-							// theRest);
 							displayAll();
 							commandBox.setText("");
 						} else {
-							String doneString[] = theRest.split(" ", 2);
-							history.recordHistory(doneString[0]);
-							history.recordInputHistory("done " + theRest);
-							// commandHistory.copyDoneSpecificCommandToReverse(
-							// doneString[0], doneString[1]);
+							String doneString[] = theRest.split(" ", 2);							
 							(new CommandDone(doneString[0], doneString[1]))
-									.clearDateTaskSpecific();
-							// commandHistory .storeOriginalCommand("done",
-							// theRest);
+									.clearDateTaskSpecific();							
 							displayAll();
 							commandBox.setText("");
 						}
