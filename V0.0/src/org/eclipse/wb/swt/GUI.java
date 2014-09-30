@@ -380,7 +380,16 @@ public class GUI {
 			 */
 
 			public void actionPerformed(ActionEvent arg0) {
-				String inputArr[] = commandBox.getText().split(" ", 2);
+				processCommand(DateBox1, date2, date3, date4, date5, date6,
+						date7, date8, date9,commandBox.getText());
+			}
+
+			public void processCommand(final JTextArea DateBox1,
+					final JTextArea date2, final JTextArea date3,
+					final JTextArea date4, final JTextArea date5,
+					final JTextArea date6, final JTextArea date7,
+					final JTextArea date8, final JTextArea date9, String input) {
+				String inputArr[] = input.split(" ", 2);
 				// take care of the one word input
 				if (inputArr.length == 1) {
 					switch (inputArr[0]) {
@@ -400,6 +409,7 @@ public class GUI {
 					case "redo":
 						// commandHistory.runRedo();
 						String repeatCmd = history.runHistoryRedo();
+						System.out.println(repeatCmd);
 						commandBox.setText("");
 						displayAll();
 						break;
