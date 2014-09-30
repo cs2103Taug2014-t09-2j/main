@@ -8,11 +8,22 @@ public class CommandHistory {
 	// For Undo
 	public Stack<String> historyDate;
 	public Stack<ArrayList<String>> historyAL;
-	
+
+	// For Redo
+	public Stack<String> historyDateR;
+	public Stack<ArrayList<String>> historyALR;
+
+	public Stack<String> historyCmd;
+
+	public int bugCounter = 0;
+
 	public CommandHistory() {
 		historyDate = new Stack<String>();
 		historyAL = new Stack<ArrayList<String>>();
-		
+		historyDateR = new Stack<String>();
+		historyALR = new Stack<ArrayList<String>>();
+		historyCmd = new Stack<String>();
+
 	}
 
 	// Before the done,add,edit method starts
@@ -26,20 +37,113 @@ public class CommandHistory {
 
 	}
 
+	// Track commands
+	public void trackCmd(String cmd) {
+		historyCmd.push(cmd);
+	}
+
+	// Clear DateR & ALR
+	public void clearDateRALR() {
+		while (!historyDateR.empty()) {
+			historyDateR.pop();
+		}
+		while (!historyALR.empty()) {
+			historyALR.pop();
+		}
+
+	}
+
+	// every new command after undo results in a duplicate old file
+	// so have to pop once from Date & AL
+	public void checkPrevPrevNcheckPrev() {
+		if (historyCmd.size() > 1) {
+			String original = historyCmd.pop();
+			String checker = historyCmd.pop();
+			historyCmd.push(checker);
+			historyCmd.push(original);
+			if ((original.equals("undo") || original.equals("redo"))
+					&& (!checker.equals("undo") || !checker.equals("redo"))) {
+				historyDate.pop();
+				historyAL.pop();
+			}
+
+		}
+	}
+
+	// Check prev prev command if undo or redo
+	public boolean checkPrevPrev(Stack<String> historyCmd) {
+		if (historyCmd.size() != 0) {
+			String original = historyCmd.pop();
+			String checker = historyCmd.pop();
+			historyCmd.push(checker);
+			historyCmd.push(original);
+			if (checker.equals("undo") || checker.equals("redo")) {
+				return false;
+			}
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public void runHistoryUndo() {
-				
+
+		// For start of every non-consecutive undo
+		// If prev prev command is not undo/redo
+		if (checkPrevPrev(historyCmd)) {
+			if (historyDateR.empty()) {
+				String fileName = historyDate.pop();
+				historyDate.push(fileName);
+				ArrayList<String> currDateTask = new ArrayList<>();
+				currDateTask = (new ReadFile(fileName)).readContents();
+				historyDateR.push(fileName);
+				historyALR.push(currDateTask);
+
+			}
+
+		}
+
+		if (historyDateR.empty()) {
+			historyDateR.push(historyDate.pop());
+			historyALR.push(historyAL.pop());
+		}
+
 		if (!historyDate.empty()) {
 			String fileName = historyDate.pop();
 			ArrayList<String> currDateTask = new ArrayList<>();
 			// System.out.println(currDateTask.size());
 			currDateTask = historyAL.pop();
 			(new WriteFile(fileName, currDateTask)).writeContents();
-						
+			historyDateR.push(fileName);
+			historyALR.push(currDateTask);
+
 		} else {
 			System.out.println("Undo Limit");
 
 		}
+	}
+
+	public void runHistoryRedo() {
+
+		if (historyDate.empty()) {
+			historyDate.push(historyDateR.pop());
+			historyAL.push(historyALR.pop());
+		}
+
+		if (!historyDateR.empty()) {
+			String fileName = historyDateR.pop();
+			ArrayList<String> currDateTask = new ArrayList<>();
+			// System.out.println(currDateTask.size());
+			currDateTask = historyALR.pop();
+			(new WriteFile(fileName, currDateTask)).writeContents();
+			historyDate.push(fileName);
+			historyAL.push(currDateTask);
+
+		} else {
+			System.out.println("Redo Limit");
+
+		}
 
 	}
-	
+
 }

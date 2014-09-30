@@ -390,6 +390,7 @@ public class GUI {
 					final JTextArea date6, final JTextArea date7,
 					final JTextArea date8, final JTextArea date9, String input) {
 				
+				history.trackCmd(input);
 				String inputArr[] = input.split(" ", 2);
 				// take care of the one word input
 				if (inputArr.length == 1) {
@@ -402,7 +403,8 @@ public class GUI {
 						displayAll();
 						break;
 					case "redo":
-						
+						history.runHistoryRedo();
+						commandBox.setText("");
 						displayAll();
 						break;
 
@@ -421,6 +423,8 @@ public class GUI {
 					String theRest = inputArr[1].trim();
 					String recordDate[] = theRest.split(" ", 2);
 					history.recordHistory(recordDate[0]);
+					history.clearDateRALR();
+					history.checkPrevPrevNcheckPrev();
 										
 					switch (command) {
 					case EDIT:
