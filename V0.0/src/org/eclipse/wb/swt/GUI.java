@@ -139,7 +139,7 @@ public class GUI {
 		DateBox1.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 		DateBox1.setBackground(new Color(255, 215, 0));
-		DateBox1.addMouseListener(new MouseAdapter() {
+		/*DateBox1.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
 				DateBox1.setSize(250, 250);
 				DateBox1.setFont(new Font("Rockwell", Font.PLAIN, 20));
@@ -150,7 +150,7 @@ public class GUI {
 				DateBox1.setSize(123, 113);
 				DateBox1.setFont(new Font("Rockwell", Font.PLAIN, 12));
 			}
-		});
+		});*/
 		DateBox1.setLineWrap(true);
 		frame.getContentPane().add(DateBox1);
 
@@ -377,91 +377,91 @@ public class GUI {
 						} else {
 							switch (dateToBeZoomed) {
 							case 1:
-								DateBox1.setSize(250, 250);
+								DateBox1.setSize(400, 400);
 								DateBox1.setFont(new Font("Rockwell",
 										Font.PLAIN, 20));
 								commandBox.setText("");
 								commandBox.addKeyListener(new KeyAdapter() {
 									public void keyPressed(KeyEvent e) {
-										DateBox1.setSize(123, 113);
+										DateBox1.setSize(200, 200);
 										DateBox1.setFont(new Font("Rockwell",
 												Font.PLAIN, 12));
 									}
 								});
 								break;
 							case 2:
-								date2.setSize(250, 250);
+								date2.setSize(400, 400);
 								date2.setFont(new Font("Rockwell", Font.PLAIN,
 										20));
 								commandBox.setText("");
 								commandBox.addKeyListener(new KeyAdapter() {
 									public void keyPressed(KeyEvent e) {
-										date2.setSize(123, 113);
+										date2.setSize(200, 200);
 										date2.setFont(new Font("Rockwell",
 												Font.PLAIN, 12));
 									}
 								});
 								break;
 							case 3:
-								date3.setSize(250, 250);
+								date3.setSize(400, 400);
 								date3.setFont(new Font("Rockwell", Font.PLAIN,
 										20));
 								commandBox.setText("");
 								commandBox.addKeyListener(new KeyAdapter() {
 									public void keyPressed(KeyEvent e) {
-										date3.setSize(123, 113);
+										date3.setSize(200, 200);
 										date3.setFont(new Font("Rockwell",
 												Font.PLAIN, 12));
 									}
 								});
 								break;
 							case 4:
-								date4.setSize(250, 250);
+								date4.setSize(400, 400);
 								date4.setFont(new Font("Rockwell", Font.PLAIN,
 										20));
 								commandBox.setText("");
 								commandBox.addKeyListener(new KeyAdapter() {
 									public void keyPressed(KeyEvent e) {
-										date4.setSize(123, 113);
+										date4.setSize(200, 200);
 										date4.setFont(new Font("Rockwell",
 												Font.PLAIN, 12));
 									}
 								});
 								break;
 							case 5:
-								date5.setSize(250, 250);
+								date5.setSize(400, 400);
 								date5.setFont(new Font("Rockwell", Font.PLAIN,
 										20));
 								commandBox.setText("");
 								commandBox.addKeyListener(new KeyAdapter() {
 									public void keyPressed(KeyEvent e) {
-										date5.setSize(123, 113);
+										date5.setSize(200, 200);
 										date5.setFont(new Font("Rockwell",
 												Font.PLAIN, 12));
 									}
 								});
 								break;
 							case 6:
-								date6.setSize(250, 250);
+								date6.setSize(400, 400);
 								date6.setFont(new Font("Rockwell", Font.PLAIN,
 										20));
 								commandBox.setText("");
 								commandBox.addKeyListener(new KeyAdapter() {
 									public void keyPressed(KeyEvent e) {
-										date6.setSize(123, 113);
+										date6.setSize(200, 200);
 										date6.setFont(new Font("Rockwell",
 												Font.PLAIN, 12));
 									}
 								});
 								break;
 							case 7:
-								date7.setSize(250, 250);
+								date7.setSize(400, 400);
 								date7.setFont(new Font("Rockwell", Font.PLAIN,
 										20));
 								commandBox.setText("");
 								commandBox.addKeyListener(new KeyAdapter() {
 									public void keyPressed(KeyEvent e) {
-										date7.setSize(123, 113);
+										date7.setSize(200, 200);
 										date7.setFont(new Font("Rockwell",
 												Font.PLAIN, 12));
 									}
