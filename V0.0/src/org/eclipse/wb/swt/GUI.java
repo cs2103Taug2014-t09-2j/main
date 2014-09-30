@@ -393,13 +393,13 @@ public class GUI {
 						// // TODO Auto-generated catch block
 						// e.printStackTrace();
 						// }
-						history.runHistory("undo");
+						history.runHistoryUndo();
 						commandBox.setText("");
 						displayAll();
 						break;
 					case "redo":
 						// commandHistory.runRedo();
-						history.runHistory("redo");
+						history.runHistoryRedo();
 						commandBox.setText("");
 						displayAll();
 						break;
@@ -426,7 +426,7 @@ public class GUI {
 						String time = arrString2[2];
 						String modification = arrString2[3];
 						history.recordHistory(date);
-						history.clearHistorySave();
+						history.recordInputHistory("edit " + theRest);
 						// String oldInfo = (new CommandSearchCurrDate(date,
 						// number)).searchString();
 						try {
@@ -439,7 +439,6 @@ public class GUI {
 						// commandHistory.copyEditCommandToReverse(date,
 						// number,time, modification, oldInfo);
 						// commandHistory.storeOriginalCommand("edit", theRest);
-						history.recordHistorySave(date);
 						commandBox.setText("");
 						displayAll();
 						break;
@@ -450,7 +449,7 @@ public class GUI {
 						String time1 = addString[1];
 						String task = addString[2];
 						history.recordHistory(date1);
-						history.clearHistorySave();
+						history.recordInputHistory("add " + theRest);
 						try {
 							(new CommandAdd(date1, time1, task)).addTask();
 							displayAll();
@@ -461,14 +460,13 @@ public class GUI {
 						// commandHistory.copyAddCommandToReverse(date1,
 						// time1,task);
 						// commandHistory.storeOriginalCommand("add", theRest);
-						history.recordHistorySave(date1);
 						commandBox.setText("");
 						break;
 
 					case DONE:
 						if ((new IsValidDate(theRest).testValidDate())) {
 							history.recordHistory(theRest);
-							history.clearHistorySave();
+							history.recordInputHistory("done " + theRest);
 							// commandHistory.copyDoneAllCommandToReverse(theRest);
 							try {
 								(new CommandDone(theRest)).clearDateTaskAll();
@@ -477,20 +475,18 @@ public class GUI {
 							}
 							// commandHistory.storeOriginalCommand("done",
 							// theRest);
-							history.recordHistorySave(theRest);
 							displayAll();
 							commandBox.setText("");
 						} else {
 							String arrString3[] = theRest.split(" ", 2);
 							history.recordHistory(arrString3[0]);
-							history.clearHistorySave();
+							history.recordInputHistory("done " + theRest);
 							// commandHistory.copyDoneSpecificCommandToReverse(
 							// arrString3[0], arrString3[1]);
 							(new CommandDone(arrString3[0], arrString3[1]))
 									.clearDateTaskSpecific();
 							// commandHistory .storeOriginalCommand("done",
 							// theRest);
-							history.recordHistorySave(arrString3[0]);
 							displayAll();
 							commandBox.setText("");
 						}
