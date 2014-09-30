@@ -8,6 +8,7 @@ public class CommandHistory {
 	public Stack<String> historyDate;
 	public Stack<ArrayList<String>> historyAL;
 	public Stack<String> historyCmd;
+	public int redoCounter = 0;
 
 	public CommandHistory() {
 		historyDate = new Stack<String>();
@@ -36,6 +37,7 @@ public class CommandHistory {
 			ArrayList<String> currDateTask = new ArrayList<>();
 			currDateTask = historyAL.pop();
 			(new WriteFile(fileName, currDateTask)).writeContents();
+			redoCounter++;
 
 		} else {
 			System.out.println("Undo Limit");
@@ -45,6 +47,14 @@ public class CommandHistory {
 	}
 
 	public String runHistoryRedo() {
-		return historyCmd.pop();
+		if(redoCounter!=0){
+			redoCounter--;
+			return historyCmd.pop();
+		}
+		else{
+			System.out.println("Redo Limit");
+			return ""; //Maybe above statement can popup as redo limit in case error msg pops up
+		}
+								
 	}
 }
