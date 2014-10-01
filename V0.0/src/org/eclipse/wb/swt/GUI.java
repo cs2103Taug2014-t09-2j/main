@@ -340,10 +340,10 @@ public class GUI {
 					 * be added to the file, depending on the command
 					 */
 					String theRest = inputArr[1].trim();
-					String recordDate[] = theRest.split(" ", 2);
-					history.recordHistory(recordDate[0]);
-					history.clearDateRALR();
-					history.checkPrevPrevNcheckPrev();
+					//String recordDate[] = theRest.split(" ", 2);
+					// history.recordHistory(recordDate[0]);
+					// history.clearDateRALR();
+					// history.checkPrevPrevNcheckPrev();
 
 					switch (command) {
 					case EDIT:
@@ -352,6 +352,9 @@ public class GUI {
 						String number = editString[1];
 						String time = editString[2];
 						String modification = editString[3];
+						history.recordHistory(date);
+						history.clearDateRALR();
+						history.checkPrevPrevNcheckPrev();
 						try {
 							(new CommandEdit(date, number, time, modification))
 									.edit();
@@ -368,7 +371,9 @@ public class GUI {
 						String date1 = addString[0];
 						String time1 = addString[1];
 						String task = addString[2];
-
+						history.recordHistory(date1);
+						history.clearDateRALR();
+						history.checkPrevPrevNcheckPrev();
 						try {
 							(new CommandAdd(date1, time1, task)).addTask();
 							displayAll();
@@ -381,6 +386,9 @@ public class GUI {
 
 					case DONE:
 						if ((new IsValidDate(theRest).testValidDate())) {
+							history.recordHistory(theRest);
+							history.clearDateRALR();
+							history.checkPrevPrevNcheckPrev();
 							try {
 								(new CommandDone(theRest)).clearDateTaskAll();
 							} catch (FileNotFoundException e) {
@@ -390,6 +398,9 @@ public class GUI {
 							commandBox.setText("");
 						} else {
 							String doneString[] = theRest.split(" ", 2);
+							history.recordHistory(doneString[0]);
+							history.clearDateRALR();
+							history.checkPrevPrevNcheckPrev();
 							(new CommandDone(doneString[0], doneString[1]))
 									.clearDateTaskSpecific();
 							displayAll();

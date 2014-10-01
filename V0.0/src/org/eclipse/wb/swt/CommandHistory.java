@@ -37,9 +37,14 @@ public class CommandHistory {
 
 	}
 
-	// Track commands
+	// Track commands: ignore zoom, search
 	public void trackCmd(String cmd) {
-		historyCmd.push(cmd);
+		String[] arrStr = cmd.split(" ", 2);
+		System.out.println(arrStr[0]);
+		if (!arrStr[0].equals("zoom") && !arrStr[0].equals("search")) {
+			historyCmd.push(cmd);
+			System.out.println("added!");
+		}
 	}
 
 	// Clear DateR & ALR
