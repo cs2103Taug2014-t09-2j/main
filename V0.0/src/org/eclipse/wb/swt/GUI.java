@@ -340,11 +340,7 @@ public class GUI {
 					 * be added to the file, depending on the command
 					 */
 					String theRest = inputArr[1].trim();
-					//String recordDate[] = theRest.split(" ", 2);
-					// history.recordHistory(recordDate[0]);
-					// history.clearDateRALR();
-					// history.checkPrevPrevNcheckPrev();
-
+					
 					switch (command) {
 					case EDIT:
 						String editString[] = theRest.split(" ", 4);
