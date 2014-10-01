@@ -407,7 +407,9 @@ public class GUI {
 					case SEARCH:
 						CommandSearch srch = new CommandSearch(theRest);
 						String searchResult = srch.search();
-						System.out.print(searchResult); 
+						System.out.print(searchResult);
+						WarningPopUp.infoBox(searchResult, "Search Result");
+						commandBox.setText("");
 						break;
 
 					case ZOOM:
