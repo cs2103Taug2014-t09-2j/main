@@ -694,6 +694,11 @@ public class GUI {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+		try {
+			generalTaskBox.read(reader, this);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 		String prevDateString = DateUpdate
 				.getPrevDate(DateUpdate.getCurrDate());
@@ -702,6 +707,11 @@ public class GUI {
 		try {
 			reader = new BufferedReader(new FileReader(fileName));
 		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		try {
+			missingBox.read(reader, this);
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
