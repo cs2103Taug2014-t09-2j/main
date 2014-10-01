@@ -408,7 +408,11 @@ public class GUI {
 						CommandSearch srch = new CommandSearch(theRest);
 						String searchResult = srch.search();
 						System.out.print(searchResult);
+						if(!searchResult.isEmpty()){
 						WarningPopUp.infoBox(searchResult, "Search Result");
+						}else{
+							WarningPopUp.infoBox("Not Found!", "Search Result");
+						}
 						commandBox.setText("");
 						break;
 
