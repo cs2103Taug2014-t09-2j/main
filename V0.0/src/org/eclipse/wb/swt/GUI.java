@@ -39,7 +39,7 @@ public class GUI {
 	static CommandHistory history = new CommandHistory();
 
 	enum CommandTypes {
-		START, ADD, EDIT, DONE, INVALID, UNDO, REDO, ZOOM
+		START, ADD, EDIT, DONE, INVALID, UNDO, REDO, ZOOM, SEARCH
 	};
 
 	private static CommandTypes determineCmd(String str) {
@@ -57,6 +57,8 @@ public class GUI {
 			return CommandTypes.REDO;
 		} else if (str.equals("zoom")) {
 			return CommandTypes.ZOOM;
+		} else if (str.equals("search")) {
+			return CommandTypes.SEARCH;
 		} else {
 			return CommandTypes.INVALID;
 		}
@@ -394,6 +396,11 @@ public class GUI {
 							commandBox.setText("");
 						}
 						break;
+						
+					case SEARCH:
+						CommandSearch srch = new CommandSearch(theRest);
+						String searchResult = srch.search();
+						System.out.print(searchResult);
 
 					case ZOOM:
 						// obtain the date to be zoomed in
