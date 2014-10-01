@@ -27,6 +27,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.JScrollPane;
 
 public class GUI {
 
@@ -124,21 +125,25 @@ public class GUI {
 		frame.getContentPane().setLayout(null);
 
 		JLabel lblIdo = new JLabel("iDO++");
-		lblIdo.setBounds(30, 2, 141, 59);
+		lblIdo.setBounds(30, 2, 149, 59);
 		lblIdo.setForeground(new Color(0, 0, 0));
 		lblIdo.setFont(new Font("Bauhaus 93", Font.BOLD, 40));
 		frame.getContentPane().add(lblIdo);
-
-		final JTextArea DateBox1 = new JTextArea();
-		DateBox1.setBounds(30, 64, 200, 200);
-		DateBox1.setWrapStyleWord(true);
-		DateBox1.setEditable(false);
-		DateBox1.setFont(new Font("Rockwell", Font.PLAIN, 12));
 		// create padding inside the text area
 		Border border = BorderFactory.createLineBorder(Color.BLACK);
-		DateBox1.setBorder(BorderFactory.createCompoundBorder(border,
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(30, 64, 200, 200);
+		frame.getContentPane().add(scrollPane);
+		
+				final JTextArea DateBox1_1 = new JTextArea();
+				scrollPane.setViewportView(DateBox1_1);
+				DateBox1_1.setWrapStyleWord(true);
+				DateBox1_1.setEditable(false);
+				DateBox1_1.setFont(new Font("Rockwell", Font.PLAIN, 12));
+		DateBox1_1.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-		DateBox1.setBackground(new Color(255, 215, 0));
+		DateBox1_1.setBackground(new Color(255, 215, 0));
 		/*DateBox1.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
 				DateBox1.setSize(250, 250);
@@ -151,8 +156,7 @@ public class GUI {
 				DateBox1.setFont(new Font("Rockwell", Font.PLAIN, 12));
 			}
 		});*/
-		DateBox1.setLineWrap(true);
-		frame.getContentPane().add(DateBox1);
+		DateBox1_1.setLineWrap(true);
 
 		final JTextArea date2 = new JTextArea();
 		date2.setBounds(233, 64, 200, 200);
@@ -270,7 +274,7 @@ public class GUI {
 			 */
 
 			public void actionPerformed(ActionEvent arg0) {
-				processCommand(DateBox1, date2, date3, date4, date5, date6,
+				processCommand(DateBox1_1, date2, date3, date4, date5, date6,
 						date7, commandBox.getText());
 			}
 
@@ -544,7 +548,7 @@ public class GUI {
 						e.printStackTrace();
 					}
 					try {
-						DateBox1.read(reader, this);
+						DateBox1_1.read(reader, this);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -676,7 +680,7 @@ public class GUI {
 					e.printStackTrace();
 				}
 				try {
-					DateBox1.read(reader, this);
+					DateBox1_1.read(reader, this);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
