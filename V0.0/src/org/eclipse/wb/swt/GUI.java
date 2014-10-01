@@ -157,82 +157,104 @@ public class GUI {
 			}
 		});*/
 		DateBox1_1.setLineWrap(true);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(233, 64, 200, 200);
+		frame.getContentPane().add(scrollPane_1);
 
-		final JTextArea date2 = new JTextArea();
-		date2.setBounds(233, 64, 200, 200);
-		date2.setWrapStyleWord(true);
-		date2.setLineWrap(true);
-		date2.setFont(new Font("Rockwell", Font.PLAIN, 12));
-		date2.setEditable(false);
-		date2.setBackground(new Color(255, 215, 0));
+		final JTextArea date2_1 = new JTextArea();
+		scrollPane_1.setViewportView(date2_1);
+		date2_1.setWrapStyleWord(true);
+		date2_1.setLineWrap(true);
+		date2_1.setFont(new Font("Rockwell", Font.PLAIN, 12));
+		date2_1.setEditable(false);
+		date2_1.setBackground(new Color(255, 215, 0));
 		// create padding inside the text area
-		date2.setBorder(BorderFactory.createCompoundBorder(border,
+		date2_1.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-		frame.getContentPane().add(date2);
+		
+		JScrollPane scrollPane_2 = new JScrollPane();
+		scrollPane_2.setBounds(436, 64, 200, 200);
+		frame.getContentPane().add(scrollPane_2);
 
-		final JTextArea date3 = new JTextArea();
-		date3.setBounds(436, 64, 200, 200);
-		date3.setWrapStyleWord(true);
-		date3.setLineWrap(true);
-		date3.setFont(new Font("Rockwell", Font.PLAIN, 12));
-		date3.setEditable(false);
-		date3.setBackground(new Color(255, 215, 0));
+		final JTextArea date3_1 = new JTextArea();
+		scrollPane_2.setViewportView(date3_1);
+		date3_1.setWrapStyleWord(true);
+		date3_1.setLineWrap(true);
+		date3_1.setFont(new Font("Rockwell", Font.PLAIN, 12));
+		date3_1.setEditable(false);
+		date3_1.setBackground(new Color(255, 215, 0));
 		// create padding inside the text area
-		date3.setBorder(BorderFactory.createCompoundBorder(border,
+		date3_1.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-		frame.getContentPane().add(date3);
+		
+		JScrollPane scrollPane_3 = new JScrollPane();
+		scrollPane_3.setBounds(30, 266, 200, 200);
+		frame.getContentPane().add(scrollPane_3);
 
-		final JTextArea date4 = new JTextArea();
-		date4.setBounds(30, 266, 200, 200);
-		date4.setWrapStyleWord(true);
-		date4.setLineWrap(true);
-		date4.setFont(new Font("Rockwell", Font.PLAIN, 12));
-		date4.setEditable(false);
-		date4.setBackground(new Color(255, 215, 0));
-		frame.getContentPane().add(date4);
+		final JTextArea date4_1 = new JTextArea();
+		scrollPane_3.setViewportView(date4_1);
+		date4_1.setWrapStyleWord(true);
+		date4_1.setLineWrap(true);
+		date4_1.setFont(new Font("Rockwell", Font.PLAIN, 12));
+		date4_1.setEditable(false);
+		date4_1.setBackground(new Color(255, 215, 0));
 		// create padding inside the text area
-		date4.setBorder(BorderFactory.createCompoundBorder(border,
+		date4_1.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+		
+		JScrollPane scrollPane_4 = new JScrollPane();
+		scrollPane_4.setBounds(233, 266, 200, 200);
+		frame.getContentPane().add(scrollPane_4);
 		// Border border = BorderFactory.createLineBorder(Color.WHITE);
 
-		final JTextArea date5 = new JTextArea();
-		date5.setBounds(233, 266, 200, 200);
-		date5.setWrapStyleWord(true);
-		date5.setLineWrap(true);
-		date5.setFont(new Font("Rockwell", Font.PLAIN, 12));
-		date5.setEditable(false);
-		date5.setBackground(new Color(255, 215, 0));
+		final JTextArea date5_1 = new JTextArea();
+		scrollPane_4.setViewportView(date5_1);
+		date5_1.setWrapStyleWord(true);
+		date5_1.setLineWrap(true);
+		date5_1.setFont(new Font("Rockwell", Font.PLAIN, 12));
+		date5_1.setEditable(false);
+		date5_1.setBackground(new Color(255, 215, 0));
 		// create padding inside the text area
-		date5.setBorder(BorderFactory.createCompoundBorder(border,
+		date5_1.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-		frame.getContentPane().add(date5);
+		
+		JScrollPane scrollPane_5 = new JScrollPane();
+		scrollPane_5.setBounds(436, 266, 200, 200);
+		frame.getContentPane().add(scrollPane_5);
 
-		final JTextArea date6 = new JTextArea();
-		date6.setBounds(436, 266, 200, 200);
-		date6.setWrapStyleWord(true);
-		date6.setLineWrap(true);
-		date6.setFont(new Font("Rockwell", Font.PLAIN, 12));
-		date6.setEditable(false);
-		date6.setBackground(new Color(255, 215, 0));
+		final JTextArea date6_1 = new JTextArea();
+		scrollPane_5.setViewportView(date6_1);
+		date6_1.setWrapStyleWord(true);
+		date6_1.setLineWrap(true);
+		date6_1.setFont(new Font("Rockwell", Font.PLAIN, 12));
+		date6_1.setEditable(false);
+		date6_1.setBackground(new Color(255, 215, 0));
 		// create padding inside the text area
-		date6.setBorder(BorderFactory.createCompoundBorder(border,
+		date6_1.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-		frame.getContentPane().add(date6);
+		
+		JScrollPane scrollPane_6 = new JScrollPane();
+		scrollPane_6.setBounds(30, 469, 200, 200);
+		frame.getContentPane().add(scrollPane_6);
 
-		final JTextArea date7 = new JTextArea();
-		date7.setBounds(30, 469, 200, 200);
-		date7.setWrapStyleWord(true);
-		date7.setLineWrap(true);
-		date7.setFont(new Font("Rockwell", Font.PLAIN, 12));
-		date7.setEditable(false);
-		date7.setBackground(new Color(255, 215, 0));
+		final JTextArea date7_1 = new JTextArea();
+		scrollPane_6.setViewportView(date7_1);
+		date7_1.setWrapStyleWord(true);
+		date7_1.setLineWrap(true);
+		date7_1.setFont(new Font("Rockwell", Font.PLAIN, 12));
+		date7_1.setEditable(false);
+		date7_1.setBackground(new Color(255, 215, 0));
 		// create padding inside the text area
-		date7.setBorder(BorderFactory.createCompoundBorder(border,
+		date7_1.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-		frame.getContentPane().add(date7);
+		
+		JScrollPane scrollPane_7 = new JScrollPane();
+		scrollPane_7.setBounds(233, 469, 200, 200);
+		frame.getContentPane().add(scrollPane_7);
 
 		final JTextArea missingBox = new JTextArea();
-		missingBox.setBounds(233, 469, 200, 200);
+		scrollPane_7.setViewportView(missingBox);
 		missingBox.setWrapStyleWord(true);
 		missingBox.setLineWrap(true);
 		missingBox.setFont(new Font("Rockwell", Font.PLAIN, 12));
@@ -240,11 +262,14 @@ public class GUI {
 		missingBox.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 		missingBox.setBackground(new Color(255, 99, 71));
-		frame.getContentPane().add(missingBox);
+		
+		JScrollPane scrollPane_8 = new JScrollPane();
+		scrollPane_8.setBounds(436, 469, 200, 200);
+		frame.getContentPane().add(scrollPane_8);
 		// missingBox.read(reader, this);
 
 		final JTextArea generalTaskBox = new JTextArea();
-		generalTaskBox.setBounds(436, 469, 200, 200);
+		scrollPane_8.setViewportView(generalTaskBox);
 		generalTaskBox.setWrapStyleWord(true);
 		generalTaskBox.setText("General Tasks");
 		generalTaskBox.setLineWrap(true);
@@ -254,7 +279,6 @@ public class GUI {
 		generalTaskBox.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(10, 5, 5, 5)));
 		generalTaskBox.setBackground(new Color(135, 206, 235));
-		frame.getContentPane().add(generalTaskBox);
 
 		commandBox = new JTextField();
 		commandBox.setBounds(181, 19, 455, 20);
@@ -274,8 +298,8 @@ public class GUI {
 			 */
 
 			public void actionPerformed(ActionEvent arg0) {
-				processCommand(DateBox1_1, date2, date3, date4, date5, date6,
-						date7, commandBox.getText());
+				processCommand(DateBox1_1, date2_1, date3_1, date4_1, date5_1, date6_1,
+						date7_1, commandBox.getText());
 			}
 
 			public void processCommand(final JTextArea DateBox1,
@@ -561,7 +585,7 @@ public class GUI {
 						e.printStackTrace();
 					}
 					try {
-						date2.read(reader, this);
+						date2_1.read(reader, this);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -574,7 +598,7 @@ public class GUI {
 						e.printStackTrace();
 					}
 					try {
-						date3.read(reader, this);
+						date3_1.read(reader, this);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -587,7 +611,7 @@ public class GUI {
 						e.printStackTrace();
 					}
 					try {
-						date4.read(reader, this);
+						date4_1.read(reader, this);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -600,7 +624,7 @@ public class GUI {
 						e.printStackTrace();
 					}
 					try {
-						date5.read(reader, this);
+						date5_1.read(reader, this);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -613,7 +637,7 @@ public class GUI {
 						e.printStackTrace();
 					}
 					try {
-						date6.read(reader, this);
+						date6_1.read(reader, this);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -626,7 +650,7 @@ public class GUI {
 						e.printStackTrace();
 					}
 					try {
-						date7.read(reader, this);
+						date7_1.read(reader, this);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -693,7 +717,7 @@ public class GUI {
 					e.printStackTrace();
 				}
 				try {
-					date2.read(reader, this);
+					date2_1.read(reader, this);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -706,7 +730,7 @@ public class GUI {
 					e.printStackTrace();
 				}
 				try {
-					date3.read(reader, this);
+					date3_1.read(reader, this);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -719,7 +743,7 @@ public class GUI {
 					e.printStackTrace();
 				}
 				try {
-					date4.read(reader, this);
+					date4_1.read(reader, this);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -732,7 +756,7 @@ public class GUI {
 					e.printStackTrace();
 				}
 				try {
-					date5.read(reader, this);
+					date5_1.read(reader, this);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -745,7 +769,7 @@ public class GUI {
 					e.printStackTrace();
 				}
 				try {
-					date6.read(reader, this);
+					date6_1.read(reader, this);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -758,7 +782,7 @@ public class GUI {
 					e.printStackTrace();
 				}
 				try {
-					date7.read(reader, this);
+					date7_1.read(reader, this);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
