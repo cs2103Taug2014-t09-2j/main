@@ -445,16 +445,19 @@ public class GUI {
 							case "general":
 								fileName = "general.txt";
 								String dateContent = readFile(fileName);
+								commandBox.setText("");
 								WarningPopUp.infoBox(dateContent, "Zoom Result");
 								break;
 							case "missing":
-								fileName = DateUpdate.getPrevDate(DateUpdate.getCurrDate());
+								fileName = DateUpdate.getPrevDate(DateUpdate.getCurrDate())+ ".txt";
 								dateContent = readFile(fileName);
+								commandBox.setText("");
 								WarningPopUp.infoBox(dateContent, "Zoom Result");
 								break;
 							default:
 								WarningPopUp.infoBox("Invalid Input!",
 										"WARNING");
+								commandBox.setText("");
 								break;
 							}
 						} else {
@@ -471,6 +474,7 @@ public class GUI {
 									fileName = DateUpdate.getCurrDate()
 											+ ".txt";
 									String dateContent = readFile(fileName);
+									commandBox.setText("");
 									WarningPopUp.infoBox(dateContent,
 											"Zoom Result");
 									break;
@@ -479,6 +483,7 @@ public class GUI {
 											DateUpdate.getCurrDate(), 1)
 											+ ".txt";
 									dateContent = readFile(fileName);
+									commandBox.setText("");
 									WarningPopUp.infoBox(dateContent,
 											"Zoom Result");
 									break;
@@ -487,6 +492,7 @@ public class GUI {
 											DateUpdate.getCurrDate(), 2)
 											+ ".txt";
 									dateContent = readFile(fileName);
+									commandBox.setText("");
 									WarningPopUp.infoBox(dateContent,
 											"Zoom Result");
 									break;
@@ -495,6 +501,7 @@ public class GUI {
 											DateUpdate.getCurrDate(), 3)
 											+ ".txt";
 									dateContent = readFile(fileName);
+									commandBox.setText("");
 									WarningPopUp.infoBox(dateContent,
 											"Zoom Result");
 									break;
@@ -503,6 +510,7 @@ public class GUI {
 											DateUpdate.getCurrDate(), 4)
 											+ ".txt";
 									dateContent = readFile(fileName);
+									commandBox.setText("");
 									WarningPopUp.infoBox(dateContent,
 											"Zoom Result");
 									break;
@@ -511,6 +519,7 @@ public class GUI {
 											DateUpdate.getCurrDate(), 5)
 											+ ".txt";
 									dateContent = readFile(fileName);
+									commandBox.setText("");
 									WarningPopUp.infoBox(dateContent,
 											"Zoom Result");
 									break;
@@ -519,10 +528,14 @@ public class GUI {
 											DateUpdate.getCurrDate(), 6)
 											+ ".txt";
 									dateContent = readFile(fileName);
+									commandBox.setText("");
 									WarningPopUp.infoBox(dateContent,
 											"Zoom Result");
 									break;
 								default:
+									WarningPopUp.infoBox("Invalid Input!",
+											"WARNING");
+									commandBox.setText("");
 									break;
 								}
 							}

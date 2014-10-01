@@ -47,4 +47,20 @@ public class DateUpdate {
 		currDateString = dt; 
 		return currDateString;
 	}
+	
+	public static String getParticularDate(String currDateString, int i){
+		String dt = currDateString; // Start date
+		SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
+		Calendar c = Calendar.getInstance();
+		try {
+			c.setTime(sdf.parse(dt));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		c.add(Calendar.DATE, i); // number of days to add
+		dt = sdf.format(c.getTime()); // dt is now the new date
+		currDateString = dt; 
+		return currDateString;
+	}
 }
