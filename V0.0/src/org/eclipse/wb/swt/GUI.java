@@ -296,6 +296,25 @@ public class GUI {
 
 		commandBox.addActionListener(new ActionListener() {
 			/*
+			 * This method will return the content of fileName as a string 
+			 */
+			String readFile(String fileName) throws IOException {
+			    BufferedReader br = new BufferedReader(new FileReader(fileName));
+			    try {
+			        StringBuilder sb = new StringBuilder();
+			        String line = br.readLine();
+
+			        while (line != null) {
+			            sb.append(line);
+			            sb.append("\n");
+			            line = br.readLine();
+			        }
+			        return sb.toString();
+			    } finally {
+			        br.close();
+			    }
+			}
+			/*
 			 * Read in input and split input into 2parts: command and the rest
 			 */
 
@@ -437,6 +456,13 @@ public class GUI {
 												Font.PLAIN, 12));
 									}
 								});
+								BufferedReader reader = null;
+								try {
+									reader = new BufferedReader(new FileReader(fileName));
+								} catch (FileNotFoundException e) {
+									e.printStackTrace();
+								}
+								//String dateContent = reader.
 								break;
 							case 2:
 								date2.setSize(400, 400);
@@ -531,6 +557,7 @@ public class GUI {
 					}
 				}
 			}
+			
 
 			/*
 			 * This method will display the contents for each box in the UI
@@ -681,10 +708,12 @@ public class GUI {
 		});
 		frame.getContentPane().add(commandBox);
 		commandBox.setColumns(10);
+		
 		// generalTaskBox.read(reader, this);
 
 		/*
 		 * Populate the task boxes with the data in the source files
+		 * Cannot use displayAll() as it is outside the commandBox actionPerformed
 		 */
 
 		BufferedReader reader = null;
