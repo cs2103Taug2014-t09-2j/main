@@ -39,7 +39,7 @@ public class CommandSearch {
 				searchResultGeneral.add(result);
 			}
 		}
-		return generalTask;
+		return searchResultGeneral;
 	}
 	
 	public ArrayList<String> searchMissing() {
@@ -54,7 +54,7 @@ public class CommandSearch {
 				searchResultMissing.add(result);
 			}
 		}
-		return missingTask;
+		return searchResultMissing;
 	}
 	
 	public ArrayList<String> searchDate() throws FileNotFoundException{
