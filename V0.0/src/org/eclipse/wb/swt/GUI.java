@@ -448,7 +448,7 @@ public class GUI {
 								WarningPopUp.infoBox(dateContent, "Zoom Result");
 								break;
 							case "missing":
-								fileName = "missing.txt";
+								fileName = DateUpdate.getPrevDate(DateUpdate.getCurrDate());
 								dateContent = readFile(fileName);
 								WarningPopUp.infoBox(dateContent, "Zoom Result");
 								break;
