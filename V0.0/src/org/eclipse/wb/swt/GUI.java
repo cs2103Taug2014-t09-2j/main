@@ -401,6 +401,7 @@ public class GUI {
 						CommandSearch srch = new CommandSearch(theRest);
 						String searchResult = srch.search();
 						System.out.print(searchResult);
+						break;
 
 					case ZOOM:
 						// obtain the date to be zoomed in
