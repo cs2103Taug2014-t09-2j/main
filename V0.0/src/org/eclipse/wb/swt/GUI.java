@@ -319,14 +319,19 @@ public class GUI {
 			 */
 
 			public void actionPerformed(ActionEvent arg0) {
-				processCommand(DateBox1_1, date2_1, date3_1, date4_1, date5_1, date6_1,
-						date7_1, commandBox.getText());
+				try {
+					processCommand(DateBox1_1, date2_1, date3_1, date4_1, date5_1, date6_1,
+							date7_1, commandBox.getText());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 
 			public void processCommand(final JTextArea DateBox1,
 					final JTextArea date2, final JTextArea date3,
 					final JTextArea date4, final JTextArea date5,
-					final JTextArea date6, final JTextArea date7, String input) {
+					final JTextArea date6, final JTextArea date7, String input) throws IOException {
 
 				history.trackCmd(input);
 				String inputArr[] = input.split(" ", 2);
@@ -456,13 +461,9 @@ public class GUI {
 												Font.PLAIN, 12));
 									}
 								});
-								BufferedReader reader = null;
-								try {
-									reader = new BufferedReader(new FileReader(fileName));
-								} catch (FileNotFoundException e) {
-									e.printStackTrace();
-								}
-								//String dateContent = reader.
+								fileName = DateUpdate.getCurrDate()+".txt";
+								String dateContent = readFile(fileName);
+								WarningPopUp.infoBox(dateContent, "Zoom Result");
 								break;
 							case 2:
 								date2.setSize(400, 400);
