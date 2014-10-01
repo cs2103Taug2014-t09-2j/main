@@ -133,33 +133,30 @@ public class GUI {
 		frame.getContentPane().add(lblIdo);
 		// create padding inside the text area
 		Border border = BorderFactory.createLineBorder(Color.BLACK);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(30, 64, 200, 200);
 		frame.getContentPane().add(scrollPane);
-		
-				final JTextArea DateBox1_1 = new JTextArea();
-				scrollPane.setViewportView(DateBox1_1);
-				DateBox1_1.setWrapStyleWord(true);
-				DateBox1_1.setEditable(false);
-				DateBox1_1.setFont(new Font("Rockwell", Font.PLAIN, 12));
+
+		final JTextArea DateBox1_1 = new JTextArea();
+		scrollPane.setViewportView(DateBox1_1);
+		DateBox1_1.setWrapStyleWord(true);
+		DateBox1_1.setEditable(false);
+		DateBox1_1.setFont(new Font("Rockwell", Font.PLAIN, 12));
 		DateBox1_1.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 		DateBox1_1.setBackground(new Color(255, 215, 0));
-		/*DateBox1.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent arg0) {
-				DateBox1.setSize(250, 250);
-				DateBox1.setFont(new Font("Rockwell", Font.PLAIN, 20));
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				DateBox1.setSize(123, 113);
-				DateBox1.setFont(new Font("Rockwell", Font.PLAIN, 12));
-			}
-		});*/
+		/*
+		 * DateBox1.addMouseListener(new MouseAdapter() { public void
+		 * mouseClicked(MouseEvent arg0) { DateBox1.setSize(250, 250);
+		 * DateBox1.setFont(new Font("Rockwell", Font.PLAIN, 20)); }
+		 * 
+		 * @Override public void mouseExited(MouseEvent e) {
+		 * DateBox1.setSize(123, 113); DateBox1.setFont(new Font("Rockwell",
+		 * Font.PLAIN, 12)); } });
+		 */
 		DateBox1_1.setLineWrap(true);
-		
+
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(233, 64, 200, 200);
 		frame.getContentPane().add(scrollPane_1);
@@ -174,7 +171,7 @@ public class GUI {
 		// create padding inside the text area
 		date2_1.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-		
+
 		JScrollPane scrollPane_2 = new JScrollPane();
 		scrollPane_2.setBounds(436, 64, 200, 200);
 		frame.getContentPane().add(scrollPane_2);
@@ -189,7 +186,7 @@ public class GUI {
 		// create padding inside the text area
 		date3_1.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-		
+
 		JScrollPane scrollPane_3 = new JScrollPane();
 		scrollPane_3.setBounds(30, 266, 200, 200);
 		frame.getContentPane().add(scrollPane_3);
@@ -204,7 +201,7 @@ public class GUI {
 		// create padding inside the text area
 		date4_1.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-		
+
 		JScrollPane scrollPane_4 = new JScrollPane();
 		scrollPane_4.setBounds(233, 266, 200, 200);
 		frame.getContentPane().add(scrollPane_4);
@@ -220,7 +217,7 @@ public class GUI {
 		// create padding inside the text area
 		date5_1.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-		
+
 		JScrollPane scrollPane_5 = new JScrollPane();
 		scrollPane_5.setBounds(436, 266, 200, 200);
 		frame.getContentPane().add(scrollPane_5);
@@ -235,7 +232,7 @@ public class GUI {
 		// create padding inside the text area
 		date6_1.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-		
+
 		JScrollPane scrollPane_6 = new JScrollPane();
 		scrollPane_6.setBounds(30, 469, 200, 200);
 		frame.getContentPane().add(scrollPane_6);
@@ -250,7 +247,7 @@ public class GUI {
 		// create padding inside the text area
 		date7_1.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-		
+
 		JScrollPane scrollPane_7 = new JScrollPane();
 		scrollPane_7.setBounds(233, 469, 200, 200);
 		frame.getContentPane().add(scrollPane_7);
@@ -264,7 +261,7 @@ public class GUI {
 		missingBox.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 		missingBox.setBackground(new Color(255, 99, 71));
-		
+
 		JScrollPane scrollPane_8 = new JScrollPane();
 		scrollPane_8.setBounds(436, 469, 200, 200);
 		frame.getContentPane().add(scrollPane_8);
@@ -296,32 +293,33 @@ public class GUI {
 
 		commandBox.addActionListener(new ActionListener() {
 			/*
-			 * This method will return the content of fileName as a string 
+			 * This method will return the content of fileName as a string
 			 */
 			String readFile(String fileName) throws IOException {
-			    BufferedReader br = new BufferedReader(new FileReader(fileName));
-			    try {
-			        StringBuilder sb = new StringBuilder();
-			        String line = br.readLine();
+				BufferedReader br = new BufferedReader(new FileReader(fileName));
+				try {
+					StringBuilder sb = new StringBuilder();
+					String line = br.readLine();
 
-			        while (line != null) {
-			            sb.append(line);
-			            sb.append("\n");
-			            line = br.readLine();
-			        }
-			        return sb.toString();
-			    } finally {
-			        br.close();
-			    }
+					while (line != null) {
+						sb.append(line);
+						sb.append("\n");
+						line = br.readLine();
+					}
+					return sb.toString();
+				} finally {
+					br.close();
+				}
 			}
+
 			/*
 			 * Read in input and split input into 2parts: command and the rest
 			 */
 
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					processCommand(DateBox1_1, date2_1, date3_1, date4_1, date5_1, date6_1,
-							date7_1, commandBox.getText());
+					processCommand(DateBox1_1, date2_1, date3_1, date4_1,
+							date5_1, date6_1, date7_1, commandBox.getText());
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -331,7 +329,8 @@ public class GUI {
 			public void processCommand(final JTextArea DateBox1,
 					final JTextArea date2, final JTextArea date3,
 					final JTextArea date4, final JTextArea date5,
-					final JTextArea date6, final JTextArea date7, String input) throws IOException {
+					final JTextArea date6, final JTextArea date7, String input)
+					throws IOException {
 
 				history.trackCmd(input);
 				String inputArr[] = input.split(" ", 2);
@@ -364,7 +363,7 @@ public class GUI {
 					 * be added to the file, depending on the command
 					 */
 					String theRest = inputArr[1].trim();
-					
+
 					switch (command) {
 					case EDIT:
 						String editString[] = theRest.split(" ", 4);
@@ -427,65 +426,105 @@ public class GUI {
 							commandBox.setText("");
 						}
 						break;
-						
+
 					case SEARCH:
 						CommandSearch srch = new CommandSearch(theRest);
 						String searchResult = srch.search();
 						System.out.print(searchResult);
-						if(!searchResult.isEmpty()){
-						WarningPopUp.infoBox(searchResult, "Search Result");
-						}else{
+						if (!searchResult.isEmpty()) {
+							WarningPopUp.infoBox(searchResult, "Search Result");
+						} else {
 							WarningPopUp.infoBox("Not Found!", "Search Result");
 						}
 						commandBox.setText("");
 						break;
 
 					case ZOOM:
-						// obtain the date to be zoomed in
-						int dateToBeZoomed = Integer.valueOf(theRest);
-						// check the date validity
-						if (!((dateToBeZoomed > 0) && (dateToBeZoomed < 10))) {
-							WarningPopUp.infoBox("Invalid Input!", "WARNING");
-							commandBox.setText("");
-						} else {
-							switch (dateToBeZoomed) {
-							case 1:
-								fileName = DateUpdate.getCurrDate()+".txt";
+						if (theRest.length() > 1) {
+							switch (theRest) {
+							case "general":
+								fileName = "general.txt";
 								String dateContent = readFile(fileName);
 								WarningPopUp.infoBox(dateContent, "Zoom Result");
 								break;
-							case 2:
-								fileName = DateUpdate.getParticularDate(DateUpdate.getCurrDate(), 1)+".txt";
-								dateContent = readFile(fileName);
-								WarningPopUp.infoBox(dateContent, "Zoom Result");
-								break;
-							case 3:
-								fileName = DateUpdate.getParticularDate(DateUpdate.getCurrDate(), 2)+".txt";
-								dateContent = readFile(fileName);
-								WarningPopUp.infoBox(dateContent, "Zoom Result");
-								break;
-							case 4:
-								fileName = DateUpdate.getParticularDate(DateUpdate.getCurrDate(), 3)+".txt";
-								dateContent = readFile(fileName);
-								WarningPopUp.infoBox(dateContent, "Zoom Result");
-								break;
-							case 5:
-								fileName = DateUpdate.getParticularDate(DateUpdate.getCurrDate(), 4)+".txt";
-								dateContent = readFile(fileName);
-								WarningPopUp.infoBox(dateContent, "Zoom Result");
-								break;
-							case 6:
-								fileName = DateUpdate.getParticularDate(DateUpdate.getCurrDate(), 5)+".txt";
-								dateContent = readFile(fileName);
-								WarningPopUp.infoBox(dateContent, "Zoom Result");
-								break;
-							case 7:
-								fileName = DateUpdate.getParticularDate(DateUpdate.getCurrDate(), 6)+".txt";
+							case "missing":
+								fileName = "missing.txt";
 								dateContent = readFile(fileName);
 								WarningPopUp.infoBox(dateContent, "Zoom Result");
 								break;
 							default:
+								WarningPopUp.infoBox("Invalid Input!",
+										"WARNING");
 								break;
+							}
+						} else {
+							// obtain the date to be zoomed in
+							int dateToBeZoomed = Integer.valueOf(theRest);
+							// check the date validity
+							if (!((dateToBeZoomed > 0) && (dateToBeZoomed < 10))) {
+								WarningPopUp.infoBox("Invalid Input!",
+										"WARNING");
+								commandBox.setText("");
+							} else {
+								switch (dateToBeZoomed) {
+								case 1:
+									fileName = DateUpdate.getCurrDate()
+											+ ".txt";
+									String dateContent = readFile(fileName);
+									WarningPopUp.infoBox(dateContent,
+											"Zoom Result");
+									break;
+								case 2:
+									fileName = DateUpdate.getParticularDate(
+											DateUpdate.getCurrDate(), 1)
+											+ ".txt";
+									dateContent = readFile(fileName);
+									WarningPopUp.infoBox(dateContent,
+											"Zoom Result");
+									break;
+								case 3:
+									fileName = DateUpdate.getParticularDate(
+											DateUpdate.getCurrDate(), 2)
+											+ ".txt";
+									dateContent = readFile(fileName);
+									WarningPopUp.infoBox(dateContent,
+											"Zoom Result");
+									break;
+								case 4:
+									fileName = DateUpdate.getParticularDate(
+											DateUpdate.getCurrDate(), 3)
+											+ ".txt";
+									dateContent = readFile(fileName);
+									WarningPopUp.infoBox(dateContent,
+											"Zoom Result");
+									break;
+								case 5:
+									fileName = DateUpdate.getParticularDate(
+											DateUpdate.getCurrDate(), 4)
+											+ ".txt";
+									dateContent = readFile(fileName);
+									WarningPopUp.infoBox(dateContent,
+											"Zoom Result");
+									break;
+								case 6:
+									fileName = DateUpdate.getParticularDate(
+											DateUpdate.getCurrDate(), 5)
+											+ ".txt";
+									dateContent = readFile(fileName);
+									WarningPopUp.infoBox(dateContent,
+											"Zoom Result");
+									break;
+								case 7:
+									fileName = DateUpdate.getParticularDate(
+											DateUpdate.getCurrDate(), 6)
+											+ ".txt";
+									dateContent = readFile(fileName);
+									WarningPopUp.infoBox(dateContent,
+											"Zoom Result");
+									break;
+								default:
+									break;
+								}
 							}
 						}
 						break;
@@ -499,7 +538,6 @@ public class GUI {
 					}
 				}
 			}
-			
 
 			/*
 			 * This method will display the contents for each box in the UI
@@ -650,12 +688,12 @@ public class GUI {
 		});
 		frame.getContentPane().add(commandBox);
 		commandBox.setColumns(10);
-		
+
 		// generalTaskBox.read(reader, this);
 
 		/*
-		 * Populate the task boxes with the data in the source files
-		 * Cannot use displayAll() as it is outside the commandBox actionPerformed
+		 * Populate the task boxes with the data in the source files Cannot use
+		 * displayAll() as it is outside the commandBox actionPerformed
 		 */
 
 		BufferedReader reader = null;
