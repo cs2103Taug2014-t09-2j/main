@@ -450,98 +450,39 @@ public class GUI {
 						} else {
 							switch (dateToBeZoomed) {
 							case 1:
-								DateBox1.setSize(400, 400);
-								DateBox1.setFont(new Font("Rockwell",
-										Font.PLAIN, 20));
-								commandBox.setText("");
-								commandBox.addKeyListener(new KeyAdapter() {
-									public void keyPressed(KeyEvent e) {
-										DateBox1.setSize(200, 200);
-										DateBox1.setFont(new Font("Rockwell",
-												Font.PLAIN, 12));
-									}
-								});
 								fileName = DateUpdate.getCurrDate()+".txt";
 								String dateContent = readFile(fileName);
 								WarningPopUp.infoBox(dateContent, "Zoom Result");
 								break;
 							case 2:
-								date2.setSize(400, 400);
-								date2.setFont(new Font("Rockwell", Font.PLAIN,
-										20));
-								commandBox.setText("");
-								commandBox.addKeyListener(new KeyAdapter() {
-									public void keyPressed(KeyEvent e) {
-										date2.setSize(200, 200);
-										date2.setFont(new Font("Rockwell",
-												Font.PLAIN, 12));
-									}
-								});
+								fileName = DateUpdate.getParticularDate(DateUpdate.getCurrDate(), 1)+".txt";
+								dateContent = readFile(fileName);
+								WarningPopUp.infoBox(dateContent, "Zoom Result");
 								break;
 							case 3:
-								date3.setSize(400, 400);
-								date3.setFont(new Font("Rockwell", Font.PLAIN,
-										20));
-								commandBox.setText("");
-								commandBox.addKeyListener(new KeyAdapter() {
-									public void keyPressed(KeyEvent e) {
-										date3.setSize(200, 200);
-										date3.setFont(new Font("Rockwell",
-												Font.PLAIN, 12));
-									}
-								});
+								fileName = DateUpdate.getParticularDate(DateUpdate.getCurrDate(), 2)+".txt";
+								dateContent = readFile(fileName);
+								WarningPopUp.infoBox(dateContent, "Zoom Result");
 								break;
 							case 4:
-								date4.setSize(400, 400);
-								date4.setFont(new Font("Rockwell", Font.PLAIN,
-										20));
-								commandBox.setText("");
-								commandBox.addKeyListener(new KeyAdapter() {
-									public void keyPressed(KeyEvent e) {
-										date4.setSize(200, 200);
-										date4.setFont(new Font("Rockwell",
-												Font.PLAIN, 12));
-									}
-								});
+								fileName = DateUpdate.getParticularDate(DateUpdate.getCurrDate(), 3)+".txt";
+								dateContent = readFile(fileName);
+								WarningPopUp.infoBox(dateContent, "Zoom Result");
 								break;
 							case 5:
-								date5.setSize(400, 400);
-								date5.setFont(new Font("Rockwell", Font.PLAIN,
-										20));
-								commandBox.setText("");
-								commandBox.addKeyListener(new KeyAdapter() {
-									public void keyPressed(KeyEvent e) {
-										date5.setSize(200, 200);
-										date5.setFont(new Font("Rockwell",
-												Font.PLAIN, 12));
-									}
-								});
+								fileName = DateUpdate.getParticularDate(DateUpdate.getCurrDate(), 4)+".txt";
+								dateContent = readFile(fileName);
+								WarningPopUp.infoBox(dateContent, "Zoom Result");
 								break;
 							case 6:
-								date6.setSize(400, 400);
-								date6.setFont(new Font("Rockwell", Font.PLAIN,
-										20));
-								commandBox.setText("");
-								commandBox.addKeyListener(new KeyAdapter() {
-									public void keyPressed(KeyEvent e) {
-										date6.setSize(200, 200);
-										date6.setFont(new Font("Rockwell",
-												Font.PLAIN, 12));
-									}
-								});
+								fileName = DateUpdate.getParticularDate(DateUpdate.getCurrDate(), 5)+".txt";
+								dateContent = readFile(fileName);
+								WarningPopUp.infoBox(dateContent, "Zoom Result");
 								break;
 							case 7:
-								date7.setSize(400, 400);
-								date7.setFont(new Font("Rockwell", Font.PLAIN,
-										20));
-								commandBox.setText("");
-								commandBox.addKeyListener(new KeyAdapter() {
-									public void keyPressed(KeyEvent e) {
-										date7.setSize(200, 200);
-										date7.setFont(new Font("Rockwell",
-												Font.PLAIN, 12));
-									}
-								});
+								fileName = DateUpdate.getParticularDate(DateUpdate.getCurrDate(), 6)+".txt";
+								dateContent = readFile(fileName);
+								WarningPopUp.infoBox(dateContent, "Zoom Result");
 								break;
 							default:
 								break;
