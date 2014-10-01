@@ -21,20 +21,31 @@ public class CommandSearch {
 			e.printStackTrace();
 		}	
 		
-		searchResult.addAll(searchGeneral());
-		searchResult.addAll(searchMissing());
+		try {
+			searchResult.addAll(searchGeneral());
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
+		try {
+			searchResult.addAll(searchMissing());
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		return arrayListToString(searchResult);
 	}
 	
-	public ArrayList<String> searchGeneral() {
+	public ArrayList<String> searchGeneral() throws FileNotFoundException{
 		String fileName = "general.txt";
 		ArrayList<String> generalTask = new ArrayList<String>(); //generalTask contains tasks in General box
 		generalTask = (new ReadFile(fileName)).readContents();
 		
 		ArrayList<String> searchResultGeneral = new ArrayList<String>();
 		for (int i=0; i<generalTask.size(); i++) {
-			if (generalTask.get(i).contains(keyword)) {
+			if (generalTask.get(i).toLowerCase().contains(keyword)) {
 				String result = "General " + Integer.toString(i+1) + ". " + generalTask.get(i);
 				searchResultGeneral.add(result);
 			}
@@ -42,14 +53,14 @@ public class CommandSearch {
 		return searchResultGeneral;
 	}
 	
-	public ArrayList<String> searchMissing() {
+	public ArrayList<String> searchMissing() throws FileNotFoundException{
 		String fileName = "missing.txt";
 		ArrayList<String> missingTask = new ArrayList<String>(); //missingTask contains tasks in Missing box
 		missingTask = (new ReadFile(fileName)).readContents();
 		
 		ArrayList<String> searchResultMissing = new ArrayList<String>();
 		for (int i=0; i<missingTask.size(); i++) {
-			if (missingTask.get(i).contains(keyword)) {
+			if (missingTask.get(i).toLowerCase().contains(keyword)) {
 				String result = "Missing " + Integer.toString(i+1) + ". " + missingTask.get(i);
 				searchResultMissing.add(result);
 			}
@@ -73,7 +84,7 @@ public class CommandSearch {
 			
 			//Search the content of each file, add any match to searchResultDate arraylist
 			for (int j=0; j<dateTask.size(); j++){
-				if (dateTask.get(j).contains(keyword)) {
+				if (dateTask.get(j).toLowerCase().contains(keyword)) {
 					result = currDateString + " " + Integer.toString(j+1) + ". " + dateTask.get(j);
 					searchResultDate.add(result);
 				}
@@ -86,7 +97,7 @@ public class CommandSearch {
 	public String arrayListToString(ArrayList<String> arr) {
 		String str = new String();
 		for (int i=0; i<arr.size(); i++) {
-			str += arr.get(i);
+			str = str + arr.get(i) + "\n";
 		}
 		return str;
 	}
