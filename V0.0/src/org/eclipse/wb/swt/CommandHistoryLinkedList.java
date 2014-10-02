@@ -65,7 +65,7 @@ public class CommandHistoryLinkedList {
 			(new WriteFile(historyDate.get(counter - 1),
 					historyAL.get(counter - 1))).writeContents();
 		} else {
-			System.out.println("Undo Limit");
+			System.out.println("Redo Limit");
 		}
 	}
 }
