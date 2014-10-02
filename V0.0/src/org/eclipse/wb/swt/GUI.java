@@ -12,6 +12,7 @@ import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
@@ -27,6 +28,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+
 import javax.swing.JScrollPane;
 
 public class GUI {
@@ -36,7 +38,7 @@ public class GUI {
 	private String fileName = null;
 
 	// static CommandUndoRedo commandHistory = new CommandUndoRedo();
-	static CommandHistory history = new CommandHistory();
+	static CommandHistoryLinkedList history = new CommandHistoryLinkedList();
 
 	enum CommandTypes {
 		START, ADD, EDIT, DONE, INVALID, UNDO, REDO, ZOOM, SEARCH
@@ -331,8 +333,7 @@ public class GUI {
 					final JTextArea date4, final JTextArea date5,
 					final JTextArea date6, final JTextArea date7, String input)
 					throws IOException {
-
-				history.trackCmd(input);
+				
 				String inputArr[] = input.split(" ", 2);
 				// take care of the one word input
 				if (inputArr.length == 1) {
@@ -340,12 +341,12 @@ public class GUI {
 					case "exit":
 						System.exit(0);
 					case "undo":
-						history.runHistoryUndo();
+						history.runUndo();
 						commandBox.setText("");
 						displayAll();
 						break;
 					case "redo":
-						history.runHistoryRedo();
+						history.runRedo();
 						commandBox.setText("");
 						displayAll();
 						break;
@@ -371,9 +372,8 @@ public class GUI {
 						String number = editString[1];
 						String time = editString[2];
 						String modification = editString[3];
-						history.recordHistory(date);
-						history.clearDateRALR();
-						history.checkPrevPrevNcheckPrev();
+						history.clearDateALR();
+						history.recordBaseFile(date);						
 						try {
 							(new CommandEdit(date, number, time, modification))
 									.edit();
@@ -381,7 +381,8 @@ public class GUI {
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
-						commandBox.setText("");
+						history.recordUpdatedFile(date);
+						commandBox.setText("");						
 						displayAll();
 						break;
 
@@ -390,9 +391,8 @@ public class GUI {
 						String date1 = addString[0];
 						String time1 = addString[1];
 						String task = addString[2];
-						history.recordHistory(date1);
-						history.clearDateRALR();
-						history.checkPrevPrevNcheckPrev();
+						history.clearDateALR();
+						history.recordBaseFile(date1);						
 						try {
 							(new CommandAdd(date1, time1, task)).addTask();
 							displayAll();
@@ -400,29 +400,30 @@ public class GUI {
 						} catch (IOException e1) {
 							e1.printStackTrace();
 						}
+						history.recordUpdatedFile(date1);
 						commandBox.setText("");
 						break;
 
 					case DONE:
 						if ((new IsValidDate(theRest).testValidDate())) {
-							history.recordHistory(theRest);
-							history.clearDateRALR();
-							history.checkPrevPrevNcheckPrev();
+							history.clearDateALR();
+							history.recordBaseFile(theRest);							
 							try {
 								(new CommandDone(theRest)).clearDateTaskAll();
 							} catch (FileNotFoundException e) {
 								e.printStackTrace();
 							}
 							displayAll();
+							history.recordUpdatedFile(theRest);
 							commandBox.setText("");
 						} else {
 							String doneString[] = theRest.split(" ", 2);
-							history.recordHistory(doneString[0]);
-							history.clearDateRALR();
-							history.checkPrevPrevNcheckPrev();
+							history.clearDateALR();
+							history.recordBaseFile(doneString[0]);							
 							(new CommandDone(doneString[0], doneString[1]))
 									.clearDateTaskSpecific();
 							displayAll();
+							history.recordUpdatedFile(doneString[0]);
 							commandBox.setText("");
 						}
 						break;
