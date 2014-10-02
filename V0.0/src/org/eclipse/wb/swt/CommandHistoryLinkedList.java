@@ -35,12 +35,12 @@ public class CommandHistoryLinkedList {
 		historyAL.add(currDateTask);
 		counter++;
 		maxCounter = counter;
-		System.out.println("total= " + counter);
+		//System.out.println("total= " + counter);
 	}
 
 	// Clear DateR & ALR after new command add/edit/done
 	public void clearDateALR() {
-		System.out.println("Clear= " + counter);
+		//System.out.println("Clear= " + counter);
 		while (historyDate.size() != counter) {
 			historyDate.removeLast();
 			historyAL.removeLast();
@@ -50,7 +50,7 @@ public class CommandHistoryLinkedList {
 	public void runUndo() {
 		if (counter > 1) {
 			counter--;
-			System.out.println("U= " + counter);
+			//System.out.println("U= " + counter);
 			(new WriteFile(historyDate.get(counter - 1),
 					historyAL.get(counter - 1))).writeContents();
 		} else {
@@ -61,7 +61,7 @@ public class CommandHistoryLinkedList {
 	public void runRedo() {
 		if (counter < maxCounter) {
 			counter++;
-			System.out.println("R= " + counter);
+			//System.out.println("R= " + counter);
 			(new WriteFile(historyDate.get(counter - 1),
 					historyAL.get(counter - 1))).writeContents();
 		} else {
