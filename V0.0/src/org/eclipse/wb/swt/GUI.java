@@ -556,6 +556,7 @@ public class GUI {
 			/*
 			 * This method will display the contents for each box in the UI
 			 */
+			
 			public final void displayAll() {
 
 				BufferedReader reader = null;
@@ -589,7 +590,7 @@ public class GUI {
 				// loop to display all the date tasks
 				// NOTE: i starts from 1
 				String currDateString = DateUpdate.getCurrDate();
-				for (int i = 1; i < 10; i++) {
+				for (int i = 1; i < 8; i++) {
 					// display 9 task starting from today's date
 					fileName = currDateString + ".txt";
 					try {
@@ -710,6 +711,17 @@ public class GUI {
 		 * displayAll() as it is outside the commandBox actionPerformed
 		 */
 
+		displayAllTasks(DateBox1_1, date2_1, date3_1, date4_1, date5_1,
+				date6_1, date7_1, missingBox, generalTaskBox);
+		
+
+	}
+	
+	public final void displayAllTasks(final JTextArea DateBox1_1,
+			final JTextArea date2_1, final JTextArea date3_1,
+			final JTextArea date4_1, final JTextArea date5_1,
+			final JTextArea date6_1, final JTextArea date7_1,
+			final JTextArea missingBox, final JTextArea generalTaskBox) {
 		BufferedReader reader = null;
 		fileName = "general.txt";
 		try {
@@ -722,7 +734,7 @@ public class GUI {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+	
 		String prevDateString = DateUpdate
 				.getPrevDate(DateUpdate.getCurrDate());
 		// read the missing task file
@@ -737,11 +749,11 @@ public class GUI {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+	
 		// loop to display all the date tasks
 		// NOTE: i starts from 1
 		String currDateString = DateUpdate.getCurrDate();
-		for (int i = 1; i < 10; i++) {
+		for (int i = 1; i < 8; i++) {
 			// display 9 task starting from today's date
 			fileName = currDateString + ".txt";
 			try {
@@ -763,7 +775,7 @@ public class GUI {
 					e.printStackTrace();
 				}
 				break;
-
+	
 			case 2:
 				try {
 					reader = new BufferedReader(new FileReader(fileName));
@@ -776,7 +788,7 @@ public class GUI {
 					e.printStackTrace();
 				}
 				break;
-
+	
 			case 3:
 				try {
 					reader = new BufferedReader(new FileReader(fileName));
@@ -789,7 +801,7 @@ public class GUI {
 					e.printStackTrace();
 				}
 				break;
-
+	
 			case 4:
 				try {
 					reader = new BufferedReader(new FileReader(fileName));
@@ -802,7 +814,7 @@ public class GUI {
 					e.printStackTrace();
 				}
 				break;
-
+	
 			case 5:
 				try {
 					reader = new BufferedReader(new FileReader(fileName));
@@ -815,7 +827,7 @@ public class GUI {
 					e.printStackTrace();
 				}
 				break;
-
+	
 			case 6:
 				try {
 					reader = new BufferedReader(new FileReader(fileName));
@@ -828,7 +840,7 @@ public class GUI {
 					e.printStackTrace();
 				}
 				break;
-
+	
 			case 7:
 				try {
 					reader = new BufferedReader(new FileReader(fileName));
@@ -845,6 +857,5 @@ public class GUI {
 			// update the current date for the next loop
 			currDateString = DateUpdate.getNextDate(currDateString);
 		}
-
 	}
 }
