@@ -22,9 +22,10 @@ public class CommandDone {
 			setVariables(arrStr);
 		} else if (arrStr[0].equals("-")) { // Input General Task
 			setVariables(arrStr);
-		} else if (arrStr[0].equals("miss")) { // Input Missing Task
-			setVariables(arrStr);
 		}
+//		} else if (arrStr[0].equals("miss")) { // Input Missing Task
+//			setVariables(arrStr);
+//		}
 		// System.out.println("values stored");
 	}
 
@@ -44,9 +45,9 @@ public class CommandDone {
 			if (date.equals("-")) {
 				String fileName = "general.txt";
 				doneSpecificTask(fileName);
-			} else if (date.equals("miss")) {
-				String fileName = "missing.txt"; // Naming in progress
-				doneSpecificTask(fileName);
+//			} else if (date.equals("miss")) {
+//				String fileName = "missing.txt"; // Naming in progress
+//				doneSpecificTask(fileName);
 			} else {
 				String fileName = date + ".txt";
 				doneSpecificTask(fileName);
@@ -55,9 +56,9 @@ public class CommandDone {
 			if (date.equals("-")) {
 				String fileName = "general.txt";
 				doneAllTask(fileName);
-			} else if (date.equals("miss")) {
-				String fileName = "missing.txt"; // Naming in progress
-				doneAllTask(fileName);
+//			} else if (date.equals("miss")) {
+//				String fileName = "missing.txt"; // Naming in progress
+//				doneAllTask(fileName);
 			} else {
 				String fileName = date + ".txt";
 				doneAllTask(fileName);
