@@ -333,7 +333,7 @@ public class GUI {
 					final JTextArea date4, final JTextArea date5,
 					final JTextArea date6, final JTextArea date7, String input)
 					throws IOException {
-				
+
 				String inputArr[] = input.split(" ", 2);
 				// take care of the one word input
 				if (inputArr.length == 1) {
@@ -373,7 +373,7 @@ public class GUI {
 						String time = editString[2];
 						String modification = editString[3];
 						history.clearDateALR();
-						history.recordBaseFile(date);						
+						history.recordBaseFile(date);
 						try {
 							(new CommandEdit(date, number, time, modification))
 									.edit();
@@ -382,7 +382,7 @@ public class GUI {
 							e.printStackTrace();
 						}
 						history.recordUpdatedFile(date);
-						commandBox.setText("");						
+						commandBox.setText("");
 						displayAll();
 						break;
 
@@ -392,7 +392,7 @@ public class GUI {
 						String time1 = addString[1];
 						String task = addString[2];
 						history.clearDateALR();
-						history.recordBaseFile(date1);						
+						history.recordBaseFile(date1);
 						try {
 							(new CommandAdd(date1, time1, task)).addTask();
 							displayAll();
@@ -405,27 +405,14 @@ public class GUI {
 						break;
 
 					case DONE:
-						if ((new IsValidDate(theRest).testValidDate())) {
-							history.clearDateALR();
-							history.recordBaseFile(theRest);							
-							try {
-								(new CommandDone(theRest)).clearDateTaskAll();
-							} catch (FileNotFoundException e) {
-								e.printStackTrace();
-							}
-							displayAll();
-							history.recordUpdatedFile(theRest);
-							commandBox.setText("");
-						} else {
-							String doneString[] = theRest.split(" ", 2);
-							history.clearDateALR();
-							history.recordBaseFile(doneString[0]);							
-							(new CommandDone(doneString[0], doneString[1]))
-									.clearDateTaskSpecific();
-							displayAll();
-							history.recordUpdatedFile(doneString[0]);
-							commandBox.setText("");
-						}
+						history.clearDateALR();
+						String[] doneString = theRest.split(" ");
+						history.recordBaseFile(doneString[0]);
+						(new CommandDone(theRest)).delete();
+						displayAll();
+						history.recordUpdatedFile(doneString[0]);
+						commandBox.setText("");
+
 						break;
 
 					case SEARCH:
@@ -447,13 +434,16 @@ public class GUI {
 								fileName = "general.txt";
 								String dateContent = readFile(fileName);
 								commandBox.setText("");
-								WarningPopUp.infoBox(dateContent, "Zoom Result");
+								WarningPopUp
+										.infoBox(dateContent, "Zoom Result");
 								break;
 							case "missing":
-								fileName = DateUpdate.getPrevDate(DateUpdate.getCurrDate())+ ".txt";
+								fileName = DateUpdate.getPrevDate(DateUpdate
+										.getCurrDate()) + ".txt";
 								dateContent = readFile(fileName);
 								commandBox.setText("");
-								WarningPopUp.infoBox(dateContent, "Zoom Result");
+								WarningPopUp
+										.infoBox(dateContent, "Zoom Result");
 								break;
 							default:
 								WarningPopUp.infoBox("Invalid Input!",
@@ -556,7 +546,7 @@ public class GUI {
 			/*
 			 * This method will display the contents for each box in the UI
 			 */
-			
+
 			public final void displayAll() {
 
 				BufferedReader reader = null;
@@ -713,10 +703,9 @@ public class GUI {
 
 		displayAllTasks(DateBox1_1, date2_1, date3_1, date4_1, date5_1,
 				date6_1, date7_1, missingBox, generalTaskBox);
-		
 
 	}
-	
+
 	public final void displayAllTasks(final JTextArea DateBox1_1,
 			final JTextArea date2_1, final JTextArea date3_1,
 			final JTextArea date4_1, final JTextArea date5_1,
@@ -734,7 +723,7 @@ public class GUI {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	
+
 		String prevDateString = DateUpdate
 				.getPrevDate(DateUpdate.getCurrDate());
 		// read the missing task file
@@ -749,7 +738,7 @@ public class GUI {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	
+
 		// loop to display all the date tasks
 		// NOTE: i starts from 1
 		String currDateString = DateUpdate.getCurrDate();
@@ -775,7 +764,7 @@ public class GUI {
 					e.printStackTrace();
 				}
 				break;
-	
+
 			case 2:
 				try {
 					reader = new BufferedReader(new FileReader(fileName));
@@ -788,7 +777,7 @@ public class GUI {
 					e.printStackTrace();
 				}
 				break;
-	
+
 			case 3:
 				try {
 					reader = new BufferedReader(new FileReader(fileName));
@@ -801,7 +790,7 @@ public class GUI {
 					e.printStackTrace();
 				}
 				break;
-	
+
 			case 4:
 				try {
 					reader = new BufferedReader(new FileReader(fileName));
@@ -814,7 +803,7 @@ public class GUI {
 					e.printStackTrace();
 				}
 				break;
-	
+
 			case 5:
 				try {
 					reader = new BufferedReader(new FileReader(fileName));
@@ -827,7 +816,7 @@ public class GUI {
 					e.printStackTrace();
 				}
 				break;
-	
+
 			case 6:
 				try {
 					reader = new BufferedReader(new FileReader(fileName));
@@ -840,7 +829,7 @@ public class GUI {
 					e.printStackTrace();
 				}
 				break;
-	
+
 			case 7:
 				try {
 					reader = new BufferedReader(new FileReader(fileName));
