@@ -38,7 +38,7 @@ public class GUI {
 	private String fileName = null;
 
 	// static CommandUndoRedo commandHistory = new CommandUndoRedo();
-	static CommandHistoryLinkedList history = new CommandHistoryLinkedList();
+	static HistoryTracker history = new HistoryTracker();
 
 	enum CommandTypes {
 		START, ADD, EDIT, DONE, INVALID, UNDO, REDO, ZOOM, SEARCH
@@ -341,12 +341,12 @@ public class GUI {
 					case "exit":
 						System.exit(0);
 					case "undo":
-						history.runUndo();
+						history.undo();
 						commandBox.setText("");
 						displayAll();
 						break;
 					case "redo":
-						history.runRedo();
+						history.redo();
 						commandBox.setText("");
 						displayAll();
 						break;
@@ -372,8 +372,8 @@ public class GUI {
 						String number = editString[1];
 						String time = editString[2];
 						String modification = editString[3];
-						history.clearDateALR();
-						history.recordBaseFile(date);
+						history.clear();
+						history.checkBaseFile(date);
 						try {
 							(new CommandEdit(date, number, time, modification))
 									.edit();
@@ -391,8 +391,8 @@ public class GUI {
 						String date1 = addString[0];
 						String time1 = addString[1];
 						String task = addString[2];
-						history.clearDateALR();
-						history.recordBaseFile(date1);
+						history.clear();
+						history.checkBaseFile(date1);
 						try {
 							(new CommandAdd(date1, time1, task)).addTask();
 							displayAll();
@@ -405,9 +405,9 @@ public class GUI {
 						break;
 
 					case DONE:
-						history.clearDateALR();
+						history.clear();
 						String[] doneString = theRest.split(" ");
-						history.recordBaseFile(doneString[0]);
+						history.checkBaseFile(doneString[0]);
 						(new CommandDone(theRest)).delete();
 						displayAll();
 						history.recordUpdatedFile(doneString[0]);
