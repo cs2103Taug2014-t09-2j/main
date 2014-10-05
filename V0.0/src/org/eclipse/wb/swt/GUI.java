@@ -38,7 +38,7 @@ public class GUI {
 	private String fileName = null;
 
 	// static CommandUndoRedo commandHistory = new CommandUndoRedo();
-	static HistoryTracker history = new HistoryTracker();
+	static HistoryTrackerAllFiles history = new HistoryTrackerAllFiles();
 
 	enum CommandTypes {
 		START, ADD, EDIT, DONE, INVALID, UNDO, REDO, ZOOM, SEARCH

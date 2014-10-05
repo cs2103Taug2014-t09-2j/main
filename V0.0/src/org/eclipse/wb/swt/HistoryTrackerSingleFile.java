@@ -6,7 +6,8 @@ import java.util.LinkedList;
 /* This class applies to only 1 file
  * 
  */
-public class CommandHistoryLinkedList {
+
+public class HistoryTrackerSingleFile {
 
 	public LinkedList<ArrayList<String>> historyAL;
 	int counter = 0; // Position where the current file is
@@ -15,14 +16,23 @@ public class CommandHistoryLinkedList {
 	String date;
 
 	// Set Base file Here
-	public CommandHistoryLinkedList(String date) {
+	public HistoryTrackerSingleFile(String date) {
 		historyAL = new LinkedList<ArrayList<String>>();
-		this.date = date;
+		if (date.equals("-")) {
+			this.date = "general.txt";
+		} else {
+			this.date = date + ".txt";
+		}
 		recordBaseFile(date);
 	}
 
 	public void recordBaseFile(String date) {
-		String fileName = date + ".txt";
+		String fileName = "";
+		if (date.equals("-")) {
+			fileName = "general.txt";
+		} else {
+			fileName = date + ".txt";
+		}
 		ArrayList<String> currDateTask = new ArrayList<>();
 		currDateTask = (new ReadFile(fileName)).readContents();
 		historyAL.add(currDateTask);
@@ -31,16 +41,21 @@ public class CommandHistoryLinkedList {
 	}
 
 	public void recordUpdatedFile(String date) {
-		String fileName = date + ".txt";
+		String fileName = "";
+		if (date.equals("-")) {
+			fileName = "general.txt";
+		} else {
+			fileName = date + ".txt";
+		}
 		ArrayList<String> currDateTask = new ArrayList<>();
 		currDateTask = (new ReadFile(fileName)).readContents();
 		historyAL.add(currDateTask);
 		counter++;
 		maxCounter = counter;
-		// System.out.println("total= " + counter);
+		//System.out.println("total= " + counter);
 	}
 
-	// Clear DateR & ALR after new command add/edit/done
+	// Clear ALR after new command add/edit/done
 	public void clearALR() {
 		// System.out.println("Clear= " + counter);
 		while (historyAL.size() != counter) {
@@ -51,7 +66,7 @@ public class CommandHistoryLinkedList {
 	public void runUndo() {
 		if (counter > 1) {
 			counter--;
-			// System.out.println("U= " + counter);
+			//System.out.println("U= " + counter);
 			(new WriteFile(date, historyAL.get(counter - 1))).writeContents();
 			System.out.println("Success");
 		} else {
@@ -62,7 +77,7 @@ public class CommandHistoryLinkedList {
 	public void runRedo() {
 		if (counter < maxCounter) {
 			counter++;
-			// System.out.println("R= " + counter);
+			//System.out.println("R= " + counter);
 			(new WriteFile(date, historyAL.get(counter - 1))).writeContents();
 			System.out.println("Success");
 		} else {
