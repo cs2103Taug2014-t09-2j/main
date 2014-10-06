@@ -78,7 +78,7 @@ public class GUI {
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
-				}
+				}								
 			}
 		});
 	}
@@ -716,7 +716,7 @@ public class GUI {
 		
 
 	}
-	
+
 	public final void displayAllTasks(final JTextArea DateBox1_1,
 			final JTextArea date2_1, final JTextArea date3_1,
 			final JTextArea date4_1, final JTextArea date5_1,
