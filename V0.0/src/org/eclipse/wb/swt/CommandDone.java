@@ -1,37 +1,101 @@
 package org.eclipse.wb.swt;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+//import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-/*
+/* Add general task and missing task edit
  * 
  */
 
 public class CommandDone {
 
 	String date; // fileName
-	int position;
+	int position = -1;
 	File file_object = null;
 
 	// Constructor
-	// Specific task
-	public CommandDone(String date, String position) {
-		this.date = date;
-		this.position = Integer.parseInt(position);
-		// System.out.println("executed 1");
+	// General start up of done
+	public CommandDone(String input) {
+		String[] arrStr = input.split(" ");
+		if (new IsValidDate(arrStr[0]).testValidDate()) { // Input Date Task
+			setVariables(arrStr);
+		} else if (arrStr[0].equals("-")) { // Input General Task
+			setVariables(arrStr);
+		}
+//		} else if (arrStr[0].equals("miss")) { // Input Missing Task
+//			setVariables(arrStr);
+//		}
+		// System.out.println("values stored");
 	}
 
-	// All task in a date
-	public CommandDone(String date) {
-		this.date = date;
-		// System.out.println("executed 2");
+	private void setVariables(String[] arrStr) {
+		if (arrStr.length == 1) {
+			date = arrStr[0];
+		} else {
+			date = arrStr[0];
+			position = Integer.parseInt(arrStr[1]);
+		}
 	}
 
 	// Mutator
-	// Specific task
-	public void clearDateTaskSpecific() {
-		String fileName = date + ".txt";
+	public void delete() {
+		// Specific task
+		if (position != -1) {
+			if (date.equals("-")) {
+				String fileName = "general.txt";
+				doneSpecificTask(fileName);
+//			} else if (date.equals("miss")) {
+//				String fileName = "missing.txt"; // Naming in progress
+//				doneSpecificTask(fileName);
+			} else {
+				String fileName = date + ".txt";
+				doneSpecificTask(fileName);
+			}
+		} else { // All Task
+			if (date.equals("-")) {
+				String fileName = "general.txt";
+				doneAllTask(fileName);
+//			} else if (date.equals("miss")) {
+//				String fileName = "missing.txt"; // Naming in progress
+//				doneAllTask(fileName);
+			} else {
+				String fileName = date + ".txt";
+				doneAllTask(fileName);
+			}
+		}
+
+	}
+
+	private void doneAllTask(String fileName) {
+		ArrayList<String> currDateTask = new ArrayList<>();
+		file_object = new File(fileName);
+
+		// Test file
+		if (file_object.exists()) {
+
+			// read the content of the file, put in the list
+			currDateTask = (new ReadFile(fileName)).readContents();
+
+			if (currDateTask.size() == 0) {
+				System.out.println("Nothing to clear");
+
+			} else {
+				currDateTask.clear();
+				System.out.println("Success Clear");
+
+			}
+
+			// write in file
+			(new WriteFile(fileName, currDateTask)).writeContents();
+
+		} else {
+			System.out.println("Failed Clear");
+
+		}
+	}
+
+	private void doneSpecificTask(String fileName) {
 		ArrayList<String> currDateTask = new ArrayList<>();
 
 		// read the content of the file, put in the list
@@ -41,44 +105,14 @@ public class CommandDone {
 		if (position - 1 < currDateTask.size()) {
 			currDateTask.remove(position - 1);
 			System.out.println("Success delete");
-			
+
 		} else {
 			System.out.println("Failed delete");
-			
+
 		}
 
 		// write in file
 		(new WriteFile(fileName, currDateTask)).writeContents();
-
 	}
-
-	// All task in a date
-	public void clearDateTaskAll() throws FileNotFoundException {
-		String fileName = date + ".txt";
-		ArrayList<String> currDateTask = new ArrayList<>();
-		file_object = new File(fileName);
 		
-		// Test file
-		if (file_object.exists()) {
-
-			// read the content of the file, put in the list
-			currDateTask = (new ReadFile(fileName)).readContents();
-
-			if (currDateTask.size() == 0) {
-				System.out.println("Nothing to clear");
-				
-			} else {
-				currDateTask.clear();
-				System.out.println("Success Clear");
-				
-			}
-
-			// write in file
-			(new WriteFile(fileName, currDateTask)).writeContents();
-			
-		} else {
-			System.out.println("Failed Clear");
-			
-		}
-	}
 }
