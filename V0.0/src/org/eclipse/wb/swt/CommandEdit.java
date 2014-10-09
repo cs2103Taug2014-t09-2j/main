@@ -27,7 +27,7 @@ public class CommandEdit {
 		}
 	}
 	
-	public void editTime() throws IOException {
+	private void editTime() throws IOException {
 
 		String fileName = date + ".txt";
 		ArrayList<String> currDateTask = new ArrayList<String>();
@@ -48,7 +48,7 @@ public class CommandEdit {
 		(new WriteFile(fileName, currDateTask)).writeContents();
 	}
 	
-	public void editTask() throws IOException {
+	private void editTask() throws IOException {
 
 		String fileName = date + ".txt";
 		ArrayList<String> currDateTask = new ArrayList<String>();
@@ -70,7 +70,7 @@ public class CommandEdit {
 		(new WriteFile(fileName, currDateTask)).writeContents();
 	}
 	
-	public void editAll() throws IOException {
+	private void editAll() throws IOException {
 		String fileName = date + ".txt";
 		ArrayList<String> currDateTask = new ArrayList<String>();
 		currDateTask = (new ReadFile(fileName)).readContents();
@@ -88,4 +88,4 @@ public class CommandEdit {
 		(new WriteFile(fileName, currDateTask)).writeContents();
 	}
 }
-//Comment
+
