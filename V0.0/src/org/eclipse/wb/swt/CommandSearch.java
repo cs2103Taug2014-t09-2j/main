@@ -38,7 +38,7 @@ public class CommandSearch {
 		return arrayListToString(searchResult);
 	}
 	
-	public ArrayList<String> searchGeneral() throws FileNotFoundException{
+	private ArrayList<String> searchGeneral() throws FileNotFoundException{
 		String fileName = "general.txt";
 		ArrayList<String> generalTask = new ArrayList<String>(); //generalTask contains tasks in General box
 		generalTask = (new ReadFile(fileName)).readContents();
@@ -53,7 +53,7 @@ public class CommandSearch {
 		return searchResultGeneral;
 	}
 	
-	public ArrayList<String> searchMissing() throws FileNotFoundException{
+	private ArrayList<String> searchMissing() throws FileNotFoundException{
 		String fileName = "missing.txt";
 		ArrayList<String> missingTask = new ArrayList<String>(); //missingTask contains tasks in Missing box
 		missingTask = (new ReadFile(fileName)).readContents();
@@ -68,7 +68,7 @@ public class CommandSearch {
 		return searchResultMissing;
 	}
 	
-	public ArrayList<String> searchDate() throws FileNotFoundException{
+	private ArrayList<String> searchDate() throws FileNotFoundException{
 		ArrayList<String> searchResultDate = new ArrayList<String>();
 		ArrayList<String> dateTask = new ArrayList<String>();
 		String result = new String();
@@ -94,7 +94,7 @@ public class CommandSearch {
 		 return searchResultDate;
 	}
 	
-	public String arrayListToString(ArrayList<String> arr) {
+	private String arrayListToString(ArrayList<String> arr) {
 		String str = new String();
 		for (int i=0; i<arr.size(); i++) {
 			str = str + arr.get(i) + "\n";
