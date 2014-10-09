@@ -2,6 +2,10 @@ package org.eclipse.wb.swt;
 
 import java.util.ArrayList;
 
+/*
+ * UNUSED, INITIALLY FOR COMMANDDONE/UNDOREDO
+ */
+
 public class CommandSearchCurrDate {
 
 	String date;
