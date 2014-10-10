@@ -1,7 +1,9 @@
 package org.eclipse.wb.swt;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class IsValidDate {
 
@@ -12,6 +14,37 @@ public class IsValidDate {
 		//System.out.println(date);
 	}
 
+	public static String validateDate(String date){
+		if (date.toLowerCase().equals("today")){
+			DateFormat dateFormat = new SimpleDateFormat("ddMMyy");
+			Date currDate = new Date();
+			return dateFormat.format(currDate);
+		}
+		else if (date.toLowerCase().equals("tomorrow")){
+			DateFormat dateFormat = new SimpleDateFormat("ddMMyy");
+			long currTime = new Date().getTime();
+			Date currDate = new Date(currTime+(24*3600*1000));
+			return dateFormat.format(currDate);
+		}
+		else if (date == "-" || new IsValidDate(date).testValidDate()){
+			return date;
+		}
+		try{
+			int box = Integer.valueOf(date);
+			if (box>=1 && box<=7){
+				DateFormat dateFormat = new SimpleDateFormat("ddMMyy");
+				Date currDate = new Date();
+				return DateUpdate.getParticularDate(dateFormat.format(currDate), box-1);
+			}
+		}
+		catch (Exception e){
+			//do nothing
+		}
+		WarningPopUp.infoBox("Invalid Date!",
+				"ERROR");
+		return "";
+	}
+	
 	public static boolean testValidDate() {
 		
 			SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyy");

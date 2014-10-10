@@ -41,7 +41,7 @@ public class GUI {
 	static HistoryTrackerAllFiles history = new HistoryTrackerAllFiles();
 
 	enum CommandTypes {
-		START, ADD, EDIT, DONE, INVALID, UNDO, REDO, ZOOM, SEARCH
+		START, ADD, EDIT, DONE, INVALID, UNDO, REDO, ZOOM, SEARCH, COPY
 	};
 
 	private static CommandTypes determineCmd(String str) {
@@ -61,6 +61,8 @@ public class GUI {
 			return CommandTypes.ZOOM;
 		} else if (str.equals("search")) {
 			return CommandTypes.SEARCH;
+		} else if (str.equals("copy")) {
+			return CommandTypes.COPY;
 		} else {
 			return CommandTypes.INVALID;
 		}
@@ -388,7 +390,7 @@ public class GUI {
 
 					case ADD:
 						String addString[] = theRest.split(" ", 3);
-						String date1 = addString[0];
+						String date1 = IsValidDate.validateDate(addString[0]);
 						String time1 = addString[1];
 						String task = addString[2];
 						history.clear();
@@ -396,7 +398,6 @@ public class GUI {
 						try {
 							(new CommandAdd(date1, time1, task)).addTask();
 							displayAll();
-							// addTask(date1,time1,task);
 						} catch (IOException e1) {
 							e1.printStackTrace();
 						}
@@ -404,6 +405,19 @@ public class GUI {
 						commandBox.setText("");
 						break;
 
+					case COPY:
+						String cpyString[] = theRest.split(" ", 3);
+						String sourcedate = IsValidDate.validateDate(cpyString[0]);
+						String index = cpyString[1];
+						String destdate = IsValidDate.validateDate(cpyString[2]);
+						history.clear();
+						history.checkBaseFile(sourcedate);
+						CommandCopy.copyTask(sourcedate,index,destdate);
+						displayAll();
+						history.recordUpdatedFile(sourcedate);
+						commandBox.setText("");
+						break;
+						
 					case DONE:
 						history.clear();
 						String[] doneString = theRest.split(" ");

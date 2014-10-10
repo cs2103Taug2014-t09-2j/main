@@ -32,6 +32,8 @@ public class ReadFile {
 			}
 			br.close();
 		} catch (IOException ee) {
+			WarningPopUp.infoBox("Failure to Read File " + fileName + "!",
+					"ERROR");
 			ee.printStackTrace();
 		}
 		return currDateTask;

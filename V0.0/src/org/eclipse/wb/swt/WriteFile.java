@@ -31,6 +31,8 @@ public class WriteFile {
 			}
 			bw.close();
 		} catch (IOException ee) {
+			WarningPopUp.infoBox("Failure to Write File " + fileName + "!",
+					"ERROR");
 			ee.printStackTrace();
 		}
 
