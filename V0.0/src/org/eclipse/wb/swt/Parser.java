@@ -1,11 +1,15 @@
 package org.eclipse.wb.swt;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 public class Parser {
 	private String date;
 	private int index;
 	private String time;
 	private String task;
-	
+	private String fileName;
+
 	enum CommandTypes {
 		START, ADD, EDIT, DONE, INVALID, UNDO, REDO, ZOOM, SEARCH, COPY
 	};
@@ -33,11 +37,12 @@ public class Parser {
 			return CommandTypes.INVALID;
 		}
 	}
-	
-	public void processInput(String input){
-		
+
+	public void processInput(String input) {
+
 		HistoryTrackerAllFiles history = new HistoryTrackerAllFiles();
-		
+		ReadFile readFile = new ReadFile(fileName);
+
 		String inputArr[] = input.split(" ", 2);
 		// take care of the one word input
 		if (inputArr.length == 1) {
@@ -58,8 +63,8 @@ public class Parser {
 		} else {
 			CommandTypes command = determineCmd(inputArr[0]);
 			/*
-			 * take all the words in the input except the first word to
-			 * be added to the file, depending on the command
+			 * take all the words in the input except the first word to be added
+			 * to the file, depending on the command
 			 */
 			String theRest = inputArr[1].trim();
 
@@ -73,15 +78,12 @@ public class Parser {
 				history.clear();
 				history.checkBaseFile(date);
 				try {
-					(new CommandEdit(date, number, time, modification))
-							.edit();
+					(new CommandEdit(date, number, time, modification)).edit();
 					// editTask(date, number, time, modification);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 				history.recordUpdatedFile(date);
-				commandBox.setText("");
-				displayAll();
 				break;
 
 			case ADD:
@@ -93,12 +95,10 @@ public class Parser {
 				history.checkBaseFile(date1);
 				try {
 					(new CommandAdd(date1, time1, task)).addTask();
-					displayAll();
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
 				history.recordUpdatedFile(date1);
-				commandBox.setText("");
 				break;
 
 			case COPY:
@@ -108,21 +108,16 @@ public class Parser {
 				String destdate = IsValidDate.validateDate(cpyString[2]);
 				history.clear();
 				history.checkBaseFile(sourcedate);
-				CommandCopy.copyTask(sourcedate,index,destdate);
-				displayAll();
+				CommandCopy.copyTask(sourcedate, index, destdate);
 				history.recordUpdatedFile(sourcedate);
-				commandBox.setText("");
 				break;
-				
+
 			case DONE:
 				history.clear();
 				String[] doneString = theRest.split(" ");
 				history.checkBaseFile(doneString[0]);
 				(new CommandDone(theRest)).delete();
-				displayAll();
 				history.recordUpdatedFile(doneString[0]);
-				commandBox.setText("");
-
 				break;
 
 			case SEARCH:
@@ -134,31 +129,29 @@ public class Parser {
 				} else {
 					WarningPopUp.infoBox("Not Found!", "Search Result");
 				}
-				commandBox.setText("");
 				break;
 
 			case ZOOM:
 				if (theRest.length() > 1) {
+
 					switch (theRest) {
+
 					case "general":
 						fileName = "general.txt";
-						String dateContent = readFile(fileName);
-						commandBox.setText("");
-						WarningPopUp
-								.infoBox(dateContent, "Zoom Result");
+						ArrayList<String> dateContent = readFile.readContents();
+						String dateContentString = dateContent.toString();
+						WarningPopUp.infoBox(dateContentString, "Zoom Result");
 						break;
 					case "missing":
+
 						fileName = DateUpdate.getPrevDate(DateUpdate
 								.getCurrDate()) + ".txt";
-						dateContent = readFile(fileName);
-						commandBox.setText("");
-						WarningPopUp
-								.infoBox(dateContent, "Zoom Result");
+						dateContent = readFile.readContents();
+						dateContentString = dateContent.toString();
+						WarningPopUp.infoBox(dateContentString, "Zoom Result");
 						break;
 					default:
-						WarningPopUp.infoBox("Invalid Input!",
-								"WARNING");
-						commandBox.setText("");
+						WarningPopUp.infoBox("Invalid Input!", "WARNING");
 						break;
 					}
 				} else {
@@ -166,77 +159,79 @@ public class Parser {
 					int dateToBeZoomed = Integer.valueOf(theRest);
 					// check the date validity
 					if (!((dateToBeZoomed > 0) && (dateToBeZoomed < 10))) {
-						WarningPopUp.infoBox("Invalid Input!",
-								"WARNING");
-						commandBox.setText("");
+						WarningPopUp.infoBox("Invalid Input!", "WARNING");
 					} else {
 						switch (dateToBeZoomed) {
 						case 1:
-							fileName = DateUpdate.getCurrDate()
-									+ ".txt";
-							String dateContent = readFile(fileName);
-							commandBox.setText("");
-							WarningPopUp.infoBox(dateContent,
+							fileName = DateUpdate.getCurrDate() + ".txt";
+							ArrayList<String> dateContent = readFile
+									.readContents();
+							String dateContentString = dateContent.toString();
+							WarningPopUp.infoBox(dateContentString,
 									"Zoom Result");
 							break;
+
 						case 2:
 							fileName = DateUpdate.getParticularDate(
 									DateUpdate.getCurrDate(), 1)
 									+ ".txt";
-							dateContent = readFile(fileName);
-							commandBox.setText("");
-							WarningPopUp.infoBox(dateContent,
+							dateContent = readFile.readContents();
+							dateContentString = dateContent.toString();
+							WarningPopUp.infoBox(dateContentString,
 									"Zoom Result");
 							break;
+
 						case 3:
 							fileName = DateUpdate.getParticularDate(
 									DateUpdate.getCurrDate(), 2)
 									+ ".txt";
-							dateContent = readFile(fileName);
-							commandBox.setText("");
-							WarningPopUp.infoBox(dateContent,
+							dateContent = readFile.readContents();
+							dateContentString = dateContent.toString();
+							WarningPopUp.infoBox(dateContentString,
 									"Zoom Result");
 							break;
 						case 4:
 							fileName = DateUpdate.getParticularDate(
 									DateUpdate.getCurrDate(), 3)
 									+ ".txt";
-							dateContent = readFile(fileName);
-							commandBox.setText("");
-							WarningPopUp.infoBox(dateContent,
+							dateContent = readFile.readContents();
+							dateContentString = dateContent.toString();
+							WarningPopUp.infoBox(dateContentString,
 									"Zoom Result");
 							break;
+
 						case 5:
 							fileName = DateUpdate.getParticularDate(
 									DateUpdate.getCurrDate(), 4)
 									+ ".txt";
-							dateContent = readFile(fileName);
-							commandBox.setText("");
-							WarningPopUp.infoBox(dateContent,
+							dateContent = readFile.readContents();
+							dateContentString = dateContent.toString();
+							WarningPopUp.infoBox(dateContentString,
 									"Zoom Result");
 							break;
+
 						case 6:
 							fileName = DateUpdate.getParticularDate(
 									DateUpdate.getCurrDate(), 5)
 									+ ".txt";
-							dateContent = readFile(fileName);
-							commandBox.setText("");
-							WarningPopUp.infoBox(dateContent,
+							dateContent = readFile.readContents();
+							dateContentString = dateContent.toString();
+							WarningPopUp.infoBox(dateContentString,
 									"Zoom Result");
 							break;
+
 						case 7:
 							fileName = DateUpdate.getParticularDate(
 									DateUpdate.getCurrDate(), 6)
 									+ ".txt";
-							dateContent = readFile(fileName);
-							commandBox.setText("");
-							WarningPopUp.infoBox(dateContent,
+							dateContent = readFile.readContents();
+							dateContentString = dateContent.toString();
+							WarningPopUp.infoBox(dateContentString,
 									"Zoom Result");
 							break;
+
 						default:
-							WarningPopUp.infoBox("Invalid Input!",
-									"WARNING");
-							commandBox.setText("");
+							WarningPopUp.infoBox("Invalid Input!", "WARNING");
 							break;
 						}
 					}
@@ -246,10 +241,10 @@ public class Parser {
 			// other input will be displayed as invalid input
 			default:
 				WarningPopUp.infoBox("Invalid Input", "WARNING");
-				commandBox.setText("");
 				break;
 
 			}
-		
+
+		}
 	}
 }
