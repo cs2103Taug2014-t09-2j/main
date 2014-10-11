@@ -4,10 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Parser {
-	private String date;
-	private int index;
-	private String time;
-	private String task;
+
 	private String fileName;
 
 	enum CommandTypes {
