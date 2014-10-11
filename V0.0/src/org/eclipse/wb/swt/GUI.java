@@ -26,8 +26,6 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 import javax.swing.JScrollPane;
 
@@ -36,37 +34,6 @@ public class GUI {
 	private JFrame frame;
 	private JTextField commandBox;
 	private String fileName = null;
-
-	// static CommandUndoRedo commandHistory = new CommandUndoRedo();
-	static HistoryTrackerAllFiles history = new HistoryTrackerAllFiles();
-
-	enum CommandTypes {
-		START, ADD, EDIT, DONE, INVALID, UNDO, REDO, ZOOM, SEARCH, COPY
-	};
-
-	private static CommandTypes determineCmd(String str) {
-		if (str.equals("start")) {
-			return CommandTypes.START;
-		} else if (str.equals("add")) {
-			return CommandTypes.ADD;
-		} else if (str.equals("done")) {
-			return CommandTypes.DONE;
-		} else if (str.equals("edit")) {
-			return CommandTypes.EDIT;
-		} else if (str.equals("undo")) {
-			return CommandTypes.UNDO;
-		} else if (str.equals("redo")) {
-			return CommandTypes.REDO;
-		} else if (str.equals("zoom")) {
-			return CommandTypes.ZOOM;
-		} else if (str.equals("search")) {
-			return CommandTypes.SEARCH;
-		} else if (str.equals("copy")) {
-			return CommandTypes.COPY;
-		} else {
-			return CommandTypes.INVALID;
-		}
-	}
 
 	/**
 	 * Launch the application.
