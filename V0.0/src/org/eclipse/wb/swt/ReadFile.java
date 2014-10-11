@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 public class ReadFile {
 
-	String fileName;
-	ArrayList<String> currDateTask;
+	private String fileName;
+	private ArrayList<String> currDateTask;
 
 	// Constructor
 	public ReadFile(String fileName) {
@@ -17,6 +17,10 @@ public class ReadFile {
 	}
 
 	// Mutator
+	public void setFileName(String newFileName){
+		this.fileName=newFileName;
+	}
+	
 	public ArrayList<String> readContents() {
 		BufferedReader br = null;
 		try {
