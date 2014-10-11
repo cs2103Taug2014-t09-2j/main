@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 public class Parser {
 
+	public static HistoryTrackerAllFiles history = new HistoryTrackerAllFiles();
+	
 	enum CommandTypes {
 		START, ADD, EDIT, DONE, INVALID, UNDO, REDO, ZOOM, SEARCH, COPY
 	};
@@ -36,8 +38,7 @@ public class Parser {
 	public void processInput(String input) {
 		
 		String fileName=DateUpdate.getCurrDate();
-
-		HistoryTrackerAllFiles history = new HistoryTrackerAllFiles();
+		
 		ReadFile readFile = new ReadFile(fileName);
 
 		String inputArr[] = input.split(" ", 2);
