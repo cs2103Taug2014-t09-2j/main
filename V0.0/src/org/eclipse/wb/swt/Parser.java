@@ -111,9 +111,9 @@ public class Parser {
 				String index = cpyString[1];
 				String destdate = IsValidDate.validateDate(cpyString[2]);
 				history.clear();
-				history.checkBaseFile(sourcedate);
+				history.checkBaseFile(destdate);
 				CommandCopy.copyTask(sourcedate, index, destdate);
-				history.recordUpdatedFile(sourcedate);
+				history.recordUpdatedFile(destdate);
 				break;
 
 			case DONE:
