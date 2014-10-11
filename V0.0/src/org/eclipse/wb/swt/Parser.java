@@ -5,8 +5,6 @@ import java.util.ArrayList;
 
 public class Parser {
 
-	private String fileName;
-
 	enum CommandTypes {
 		START, ADD, EDIT, DONE, INVALID, UNDO, REDO, ZOOM, SEARCH, COPY
 	};
@@ -36,6 +34,8 @@ public class Parser {
 	}
 
 	public void processInput(String input) {
+		
+		String fileName=DateUpdate.getCurrDate();
 
 		HistoryTrackerAllFiles history = new HistoryTrackerAllFiles();
 		ReadFile readFile = new ReadFile(fileName);
@@ -135,6 +135,7 @@ public class Parser {
 
 					case "general":
 						fileName = "general.txt";
+						readFile.setFileName(fileName);
 						ArrayList<String> dateContent = readFile.readContents();
 						String dateContentString = dateContent.toString();
 						WarningPopUp.infoBox(dateContentString, "Zoom Result");
@@ -143,6 +144,7 @@ public class Parser {
 
 						fileName = DateUpdate.getPrevDate(DateUpdate
 								.getCurrDate()) + ".txt";
+						readFile.setFileName(fileName);
 						dateContent = readFile.readContents();
 						dateContentString = dateContent.toString();
 						WarningPopUp.infoBox(dateContentString, "Zoom Result");
@@ -161,6 +163,7 @@ public class Parser {
 						switch (dateToBeZoomed) {
 						case 1:
 							fileName = DateUpdate.getCurrDate() + ".txt";
+							readFile.setFileName(fileName);
 							ArrayList<String> dateContent = readFile
 									.readContents();
 							String dateContentString = dateContent.toString();
@@ -172,6 +175,7 @@ public class Parser {
 							fileName = DateUpdate.getParticularDate(
 									DateUpdate.getCurrDate(), 1)
 									+ ".txt";
+							readFile.setFileName(fileName);
 							dateContent = readFile.readContents();
 							dateContentString = dateContent.toString();
 							WarningPopUp.infoBox(dateContentString,
@@ -182,6 +186,7 @@ public class Parser {
 							fileName = DateUpdate.getParticularDate(
 									DateUpdate.getCurrDate(), 2)
 									+ ".txt";
+							readFile.setFileName(fileName);
 							dateContent = readFile.readContents();
 							dateContentString = dateContent.toString();
 							WarningPopUp.infoBox(dateContentString,
@@ -191,6 +196,7 @@ public class Parser {
 							fileName = DateUpdate.getParticularDate(
 									DateUpdate.getCurrDate(), 3)
 									+ ".txt";
+							readFile.setFileName(fileName);
 							dateContent = readFile.readContents();
 							dateContentString = dateContent.toString();
 							WarningPopUp.infoBox(dateContentString,
@@ -201,6 +207,7 @@ public class Parser {
 							fileName = DateUpdate.getParticularDate(
 									DateUpdate.getCurrDate(), 4)
 									+ ".txt";
+							readFile.setFileName(fileName);
 							dateContent = readFile.readContents();
 							dateContentString = dateContent.toString();
 							WarningPopUp.infoBox(dateContentString,
@@ -211,6 +218,7 @@ public class Parser {
 							fileName = DateUpdate.getParticularDate(
 									DateUpdate.getCurrDate(), 5)
 									+ ".txt";
+							readFile.setFileName(fileName);
 							dateContent = readFile.readContents();
 							dateContentString = dateContent.toString();
 							WarningPopUp.infoBox(dateContentString,
@@ -221,6 +229,7 @@ public class Parser {
 							fileName = DateUpdate.getParticularDate(
 									DateUpdate.getCurrDate(), 6)
 									+ ".txt";
+							readFile.setFileName(fileName);
 							dateContent = readFile.readContents();
 							dateContentString = dateContent.toString();
 							WarningPopUp.infoBox(dateContentString,
