@@ -10,6 +10,9 @@ public class CommandCopy {
 			String line = files.get(Integer.valueOf(index)-1);
 			String[] splitter = line.split("]");
 			String time = splitter[0].substring(1);
+			if(time.equals("all-day")){
+				time="-";
+			}
 			String task = line.substring(splitter[0].length()+2); //']' and ' '
 			new CommandAdd(destination_date, time, task).addTask();
 		}
