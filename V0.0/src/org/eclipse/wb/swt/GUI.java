@@ -69,29 +69,8 @@ public class GUI {
 		frame = new JFrame();
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowActivated(WindowEvent arg0) {
-
-				String currDateString = DateUpdate.getCurrDate();
-				for (int i = 1; i < 10; i++) {
-					// check for each date whether the files exists or not
-					fileName = currDateString + ".txt";
-					File file = new File(fileName);
-
-					// check if the today's file does not exist
-					if (!file.exists()) {
-						PrintWriter writer = null;
-						try {
-							writer = new PrintWriter(fileName, "UTF-8");
-						} catch (FileNotFoundException
-								| UnsupportedEncodingException e) {
-							e.printStackTrace();
-						}
-						writer.println(currDateString);
-						writer.close();
-					}
-					currDateString = DateUpdate.getNextDate(currDateString);
-				}
+				checkFilesExist();
 			}
-
 		});
 		frame.setBounds(100, 100, 677, 730);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -433,6 +412,29 @@ public class GUI {
 		displayAllTasks(DateBox1_1, date2_1, date3_1, date4_1, date5_1,
 				date6_1, date7_1, missingBox, generalTaskBox);
 
+	}
+	
+	public void checkFilesExist() {
+		String currDateString = DateUpdate.getCurrDate();
+		for (int i = 1; i < 10; i++) {
+			// check for each date whether the files exists or not
+			fileName = currDateString + ".txt";
+			File file = new File(fileName);
+
+			// check if the today's file does not exist
+			if (!file.exists()) {
+				PrintWriter writer = null;
+				try {
+					writer = new PrintWriter(fileName, "UTF-8");
+				} catch (FileNotFoundException
+						| UnsupportedEncodingException e) {
+					e.printStackTrace();
+				}
+				writer.println(currDateString);
+				writer.close();
+			}
+			currDateString = DateUpdate.getNextDate(currDateString);
+		}
 	}
 
 	public final void displayAllTasks(final JTextArea DateBox1_1,
