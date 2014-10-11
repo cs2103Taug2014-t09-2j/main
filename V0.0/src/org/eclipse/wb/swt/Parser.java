@@ -6,7 +6,38 @@ public class Parser {
 	private String time;
 	private String task;
 	
+	enum CommandTypes {
+		START, ADD, EDIT, DONE, INVALID, UNDO, REDO, ZOOM, SEARCH, COPY
+	};
+
+	private static CommandTypes determineCmd(String str) {
+		if (str.equals("start")) {
+			return CommandTypes.START;
+		} else if (str.equals("add")) {
+			return CommandTypes.ADD;
+		} else if (str.equals("done")) {
+			return CommandTypes.DONE;
+		} else if (str.equals("edit")) {
+			return CommandTypes.EDIT;
+		} else if (str.equals("undo")) {
+			return CommandTypes.UNDO;
+		} else if (str.equals("redo")) {
+			return CommandTypes.REDO;
+		} else if (str.equals("zoom")) {
+			return CommandTypes.ZOOM;
+		} else if (str.equals("search")) {
+			return CommandTypes.SEARCH;
+		} else if (str.equals("copy")) {
+			return CommandTypes.COPY;
+		} else {
+			return CommandTypes.INVALID;
+		}
+	}
+	
 	public void processInput(String input){
+		
+		HistoryTrackerAllFiles history = new HistoryTrackerAllFiles();
+		
 		String inputArr[] = input.split(" ", 2);
 		// take care of the one word input
 		if (inputArr.length == 1) {
@@ -14,7 +45,6 @@ public class Parser {
 			case "exit":
 				System.exit(0);
 			case "undo":
-				HistoryTrackerAllFiles history = new HistoryTrackerAllFiles();
 				history.undo();
 				break;
 			case "redo":
@@ -23,12 +53,10 @@ public class Parser {
 
 			default:
 				WarningPopUp.infoBox("Invalid Input", "WARNING");
-				commandBox.setText("");
 			}
 
 		} else {
 			CommandTypes command = determineCmd(inputArr[0]);
-
 			/*
 			 * take all the words in the input except the first word to
 			 * be added to the file, depending on the command
