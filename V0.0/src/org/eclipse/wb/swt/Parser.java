@@ -113,9 +113,10 @@ public class Parser {
 			case DONE:
 				history.clear();
 				String[] doneString = theRest.split(" ");
-				history.checkBaseFile(doneString[0]);
+				String chkFile = IsValidDate.validateDate(doneString[0]);
+				history.checkBaseFile(chkFile);
 				(new CommandDone(theRest)).delete();
-				history.recordUpdatedFile(doneString[0]);
+				history.recordUpdatedFile(chkFile);
 				break;
 
 			case SEARCH:
