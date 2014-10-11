@@ -18,18 +18,14 @@ public class CommandDone {
 	// General start up of done
 	public CommandDone(String input) {
 		String[] arrStr = input.split(" ");
-		String chkDate = IsValidDate.validateDate(arrStr[0]);
-		if(chkDate.equals("-")){
+		String chkDate = IsValidDate.validateDate(arrStr[0]); // check 1st input
+		
+		if(chkDate.equals("-")){ // Input General Task
 			setVariables(arrStr);
-		}else{
+		}else{ // Input Date Task
 			setVariables(arrStr);
 		}
 		
-//		if (new IsValidDate(arrStr[0]).testValidDate()) { // Input Date Task
-//			setVariables(arrStr);
-//		} else if (arrStr[0].equals("-")) { // Input General Task
-//			setVariables(arrStr);
-//		}
 //		} else if (arrStr[0].equals("miss")) { // Input Missing Task
 //			setVariables(arrStr);
 //		}
@@ -38,9 +34,9 @@ public class CommandDone {
 
 	private void setVariables(String[] arrStr) {
 		if (arrStr.length == 1) {
-			date = IsValidDate.validateDate(arrStr[0]);// arrStr[0]; // 
+			date = IsValidDate.validateDate(arrStr[0]);// return String date/-
 		} else {
-			date = IsValidDate.validateDate(arrStr[0]);// arrStr[0]; // 
+			date = IsValidDate.validateDate(arrStr[0]);// return String date/-
 			position = Integer.parseInt(arrStr[1]);
 		}
 	}
