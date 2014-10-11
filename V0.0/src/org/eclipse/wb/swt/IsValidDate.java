@@ -26,7 +26,10 @@ public class IsValidDate {
 			Date currDate = new Date(currTime+(24*3600*1000));
 			return dateFormat.format(currDate);
 		}
-		else if (date == "-" || new IsValidDate(date).testValidDate()){
+		else if (date.equals("-")) {
+			return date;
+		}
+		else if ( new IsValidDate(date).testValidDate()){
 			return date;
 		}
 		try{
