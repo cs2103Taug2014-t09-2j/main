@@ -48,16 +48,10 @@ public class Parser {
 			case "exit":
 				System.exit(0);
 			case "undo":
-				String msg1 = history.undo();
-				if(msg1.equals("max undo")){
-					WarningPopUp.infoBox("Undo Limit", "WARNING");
-				}
+				history.undo();
 				break;
 			case "redo":
-				String msg2 = history.redo();
-				if(msg2.equals("max redo")){
-					WarningPopUp.infoBox("Redo Limit", "WARNING");
-				}
+				history.redo();
 				break;
 
 			default:

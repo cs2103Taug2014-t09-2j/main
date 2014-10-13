@@ -69,12 +69,12 @@ public class HistoryTrackerAllFiles {
 		// System.out.println("record updated" + index);
 	}
 
-	public String undo() throws IndexOutOfBoundsException {
+	public void undo() throws IndexOutOfBoundsException {
 
 		int index = -1;
 		if (counter - 1 < 0) {
 			//System.out.println("max undo");
-			return "max undo";
+			WarningPopUp.infoBox("Undo Limit", "WARNING");
 			
 		} else {
 			String date = modDateSeq.get(counter - 1);
@@ -90,16 +90,16 @@ public class HistoryTrackerAllFiles {
 				counter--;
 			}
 			// System.out.println(index);
-			return "";
+			
 		}
 
 	}
 
-	public String redo() {
+	public void redo() {
 		int index = -1;
 		if (counter + 1 > maxCounter) {
 			//System.out.println("max redo");
-			return "max redo";
+			WarningPopUp.infoBox("Redo Limit", "WARNING");
 			
 		} else {
 			String date = modDateSeq.get(counter);
@@ -115,7 +115,7 @@ public class HistoryTrackerAllFiles {
 				counter++;
 			}
 			// System.out.println(index);
-			return "";
+			
 		}
 
 	}
