@@ -37,7 +37,7 @@ public class Parser {
 
 	public void processInput(String input) {
 		
-		String fileName=DateUpdate.getCurrDate();
+		String fileName=DateModifier.getCurrDate();
 		
 		ReadFile readFile = new ReadFile(fileName);
 
@@ -150,7 +150,7 @@ public class Parser {
 						break;
 					case "missing":
 
-						fileName = DateUpdate.getPrevDate(DateUpdate
+						fileName = DateModifier.getPrevDate(DateModifier
 								.getCurrDate()) + ".txt";
 						readFile.setFileName(fileName);
 						dateContent = readFile.readContents();
@@ -170,7 +170,7 @@ public class Parser {
 					} else {
 						switch (dateToBeZoomed) {
 						case 1:
-							fileName = DateUpdate.getCurrDate() + ".txt";
+							fileName = DateModifier.getCurrDate() + ".txt";
 							readFile.setFileName(fileName);
 							ArrayList<String> dateContent = readFile
 									.readContents();
@@ -180,8 +180,8 @@ public class Parser {
 							break;
 
 						case 2:
-							fileName = DateUpdate.getParticularDate(
-									DateUpdate.getCurrDate(), 1)
+							fileName = DateModifier.getParticularDate(
+									DateModifier.getCurrDate(), 1)
 									+ ".txt";
 							readFile.setFileName(fileName);
 							dateContent = readFile.readContents();
@@ -191,8 +191,8 @@ public class Parser {
 							break;
 
 						case 3:
-							fileName = DateUpdate.getParticularDate(
-									DateUpdate.getCurrDate(), 2)
+							fileName = DateModifier.getParticularDate(
+									DateModifier.getCurrDate(), 2)
 									+ ".txt";
 							readFile.setFileName(fileName);
 							dateContent = readFile.readContents();
@@ -201,8 +201,8 @@ public class Parser {
 									"Zoom Result");
 							break;
 						case 4:
-							fileName = DateUpdate.getParticularDate(
-									DateUpdate.getCurrDate(), 3)
+							fileName = DateModifier.getParticularDate(
+									DateModifier.getCurrDate(), 3)
 									+ ".txt";
 							readFile.setFileName(fileName);
 							dateContent = readFile.readContents();
@@ -212,8 +212,8 @@ public class Parser {
 							break;
 
 						case 5:
-							fileName = DateUpdate.getParticularDate(
-									DateUpdate.getCurrDate(), 4)
+							fileName = DateModifier.getParticularDate(
+									DateModifier.getCurrDate(), 4)
 									+ ".txt";
 							readFile.setFileName(fileName);
 							dateContent = readFile.readContents();
@@ -223,8 +223,8 @@ public class Parser {
 							break;
 
 						case 6:
-							fileName = DateUpdate.getParticularDate(
-									DateUpdate.getCurrDate(), 5)
+							fileName = DateModifier.getParticularDate(
+									DateModifier.getCurrDate(), 5)
 									+ ".txt";
 							readFile.setFileName(fileName);
 							dateContent = readFile.readContents();
@@ -234,8 +234,8 @@ public class Parser {
 							break;
 
 						case 7:
-							fileName = DateUpdate.getParticularDate(
-									DateUpdate.getCurrDate(), 6)
+							fileName = DateModifier.getParticularDate(
+									DateModifier.getCurrDate(), 6)
 									+ ".txt";
 							readFile.setFileName(fileName);
 							dateContent = readFile.readContents();
