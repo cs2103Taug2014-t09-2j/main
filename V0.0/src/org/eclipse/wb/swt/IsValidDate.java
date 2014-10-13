@@ -37,7 +37,7 @@ public class IsValidDate {
 			if (box>=1 && box<=7){
 				DateFormat dateFormat = new SimpleDateFormat("ddMMyy");
 				Date currDate = new Date();
-				return DateUpdate.getParticularDate(dateFormat.format(currDate), box-1);
+				return DateModifier.getParticularDate(dateFormat.format(currDate), box-1);
 			}
 		}
 		catch (Exception e){

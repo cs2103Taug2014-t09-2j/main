@@ -73,7 +73,7 @@ public class CommandSearch {
 		ArrayList<String> dateTask = new ArrayList<String>();
 		String result = new String();
 		
-		String currDateString = DateUpdate.getCurrDate();
+		String currDateString = DateModifier.getCurrDate();
 		for (int i=0; i<7; i++) {
 			if (!dateTask.isEmpty()) {
 				dateTask.clear();
@@ -89,7 +89,7 @@ public class CommandSearch {
 					searchResultDate.add(result);
 				}
 			}
-			 currDateString = DateUpdate.getNextDate(currDateString);
+			 currDateString = DateModifier.getNextDate(currDateString);
 		 }
 		 return searchResultDate;
 	}
