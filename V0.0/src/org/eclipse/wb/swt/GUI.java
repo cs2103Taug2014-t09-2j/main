@@ -28,6 +28,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JScrollPane;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class GUI {
 
@@ -230,9 +232,18 @@ public class GUI {
 		generalTaskBox.setBackground(new Color(135, 206, 235));
 
 		commandBox = new JTextField();
+		
 		commandBox.setBounds(181, 19, 455, 20);
 		// prompt the user to type start
 		commandBox.setText("Please type the command here!");
+		commandBox.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent arg0) {
+				if(commandBox.getText().equals("Please type the command here!")){
+					commandBox.setText("");
+				}
+			}
+		});
+		
 
 		// when the mouse clicks the command box, empty the command box
 		commandBox.addMouseListener(new MouseAdapter() {
