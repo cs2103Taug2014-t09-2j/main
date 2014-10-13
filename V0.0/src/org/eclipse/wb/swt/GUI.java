@@ -281,7 +281,7 @@ public class GUI {
 					e.printStackTrace();
 				}
 
-				String prevDateString = DateUpdate.getPrevDate(DateUpdate
+				String prevDateString = DateModifier.getPrevDate(DateModifier
 						.getCurrDate());
 				// read the missing task file
 				fileName = prevDateString + ".txt";
@@ -298,7 +298,7 @@ public class GUI {
 
 				// loop to display all the date tasks
 				// NOTE: i starts from 1
-				String currDateString = DateUpdate.getCurrDate();
+				String currDateString = DateModifier.getCurrDate();
 				for (int i = 1; i < 8; i++) {
 					// display 9 task starting from today's date
 					fileName = currDateString + ".txt";
@@ -309,7 +309,7 @@ public class GUI {
 					}
 					displayDateTask(i, currDateString);
 					// update the current date for the next loop
-					currDateString = DateUpdate.getNextDate(currDateString);
+					currDateString = DateModifier.getNextDate(currDateString);
 				}
 
 			}
@@ -426,7 +426,7 @@ public class GUI {
 	}
 	
 	public void checkFilesExist() {
-		String currDateString = DateUpdate.getCurrDate();
+		String currDateString = DateModifier.getCurrDate();
 		for (int i = 1; i < 10; i++) {
 			// check for each date whether the files exists or not
 			fileName = currDateString + ".txt";
@@ -444,7 +444,7 @@ public class GUI {
 				writer.println(currDateString);
 				writer.close();
 			}
-			currDateString = DateUpdate.getNextDate(currDateString);
+			currDateString = DateModifier.getNextDate(currDateString);
 		}
 	}
 
@@ -466,8 +466,8 @@ public class GUI {
 			e.printStackTrace();
 		}
 
-		String prevDateString = DateUpdate
-				.getPrevDate(DateUpdate.getCurrDate());
+		String prevDateString = DateModifier
+				.getPrevDate(DateModifier.getCurrDate());
 		// read the missing task file
 		fileName = prevDateString + ".txt";
 		try {
@@ -483,7 +483,7 @@ public class GUI {
 
 		// loop to display all the date tasks
 		// NOTE: i starts from 1
-		String currDateString = DateUpdate.getCurrDate();
+		String currDateString = DateModifier.getCurrDate();
 		for (int i = 1; i < 8; i++) {
 			// display 9 task starting from today's date
 			fileName = currDateString + ".txt";
@@ -586,7 +586,7 @@ public class GUI {
 				break;
 			}
 			// update the current date for the next loop
-			currDateString = DateUpdate.getNextDate(currDateString);
+			currDateString = DateModifier.getNextDate(currDateString);
 		}
 	}
 }

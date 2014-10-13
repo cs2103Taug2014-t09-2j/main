@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class DateUpdate {
+public class DateModifier {
 	
 	public static String getCurrDate() {
 		// obtain the current date
