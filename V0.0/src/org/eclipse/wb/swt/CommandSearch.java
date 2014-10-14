@@ -61,7 +61,7 @@ public class CommandSearch {
 		ArrayList<String> searchResultPrevDate = new ArrayList<String>();
 		for (int i=0; i<prevDateTask.size(); i++) {
 			if (prevDateTask.get(i).toLowerCase().contains(keyword)) {
-				String result = "Missing " + Integer.toString(i+1) + ". " + prevDateTask.get(i);
+				String result = prevDateString + " " + Integer.toString(i+1) + ". " + prevDateTask.get(i);
 				searchResultPrevDate.add(result);
 			}
 		}
