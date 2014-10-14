@@ -78,7 +78,7 @@ public class CommandDone {
 		if (file_object.exists()) {
 
 			// read the content of the file, put in the list
-			currDateTask = (new ReadFile(fileName)).readContents();
+			currDateTask = (new FileAccessor(fileName)).readContents();
 
 			if (currDateTask.size() == 0) {
 				System.out.println("Nothing to clear");
@@ -90,7 +90,7 @@ public class CommandDone {
 			}
 
 			// write in file
-			(new WriteFile(fileName, currDateTask)).writeContents();
+			(new FileAccessor(fileName, currDateTask)).writeContents();
 
 		} else {
 			System.out.println("Failed Clear");
