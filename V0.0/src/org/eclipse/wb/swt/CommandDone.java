@@ -102,7 +102,7 @@ public class CommandDone {
 		ArrayList<String> currDateTask = new ArrayList<>();
 
 		// read the content of the file, put in the list
-		currDateTask = (new ReadFile(fileName)).readContents();
+		currDateTask = (new FileAccessor(fileName)).readContents();
 
 		// check if valid
 		if (position - 1 < currDateTask.size()) {
@@ -115,7 +115,7 @@ public class CommandDone {
 		}
 
 		// write in file
-		(new WriteFile(fileName, currDateTask)).writeContents();
+		(new FileAccessor(fileName, currDateTask)).writeContents();
 	}
 		
 }

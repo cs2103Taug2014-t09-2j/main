@@ -34,7 +34,7 @@ public class HistoryTrackerSingleFile {
 			fileName = date + ".txt";
 		}
 		ArrayList<String> currDateTask = new ArrayList<>();
-		currDateTask = (new ReadFile(fileName)).readContents();
+		currDateTask = (new FileAccessor(fileName)).readContents();
 		historyAL.add(currDateTask);
 		counter++;
 		maxCounter = counter;
@@ -48,7 +48,7 @@ public class HistoryTrackerSingleFile {
 			fileName = date + ".txt";
 		}
 		ArrayList<String> currDateTask = new ArrayList<>();
-		currDateTask = (new ReadFile(fileName)).readContents();
+		currDateTask = (new FileAccessor(fileName)).readContents();
 		historyAL.add(currDateTask);
 		counter++;
 		maxCounter = counter;
@@ -67,7 +67,7 @@ public class HistoryTrackerSingleFile {
 		if (counter > 1) {
 			counter--;
 			//System.out.println("U= " + counter);
-			(new WriteFile(date, historyAL.get(counter - 1))).writeContents();
+			(new FileAccessor(date, historyAL.get(counter - 1))).writeContents();
 			System.out.println("Success");
 		} else {
 			System.out.println("Undo Limit");
@@ -78,7 +78,7 @@ public class HistoryTrackerSingleFile {
 		if (counter < maxCounter) {
 			counter++;
 			//System.out.println("R= " + counter);
-			(new WriteFile(date, historyAL.get(counter - 1))).writeContents();
+			(new FileAccessor(date, historyAL.get(counter - 1))).writeContents();
 			System.out.println("Success");
 		} else {
 			System.out.println("Redo Limit");
