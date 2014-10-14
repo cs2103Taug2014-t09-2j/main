@@ -257,7 +257,12 @@ public class GUI {
 			public void actionPerformed(ActionEvent arg0) {
 				//Create a parser object
 				Parser parser = new Parser();
-				parser.processInput(commandBox.getText());
+				try {
+					parser.processInput(commandBox.getText());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				commandBox.setText("");
 				displayAll();
 			}

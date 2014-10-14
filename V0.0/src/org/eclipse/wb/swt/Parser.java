@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class Parser {
 
 	public static HistoryTrackerAllFiles history = new HistoryTrackerAllFiles();
+	private FileAccessor fileAccessor = new FileAccessor();
 	
 	enum CommandTypes {
 		START, ADD, EDIT, DONE, INVALID, UNDO, REDO, ZOOM, SEARCH, COPY
@@ -35,7 +36,7 @@ public class Parser {
 		}
 	}
 
-	public void processInput(String input) {
+	public void processInput(String input) throws IOException {
 		
 		String fileName=DateModifier.getCurrDate();
 		
@@ -137,9 +138,8 @@ public class Parser {
 
 					case "general":
 						fileName = "general.txt";
-						readFile.setFileName(fileName);
-						ArrayList<String> dateContent = readFile.readContents();
-						String dateContentString = dateContent.toString();
+						fileAccessor.setFileName(fileName);
+						String dateContentString = fileAccessor.readFileString();
 						WarningPopUp.infoBox(dateContentString, "Zoom Result");
 						break;
 					case "missing":
@@ -147,6 +147,7 @@ public class Parser {
 						fileName = DateModifier.getPrevDate(DateModifier
 								.getCurrDate()) + ".txt";
 						readFile.setFileName(fileName);
+						ArrayList<String> dateContent = readFile.readContents();
 						dateContent = readFile.readContents();
 						dateContentString = dateContent.toString();
 						WarningPopUp.infoBox(dateContentString, "Zoom Result");

@@ -34,6 +34,11 @@ public class FileAccessor {
 		currDateTask = new ArrayList<>();
 	}
 	
+	public FileAccessor() {
+		this.fileName = null;
+		this.currDateTask = null;
+	}
+	
 	// Mutator
 	public void setFileName(String newFileName){
 		this.fileName=newFileName;
