@@ -31,7 +31,7 @@ public class CommandEdit {
 	private void editTime(String fileName) throws IOException {
 
 		ArrayList<String> dateTask = new ArrayList<String>();
-		dateTask = (new ReadFile(fileName)).readContents();
+		dateTask = (new FileAccessor(fileName)).readContents();
 		
 		// delete the task with the given index number in the date
 		int position = Integer.parseInt(index);
@@ -45,13 +45,13 @@ public class CommandEdit {
 		// insert the modification into the arrayList
 		dateTask.add(position - 1, modificationFinal);
 
-		(new WriteFile(fileName, dateTask)).writeContents();
+		(new FileAccessor(fileName, dateTask)).writeContents();
 	}
 	
 	private void editTask(String fileName) throws IOException {
 		
 		ArrayList<String> dateTask = new ArrayList<String>();
-		dateTask = (new ReadFile(fileName)).readContents();
+		dateTask = (new FileAccessor(fileName)).readContents();
 		
 		// delete the task with the given index number in the date
 		int position = Integer.parseInt(index);
@@ -66,13 +66,13 @@ public class CommandEdit {
 		// insert the modification into the arrayList
 		dateTask.add(position - 1, modificationFinal);
 
-		(new WriteFile(fileName, dateTask)).writeContents();
+		(new FileAccessor(fileName, dateTask)).writeContents();
 	}
 	
 	private void editAll(String fileName) throws IOException {
 		
 		ArrayList<String> dateTask = new ArrayList<String>();
-		dateTask = (new ReadFile(fileName)).readContents();
+		dateTask = (new FileAccessor(fileName)).readContents();
 		
 		// delete the task with the given index number in the date
 		int position = Integer.parseInt(index);
@@ -84,7 +84,7 @@ public class CommandEdit {
 		
 		dateTask.add(position - 1, modificationFinal);
 
-		(new WriteFile(fileName, dateTask)).writeContents();
+		(new FileAccessor(fileName, dateTask)).writeContents();
 	}
 	
 	private String getDateStr(String date){
