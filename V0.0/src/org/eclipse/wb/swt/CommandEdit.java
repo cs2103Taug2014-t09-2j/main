@@ -18,46 +18,45 @@ public class CommandEdit {
 	}
 	
 	public void edit() throws IOException {
+		String fileName = getDateStr(date);
 		if (specification.equals("time")){
-			editTime();
+			editTime(fileName);
 		} else if (specification.equals("task")){
-			editTask();
+			editTask(fileName);
 		} else if (specification.equals("all")) {
-			editAll();
+			editAll(fileName);
 		}
 	}
 	
-	private void editTime() throws IOException {
+	private void editTime(String fileName) throws IOException {
 
-		String fileName = date + ".txt";
-		ArrayList<String> currDateTask = new ArrayList<String>();
-		currDateTask = (new ReadFile(fileName)).readContents();
+		ArrayList<String> dateTask = new ArrayList<String>();
+		dateTask = (new ReadFile(fileName)).readContents();
 		
 		// delete the task with the given index number in the date
 		int position = Integer.parseInt(index);
-		String toBeRemoved = currDateTask.get(position-1);
+		String toBeRemoved = dateTask.get(position-1);
 		//Split toBeRemoved string to 2parts and get the task
 		String keep = toBeRemoved.split(" ", 2)[1];
-		currDateTask.remove(toBeRemoved);
+		dateTask.remove(toBeRemoved);
 
 		String modificationFinal = String.format(CONTENT_TO_DISPLAY, modification, keep);
 
 		// insert the modification into the arrayList
-		currDateTask.add(position - 1, modificationFinal);
+		dateTask.add(position - 1, modificationFinal);
 
-		(new WriteFile(fileName, currDateTask)).writeContents();
+		(new WriteFile(fileName, dateTask)).writeContents();
 	}
 	
-	private void editTask() throws IOException {
-
-		String fileName = date + ".txt";
-		ArrayList<String> currDateTask = new ArrayList<String>();
-		currDateTask = (new ReadFile(fileName)).readContents();
+	private void editTask(String fileName) throws IOException {
+		
+		ArrayList<String> dateTask = new ArrayList<String>();
+		dateTask = (new ReadFile(fileName)).readContents();
 		
 		// delete the task with the given index number in the date
 		int position = Integer.parseInt(index);
-		String toBeRemoved = currDateTask.get(position - 1);
-		currDateTask.remove(toBeRemoved);
+		String toBeRemoved = dateTask.get(position - 1);
+		dateTask.remove(toBeRemoved);
 
 		//Split toBeRemoved string to 2parts and get the time
 		String keep = toBeRemoved.split(" ", 2)[0];
@@ -65,27 +64,32 @@ public class CommandEdit {
 		String modificationFinal = String.format(CONTENT_TO_DISPLAY, keep, modification);
 
 		// insert the modification into the arrayList
-		currDateTask.add(position - 1, modificationFinal);
+		dateTask.add(position - 1, modificationFinal);
 
-		(new WriteFile(fileName, currDateTask)).writeContents();
+		(new WriteFile(fileName, dateTask)).writeContents();
 	}
 	
-	private void editAll() throws IOException {
-		String fileName = date + ".txt";
-		ArrayList<String> currDateTask = new ArrayList<String>();
-		currDateTask = (new ReadFile(fileName)).readContents();
+	private void editAll(String fileName) throws IOException {
+		
+		ArrayList<String> dateTask = new ArrayList<String>();
+		dateTask = (new ReadFile(fileName)).readContents();
 		
 		// delete the task with the given index number in the date
 		int position = Integer.parseInt(index);
-		String toBeRemoved = currDateTask.get(position - 1);
-		currDateTask.remove(toBeRemoved);
+		String toBeRemoved = dateTask.get(position - 1);
+		dateTask.remove(toBeRemoved);
 		
 		String[] change = modification.split(" ", 2);
 		String modificationFinal = String.format(CONTENT_TO_DISPLAY, change[0], change[1]);
 		
-		currDateTask.add(position - 1, modificationFinal);
+		dateTask.add(position - 1, modificationFinal);
 
-		(new WriteFile(fileName, currDateTask)).writeContents();
+		(new WriteFile(fileName, dateTask)).writeContents();
+	}
+	
+	private String getDateStr(String date){
+		return IsValidDate.validateDate(date) + ".txt";//get the name of the file given the date input
+													//date input can be 1-7
 	}
 }
 
