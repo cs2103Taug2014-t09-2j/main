@@ -29,8 +29,6 @@ public class FileAccessor {
 		this.fileName=newFileName;
 	}
 	
-	 
-	
 	public ArrayList<String> readContents() {
 		BufferedReader br = null;
 		try {
@@ -70,6 +68,23 @@ public class FileAccessor {
 		}
 	}
 	
+	String readFileString() throws IOException {
+		BufferedReader br = new BufferedReader(new FileReader(fileName));
+		try {
+			StringBuilder sb = new StringBuilder();
+			String line = br.readLine();
+
+			while (line != null) {
+				sb.append(line);
+				sb.append("\n");
+				line = br.readLine();
+			}
+			return sb.toString();
+		} finally {
+			br.close();
+		}
+	}
+	
 	public void writeContents() {
 		try {
 			File file = new File(fileName);
@@ -89,5 +104,7 @@ public class FileAccessor {
 		}
 
 	}
+	
+	
 
 }
