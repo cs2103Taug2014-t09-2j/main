@@ -13,6 +13,10 @@ public class FileAccessor {
 	private String fileName;
 	private ArrayList<String> currDateTask;
 	
+	private static final String CONTENT_TO_DISPLAY = "%1$d. %2$s\n";
+	private static final String FILE_HEADING = "%1$s\n\n";
+	private static final int NUM_LINES_SKIPPED = 2;
+	
 	// Constructor
 	public FileAccessor(String fileName, ArrayList<String> currDateTask) {
 		this.fileName = fileName;
@@ -34,7 +38,7 @@ public class FileAccessor {
 		try {
 			String curr;
 			br = new BufferedReader(new FileReader(fileName));
-			int _ignore = 2;
+			int _ignore = NUM_LINES_SKIPPED;
 			while ((curr = br.readLine()) != null) {
 				if (_ignore > 0){ //ignore first 2 lines
 					_ignore -= 1;
@@ -93,9 +97,9 @@ public class FileAccessor {
 			BufferedWriter bw = new BufferedWriter(fw);
 			Collections.sort(currDateTask);
 			String _date = fileName.replace(".txt", "");
-			bw.write(_date + "\n" + "\n");
+			bw.write(String.format(FILE_HEADING, _date));
 			for (int i = 0; i < currDateTask.size(); i++) {
-				bw.write(Integer.toString(i+1) + ". " + currDateTask.get(i) + "\n");
+				bw.write(String.format(CONTENT_TO_DISPLAY, i+1,currDateTask.get(i)));
 			}
 			bw.close();
 		} catch (IOException ee) {
