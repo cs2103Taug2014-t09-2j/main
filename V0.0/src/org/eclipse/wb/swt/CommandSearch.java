@@ -29,7 +29,7 @@ public class CommandSearch {
 		}
 		
 		try {
-			searchResult.addAll(searchMissing());
+			searchResult.addAll(searchPrevDate());
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -53,19 +53,19 @@ public class CommandSearch {
 		return searchResultGeneral;
 	}
 	
-	private ArrayList<String> searchMissing() throws FileNotFoundException{
-		String fileName = "missing.txt";
-		ArrayList<String> missingTask = new ArrayList<String>(); //missingTask contains tasks in Missing box
-		missingTask = (new ReadFile(fileName)).readContents();
+	private ArrayList<String> searchPrevDate() throws FileNotFoundException{
+		String prevDateString = DateModifier.getPrevDate(DateModifier.getCurrDate());
+		ArrayList<String> prevDateTask = new ArrayList<String>(); //missingTask contains tasks in Missing box
+		prevDateTask = (new ReadFile(prevDateString)).readContents();
 		
-		ArrayList<String> searchResultMissing = new ArrayList<String>();
-		for (int i=0; i<missingTask.size(); i++) {
-			if (missingTask.get(i).toLowerCase().contains(keyword)) {
-				String result = "Missing " + Integer.toString(i+1) + ". " + missingTask.get(i);
-				searchResultMissing.add(result);
+		ArrayList<String> searchResultPrevDate = new ArrayList<String>();
+		for (int i=0; i<prevDateTask.size(); i++) {
+			if (prevDateTask.get(i).toLowerCase().contains(keyword)) {
+				String result = "Missing " + Integer.toString(i+1) + ". " + prevDateTask.get(i);
+				searchResultPrevDate.add(result);
 			}
 		}
-		return searchResultMissing;
+		return searchResultPrevDate;
 	}
 	
 	private ArrayList<String> searchDate() throws FileNotFoundException{
