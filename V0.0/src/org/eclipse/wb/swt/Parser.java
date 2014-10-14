@@ -1,7 +1,6 @@
 package org.eclipse.wb.swt;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class Parser {
 
@@ -147,9 +146,8 @@ public class Parser {
 						fileName = DateModifier.getPrevDate(DateModifier
 								.getCurrDate()) + ".txt";
 						readFile.setFileName(fileName);
-						ArrayList<String> dateContent = readFile.readContents();
-						dateContent = readFile.readContents();
-						dateContentString = dateContent.toString();
+						fileAccessor.setFileName(fileName);
+						dateContentString = fileAccessor.readFileString();
 						WarningPopUp.infoBox(dateContentString, "Zoom Result");
 						break;
 					default:
@@ -166,10 +164,8 @@ public class Parser {
 						switch (dateToBeZoomed) {
 						case 1:
 							fileName = DateModifier.getCurrDate() + ".txt";
-							readFile.setFileName(fileName);
-							ArrayList<String> dateContent = readFile
-									.readContents();
-							String dateContentString = dateContent.toString();
+							fileAccessor.setFileName(fileName);
+							String dateContentString = fileAccessor.readFileString();
 							WarningPopUp.infoBox(dateContentString,
 									"Zoom Result");
 							break;
@@ -178,9 +174,8 @@ public class Parser {
 							fileName = DateModifier.getParticularDate(
 									DateModifier.getCurrDate(), 1)
 									+ ".txt";
-							readFile.setFileName(fileName);
-							dateContent = readFile.readContents();
-							dateContentString = dateContent.toString();
+							fileAccessor.setFileName(fileName);
+							dateContentString = fileAccessor.readFileString();
 							WarningPopUp.infoBox(dateContentString,
 									"Zoom Result");
 							break;
@@ -189,9 +184,8 @@ public class Parser {
 							fileName = DateModifier.getParticularDate(
 									DateModifier.getCurrDate(), 2)
 									+ ".txt";
-							readFile.setFileName(fileName);
-							dateContent = readFile.readContents();
-							dateContentString = dateContent.toString();
+							fileAccessor.setFileName(fileName);
+							dateContentString = fileAccessor.readFileString();
 							WarningPopUp.infoBox(dateContentString,
 									"Zoom Result");
 							break;
@@ -199,9 +193,8 @@ public class Parser {
 							fileName = DateModifier.getParticularDate(
 									DateModifier.getCurrDate(), 3)
 									+ ".txt";
-							readFile.setFileName(fileName);
-							dateContent = readFile.readContents();
-							dateContentString = dateContent.toString();
+							fileAccessor.setFileName(fileName);
+							dateContentString = fileAccessor.readFileString();
 							WarningPopUp.infoBox(dateContentString,
 									"Zoom Result");
 							break;
@@ -210,9 +203,8 @@ public class Parser {
 							fileName = DateModifier.getParticularDate(
 									DateModifier.getCurrDate(), 4)
 									+ ".txt";
-							readFile.setFileName(fileName);
-							dateContent = readFile.readContents();
-							dateContentString = dateContent.toString();
+							fileAccessor.setFileName(fileName);
+							dateContentString = fileAccessor.readFileString();
 							WarningPopUp.infoBox(dateContentString,
 									"Zoom Result");
 							break;
@@ -221,9 +213,8 @@ public class Parser {
 							fileName = DateModifier.getParticularDate(
 									DateModifier.getCurrDate(), 5)
 									+ ".txt";
-							readFile.setFileName(fileName);
-							dateContent = readFile.readContents();
-							dateContentString = dateContent.toString();
+							fileAccessor.setFileName(fileName);
+							dateContentString = fileAccessor.readFileString();
 							WarningPopUp.infoBox(dateContentString,
 									"Zoom Result");
 							break;
@@ -232,9 +223,8 @@ public class Parser {
 							fileName = DateModifier.getParticularDate(
 									DateModifier.getCurrDate(), 6)
 									+ ".txt";
-							readFile.setFileName(fileName);
-							dateContent = readFile.readContents();
-							dateContentString = dateContent.toString();
+							fileAccessor.setFileName(fileName);
+							dateContentString = fileAccessor.readFileString();
 							WarningPopUp.infoBox(dateContentString,
 									"Zoom Result");
 							break;
