@@ -40,7 +40,8 @@ public class FileAccessor {
 					_ignore -= 1;
 					continue;
 				}
-				currDateTask.add(curr);
+				String lineContent = curr.split(" ", 2)[1];
+				currDateTask.add(lineContent);
 			}
 			br.close();
 		} catch (IOException ee) {
@@ -94,7 +95,7 @@ public class FileAccessor {
 			String _date = fileName.replace(".txt", "");
 			bw.write(_date + "\n" + "\n");
 			for (int i = 0; i < currDateTask.size(); i++) {
-				bw.write(currDateTask.get(i) + "\n");
+				bw.write(Integer.toString(i+1) + ". " + currDateTask.get(i) + "\n");
 			}
 			bw.close();
 		} catch (IOException ee) {
