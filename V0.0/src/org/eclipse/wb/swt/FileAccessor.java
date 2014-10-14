@@ -12,11 +12,24 @@ import java.util.Collections;
 public class FileAccessor {
 	private String fileName;
 	private ArrayList<String> currDateTask;
-
+	
+	// Constructor
+	public FileAccessor(String fileName, ArrayList<String> currDateTask) {
+		this.fileName = fileName;
+		this.currDateTask = currDateTask;
+		}
+	
+	public FileAccessor(String fileName) {
+		this.fileName = fileName;
+		currDateTask = new ArrayList<>();
+	}
+	
 	// Mutator
 	public void setFileName(String newFileName){
 		this.fileName=newFileName;
 	}
+	
+	 
 	
 	public ArrayList<String> readContents() {
 		BufferedReader br = null;
