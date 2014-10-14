@@ -15,6 +15,12 @@ public class FileAccessor {
 	
 	private static final String CONTENT_TO_DISPLAY = "%1$d. %2$s\n";
 	private static final String FILE_HEADING = "%1$s\n\n";
+	private static final String ERROR_LOCATION = "ERROR";
+	private static final String READ_ERROR = "Failure to read file %1$s!";
+	private static final String WRITE_ERROR = "Failure to write file %1$s!";
+	private static final String TEXT_EXTENSION = ".txt";
+	private static final String NO_EXTENSION = "";
+	private static final String LINE_FORMAT = "%1$s\n";
 	private static final int NUM_LINES_SKIPPED = 2;
 	
 	// Constructor
@@ -49,8 +55,8 @@ public class FileAccessor {
 			}
 			br.close();
 		} catch (IOException ee) {
-			WarningPopUp.infoBox("Failure to Read File " + fileName + "!",
-					"ERROR");
+			WarningPopUp.infoBox(String.format(READ_ERROR, fileName),
+					ERROR_LOCATION);
 			ee.printStackTrace();
 		}
 		return currDateTask;
@@ -80,8 +86,7 @@ public class FileAccessor {
 			String line = br.readLine();
 
 			while (line != null) {
-				sb.append(line);
-				sb.append("\n");
+				sb.append(String.format(LINE_FORMAT, line));
 				line = br.readLine();
 			}
 			return sb.toString();
@@ -96,15 +101,15 @@ public class FileAccessor {
 			FileWriter fw = new FileWriter(file.getAbsoluteFile());
 			BufferedWriter bw = new BufferedWriter(fw);
 			Collections.sort(currDateTask);
-			String _date = fileName.replace(".txt", "");
+			String _date = fileName.replace(TEXT_EXTENSION, NO_EXTENSION);
 			bw.write(String.format(FILE_HEADING, _date));
 			for (int i = 0; i < currDateTask.size(); i++) {
 				bw.write(String.format(CONTENT_TO_DISPLAY, i+1,currDateTask.get(i)));
 			}
 			bw.close();
 		} catch (IOException ee) {
-			WarningPopUp.infoBox("Failure to Write File " + fileName + "!",
-					"ERROR");
+			WarningPopUp.infoBox(String.format(WRITE_ERROR, fileName),
+					ERROR_LOCATION);
 			ee.printStackTrace();
 		}
 
