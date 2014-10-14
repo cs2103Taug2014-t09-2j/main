@@ -41,7 +41,7 @@ public class CommandSearch {
 	private ArrayList<String> searchGeneral() throws FileNotFoundException{
 		String fileName = "general.txt";
 		ArrayList<String> generalTask = new ArrayList<String>(); //generalTask contains tasks in General box
-		generalTask = (new ReadFile(fileName)).readContents();
+		generalTask = (new FileAccessor(fileName)).readContents();
 		
 		ArrayList<String> searchResultGeneral = new ArrayList<String>();
 		for (int i=0; i<generalTask.size(); i++) {
@@ -56,7 +56,7 @@ public class CommandSearch {
 	private ArrayList<String> searchPrevDate() throws FileNotFoundException{
 		String prevDateString = DateModifier.getPrevDate(DateModifier.getCurrDate());
 		ArrayList<String> prevDateTask = new ArrayList<String>(); //missingTask contains tasks in Missing box
-		prevDateTask = (new ReadFile(prevDateString)).readContents();
+		prevDateTask = (new FileAccessor(prevDateString)).readContents();
 		
 		ArrayList<String> searchResultPrevDate = new ArrayList<String>();
 		for (int i=0; i<prevDateTask.size(); i++) {
@@ -80,7 +80,7 @@ public class CommandSearch {
 			}
 			String fileName = currDateString + ".txt";
 			//read file content into an ArrayList
-			dateTask = (new ReadFile(fileName)).readContents();
+			dateTask = (new FileAccessor(fileName)).readContents();
 			
 			//Search the content of each file, add any match to searchResultDate arraylist
 			for (int j=0; j<dateTask.size(); j++){
