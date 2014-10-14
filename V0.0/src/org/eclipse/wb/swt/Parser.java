@@ -39,8 +39,6 @@ public class Parser {
 		
 		String fileName=DateModifier.getCurrDate();
 		
-		ReadFile readFile = new ReadFile(fileName);
-
 		String inputArr[] = input.split(" ", 2);
 		// take care of the one word input
 		if (inputArr.length == 1) {
@@ -145,7 +143,6 @@ public class Parser {
 
 						fileName = DateModifier.getPrevDate(DateModifier
 								.getCurrDate()) + ".txt";
-						readFile.setFileName(fileName);
 						fileAccessor.setFileName(fileName);
 						dateContentString = fileAccessor.readFileString();
 						WarningPopUp.infoBox(dateContentString, "Zoom Result");
