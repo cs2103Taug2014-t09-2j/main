@@ -33,7 +33,7 @@ import java.awt.event.KeyEvent;
 
 public class GUI {
 
-	private JFrame frame;
+	private static JFrame frame;
 	private JTextField commandBox;
 	private String fileName = null;
 
@@ -45,8 +45,8 @@ public class GUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GUI window = new GUI();
-					window.frame.setVisible(true);
+					//GUI window = new GUI();
+					GUI.getFrame().setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}								
@@ -68,27 +68,27 @@ public class GUI {
 	 */
 	private void initialize() {
 
-		frame = new JFrame();
-		frame.addWindowListener(new WindowAdapter() {
+		setFrame(new JFrame());
+		getFrame().addWindowListener(new WindowAdapter() {
 			public void windowActivated(WindowEvent arg0) {
 				checkFilesExist();
 			}
 		});
-		frame.setBounds(100, 100, 677, 730);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		getFrame().setBounds(100, 100, 677, 730);
+		getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getFrame().getContentPane().setLayout(null);
 
 		JLabel lblIdo = new JLabel("iDO++");
 		lblIdo.setBounds(30, 2, 149, 59);
 		lblIdo.setForeground(new Color(0, 0, 0));
 		lblIdo.setFont(new Font("Bauhaus 93", Font.BOLD, 40));
-		frame.getContentPane().add(lblIdo);
+		getFrame().getContentPane().add(lblIdo);
 		// create padding inside the text area
 		Border border = BorderFactory.createLineBorder(Color.BLACK);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(30, 64, 200, 200);
-		frame.getContentPane().add(scrollPane);
+		getFrame().getContentPane().add(scrollPane);
 
 		final JTextArea DateBox1_1 = new JTextArea();
 		scrollPane.setViewportView(DateBox1_1);
@@ -111,7 +111,7 @@ public class GUI {
 
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(233, 64, 200, 200);
-		frame.getContentPane().add(scrollPane_1);
+		getFrame().getContentPane().add(scrollPane_1);
 
 		final JTextArea date2_1 = new JTextArea();
 		scrollPane_1.setViewportView(date2_1);
@@ -126,7 +126,7 @@ public class GUI {
 
 		JScrollPane scrollPane_2 = new JScrollPane();
 		scrollPane_2.setBounds(436, 64, 200, 200);
-		frame.getContentPane().add(scrollPane_2);
+		getFrame().getContentPane().add(scrollPane_2);
 
 		final JTextArea date3_1 = new JTextArea();
 		scrollPane_2.setViewportView(date3_1);
@@ -141,7 +141,7 @@ public class GUI {
 
 		JScrollPane scrollPane_3 = new JScrollPane();
 		scrollPane_3.setBounds(30, 266, 200, 200);
-		frame.getContentPane().add(scrollPane_3);
+		getFrame().getContentPane().add(scrollPane_3);
 
 		final JTextArea date4_1 = new JTextArea();
 		scrollPane_3.setViewportView(date4_1);
@@ -156,7 +156,7 @@ public class GUI {
 
 		JScrollPane scrollPane_4 = new JScrollPane();
 		scrollPane_4.setBounds(233, 266, 200, 200);
-		frame.getContentPane().add(scrollPane_4);
+		getFrame().getContentPane().add(scrollPane_4);
 		// Border border = BorderFactory.createLineBorder(Color.WHITE);
 
 		final JTextArea date5_1 = new JTextArea();
@@ -172,7 +172,7 @@ public class GUI {
 
 		JScrollPane scrollPane_5 = new JScrollPane();
 		scrollPane_5.setBounds(436, 266, 200, 200);
-		frame.getContentPane().add(scrollPane_5);
+		getFrame().getContentPane().add(scrollPane_5);
 
 		final JTextArea date6_1 = new JTextArea();
 		scrollPane_5.setViewportView(date6_1);
@@ -187,7 +187,7 @@ public class GUI {
 
 		JScrollPane scrollPane_6 = new JScrollPane();
 		scrollPane_6.setBounds(30, 469, 200, 200);
-		frame.getContentPane().add(scrollPane_6);
+		getFrame().getContentPane().add(scrollPane_6);
 
 		final JTextArea date7_1 = new JTextArea();
 		scrollPane_6.setViewportView(date7_1);
@@ -202,7 +202,7 @@ public class GUI {
 
 		JScrollPane scrollPane_7 = new JScrollPane();
 		scrollPane_7.setBounds(233, 469, 200, 200);
-		frame.getContentPane().add(scrollPane_7);
+		getFrame().getContentPane().add(scrollPane_7);
 
 		final JTextArea missingBox = new JTextArea();
 		scrollPane_7.setViewportView(missingBox);
@@ -216,7 +216,7 @@ public class GUI {
 
 		JScrollPane scrollPane_8 = new JScrollPane();
 		scrollPane_8.setBounds(436, 469, 200, 200);
-		frame.getContentPane().add(scrollPane_8);
+		getFrame().getContentPane().add(scrollPane_8);
 		// missingBox.read(reader, this);
 
 		final JTextArea generalTaskBox = new JTextArea();
@@ -415,7 +415,7 @@ public class GUI {
 				}
 			}
 		});
-		frame.getContentPane().add(commandBox);
+		getFrame().getContentPane().add(commandBox);
 		commandBox.setColumns(10);
 
 		// generalTaskBox.read(reader, this);
@@ -428,6 +428,14 @@ public class GUI {
 		displayAllTasks(DateBox1_1, date2_1, date3_1, date4_1, date5_1,
 				date6_1, date7_1, missingBox, generalTaskBox);
 
+	}
+	
+	public static void minWindow(){
+		getFrame().setBounds(0,0,200, 200);
+	}
+	
+	public static void maxWindow(){
+		getFrame().setBounds(100, 100, 677, 730);
 	}
 	
 	public void checkFilesExist() {
@@ -593,5 +601,13 @@ public class GUI {
 			// update the current date for the next loop
 			currDateString = DateModifier.getNextDate(currDateString);
 		}
+	}
+
+	public static JFrame getFrame() {
+		return frame;
+	}
+
+	public static void setFrame(JFrame frame) {
+		GUI.frame = frame;
 	}
 }

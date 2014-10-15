@@ -23,6 +23,8 @@ public class Parser {
 		case "zoom" : return CommandTypes.ZOOM;
 		case "search" : return CommandTypes.SEARCH;
 		case "copy" : return CommandTypes.COPY;
+		case "min" : return CommandTypes.MIN;
+		case "max" : return CommandTypes.MAX;
 		default : return CommandTypes.INVALID; 
 		}
 				
@@ -120,6 +122,10 @@ public class Parser {
 					WarningPopUp.infoBox("Not Found!", "Search Result");
 				}
 				break;
+				
+			case MIN:GUI.minWindow();break;
+				
+			case MAX:GUI.maxWindow();break;
 
 			case ZOOM:
 				if (theRest.length() > 1) {
