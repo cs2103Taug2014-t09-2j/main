@@ -8,7 +8,7 @@ import java.util.LinkedList;
  */
 
 public class HistoryTrackerAllFiles {
-	
+
 	public ArrayList<String> storageDate;
 	public ArrayList<HistoryTrackerSingleFile> storageContent;
 	public LinkedList<String> modDateSeq;
@@ -73,9 +73,9 @@ public class HistoryTrackerAllFiles {
 
 		int index = -1;
 		if (counter - 1 < 0) {
-			//System.out.println("max undo");
+			// System.out.println("max undo");
 			WarningPopUp.infoBox("Undo Limit", "WARNING");
-			
+
 		} else {
 			String date = modDateSeq.get(counter - 1);
 
@@ -85,12 +85,18 @@ public class HistoryTrackerAllFiles {
 					break;
 				}
 			}
-			if (index != -1) {
-				storageContent.get(index).runUndo();
-				counter--;
-			}
-			// System.out.println(index);
 			
+			try {
+				if (index != -1) {
+					storageContent.get(index).runUndo();
+					counter--;
+				}
+			} catch (IndexOutOfBoundsException e) {
+				throw new IndexOutOfBoundsException("Index not found!");
+			}
+			
+			// System.out.println(index);
+
 		}
 
 	}
@@ -98,9 +104,9 @@ public class HistoryTrackerAllFiles {
 	public void redo() {
 		int index = -1;
 		if (counter + 1 > maxCounter) {
-			//System.out.println("max redo");
+			// System.out.println("max redo");
 			WarningPopUp.infoBox("Redo Limit", "WARNING");
-			
+
 		} else {
 			String date = modDateSeq.get(counter);
 
@@ -115,7 +121,7 @@ public class HistoryTrackerAllFiles {
 				counter++;
 			}
 			// System.out.println(index);
-			
+
 		}
 
 	}
