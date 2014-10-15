@@ -3,6 +3,8 @@ package org.eclipse.wb.swt;
 import java.io.File;
 //import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /* Add general task and missing task edit
  * 
@@ -10,6 +12,8 @@ import java.util.ArrayList;
 
 public class CommandDone {
 
+	private static Logger logger = Logger.getLogger("CommandDone");
+	
 	String date; // fileName
 	int position = -1;
 	File file_object = null;
@@ -43,7 +47,8 @@ public class CommandDone {
 
 	// Mutator
 	public void delete() {
-		// Specific task
+		
+		// Specific task		
 		if (position != -1) {
 			if (date.equals("-")) {
 				String fileName = "general.txt";
@@ -67,13 +72,16 @@ public class CommandDone {
 				doneAllTask(fileName);
 			}
 		}
-
+		
+		
 	}
 
 	private void doneAllTask(String fileName) {
 		ArrayList<String> currDateTask = new ArrayList<>();
 		file_object = new File(fileName);
 
+		logger.log(Level.INFO, "delete processing");
+		
 		// Test file
 		if (file_object.exists()) {
 
@@ -81,11 +89,11 @@ public class CommandDone {
 			currDateTask = (new FileAccessor(fileName)).readContents();
 
 			if (currDateTask.size() == 0) {
-				System.out.println("Nothing to clear");
+				//System.out.println("Nothing to clear");
 
 			} else {
 				currDateTask.clear();
-				System.out.println("Success Clear");
+				//System.out.println("Success Clear");
 
 			}
 
@@ -93,29 +101,40 @@ public class CommandDone {
 			(new FileAccessor(fileName, currDateTask)).writeContents();
 
 		} else {
-			System.out.println("Failed Clear");
-
+			//System.out.println("Failed Clear");
+			WarningPopUp.infoBox("Unable to delete", "WARNING");
+			
+			logger.log(Level.WARNING, "processing error");
+			
 		}
+		
+		logger.log(Level.INFO, "delete complete");
 	}
 
 	private void doneSpecificTask(String fileName) {
 		ArrayList<String> currDateTask = new ArrayList<>();
 
+		logger.log(Level.INFO, "delete processing");
+		
 		// read the content of the file, put in the list
 		currDateTask = (new FileAccessor(fileName)).readContents();
 
 		// check if valid
 		if (position - 1 < currDateTask.size()) {
 			currDateTask.remove(position - 1);
-			System.out.println("Success delete");
+			//System.out.println("Success delete");
 
 		} else {
-			System.out.println("Failed delete");
-
+			//System.out.println("Failed delete");
+			WarningPopUp.infoBox("Unable to delete", "WARNING");
+			
+			logger.log(Level.WARNING, "processing error");
 		}
 
 		// write in file
 		(new FileAccessor(fileName, currDateTask)).writeContents();
+		
+		logger.log(Level.INFO, "delete complete");
 	}
 		
 }
