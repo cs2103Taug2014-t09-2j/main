@@ -6,8 +6,19 @@ import java.util.ArrayList;
 public class CommandSearch {
 	private String keyword;
 	
+	private static final String FILENAME_GENERAL = "general.txt";
+	private static final String TEXT_EXTENSION = ".txt";
+	private static final String SEARCH_RESULT_GENERAL = "General %1$d. %2$s";
+	private static final String SEARCH_RESULT_DATE = "%1$s %2$d. %3$s";
+	private static final String LINE_FORMAT = "%1$s\n";
+	
 	public CommandSearch(String key) {
 		keyword = key;
+	}
+	
+	//Mutator
+	public void setKeyword(String newKey) {
+		keyword = newKey;
 	}
 	
 	public String search() {
@@ -39,14 +50,14 @@ public class CommandSearch {
 	}
 	
 	private ArrayList<String> searchGeneral() throws FileNotFoundException{
-		String fileName = "general.txt";
+		String fileName = FILENAME_GENERAL;
 		ArrayList<String> generalTask = new ArrayList<String>(); //generalTask contains tasks in General box
 		generalTask = (new FileAccessor(fileName)).readContents();
 		
 		ArrayList<String> searchResultGeneral = new ArrayList<String>();
 		for (int i=0; i<generalTask.size(); i++) {
 			if (generalTask.get(i).toLowerCase().contains(keyword)) {
-				String result = "General " + Integer.toString(i+1) + ". " + generalTask.get(i);
+				String result = String.format(SEARCH_RESULT_GENERAL, i+1, generalTask.get(i));
 				searchResultGeneral.add(result);
 			}
 		}
@@ -55,13 +66,13 @@ public class CommandSearch {
 	
 	private ArrayList<String> searchPrevDate() throws FileNotFoundException{
 		String prevDateString = DateModifier.getPrevDate(DateModifier.getCurrDate());
-		ArrayList<String> prevDateTask = new ArrayList<String>(); //missingTask contains tasks in Missing box
+		ArrayList<String> prevDateTask = new ArrayList<String>();
 		prevDateTask = (new FileAccessor(prevDateString)).readContents();
 		
 		ArrayList<String> searchResultPrevDate = new ArrayList<String>();
 		for (int i=0; i<prevDateTask.size(); i++) {
 			if (prevDateTask.get(i).toLowerCase().contains(keyword)) {
-				String result = prevDateString + " " + Integer.toString(i+1) + ". " + prevDateTask.get(i);
+				String result = String.format(SEARCH_RESULT_DATE, prevDateString, i+1, prevDateTask.get(i));
 				searchResultPrevDate.add(result);
 			}
 		}
@@ -78,14 +89,14 @@ public class CommandSearch {
 			if (!dateTask.isEmpty()) {
 				dateTask.clear();
 			}
-			String fileName = currDateString + ".txt";
+			String fileName = currDateString + TEXT_EXTENSION;
 			//read file content into an ArrayList
 			dateTask = (new FileAccessor(fileName)).readContents();
 			
 			//Search the content of each file, add any match to searchResultDate arraylist
 			for (int j=0; j<dateTask.size(); j++){
 				if (dateTask.get(j).toLowerCase().contains(keyword)) {
-					result = currDateString + " " + Integer.toString(j+1) + ". " + dateTask.get(j);
+					result = String.format(SEARCH_RESULT_DATE, currDateString, i+1, dateTask.get(j));
 					searchResultDate.add(result);
 				}
 			}
@@ -97,7 +108,7 @@ public class CommandSearch {
 	private String arrayListToString(ArrayList<String> arr) {
 		String str = new String();
 		for (int i=0; i<arr.size(); i++) {
-			str = str + arr.get(i) + "\n";
+			str = str + String.format(LINE_FORMAT, arr.get(i));
 		}
 		return str;
 	}
