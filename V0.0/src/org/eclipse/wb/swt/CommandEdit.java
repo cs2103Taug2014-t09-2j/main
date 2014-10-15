@@ -13,6 +13,7 @@ public class CommandEdit {
 	
 	private final static Logger LOGGER = Logger.getLogger(CommandEdit.class .getName());
 	
+	private static final String TEXT_EXTENSION = ".txt";
 	private static final String CONTENT_TO_DISPLAY = "[%1$s] %2$s";
 	public CommandEdit(String str1, String str2, String str3, String str4) {
 		date = str1;
@@ -22,9 +23,11 @@ public class CommandEdit {
 	}
 	
 	public void edit() throws IOException {
+		LOGGER.setLevel(Level.INFO);
 		String fileName = getDateStr(date);
 		if (specification.equals("time")){
 			editTime(fileName);
+			LOGGER.warning("Possible IOException or FileNotFoundException");
 		} else if (specification.equals("task")){
 			editTask(fileName);
 		} else if (specification.equals("all")) {
@@ -55,6 +58,8 @@ public class CommandEdit {
 	}
 	
 	private void editTask(String fileName) throws IOException {
+		LOGGER.setLevel(Level.INFO);
+		LOGGER.info("Edits the task content of a specified task");
 		
 		ArrayList<String> dateTask = new ArrayList<String>();
 		dateTask = (new FileAccessor(fileName)).readContents();
@@ -76,6 +81,8 @@ public class CommandEdit {
 	}
 	
 	private void editAll(String fileName) throws IOException {
+		LOGGER.setLevel(Level.INFO);
+		LOGGER.info("Edits the whole line of a specified task");
 		
 		ArrayList<String> dateTask = new ArrayList<String>();
 		dateTask = (new FileAccessor(fileName)).readContents();
@@ -94,7 +101,7 @@ public class CommandEdit {
 	}
 	
 	private String getDateStr(String date){
-		return IsValidDate.validateDate(date) + ".txt";//get the name of the file given the date input
+		return IsValidDate.validateDate(date) + TEXT_EXTENSION;//get the name of the file given the date input
 													//date input can be 1-7
 	}
 }

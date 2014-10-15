@@ -2,9 +2,13 @@ package org.eclipse.wb.swt;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CommandSearch {
 	private String keyword;
+	
+	private final static Logger LOGGER = Logger.getLogger(CommandSearch.class .getName());
 	
 	private static final String FILENAME_GENERAL = "general.txt";
 	private static final String TEXT_EXTENSION = ".txt";
@@ -22,12 +26,14 @@ public class CommandSearch {
 	}
 	
 	public String search() {
+		LOGGER.setLevel(Level.INFO);
 		//The array to store the search result
 		ArrayList<String> searchResult = new ArrayList<String>();
 		
 		try {
 			searchResult.addAll(searchDate());
 		} catch (FileNotFoundException e) {
+			LOGGER.warning("FileNotFoundException");
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
