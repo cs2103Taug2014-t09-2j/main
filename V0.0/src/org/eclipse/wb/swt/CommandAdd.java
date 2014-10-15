@@ -71,6 +71,6 @@ public class CommandAdd {
 		// a list and return the list
 		list = isFileExist(fileName);
 		list.add(content);
-		(new WriteFile(fileName, list)).writeContents();
+		(new FileAccessor(fileName, list)).writeContents();
 	}
 }
