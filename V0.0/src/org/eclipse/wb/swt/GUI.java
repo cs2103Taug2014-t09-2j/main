@@ -74,7 +74,7 @@ public class GUI {
 				checkFilesExist();
 			}
 		});
-		getFrame().setBounds(100, 100, 677, 730);
+		getFrame().setBounds(0, 0, 677, 730);
 		getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getFrame().getContentPane().setLayout(null);
 
