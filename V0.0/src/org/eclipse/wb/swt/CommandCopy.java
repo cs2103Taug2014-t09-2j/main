@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class CommandCopy {
 	public static void copyTask(String source_date, String index,
 			String destination_date) {
-		ArrayList<String> files = new ReadFile(source_date+".txt").readContents();
+		ArrayList<String> files = new FileAccessor(source_date+".txt").readContents();
 		try{
 			String line = files.get(Integer.valueOf(index)-1);
 			String[] splitter = line.split("]");
