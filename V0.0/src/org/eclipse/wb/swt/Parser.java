@@ -34,6 +34,9 @@ public class Parser {
 		
 		String fileName=DateModifier.getCurrDate();
 		
+		//assuming the fileName is successfully updated
+		assert fileName.isEmpty() == false;
+		
 		String inputArr[] = input.split(" ", 2);
 		// take care of the one word input
 		if (inputArr.length == 1) {
