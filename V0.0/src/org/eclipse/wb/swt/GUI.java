@@ -45,8 +45,8 @@ public class GUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					//GUI window = new GUI();
-					GUI.getFrame().setVisible(true);
+					GUI window = new GUI();
+					window.getFrame().setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}								
@@ -74,7 +74,7 @@ public class GUI {
 				checkFilesExist();
 			}
 		});
-		getFrame().setBounds(100, 100, 677, 730);
+		getFrame().setBounds(0, 0, 677, 730);
 		getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getFrame().getContentPane().setLayout(null);
 
@@ -431,11 +431,11 @@ public class GUI {
 	}
 	
 	public static void minWindow(){
-		getFrame().setBounds(0,0,200, 200);
+		getFrame().setBounds(0,0,450, 306);
 	}
 	
 	public static void maxWindow(){
-		getFrame().setBounds(100, 100, 677, 730);
+		getFrame().setBounds(0, 0, 677, 730);
 	}
 	
 	public void checkFilesExist() {

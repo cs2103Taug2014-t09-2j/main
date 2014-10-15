@@ -46,6 +46,9 @@ public class Parser {
 			case "redo":
 				history.redo();
 				break;
+			case "min" :GUI.minWindow();break;
+			
+			case "max" :GUI.maxWindow();break;
 
 			default:
 				WarningPopUp.infoBox("Invalid Input", "WARNING");
@@ -122,10 +125,6 @@ public class Parser {
 					WarningPopUp.infoBox("Not Found!", "Search Result");
 				}
 				break;
-				
-			case MIN:GUI.minWindow();break;
-				
-			case MAX:GUI.maxWindow();break;
 
 			case ZOOM:
 				if (theRest.length() > 1) {
