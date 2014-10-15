@@ -2,12 +2,16 @@ package org.eclipse.wb.swt;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CommandEdit {
 	private String date;
 	private String index;
 	private String specification;//specify whether to edit time or task
 	private String modification;
+	
+	private final static Logger LOGGER = Logger.getLogger(CommandEdit.class .getName());
 	
 	private static final String CONTENT_TO_DISPLAY = "[%1$s] %2$s";
 	public CommandEdit(String str1, String str2, String str3, String str4) {
@@ -29,7 +33,9 @@ public class CommandEdit {
 	}
 	
 	private void editTime(String fileName) throws IOException {
-
+		LOGGER.setLevel(Level.INFO);
+		LOGGER.info("Edits the time of a specified task");
+		
 		ArrayList<String> dateTask = new ArrayList<String>();
 		dateTask = (new FileAccessor(fileName)).readContents();
 		
