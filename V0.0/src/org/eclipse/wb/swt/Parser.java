@@ -8,31 +8,24 @@ public class Parser {
 	private FileAccessor fileAccessor = new FileAccessor();
 	
 	enum CommandTypes {
-		START, ADD, EDIT, DONE, INVALID, UNDO, REDO, ZOOM, SEARCH, COPY
+		START, ADD, EDIT, DONE, INVALID, UNDO, REDO, ZOOM, SEARCH, COPY, MIN, MAX
 	};
 
-	private static CommandTypes determineCmd(String str) {
-		if (str.equals("start")) {
-			return CommandTypes.START;
-		} else if (str.equals("add")) {
-			return CommandTypes.ADD;
-		} else if (str.equals("done")) {
-			return CommandTypes.DONE;
-		} else if (str.equals("edit")) {
-			return CommandTypes.EDIT;
-		} else if (str.equals("undo")) {
-			return CommandTypes.UNDO;
-		} else if (str.equals("redo")) {
-			return CommandTypes.REDO;
-		} else if (str.equals("zoom")) {
-			return CommandTypes.ZOOM;
-		} else if (str.equals("search")) {
-			return CommandTypes.SEARCH;
-		} else if (str.equals("copy")) {
-			return CommandTypes.COPY;
-		} else {
-			return CommandTypes.INVALID;
+	private static CommandTypes determineCmd(String command) {
+		
+		switch(command){
+		case "start": return CommandTypes.START;
+		case "add" : return CommandTypes.ADD;
+		case "done" : return CommandTypes.DONE;
+		case "edit" : return CommandTypes.EDIT;
+		case "undo" : return CommandTypes.UNDO;
+		case "redo" : return CommandTypes.REDO;
+		case "zoom" : return CommandTypes.ZOOM;
+		case "search" : return CommandTypes.SEARCH;
+		case "copy" : return CommandTypes.COPY;
+		default : return CommandTypes.INVALID; 
 		}
+				
 	}
 
 	public void processInput(String input) throws IOException {
