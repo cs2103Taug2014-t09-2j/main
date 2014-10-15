@@ -431,11 +431,11 @@ public class GUI {
 	}
 	
 	public static void minWindow(){
-		getFrame().setBounds(0,0,200, 200);
+		getFrame().setBounds(0,0,450, 306);
 	}
 	
 	public static void maxWindow(){
-		getFrame().setBounds(100, 100, 677, 730);
+		getFrame().setBounds(0, 0, 677, 730);
 	}
 	
 	public void checkFilesExist() {
