@@ -1,11 +1,14 @@
 package org.eclipse.wb.swt;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Parser {
 
 	public static HistoryTrackerAllFiles history = new HistoryTrackerAllFiles();
 	private FileAccessor fileAccessor = new FileAccessor();
+	private static Logger logger = Logger.getLogger("Parser");
 	
 	enum CommandTypes {
 		START, ADD, EDIT, DONE, INVALID, UNDO, REDO, ZOOM, SEARCH, COPY, MIN, MAX
@@ -36,6 +39,9 @@ public class Parser {
 		
 		//assuming the fileName is successfully updated
 		assert fileName.isEmpty() == false;
+		
+		//log a message at INFO level
+		logger.log(Level.INFO, "start processing");
 		
 		String inputArr[] = input.split(" ", 2);
 		// take care of the one word input
@@ -78,6 +84,8 @@ public class Parser {
 					(new CommandEdit(date, number, time, modification)).edit();
 					// editTask(date, number, time, modification);
 				} catch (IOException e) {
+					//log a message at warning level
+					logger.log(Level.WARNING, "processing error", e);
 					e.printStackTrace();
 				}
 				history.recordUpdatedFile(date);
@@ -93,6 +101,7 @@ public class Parser {
 				try {
 					(new CommandAdd(date1, time1, task)).addTask();
 				} catch (IOException e1) {
+					logger.log(Level.WARNING, "processing error", e1);
 					e1.printStackTrace();
 				}
 				history.recordUpdatedFile(date1);
