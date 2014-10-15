@@ -45,8 +45,8 @@ public class GUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					//GUI window = new GUI();
-					GUI.getFrame().setVisible(true);
+					GUI window = new GUI();
+					window.getFrame().setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}								
