@@ -92,7 +92,7 @@ public class FileAccessor {
 			String _date = fileName.replace(TEXT_EXTENSION, NO_EXTENSION);
 			bw.write(String.format(FILE_HEADING, _date));
 			for (int i = 0; i < currDateTask.size(); i++) {
-				bw.write(String.format(CONTENT_TO_DISPLAY, i+1,currDateTask.get(i)));
+				bw.write(String.format(CONTENT_TO_DISPLAY,i+1,currDateTask.get(i)));
 			}
 			bw.close();
 		} catch (IOException ee) {
