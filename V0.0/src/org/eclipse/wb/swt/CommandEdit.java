@@ -27,7 +27,6 @@ public class CommandEdit {
 		String fileName = getDateStr(date);
 		if (specification.equals("time")){
 			editTime(fileName);
-			LOGGER.warning("Possible IOException or FileNotFoundException");
 		} else if (specification.equals("task")){
 			editTask(fileName);
 		} else if (specification.equals("all")) {
@@ -38,7 +37,7 @@ public class CommandEdit {
 	private void editTime(String fileName) throws IOException {
 		LOGGER.setLevel(Level.INFO);
 		LOGGER.info("Edits the time of a specified task");
-		
+		LOGGER.warning("Possible IOException or FileNotFoundException");
 		ArrayList<String> dateTask = new ArrayList<String>();
 		dateTask = (new FileAccessor(fileName)).readContents();
 		
@@ -60,7 +59,7 @@ public class CommandEdit {
 	private void editTask(String fileName) throws IOException {
 		LOGGER.setLevel(Level.INFO);
 		LOGGER.info("Edits the task content of a specified task");
-		
+		LOGGER.warning("Possible IOException or FileNotFoundException");
 		ArrayList<String> dateTask = new ArrayList<String>();
 		dateTask = (new FileAccessor(fileName)).readContents();
 		
@@ -83,7 +82,7 @@ public class CommandEdit {
 	private void editAll(String fileName) throws IOException {
 		LOGGER.setLevel(Level.INFO);
 		LOGGER.info("Edits the whole line of a specified task");
-		
+		LOGGER.warning("Possible IOException or FileNotFoundException");
 		ArrayList<String> dateTask = new ArrayList<String>();
 		dateTask = (new FileAccessor(fileName)).readContents();
 		
