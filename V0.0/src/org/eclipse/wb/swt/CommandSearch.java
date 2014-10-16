@@ -71,7 +71,7 @@ public class CommandSearch {
 	}
 	
 	private ArrayList<String> searchPrevDate() throws FileNotFoundException{
-		String prevDateString = DateModifier.getPrevDate(DateModifier.getCurrDate());
+		String prevDateString = DateModifier.getPrevDate(DateModifier.getCurrDate()) + TEXT_EXTENSION;
 		ArrayList<String> prevDateTask = new ArrayList<String>();
 		prevDateTask = (new FileAccessor(prevDateString)).readContents();
 		
