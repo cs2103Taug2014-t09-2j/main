@@ -9,40 +9,52 @@ public class Parser {
 	public static HistoryTrackerAllFiles history = new HistoryTrackerAllFiles();
 	private FileAccessor fileAccessor = new FileAccessor();
 	private static Logger logger = Logger.getLogger("Parser");
-	
+
 	enum CommandTypes {
 		START, ADD, EDIT, DONE, INVALID, UNDO, REDO, ZOOM, SEARCH, COPY, MIN, MAX
 	};
 
 	private static CommandTypes determineCmd(String command) {
-		
-		switch(command){
-		case "start": return CommandTypes.START;
-		case "add" : return CommandTypes.ADD;
-		case "done" : return CommandTypes.DONE;
-		case "edit" : return CommandTypes.EDIT;
-		case "undo" : return CommandTypes.UNDO;
-		case "redo" : return CommandTypes.REDO;
-		case "zoom" : return CommandTypes.ZOOM;
-		case "search" : return CommandTypes.SEARCH;
-		case "copy" : return CommandTypes.COPY;
-		case "min" : return CommandTypes.MIN;
-		case "max" : return CommandTypes.MAX;
-		default : return CommandTypes.INVALID; 
+
+		switch (command) {
+		case "start":
+			return CommandTypes.START;
+		case "add":
+			return CommandTypes.ADD;
+		case "done":
+			return CommandTypes.DONE;
+		case "edit":
+			return CommandTypes.EDIT;
+		case "undo":
+			return CommandTypes.UNDO;
+		case "redo":
+			return CommandTypes.REDO;
+		case "zoom":
+			return CommandTypes.ZOOM;
+		case "search":
+			return CommandTypes.SEARCH;
+		case "copy":
+			return CommandTypes.COPY;
+		case "min":
+			return CommandTypes.MIN;
+		case "max":
+			return CommandTypes.MAX;
+		default:
+			return CommandTypes.INVALID;
 		}
-				
+
 	}
 
 	public void processInput(String input) throws IOException {
-		
-		String fileName=DateModifier.getCurrDate();
-		
-		//assuming the fileName is successfully updated
+
+		String fileName = DateModifier.getCurrDate();
+
+		// assuming the fileName is successfully updated
 		assert fileName.isEmpty() == false;
-		
-		//log a message at INFO level
+
+		// log a message at INFO level
 		logger.log(Level.INFO, "start processing");
-		
+
 		String inputArr[] = input.split(" ", 2);
 		// take care of the one word input
 		if (inputArr.length == 1) {
@@ -50,14 +62,23 @@ public class Parser {
 			case "exit":
 				System.exit(0);
 			case "undo":
-				history.undo();
+				try {
+					history.undo();
+				} catch (IndexOutOfBoundsException e) {
+					System.out.println(e);
+				}
+				
 				break;
 			case "redo":
 				history.redo();
 				break;
-			case "min" :GUI.minWindow();break;
-			
-			case "max" :GUI.maxWindow();break;
+			case "min":
+				GUI.minWindow();
+				break;
+
+			case "max":
+				GUI.maxWindow();
+				break;
 
 			default:
 				WarningPopUp.infoBox("Invalid Input", "WARNING");
@@ -84,7 +105,7 @@ public class Parser {
 					(new CommandEdit(date, number, time, modification)).edit();
 					// editTask(date, number, time, modification);
 				} catch (IOException e) {
-					//log a message at warning level
+					// log a message at warning level
 					logger.log(Level.WARNING, "processing error", e);
 					e.printStackTrace();
 				}
@@ -146,7 +167,8 @@ public class Parser {
 					case "general":
 						fileName = "general.txt";
 						fileAccessor.setFileName(fileName);
-						String dateContentString = fileAccessor.readFileString();
+						String dateContentString = fileAccessor
+								.readFileString();
 						WarningPopUp.infoBox(dateContentString, "Zoom Result");
 						break;
 					case "missing":
@@ -172,15 +194,15 @@ public class Parser {
 						case 1:
 							fileName = DateModifier.getCurrDate() + ".txt";
 							fileAccessor.setFileName(fileName);
-							String dateContentString = fileAccessor.readFileString();
+							String dateContentString = fileAccessor
+									.readFileString();
 							WarningPopUp.infoBox(dateContentString,
 									"Zoom Result");
 							break;
 
 						case 2:
 							fileName = DateModifier.getParticularDate(
-									DateModifier.getCurrDate(), 1)
-									+ ".txt";
+									DateModifier.getCurrDate(), 1) + ".txt";
 							fileAccessor.setFileName(fileName);
 							dateContentString = fileAccessor.readFileString();
 							WarningPopUp.infoBox(dateContentString,
@@ -189,8 +211,7 @@ public class Parser {
 
 						case 3:
 							fileName = DateModifier.getParticularDate(
-									DateModifier.getCurrDate(), 2)
-									+ ".txt";
+									DateModifier.getCurrDate(), 2) + ".txt";
 							fileAccessor.setFileName(fileName);
 							dateContentString = fileAccessor.readFileString();
 							WarningPopUp.infoBox(dateContentString,
@@ -198,8 +219,7 @@ public class Parser {
 							break;
 						case 4:
 							fileName = DateModifier.getParticularDate(
-									DateModifier.getCurrDate(), 3)
-									+ ".txt";
+									DateModifier.getCurrDate(), 3) + ".txt";
 							fileAccessor.setFileName(fileName);
 							dateContentString = fileAccessor.readFileString();
 							WarningPopUp.infoBox(dateContentString,
@@ -208,8 +228,7 @@ public class Parser {
 
 						case 5:
 							fileName = DateModifier.getParticularDate(
-									DateModifier.getCurrDate(), 4)
-									+ ".txt";
+									DateModifier.getCurrDate(), 4) + ".txt";
 							fileAccessor.setFileName(fileName);
 							dateContentString = fileAccessor.readFileString();
 							WarningPopUp.infoBox(dateContentString,
@@ -218,8 +237,7 @@ public class Parser {
 
 						case 6:
 							fileName = DateModifier.getParticularDate(
-									DateModifier.getCurrDate(), 5)
-									+ ".txt";
+									DateModifier.getCurrDate(), 5) + ".txt";
 							fileAccessor.setFileName(fileName);
 							dateContentString = fileAccessor.readFileString();
 							WarningPopUp.infoBox(dateContentString,
@@ -228,8 +246,7 @@ public class Parser {
 
 						case 7:
 							fileName = DateModifier.getParticularDate(
-									DateModifier.getCurrDate(), 6)
-									+ ".txt";
+									DateModifier.getCurrDate(), 6) + ".txt";
 							fileAccessor.setFileName(fileName);
 							dateContentString = fileAccessor.readFileString();
 							WarningPopUp.infoBox(dateContentString,

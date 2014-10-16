@@ -85,16 +85,15 @@ public class HistoryTrackerAllFiles {
 					break;
 				}
 			}
-			
-			try {
-				if (index != -1) {
-					storageContent.get(index).runUndo();
-					counter--;
-				}
-			} catch (IndexOutOfBoundsException e) {
-				throw new IndexOutOfBoundsException("Index not found!");
+
+			if (index != -1) {
+				storageContent.get(index).runUndo();
+				counter--;
 			}
 			
+			if (index == -1) {
+				throw new IndexOutOfBoundsException("Index not found!");
+			}
 			// System.out.println(index);
 
 		}
