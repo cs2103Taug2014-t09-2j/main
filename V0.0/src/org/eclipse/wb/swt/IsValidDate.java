@@ -28,9 +28,11 @@ public class IsValidDate {
 		}
 		else if (date.equals("-")) {
 			return date;
-		}
-		else if ( new IsValidDate(date).testValidDate()){
-			return date;
+		} else {
+			new IsValidDate(date);
+			if ( IsValidDate.testValidDate()){
+				return date;
+			}
 		}
 		try{
 			int box = Integer.valueOf(date);

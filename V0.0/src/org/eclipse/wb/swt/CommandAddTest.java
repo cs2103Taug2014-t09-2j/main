@@ -20,7 +20,7 @@ import org.junit.Test;
 public class CommandAddTest {
 	
 	@Test
-	public void test2() {
+	public void test() {
 		try {
 			String filename = "a1";
 			BufferedWriter bw = (new BufferedWriter(new FileWriter((new File(filename+".txt")).getAbsoluteFile())));
