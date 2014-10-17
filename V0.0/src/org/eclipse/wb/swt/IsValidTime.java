@@ -3,10 +3,10 @@ package org.eclipse.wb.swt;
 public class IsValidTime {
 	
 	public static String getFormattedTime(int time) throws Exception{
-		if (time<10){
+		if (time<10 && time>=0){
 			return String.format("0%d00", time);
 		}
-		else if (time<=24){
+		else if (time<=24 && time >=0){
 			return String.format("%d00", time);
 		}
 		else if (time>=100&&time<=2400){
