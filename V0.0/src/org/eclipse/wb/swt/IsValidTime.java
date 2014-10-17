@@ -40,6 +40,9 @@ public class IsValidTime {
 		String reformatted_time = "";
 		int old_t = -1; //1 character shorter will allow it to be always be on top
 		for (int i=0;i<splitted_time.length;i++){
+			if(splitted_time[i].length()>4){
+				valid = false;
+			}
 			splitted_time[i] = getFormattedTime(Integer.valueOf(splitted_time[i]));
 			int t = Integer.valueOf(splitted_time[i]);
 			if (old_t>=t){
