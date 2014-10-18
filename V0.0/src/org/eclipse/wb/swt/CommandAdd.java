@@ -11,8 +11,13 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CommandAdd {
+	
+	private static Logger logger = Logger.getLogger("CommandAdd");
+	
 	String date;
 	String task;
 	String time;
@@ -31,6 +36,7 @@ public class CommandAdd {
 	}
 	
 	public void addTask() {
+		logger.log(Level.INFO, "add processing");
 		// Create the name of the text file
 		String fileName = date + ".txt";
 		if (date.equals("-")){
@@ -46,5 +52,6 @@ public class CommandAdd {
 		list = (new FileAccessor(fileName)).readContents();
 		list.add(content);
 		(new FileAccessor(fileName, list)).writeContents();
+		logger.log(Level.INFO, "add complete");
 	}
 }
