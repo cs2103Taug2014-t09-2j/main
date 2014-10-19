@@ -11,8 +11,13 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CommandAdd {
+	
+	private static Logger logger = Logger.getLogger("CommandAdd");
+	
 	String date;
 	String task;
 	String time;
@@ -29,34 +34,9 @@ public class CommandAdd {
 		}
 		this.task = task;
 	}
-
-	public ArrayList<String> isFileExist(String fileName)
-			throws IOException {
-		ArrayList<String> list = new ArrayList<String>();
-		try {
-			File file = new File(fileName);
-			if (file.exists()) {
-				String line;
-				BufferedReader br = new BufferedReader(new FileReader(
-						fileName));
-				int _ignore = 2;
-				while ((line = br.readLine()) != null) {
-					if (_ignore > 0){ //ignore first 2 lines
-						_ignore -= 1;
-						continue;
-					}
-					list.add(line); // File already exists, add its
-									// content to the list
-				}
-				br.close();
-			}
-		} catch (FileNotFoundException e) {
-			list.clear(); // Clear all corrupted data
-		}
-		return list;
-	}
 	
-	public void addTask() throws IOException {
+	public void addTask() {
+		logger.log(Level.INFO, "add processing");
 		// Create the name of the text file
 		String fileName = date + ".txt";
 		if (date.equals("-")){
@@ -72,5 +52,6 @@ public class CommandAdd {
 		list = (new FileAccessor(fileName)).readContents();
 		list.add(content);
 		(new FileAccessor(fileName, list)).writeContents();
+		logger.log(Level.INFO, "add complete");
 	}
 }

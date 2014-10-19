@@ -120,12 +120,7 @@ public class Parser {
 				String task = addString[2];
 				history.clear();
 				history.checkBaseFile(date1);
-				try {
-					(new CommandAdd(date1, time1, task)).addTask();
-				} catch (IOException e1) {
-					logger.log(Level.WARNING, "processing error", e1);
-					e1.printStackTrace();
-				}
+				(new CommandAdd(date1, time1, task)).addTask();
 				history.recordUpdatedFile(date1);
 				break;
 
