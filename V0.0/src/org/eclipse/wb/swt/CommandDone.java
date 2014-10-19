@@ -46,37 +46,38 @@ public class CommandDone {
 	}
 
 	// Mutator
-	public void delete() {
-		
+	public boolean delete() {
+		boolean checker;
 		// Specific task		
 		if (position != -1) {
 			if (date.equals("-")) {
 				String fileName = "general.txt";
-				doneSpecificTask(fileName);
+				checker = doneSpecificTask(fileName);
 //			} else if (date.equals("miss")) {
 //				String fileName = "missing.txt"; // Naming in progress
 //				doneSpecificTask(fileName);
 			} else {
 				String fileName = date + ".txt";
-				doneSpecificTask(fileName);
+				checker = doneSpecificTask(fileName);
 			}
 		} else { // All Task
 			if (date.equals("-")) {
 				String fileName = "general.txt";
-				doneAllTask(fileName);
+				checker = doneAllTask(fileName);
 //			} else if (date.equals("miss")) {
 //				String fileName = "missing.txt"; // Naming in progress
 //				doneAllTask(fileName);
 			} else {
 				String fileName = date + ".txt";
-				doneAllTask(fileName);
+				checker = doneAllTask(fileName);
 			}
 		}
 		
+		return checker;
 		
 	}
 
-	private void doneAllTask(String fileName) {
+	private boolean doneAllTask(String fileName) {
 		ArrayList<String> currDateTask = new ArrayList<>();
 		file_object = new File(fileName);
 
@@ -90,6 +91,7 @@ public class CommandDone {
 
 			if (currDateTask.size() == 0) {
 				//System.out.println("Nothing to clear");
+				return false;
 
 			} else {
 				currDateTask.clear();
@@ -106,12 +108,16 @@ public class CommandDone {
 			
 			logger.log(Level.WARNING, "processing error");
 			
+			return false;
+			
 		}
 		
 		logger.log(Level.INFO, "delete complete");
+		
+		return true;
 	}
 
-	private void doneSpecificTask(String fileName) {
+	private boolean doneSpecificTask(String fileName) {
 		ArrayList<String> currDateTask = new ArrayList<>();
 
 		logger.log(Level.INFO, "delete processing");
@@ -123,18 +129,22 @@ public class CommandDone {
 		if (position - 1 < currDateTask.size()) {
 			currDateTask.remove(position - 1);
 			//System.out.println("Success delete");
-
+			
 		} else {
 			//System.out.println("Failed delete");
 			WarningPopUp.infoBox("Unable to delete", "WARNING");
 			
 			logger.log(Level.WARNING, "processing error");
+			
+			return false;
 		}
 
 		// write in file
 		(new FileAccessor(fileName, currDateTask)).writeContents();
 		
 		logger.log(Level.INFO, "delete complete");
+		
+		return true;
 	}
 		
 }

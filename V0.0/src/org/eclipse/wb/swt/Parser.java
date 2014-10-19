@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 public class Parser {
 
 	public static HistoryTrackerAllFiles history = new HistoryTrackerAllFiles();
+	public static boolean updateChecker;
 	private FileAccessor fileAccessor = new FileAccessor();
 	private static Logger logger = Logger.getLogger("Parser");
 
@@ -67,7 +68,7 @@ public class Parser {
 				} catch (IndexOutOfBoundsException e) {
 					System.out.println(e);
 				}
-				
+
 				break;
 			case "redo":
 				history.redo();
@@ -144,8 +145,10 @@ public class Parser {
 				String[] doneString = theRest.split(" ");
 				String chkFile = IsValidDate.validateDate(doneString[0]);
 				history.checkBaseFile(chkFile);
-				(new CommandDone(theRest)).delete();
-				history.recordUpdatedFile(chkFile);
+				updateChecker = (new CommandDone(theRest)).delete();
+				if (updateChecker) {
+					history.recordUpdatedFile(chkFile);
+				}
 				break;
 
 			case SEARCH:
