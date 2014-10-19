@@ -91,6 +91,8 @@ public class CommandDone {
 
 			if (currDateTask.size() == 0) {
 				//System.out.println("Nothing to clear");
+				WarningPopUp.infoBox("Nothing to clear", "WARNING");
+				
 				return false;
 
 			} else {
