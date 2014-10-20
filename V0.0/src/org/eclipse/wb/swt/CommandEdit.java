@@ -15,15 +15,36 @@ public class CommandEdit {
 	
 	private static final String TEXT_EXTENSION = ".txt";
 	private static final String CONTENT_TO_DISPLAY = "[%1$s] %2$s";
-	public CommandEdit(String str1, String str2, String str3, String str4) {
+	
+	public CommandEdit() {
+	}
+	
+	public CommandEdit() {
 		date = str1;
 		index = str2;
 		specification = str3;
 		modification = str4;
 	}
 	
-	public void edit() throws IOException {
+	//Mutators
+	public void setDate(String str){
+		date = str;
+	}
+	public void setIndex(String str) {
+		index = str;
+	}
+	public void setSpec(String str) {
+		specification = str;
+	}
+	public void setMod(String str) {
+		modification = str;
+	}
+	
+	public void edit(String str1, String str2, String str3, String str4) throws IOException {
+		setDate(str1); setIndex(str2); setSpec(str3); setMod(str4);
+		
 		LOGGER.setLevel(Level.INFO);
+		
 		String fileName = getDateStr(date);
 		if (specification.equals("time")){
 			editTime(fileName);
@@ -37,7 +58,7 @@ public class CommandEdit {
 	private void editTime(String fileName) throws IOException {
 		LOGGER.setLevel(Level.INFO);
 		LOGGER.info("Edits the time of a specified task");
-		LOGGER.warning("Possible IOException or FileNotFoundException");
+		
 		ArrayList<String> dateTask = new ArrayList<String>();
 		dateTask = (new FileAccessor(fileName)).readContents();
 		
@@ -59,7 +80,7 @@ public class CommandEdit {
 	private void editTask(String fileName) throws IOException {
 		LOGGER.setLevel(Level.INFO);
 		LOGGER.info("Edits the task content of a specified task");
-		LOGGER.warning("Possible IOException or FileNotFoundException");
+		
 		ArrayList<String> dateTask = new ArrayList<String>();
 		dateTask = (new FileAccessor(fileName)).readContents();
 		
@@ -82,7 +103,7 @@ public class CommandEdit {
 	private void editAll(String fileName) throws IOException {
 		LOGGER.setLevel(Level.INFO);
 		LOGGER.info("Edits the whole line of a specified task");
-		LOGGER.warning("Possible IOException or FileNotFoundException");
+		
 		ArrayList<String> dateTask = new ArrayList<String>();
 		dateTask = (new FileAccessor(fileName)).readContents();
 		
