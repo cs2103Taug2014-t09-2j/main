@@ -13,76 +13,61 @@ import java.util.logging.Logger;
 public class CommandDone {
 
 	private static Logger logger = Logger.getLogger("CommandDone");
-	
+
 	String date; // fileName
 	int position = -1;
 	File file_object = null;
 
 	// Constructor
 	// General start up of done
-	public CommandDone(String input) {
-		String[] arrStr = input.split(" ");
-		String chkDate = IsValidDate.validateDate(arrStr[0]); // check 1st input
-		
-		if(chkDate.equals("-")){ // Input General Task
-			setVariables(arrStr);
-		}else{ // Input Date Task
-			setVariables(arrStr);
-		}
-		
-//		} else if (arrStr[0].equals("miss")) { // Input Missing Task
-//			setVariables(arrStr);
-//		}
-		// System.out.println("values stored");
+	public CommandDone(String date, String position) {
+		this.date = IsValidDate.validateDate(date);
+		this.position = Integer.parseInt(position);
 	}
 
-	private void setVariables(String[] arrStr) {
-		if (arrStr.length == 1) {
-			date = IsValidDate.validateDate(arrStr[0]);// return String date/-
-		} else {
-			date = IsValidDate.validateDate(arrStr[0]);// return String date/-
-			position = Integer.parseInt(arrStr[1]);
-		}
-	}
+	// } else if (arrStr[0].equals("miss")) { // Input Missing Task
+	// setVariables(arrStr);
+	// }
+	// System.out.println("values stored");
 
 	// Mutator
-	public boolean delete() {
-		boolean checker;
-		// Specific task		
+	public void delete() {
 		if (position != -1) {
+			// Specific task
 			if (date.equals("-")) {
 				String fileName = "general.txt";
-				checker = doneSpecificTask(fileName);
-//			} else if (date.equals("miss")) {
-//				String fileName = "missing.txt"; // Naming in progress
-//				doneSpecificTask(fileName);
+				doneSpecificTask(fileName);
 			} else {
 				String fileName = date + ".txt";
-				checker = doneSpecificTask(fileName);
+				doneSpecificTask(fileName);
 			}
+			// } else if (date.equals("miss")) {
+			// String fileName = "missing.txt"; // Naming in progress
+			// doneSpecificTask(fileName);
+			
 		} else { // All Task
 			if (date.equals("-")) {
 				String fileName = "general.txt";
-				checker = doneAllTask(fileName);
-//			} else if (date.equals("miss")) {
-//				String fileName = "missing.txt"; // Naming in progress
-//				doneAllTask(fileName);
+				doneAllTask(fileName);
+
 			} else {
 				String fileName = date + ".txt";
-				checker = doneAllTask(fileName);
+				doneAllTask(fileName);
 			}
+			// } else if (date.equals("miss")) {
+			// String fileName = "missing.txt"; // Naming in progress
+			// doneAllTask(fileName);
+			
 		}
-		
-		return checker;
-		
+
 	}
 
-	private boolean doneAllTask(String fileName) {
+	private void doneAllTask(String fileName) {
 		ArrayList<String> currDateTask = new ArrayList<>();
 		file_object = new File(fileName);
 
 		logger.log(Level.INFO, "delete processing");
-		
+
 		// Test file
 		if (file_object.exists()) {
 
@@ -90,14 +75,12 @@ public class CommandDone {
 			currDateTask = (new FileAccessor(fileName)).readContents();
 
 			if (currDateTask.size() == 0) {
-				//System.out.println("Nothing to clear");
+				// System.out.println("Nothing to clear");
 				WarningPopUp.infoBox("Nothing to clear", "WARNING");
-				
-				return false;
 
 			} else {
 				currDateTask.clear();
-				//System.out.println("Success Clear");
+				// System.out.println("Success Clear");
 
 			}
 
@@ -105,48 +88,43 @@ public class CommandDone {
 			(new FileAccessor(fileName, currDateTask)).writeContents();
 
 		} else {
-			//System.out.println("Failed Clear");
+			// System.out.println("Failed Clear");
 			WarningPopUp.infoBox("Unable to delete", "WARNING");
-			
+
 			logger.log(Level.WARNING, "processing error");
-			
-			return false;
-			
+
 		}
-		
+
 		logger.log(Level.INFO, "delete complete");
-		
-		return true;
+
 	}
 
-	private boolean doneSpecificTask(String fileName) {
+	private void doneSpecificTask(String fileName) {
 		ArrayList<String> currDateTask = new ArrayList<>();
 
 		logger.log(Level.INFO, "delete processing");
-		
+
 		// read the content of the file, put in the list
 		currDateTask = (new FileAccessor(fileName)).readContents();
 
 		// check if valid
 		if (position - 1 < currDateTask.size()) {
 			currDateTask.remove(position - 1);
-			//System.out.println("Success delete");
-			
+			// System.out.println("Success delete");
+
 		} else {
-			//System.out.println("Failed delete");
+			// System.out.println("Failed delete");
 			WarningPopUp.infoBox("Unable to delete", "WARNING");
-			
+
 			logger.log(Level.WARNING, "processing error");
-			
-			return false;
+
 		}
 
 		// write in file
 		(new FileAccessor(fileName, currDateTask)).writeContents();
-		
+
 		logger.log(Level.INFO, "delete complete");
-		
-		return true;
+
 	}
-		
+
 }

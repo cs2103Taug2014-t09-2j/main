@@ -1,0 +1,16 @@
+Basic Commands:
+add < date > < startTime–endTime > < task >
+edit < date > < index >  time  < newTime >
+edit < date > < index >  task < editedTask >
+edit < date > < index >  all <newTime> < editedTask >
+done < date > 
+done < date > < index >
+
+For display:
+zoom <boxNumber>
+search <keyword>
+
+Others:
+undo
+redo
+help
