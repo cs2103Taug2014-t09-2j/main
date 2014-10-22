@@ -3,7 +3,11 @@ package org.eclipse.wb.swt;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-/* This class stores individual files save state
+/**
+ * @author Benedict
+ */
+
+/* This class stores the individual states of the text files
  * 
  */
 
