@@ -11,7 +11,7 @@ package org.eclipse.wb.swt;
  * COMMENTED ALL TO PREVENT ERROR MSG WHEN RUNNING GUI
  */
 
-public class CommandUndoRedo {
+public class ZCommandUndoRedo {
 
 //	public Stack<String> undoHistory;
 //	public Stack<String> redoHistory;
