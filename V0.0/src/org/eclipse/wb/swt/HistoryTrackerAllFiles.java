@@ -74,7 +74,7 @@ public class HistoryTrackerAllFiles {
 		int index = -1;
 		if (counter - 1 < 0) {
 			// System.out.println("max undo");
-			WarningPopUp.infoBox("Undo Limit", "WARNING");
+			WarningPopUp.infoBox("Nothing to Undo", "WARNING");
 
 		} else {
 			String date = modDateSeq.get(counter - 1);
@@ -104,7 +104,7 @@ public class HistoryTrackerAllFiles {
 		int index = -1;
 		if (counter + 1 > maxCounter) {
 			// System.out.println("max redo");
-			WarningPopUp.infoBox("Redo Limit", "WARNING");
+			WarningPopUp.infoBox("Nothing to Redo", "WARNING");
 
 		} else {
 			String date = modDateSeq.get(counter);

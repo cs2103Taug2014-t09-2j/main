@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * UNUSED, INITIALLY FOR COMMANDDONE/UNDOREDO
  */
 
-public class CommandSearchCurrDate {
+public class ZCommandSearchCurrDate {
 
 //	String date;
 //	String time;

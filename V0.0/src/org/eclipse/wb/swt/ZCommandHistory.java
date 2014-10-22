@@ -8,7 +8,7 @@ package org.eclipse.wb.swt;
  * COMMENTED ALL TO PREVENT ERROR MSG WHEN RUNNING GUI
  */
 
-public class CommandHistory {
+public class ZCommandHistory {
 
 //	// For Undo
 //	public Stack<String> historyDate;
