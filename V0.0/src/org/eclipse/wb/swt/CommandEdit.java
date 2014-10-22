@@ -64,7 +64,7 @@ public class CommandEdit {
 		(new FileAccessor(fileName, dateTask)).writeContents();
 	}
 	
-	private String editTime(String oldTask) {
+	public String editTime(String oldTask) {
 		LOGGER.info("Edits the time of a specified task");
 		
 		//Split toBeRemoved string to 2parts and get the task (the unchanged part)
@@ -72,7 +72,7 @@ public class CommandEdit {
 		return String.format(CONTENT_TO_DISPLAY, modification, keep);
 	}
 	
-	private String editTask(String oldTask) {
+	public String editTask(String oldTask) {
 		LOGGER.info("Edits the task content of a specified task");
 
 		//Split toBeRemoved string to 2parts and get the time (the unchanged part)
@@ -81,7 +81,7 @@ public class CommandEdit {
 		return String.format(CONTENT_TO_DISPLAY, keep, modification);
 	}
 	
-	private String editAll(String fileName) {
+	public String editAll(String fileName) {
 		LOGGER.info("Edits the whole line of a specified task");
 		
 		String[] change = modification.split(" ", 2);
