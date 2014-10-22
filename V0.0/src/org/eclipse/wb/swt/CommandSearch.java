@@ -16,8 +16,7 @@ public class CommandSearch {
 	private static final String SEARCH_RESULT_DATE = "%1$s %2$d. %3$s";
 	private static final String LINE_FORMAT = "%1$s\n";
 	
-	public CommandSearch(String key) {
-		keyword = key;
+	public CommandSearch() {
 	}
 	
 	//Mutator
@@ -25,7 +24,9 @@ public class CommandSearch {
 		keyword = newKey;
 	}
 	
-	public String search() {
+	public String search(String key) {
+		setKeyword(key);
+		
 		LOGGER.setLevel(Level.INFO);
 		//The array to store the search result
 		ArrayList<String> searchResult = new ArrayList<String>();
