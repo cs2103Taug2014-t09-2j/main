@@ -94,7 +94,7 @@ public class GUI {
 		scrollPane.setViewportView(DateBox1_1);
 		DateBox1_1.setWrapStyleWord(true);
 		DateBox1_1.setEditable(false);
-		DateBox1_1.setFont(new Font("Rockwell", Font.PLAIN, 12));
+		DateBox1_1.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		DateBox1_1.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 		DateBox1_1.setBackground(new Color(255, 215, 0));
@@ -117,7 +117,7 @@ public class GUI {
 		scrollPane_1.setViewportView(date2_1);
 		date2_1.setWrapStyleWord(true);
 		date2_1.setLineWrap(true);
-		date2_1.setFont(new Font("Rockwell", Font.PLAIN, 12));
+		date2_1.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		date2_1.setEditable(false);
 		date2_1.setBackground(new Color(255, 215, 0));
 		// create padding inside the text area
@@ -132,7 +132,7 @@ public class GUI {
 		scrollPane_2.setViewportView(date3_1);
 		date3_1.setWrapStyleWord(true);
 		date3_1.setLineWrap(true);
-		date3_1.setFont(new Font("Rockwell", Font.PLAIN, 12));
+		date3_1.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		date3_1.setEditable(false);
 		date3_1.setBackground(new Color(255, 215, 0));
 		// create padding inside the text area
@@ -147,7 +147,7 @@ public class GUI {
 		scrollPane_3.setViewportView(date4_1);
 		date4_1.setWrapStyleWord(true);
 		date4_1.setLineWrap(true);
-		date4_1.setFont(new Font("Rockwell", Font.PLAIN, 12));
+		date4_1.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		date4_1.setEditable(false);
 		date4_1.setBackground(new Color(255, 215, 0));
 		// create padding inside the text area
@@ -163,7 +163,7 @@ public class GUI {
 		scrollPane_4.setViewportView(date5_1);
 		date5_1.setWrapStyleWord(true);
 		date5_1.setLineWrap(true);
-		date5_1.setFont(new Font("Rockwell", Font.PLAIN, 12));
+		date5_1.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		date5_1.setEditable(false);
 		date5_1.setBackground(new Color(255, 215, 0));
 		// create padding inside the text area
@@ -178,7 +178,7 @@ public class GUI {
 		scrollPane_5.setViewportView(date6_1);
 		date6_1.setWrapStyleWord(true);
 		date6_1.setLineWrap(true);
-		date6_1.setFont(new Font("Rockwell", Font.PLAIN, 12));
+		date6_1.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		date6_1.setEditable(false);
 		date6_1.setBackground(new Color(255, 215, 0));
 		// create padding inside the text area
@@ -193,7 +193,7 @@ public class GUI {
 		scrollPane_6.setViewportView(date7_1);
 		date7_1.setWrapStyleWord(true);
 		date7_1.setLineWrap(true);
-		date7_1.setFont(new Font("Rockwell", Font.PLAIN, 12));
+		date7_1.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		date7_1.setEditable(false);
 		date7_1.setBackground(new Color(255, 215, 0));
 		// create padding inside the text area
@@ -208,7 +208,7 @@ public class GUI {
 		scrollPane_7.setViewportView(missingBox);
 		missingBox.setWrapStyleWord(true);
 		missingBox.setLineWrap(true);
-		missingBox.setFont(new Font("Rockwell", Font.PLAIN, 12));
+		missingBox.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		missingBox.setEditable(false);
 		missingBox.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
@@ -224,7 +224,7 @@ public class GUI {
 		generalTaskBox.setWrapStyleWord(true);
 		generalTaskBox.setText("General Tasks");
 		generalTaskBox.setLineWrap(true);
-		generalTaskBox.setFont(new Font("Rockwell", Font.PLAIN, 12));
+		generalTaskBox.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		generalTaskBox.setEditable(false);
 		// Border border = BorderFactory.createLineBorder(Color.BLACK);
 		generalTaskBox.setBorder(BorderFactory.createCompoundBorder(border,
