@@ -111,8 +111,8 @@ public class Parser {
 					history.clear();
 					history.checkBaseFile(date);
 					try {
-						(new CommandEdit(date, number, time, modification))
-								.edit();
+						(new CommandEdit())
+								.edit(date, number, time, modification);
 						// editTask(date, number, time, modification);
 					} catch (IOException e) {
 						// log a message at warning level
