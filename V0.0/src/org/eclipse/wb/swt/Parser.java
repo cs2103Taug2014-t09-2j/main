@@ -82,7 +82,7 @@ public class Parser {
 			case "max":
 				GUI.maxWindow();
 				break;
-				
+
 			case "help":
 				GUI.showHelp();
 				break;
@@ -102,21 +102,25 @@ public class Parser {
 			switch (command) {
 			case EDIT:
 				String editString[] = theRest.split(" ", 4);
-				String date = editString[0];
+				String date = IsValidDate.validateDate(editString[0]);
 				String number = editString[1];
 				String time = editString[2];
 				String modification = editString[3];
-				history.clear();
-				history.checkBaseFile(date);
-				try {
-					(new CommandEdit(date, number, time, modification)).edit();
-					// editTask(date, number, time, modification);
-				} catch (IOException e) {
-					// log a message at warning level
-					logger.log(Level.WARNING, "processing error", e);
-					e.printStackTrace();
+				
+				if (!date.equals("")) {
+					history.clear();
+					history.checkBaseFile(date);
+					try {
+						(new CommandEdit(date, number, time, modification))
+								.edit();
+						// editTask(date, number, time, modification);
+					} catch (IOException e) {
+						// log a message at warning level
+						logger.log(Level.WARNING, "processing error", e);
+						e.printStackTrace();
+					}
+					history.recordUpdatedFile(date);
 				}
-				history.recordUpdatedFile(date);
 				break;
 
 			case ADD:
@@ -124,10 +128,13 @@ public class Parser {
 				String date1 = IsValidDate.validateDate(addString[0]);
 				String time1 = addString[1];
 				String task = addString[2];
-				history.clear();
-				history.checkBaseFile(date1);
-				(new CommandAdd(date1, time1, task)).addTask();
-				history.recordUpdatedFile(date1);
+				
+				if (!date1.equals("")) {
+					history.clear();
+					history.checkBaseFile(date1);
+					(new CommandAdd(date1, time1, task)).addTask();
+					history.recordUpdatedFile(date1);
+				}
 				break;
 
 			case COPY:
@@ -135,22 +142,28 @@ public class Parser {
 				String sourcedate = IsValidDate.validateDate(cpyString[0]);
 				String index = cpyString[1];
 				String destdate = IsValidDate.validateDate(cpyString[2]);
-				history.clear();
-				history.checkBaseFile(destdate);
-				CommandCopy.copyTask(sourcedate, index, destdate);
-				history.recordUpdatedFile(destdate);
+				
+				if (!sourcedate.equals("") && !destdate.equals("")) {
+					history.clear();
+					history.checkBaseFile(destdate);
+					CommandCopy.copyTask(sourcedate, index, destdate);
+					history.recordUpdatedFile(destdate);
+				}
 				break;
 
 			case DONE:
-				history.clear();
-				String[] doneString = theRest.split(" ");
-				String chkFile = IsValidDate.validateDate(doneString[0]);
-				if (!chkFile.equals("")) {
-					history.checkBaseFile(chkFile);
-					updateChecker = (new CommandDone(theRest)).delete();
-					if (updateChecker) {
-						history.recordUpdatedFile(chkFile);
+				String doneString[] = theRest.split(" ");
+				String doneDate = IsValidDate.validateDate(doneString[0]);
+				
+				if (!doneDate.equals("")) {
+					history.clear();
+					history.checkBaseFile(doneDate);
+					if (doneString.length == 1) {
+						new CommandDone(doneDate, "-1").delete();
+					} else {
+						new CommandDone(doneDate, doneString[1]).delete();
 					}
+					history.recordUpdatedFile(doneDate);
 				}
 				break;
 
