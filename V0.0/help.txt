@@ -13,7 +13,4 @@ search <keyword>
 Others:
 undo
 redo
-
-
-
-
+help
