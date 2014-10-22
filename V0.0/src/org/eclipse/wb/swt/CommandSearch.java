@@ -56,7 +56,7 @@ public class CommandSearch {
 		return arrayListToString(searchResult);
 	}
 	
-	private ArrayList<String> searchGeneral() throws FileNotFoundException{
+	public ArrayList<String> searchGeneral() throws FileNotFoundException{
 		String fileName = FILENAME_GENERAL;
 		ArrayList<String> generalTask = new ArrayList<String>(); //generalTask contains tasks in General box
 		generalTask = (new FileAccessor(fileName)).readContents();
@@ -71,7 +71,7 @@ public class CommandSearch {
 		return searchResultGeneral;
 	}
 	
-	private ArrayList<String> searchPrevDate() throws FileNotFoundException{
+	public ArrayList<String> searchPrevDate() throws FileNotFoundException{
 		String prevDateString = DateModifier.getPrevDate(DateModifier.getCurrDate()) + TEXT_EXTENSION;
 		ArrayList<String> prevDateTask = new ArrayList<String>();
 		prevDateTask = (new FileAccessor(prevDateString)).readContents();
@@ -86,7 +86,7 @@ public class CommandSearch {
 		return searchResultPrevDate;
 	}
 	
-	private ArrayList<String> searchDate() throws FileNotFoundException{
+	public ArrayList<String> searchDate() throws FileNotFoundException{
 		ArrayList<String> searchResultDate = new ArrayList<String>();
 		ArrayList<String> dateTask = new ArrayList<String>();
 		String result = new String();
