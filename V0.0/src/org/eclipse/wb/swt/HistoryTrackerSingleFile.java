@@ -3,8 +3,12 @@ package org.eclipse.wb.swt;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-/* This class applies to only 1 file
- * 
+/**
+ * @author Benedict
+ */
+
+/* This class saves the states of a text file
+ *  
  */
 
 public class HistoryTrackerSingleFile {
