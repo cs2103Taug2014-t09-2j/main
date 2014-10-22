@@ -139,10 +139,12 @@ public class Parser {
 				history.clear();
 				String[] doneString = theRest.split(" ");
 				String chkFile = IsValidDate.validateDate(doneString[0]);
-				history.checkBaseFile(chkFile);
-				updateChecker = (new CommandDone(theRest)).delete();
-				if (updateChecker) {
-					history.recordUpdatedFile(chkFile);
+				if (!chkFile.equals("")) {
+					history.checkBaseFile(chkFile);
+					updateChecker = (new CommandDone(theRest)).delete();
+					if (updateChecker) {
+						history.recordUpdatedFile(chkFile);
+					}
 				}
 				break;
 
