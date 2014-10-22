@@ -12,7 +12,7 @@ public class Parser {
 	private static Logger logger = Logger.getLogger("Parser");
 
 	enum CommandTypes {
-		START, ADD, EDIT, DONE, INVALID, UNDO, REDO, ZOOM, SEARCH, COPY, MIN, MAX
+		START, ADD, EDIT, DONE, INVALID, UNDO, REDO, ZOOM, SEARCH, COPY, MIN, MAX, HELP
 	};
 
 	private static CommandTypes determineCmd(String command) {
@@ -40,6 +40,8 @@ public class Parser {
 			return CommandTypes.MIN;
 		case "max":
 			return CommandTypes.MAX;
+		case "help":
+			return CommandTypes.HELP;
 		default:
 			return CommandTypes.INVALID;
 		}
@@ -79,6 +81,10 @@ public class Parser {
 
 			case "max":
 				GUI.maxWindow();
+				break;
+				
+			case "help":
+				GUI.showHelp();
 				break;
 
 			default:

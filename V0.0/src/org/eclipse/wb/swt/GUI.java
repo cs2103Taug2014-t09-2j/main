@@ -28,6 +28,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JScrollPane;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -609,5 +610,12 @@ public class GUI {
 
 	public static void setFrame(JFrame frame) {
 		GUI.frame = frame;
+	}
+	
+	public static void showHelp() throws IOException {
+		FileAccessor fa = new FileAccessor();
+		fa.setFileName("help.txt");
+		String helpString = fa.readFileString();
+		WarningPopUp.infoBox(helpString, "COMMANDS");
 	}
 }
