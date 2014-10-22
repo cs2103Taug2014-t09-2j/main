@@ -43,24 +43,24 @@ public class CommandEdit {
 		ArrayList<String> dateTask = new ArrayList<String>();
 		dateTask = getFileContent(fileName);
 		
-		String oldTask = getTask(dateTask);
+		String oldTask = getTask(dateTask);//get the task to be edited given the index
 		dateTask.remove(oldTask);
-		String newTask = new String();
+		String editedTask = new String();
 		
 		switch (specification) {
 		case "time":
-			newTask = editTime(oldTask);
+			editedTask = editTime(oldTask);
 			break;
 		case "task":
-			newTask = editTask(oldTask);
+			editedTask = editTask(oldTask);
 			break;
 		case "all":
-			newTask = editAll(oldTask);
+			editedTask = editAll(oldTask);
 			break;
 		default:
 			
 		}
-		dateTask.add(index-1, newTask);
+		dateTask.add(index-1, editedTask);
 		(new FileAccessor(fileName, dateTask)).writeContents();
 	}
 	
