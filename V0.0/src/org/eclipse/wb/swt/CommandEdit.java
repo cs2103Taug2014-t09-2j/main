@@ -33,7 +33,7 @@ public class CommandEdit {
 		modification = str;
 	}
 	
-	public void edit(String str1, String str2, String str3, String str4) {
+	public void edit(String str1, String str2, String str3, String str4) throws IOException{
 		LOGGER.setLevel(Level.INFO);
 		
 		setDate(str1); setIndex(str2); setSpec(str3); setMod(str4);
@@ -58,7 +58,7 @@ public class CommandEdit {
 			editedTask = editAll(oldTask);
 			break;
 		default:
-			
+			WarningPopUp.infoBox("Please enter what you would like to modify\ntask/time/all", "ERROR!");
 		}
 		dateTask.add(index-1, editedTask);
 		(new FileAccessor(fileName, dateTask)).writeContents();
