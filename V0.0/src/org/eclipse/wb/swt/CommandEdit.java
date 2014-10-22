@@ -58,7 +58,7 @@ public class CommandEdit {
 			editedTask = editAll(oldTask);
 			break;
 		default:
-			WarningPopUp.infoBox("Please enter what you would like to modify", "ERROR!");
+			WarningPopUp.infoBox("Please enter what you would like to modify\ntask/time/all", "ERROR!");
 		}
 		dateTask.add(index-1, editedTask);
 		(new FileAccessor(fileName, dateTask)).writeContents();
