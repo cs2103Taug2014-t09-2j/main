@@ -33,8 +33,10 @@ public class ArchivesTracker {
 
 	public void recordNewTask(ArrayList<String> task) {
 		arcAL.add(task);
+		System.out.println(task);
 		counter++;
 		maxCounter = counter;
+		System.out.println("AT counter: "+counter);
 	}
 
 	public void clearArcALR() {
@@ -58,8 +60,10 @@ public class ArchivesTracker {
 
 	public ArrayList<String> getarcAL() {
 		ArrayList<String> arcDateTask = new ArrayList<String>();
-		
-		for (int i = 0; i < arcAL.size(); i++) {
+
+		// Until the latest entry
+		for (int i = 0; i < arcAL.size() && i < counter; i++) {
+			System.out.println(date + " size: "+arcAL.get(i).size());
 			for (int j = 0; j < arcAL.get(i).size(); j++) {
 				arcDateTask.add(arcAL.get(i).get(j));
 			}

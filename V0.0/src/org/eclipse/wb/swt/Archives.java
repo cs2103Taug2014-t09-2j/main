@@ -51,6 +51,7 @@ public class Archives {
 			// Read contents from file into storageContent
 			ArrayList<String> currArc = new ArrayList<>();
 			currArc = (new FileAccessor(ARCHIVESTXT)).readContents();
+			System.out.println("Archive size"+currArc.size());
 
 			for (int i = 0; i < currArc.size(); i++) {
 
@@ -108,14 +109,18 @@ public class Archives {
 
 		// -1 > creates a new position to store the archived task
 		if (index == -1) {
+			System.out.println("from done to archive: "+task.size());
 			arcStorageDate.add(date);
-			arcStorageContent.add(new ArchivesTracker(date, task));
+			arcStorageContent.add(new ArchivesTracker(date, new ArrayList<String>()));
+			arcStorageContent.get(arcStorageContent.size()-1).recordNewTask(task);
+			System.out.println("generating new date");
 
 		} else {
 			arcStorageContent.get(index).recordNewTask(task);
 			arcModDateSeq.add(date);
 			counter++;
 			maxCounter = counter;
+			System.out.println("date found");
 		}
 	}
 

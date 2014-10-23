@@ -13,7 +13,7 @@ public class CmdTracker {
 	}
 	
 	public void cmdTADE(String cmd) {
-		String check = cmd.split(" ", 2)[1];
+		String check = cmd;
 		if (check.equals("add") || check.equals("edit") || check.equals("copy")) {
 			ZorO.add(0);
 			counter++;

@@ -13,7 +13,7 @@ public class Parser {
 	private static Logger logger = Logger.getLogger("Parser");
 
 	enum CommandTypes {
-		START, ADD, EDIT, DONE, INVALID, UNDO, REDO, ZOOM, SEARCH, COPY, MIN, MAX, HELP
+		START, ADD, EDIT, DONE, INVALID, UNDO, REDO, ZOOM, SEARCH, COPY, MIN, MAX, HELP, ARC
 	};
 
 	private static CommandTypes determineCmd(String command) {
@@ -43,6 +43,8 @@ public class Parser {
 			return CommandTypes.MAX;
 		case "help":
 			return CommandTypes.HELP;
+		case "arc":
+			return CommandTypes.ARC;
 		default:
 			return CommandTypes.INVALID;
 		}
@@ -64,7 +66,13 @@ public class Parser {
 		if (inputArr.length == 1) {
 			switch (inputArr[0]) {
 			case "exit":
+				//arc.saveArchives();
 				System.exit(0);
+			case "arc":
+				arc.saveArchives();
+				//Display Archives
+				
+				break;
 			case "undo":
 				try {
 					history.undo();				
@@ -73,14 +81,14 @@ public class Parser {
 				}
 				
 				// if prev command is done
-				cmd.executeCmd(-1);
+				//cmd.executeCmd(-1);
 				
 				break;
 			case "redo":
 				history.redo();
 				
 				// if prev command is done
-				cmd.executeCmd(1);
+				//cmd.executeCmd(1);
 				
 				break;
 			case "min":
@@ -107,7 +115,7 @@ public class Parser {
 			 */
 			String theRest = inputArr[1].trim();
 			
-			cmd.cmdTADE(command.toString());
+			//cmd.cmdTADE(inputArr[0]);
 
 			switch (command) {
 			case EDIT:
@@ -118,8 +126,8 @@ public class Parser {
 				String modification = editString[3];
 
 				if (!date.equals("")) {
-					arc.clear();
-					cmd.clear();
+					//arc.clear();
+					//cmd.clear();
 					history.clear();
 					history.checkBaseFile(date);
 					try {
@@ -142,8 +150,8 @@ public class Parser {
 				String task = addString[2];
 
 				if (!date1.equals("")) {
-					arc.clear();
-					cmd.clear();
+					//arc.clear();
+					//cmd.clear();
 					history.clear();
 					history.checkBaseFile(date1);
 					(new CommandAdd(date1, time1, task)).addTask();
@@ -158,8 +166,8 @@ public class Parser {
 				String destdate = IsValidDate.validateDate(cpyString[2]);
 
 				if (!sourcedate.equals("") && !destdate.equals("")) {
-					arc.clear();
-					cmd.clear();
+					//arc.clear();
+					//cmd.clear();
 					history.clear();
 					history.checkBaseFile(destdate);
 					CommandCopy.copyTask(sourcedate, index, destdate);
@@ -172,8 +180,8 @@ public class Parser {
 				String doneDate = IsValidDate.validateDate(doneString[0]);
 
 				if (!doneDate.equals("")) {
-					arc.clear();
-					cmd.clear();
+					//arc.clear();
+					//cmd.clear();
 					history.clear();
 					history.checkBaseFile(doneDate);
 					if (doneString.length == 1) {
