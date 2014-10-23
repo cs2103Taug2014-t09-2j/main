@@ -49,7 +49,11 @@ public class CommandEdit {
 		
 		switch (specification) {
 		case "time":
-			editedTask = editTime(oldTask);
+			try {
+				editedTask = editTime(oldTask);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			break;
 		case "task":
 			editedTask = editTask(oldTask);
@@ -64,11 +68,13 @@ public class CommandEdit {
 		(new FileAccessor(fileName, dateTask)).writeContents();
 	}
 	
-	public String editTime(String oldTask) {
+	public String editTime(String oldTask) throws Exception {
 		LOGGER.info("Edits the time of a specified task");
 		
 		//Split toBeRemoved string to 2parts and get the task (the unchanged part)
 		String keep = oldTask.split(" ", 2)[1];
+		
+		setMod(getNewTimeStr(modification));
 		return String.format(CONTENT_TO_DISPLAY, modification, keep);
 	}
 	
@@ -91,6 +97,9 @@ public class CommandEdit {
 	private String getDateStr(String date){
 		return IsValidDate.validateDate(date) + TXT_EXTENSION;//get the name of the file given the date input
 													//date input can be 1-7
+	}
+	private String getNewTimeStr(String time) throws Exception {
+		return IsValidTime.validateTime(time);
 	}
 	
 	private ArrayList<String> getFileContent(String fileName) {
