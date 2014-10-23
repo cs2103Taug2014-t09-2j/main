@@ -79,6 +79,9 @@ public class CommandDone {
 				WarningPopUp.infoBox("Nothing to clear", "WARNING");
 
 			} else {
+				// add to archives
+				Archives.addDoneTask(fileName,currDateTask);
+				
 				currDateTask.clear();
 				// System.out.println("Success Clear");
 
@@ -109,6 +112,11 @@ public class CommandDone {
 
 		// check if valid
 		if (position - 1 < currDateTask.size()) {
+			// add to archives
+			ArrayList<String> task = new ArrayList<String>();
+			task.add(currDateTask.get(position - 1));
+			Archives.addDoneTask(fileName,task);
+			
 			currDateTask.remove(position - 1);
 			// System.out.println("Success delete");
 
