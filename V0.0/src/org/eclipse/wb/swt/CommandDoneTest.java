@@ -16,6 +16,10 @@ import org.junit.Test;
  * @author Benedict
  */
 
+/*
+ * Test delete commands for single task and all tasks
+ */
+
 public class CommandDoneTest {
 
 	private static final String FILE = "211013";
