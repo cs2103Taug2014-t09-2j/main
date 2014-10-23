@@ -7,7 +7,8 @@ import java.util.logging.Logger;
 public class Parser {
 
 	public static HistoryTrackerAllFiles history = new HistoryTrackerAllFiles();
-	public static boolean updateChecker;
+	public static Archives arc = new Archives();
+	public static CmdTracker cmd = new CmdTracker();
 	private FileAccessor fileAccessor = new FileAccessor();
 	private static Logger logger = Logger.getLogger("Parser");
 
@@ -66,14 +67,21 @@ public class Parser {
 				System.exit(0);
 			case "undo":
 				try {
-					history.undo();
+					history.undo();				
 				} catch (IndexOutOfBoundsException e) {
 					System.out.println(e);
 				}
-
+				
+				// if prev command is done
+				cmd.executeCmd(-1);
+				
 				break;
 			case "redo":
 				history.redo();
+				
+				// if prev command is done
+				cmd.executeCmd(1);
+				
 				break;
 			case "min":
 				GUI.minWindow();
@@ -98,6 +106,8 @@ public class Parser {
 			 * to the file, depending on the command
 			 */
 			String theRest = inputArr[1].trim();
+			
+			cmd.cmdTADE(command.toString());
 
 			switch (command) {
 			case EDIT:
@@ -106,13 +116,15 @@ public class Parser {
 				String number = editString[1];
 				String time = editString[2];
 				String modification = editString[3];
-				
+
 				if (!date.equals("")) {
+					arc.clear();
+					cmd.clear();
 					history.clear();
 					history.checkBaseFile(date);
 					try {
-						(new CommandEdit())
-								.edit(date, number, time, modification);
+						(new CommandEdit()).edit(date, number, time,
+								modification);
 						// editTask(date, number, time, modification);
 					} catch (IOException e) {
 						// log a message at warning level
@@ -128,8 +140,10 @@ public class Parser {
 				String date1 = IsValidDate.validateDate(addString[0]);
 				String time1 = addString[1];
 				String task = addString[2];
-				
+
 				if (!date1.equals("")) {
+					arc.clear();
+					cmd.clear();
 					history.clear();
 					history.checkBaseFile(date1);
 					(new CommandAdd(date1, time1, task)).addTask();
@@ -142,8 +156,10 @@ public class Parser {
 				String sourcedate = IsValidDate.validateDate(cpyString[0]);
 				String index = cpyString[1];
 				String destdate = IsValidDate.validateDate(cpyString[2]);
-				
+
 				if (!sourcedate.equals("") && !destdate.equals("")) {
+					arc.clear();
+					cmd.clear();
 					history.clear();
 					history.checkBaseFile(destdate);
 					CommandCopy.copyTask(sourcedate, index, destdate);
@@ -154,8 +170,10 @@ public class Parser {
 			case DONE:
 				String doneString[] = theRest.split(" ");
 				String doneDate = IsValidDate.validateDate(doneString[0]);
-				
+
 				if (!doneDate.equals("")) {
+					arc.clear();
+					cmd.clear();
 					history.clear();
 					history.checkBaseFile(doneDate);
 					if (doneString.length == 1) {
