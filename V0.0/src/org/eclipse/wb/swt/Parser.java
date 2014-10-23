@@ -168,8 +168,8 @@ public class Parser {
 				break;
 
 			case SEARCH:
-				CommandSearch srch = new CommandSearch(theRest);
-				String searchResult = srch.search();
+				CommandSearch srch = new CommandSearch();
+				String searchResult = srch.search(theRest);
 				System.out.print(searchResult);
 				if (!searchResult.isEmpty()) {
 					WarningPopUp.infoBox(searchResult, "Search Result");
