@@ -18,7 +18,7 @@ public class DateModifierTest {
 		String curdate = DateModifier.getCurrDate();
 		assertEquals(DateModifier.getNextDate("010114"), "020114");
 		assertEquals(DateModifier.getNextDate("310114"), "010214");
-		assertEquals(DateModifier.getNextDate("280214"), "010314");
-		assertEquals(DateModifier.getNextDate("311214"), "010115");
+		assertEquals(DateModifier.getNextDate("280214"), "010314");//boundary
+		assertEquals(DateModifier.getNextDate("311214"), "010115");//boundary checking
 	}
 }

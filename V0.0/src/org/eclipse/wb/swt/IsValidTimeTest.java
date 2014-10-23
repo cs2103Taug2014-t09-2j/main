@@ -42,11 +42,11 @@ public class IsValidTimeTest {
 			fail = true;
 		} catch (Exception e) {}
 		try {
-			IsValidTime.getFormattedTime(2500);
+			IsValidTime.getFormattedTime(2500); //boundary
 			fail = true;
 		} catch (Exception e) {}
 		try {
-			IsValidTime.getFormattedTime(-1);
+			IsValidTime.getFormattedTime(-1); // boundary
 			fail = true;
 		} catch (Exception e) {}
 		if (fail) {
