@@ -10,7 +10,7 @@ public class CommandSearch {
 	
 	private final static Logger LOGGER = Logger.getLogger(CommandSearch.class .getName());
 	
-	private static final String FILENAME_GENERAL = "general.txt";
+	private static final String FILENAME_GENERAL = "general";
 	private static final String TEXT_EXTENSION = ".txt";
 	private static final String SEARCH_RESULT_GENERAL = "General %1$d. %2$s";
 	private static final String SEARCH_RESULT_DATE = "%1$s %2$d. %3$s";
@@ -57,7 +57,7 @@ public class CommandSearch {
 	}
 	
 	public ArrayList<String> searchGeneral() throws FileNotFoundException{
-		String fileName = FILENAME_GENERAL;
+		String fileName = FILENAME_GENERAL + TEXT_EXTENSION;
 		ArrayList<String> generalTask = new ArrayList<String>(); //generalTask contains tasks in General box
 		generalTask = (new FileAccessor(fileName)).readContents();
 		
@@ -79,7 +79,7 @@ public class CommandSearch {
 		ArrayList<String> searchResultPrevDate = new ArrayList<String>();
 		for (int i=0; i<prevDateTask.size(); i++) {
 			if (prevDateTask.get(i).toLowerCase().contains(keyword)) {
-				String result = String.format(SEARCH_RESULT_DATE, prevDateString, i+1, prevDateTask.get(i));
+				String result = String.format(SEARCH_RESULT_DATE, DateModifier.getPrevDate(DateModifier.getCurrDate()), i+1, prevDateTask.get(i));
 				searchResultPrevDate.add(result);
 			}
 		}
