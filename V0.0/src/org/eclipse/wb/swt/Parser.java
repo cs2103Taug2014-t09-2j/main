@@ -7,8 +7,8 @@ import java.util.logging.Logger;
 public class Parser {
 
 	public static HistoryTrackerAllFiles history = new HistoryTrackerAllFiles();
-	public static Archives arc = new Archives();
-	public static CmdTracker cmd = new CmdTracker();
+	//public static Archives arc = new Archives();
+	//public static CmdTracker cmd = new CmdTracker();
 	private FileAccessor fileAccessor = new FileAccessor();
 	private static Logger logger = Logger.getLogger("Parser");
 
@@ -69,7 +69,7 @@ public class Parser {
 				//arc.saveArchives();
 				System.exit(0);
 			case "arc":
-				arc.saveArchives();
+				//arc.saveArchives();
 				//Display Archives
 				
 				break;
