@@ -81,7 +81,7 @@ public class CommandDone {
 			} else {
 				// add to archives
 				//System.out.println("doneallsize: "+currDateTask.size());
-				//Archives.addDoneTask(fileName.replace(".txt",""),currDateTask);
+				Archives.addAllDoneTask(fileName.replace(".txt",""),currDateTask);
 				
 				currDateTask.clear();
 				// System.out.println("Success Clear");
@@ -114,9 +114,7 @@ public class CommandDone {
 		// check if valid
 		if (position - 1 < currDateTask.size()) {
 			// add to archives
-			//ArrayList<String> task = new ArrayList<String>();
-			//task.add(currDateTask.get(position - 1));
-			//Archives.addDoneTask(fileName.replace(".txt",""),task);
+			Archives.addOneDoneTask(fileName.replace(".txt",""),currDateTask.get(position - 1));
 			
 			currDateTask.remove(position - 1);
 			// System.out.println("Success delete");
