@@ -539,6 +539,23 @@ public class GUI {
 			writer.close();
 		}
 		
+		/*
+		 * check yesterday's date for undone task
+		 */
+		fileName = DateModifier.getPrevDate(DateModifier.getCurrDate())+ ".txt";
+		File YesterdayFile = new File(fileName);
+
+		if (!YesterdayFile.exists()) {
+			PrintWriter writer = null;
+			try {
+				writer = new PrintWriter(fileName, "UTF-8");
+			} catch (FileNotFoundException
+					| UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			writer.println(DateModifier.getPrevDate(DateModifier.getCurrDate()));
+			writer.close();
+		}
 		
 	}
 
@@ -583,6 +600,7 @@ public class GUI {
 		// loop to display all the date tasks
 		// NOTE: i starts from 1
 		String currDateString = DateModifier.getCurrDate();
+		
 		for (int i = 1; i < 8; i++) {
 			// display 9 task starting from today's date
 			fileName = currDateString + ".txt";
