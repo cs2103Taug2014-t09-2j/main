@@ -481,14 +481,17 @@ public class GUI {
 		getFrame().setBounds(0, 0, 677, 730);
 	}
 	
+	/*
+	 * Check whether the .txt files exist to be displayed 
+	 * in the GUI. If not, create the required .txt files
+	 */
 	public void checkFilesExist() {
 		String currDateString = DateModifier.getCurrDate();
-		for (int i = 1; i < 10; i++) {
-			// check for each date whether the files exists or not
+		//check the normal dates 
+		for (int i = 1; i < 8; i++) {
 			fileName = currDateString + ".txt";
 			File file = new File(fileName);
 
-			// check if the today's file does not exist
 			if (!file.exists()) {
 				PrintWriter writer = null;
 				try {
@@ -502,6 +505,41 @@ public class GUI {
 			}
 			currDateString = DateModifier.getNextDate(currDateString);
 		}
+		
+		//check the archive file
+		fileName = "archives"+ ".txt";
+		File ArchivesFile = new File(fileName);
+
+		if (!ArchivesFile.exists()) {
+			PrintWriter writer = null;
+			try {
+				writer = new PrintWriter(fileName, "UTF-8");
+			} catch (FileNotFoundException
+					| UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			writer.println("Archives");
+			writer.close();
+		}
+		
+		
+		//check the general task file
+		fileName = "general"+ ".txt";
+		File GeneralFile = new File(fileName);
+
+		if (!GeneralFile.exists()) {
+			PrintWriter writer = null;
+			try {
+				writer = new PrintWriter(fileName, "UTF-8");
+			} catch (FileNotFoundException
+					| UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			writer.println("General Tasks");
+			writer.close();
+		}
+		
+		
 	}
 
 	public final void displayAllTasks(final JTextArea DateBox1_1,
