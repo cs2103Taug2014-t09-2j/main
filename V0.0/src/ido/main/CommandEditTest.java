@@ -1,4 +1,4 @@
-package org.eclipse.wb.swt;
+package ido.main;
 
 import static org.junit.Assert.*;
 
@@ -26,7 +26,7 @@ public class CommandEditTest {
 		assertEquals("[1000-1200] have lunch with dad", newTask);
 	}
 	@Test
-	public void testEditTime() {
+	public void testEditTime() throws Exception {
 		System.out.println("Test editTime:");
 		CommandEdit cmdEdit = new CommandEdit();
 		cmdEdit.setDate("251014");

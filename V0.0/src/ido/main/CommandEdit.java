@@ -1,4 +1,4 @@
-package org.eclipse.wb.swt;
+package ido.main;
 
 import java.io.IOException;
 import java.util.ArrayList;
