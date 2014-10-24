@@ -137,6 +137,7 @@ public class Parser {
 						e.printStackTrace();
 					}
 					history.recordUpdatedFile(date);
+					arc.saveArchives();
 				}
 				break;
 
@@ -153,6 +154,7 @@ public class Parser {
 					history.checkBaseFile(date1);
 					(new CommandAdd(date1, time1, task)).addTask();
 					history.recordUpdatedFile(date1);
+					arc.saveArchives();
 				}
 				break;
 
@@ -169,6 +171,7 @@ public class Parser {
 					history.checkBaseFile(destdate);
 					CommandCopy.copyTask(sourcedate, index, destdate);
 					history.recordUpdatedFile(destdate);
+					arc.saveArchives();
 				}
 				break;
 
@@ -187,6 +190,7 @@ public class Parser {
 						new CommandDone(doneDate, doneString[1]).delete();
 					}
 					history.recordUpdatedFile(doneDate);
+					arc.saveArchives();
 				}
 				break;
 

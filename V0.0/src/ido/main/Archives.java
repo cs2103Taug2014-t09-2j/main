@@ -1,7 +1,6 @@
 package ido.main;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -21,7 +20,7 @@ import java.util.LinkedList;
 public class Archives {
 
 	private static final String ARCHIVESTXT = "Archives.txt";
-	private static final String ARCHIVES = "Archives";
+	//private static final String ARCHIVES = "Archives";
 	static File file_object = new File(ARCHIVESTXT);
 
 	public static ArrayList<String> arcStorageContent;
@@ -35,6 +34,7 @@ public class Archives {
 	static int cmdCounter = 0; // for track
 	static int cmdMaxCounter = 0; // for track
 
+	// Constructor on start up
 	public Archives() {
 		arcStorageContent = new ArrayList<String>();
 		counterSize = new LinkedList<Integer>();
@@ -43,16 +43,17 @@ public class Archives {
 	}
 
 	public void loadArchives() {
-
 		// Read contents from file into storageContent
 		arcStorageContent = (new FileAccessor(ARCHIVESTXT)).readContents();
 		System.out.println("Archive size" + arcStorageContent.size());
 		counter += arcStorageContent.size();
 		maxCounter = counter;
 		initialArcSize = arcStorageContent.size();
+		System.out.println("Intial Arc Size: " + initialArcSize);
 
 	}
 
+	// Resets the counter and contents to current state when new cmd mods file
 	public void clear() {
 
 		// System.out.println("Clear= " + counter);
@@ -61,9 +62,10 @@ public class Archives {
 		}
 		maxCounter = counter;
 		cmdMaxCounter = cmdCounter;
-		// System.out.println("cleared history");
+		System.out.println("cleared history");
 	}
 
+	// Add one done task
 	public static void addOneDoneTask(String date, String task) {
 		System.out.println(date + " " + task);
 		arcStorageContent.add(date + " " + task);
@@ -73,7 +75,8 @@ public class Archives {
 		counterSizeIndex = counterSize.size();
 
 	}
-
+	
+	// Add multiple done task
 	public static void addAllDoneTask(String date, ArrayList<String> task) {
 		for (int i = 0; i < task.size(); i++) {
 			System.out.println(date + " " + task.get(i));
@@ -85,26 +88,27 @@ public class Archives {
 		counterSizeIndex = counterSize.size();
 	}
 
+	// Run undo of archives
 	public static void undo() {
 
-		if (counter - 1 > initialArcSize) {
+		if (counter > initialArcSize) {
 			counter -= counterSize.get(counterSizeIndex - 1);
 			counterSizeIndex--;
-
+			System.out.println("counter: " + counter);
 		} else {
-			// System.out.println("max undo");
+			System.out.println("max undo");
 		}
 
 	}
-
+	
+	// Run redo of archives
 	public static void redo() {
-
 		if (counter < maxCounter) {
 			counter += counterSize.get(counterSizeIndex);
 			counterSizeIndex++;
-
+			System.out.println("counter: " + counter);
 		} else {
-			// System.out.println("max redo");
+			System.out.println("max redo");
 		}
 
 	}
@@ -112,13 +116,16 @@ public class Archives {
 	// write all data from arcStorageContent into text file
 	public void saveArchives() {
 		ArrayList<String> arcTemp = new ArrayList<String>();
-		for (int i = 0; i < arcStorageContent.size() && i < counter; i++) {
-			System.out.println(arcStorageContent.get(i));
-			arcTemp.add(arcStorageContent.get(i));
+		for (int i = 0; i < arcStorageContent.size(); i++) {
+			if (i < counter) {
+				System.out.println(arcStorageContent.get(i));
+				arcTemp.add(arcStorageContent.get(i));
+			}
 		}
 		new FileAccessor(ARCHIVESTXT, arcTemp).writeContents();
 	}
 
+	// Tracks the cmd for Add Edit Copy Done
 	public void cmdTAECD(String cmd) {
 		if (cmd.equals("add") || cmd.equals("edit") || cmd.equals("copy")) {
 			ZorO.add(0);
@@ -129,20 +136,24 @@ public class Archives {
 			cmdCounter++;
 			cmdMaxCounter = cmdCounter;
 		}
+		System.out.println("cmdCounter: " + cmdCounter);
 	}
-
+	
+	// Determine if need to undo/redo for previous/after cmd
 	public void executeCmd(int num) {
 		if (num == -1 && cmdCounter > 0) {
-			cmdCounter += num;
 			if (ZorO.get(cmdCounter - 1) == 1) {
 				undo();
+				System.out.println("YES UNDO");
 			}
+			cmdCounter += num;
 
 		} else if (num == 1 && cmdCounter < cmdMaxCounter) {
-			cmdCounter += num;
-			if (ZorO.get(cmdCounter - 1) == 1) {
+			if (ZorO.get(cmdCounter) == 1) {
 				redo();
+				System.out.println("YES REDO");
 			}
+			cmdCounter += num;
 
 		}
 	}
