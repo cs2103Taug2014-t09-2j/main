@@ -467,6 +467,8 @@ public class GUI {
 		 * Populate the task boxes with the data in the source files Cannot use
 		 * displayAll() as it is outside the commandBox actionPerformed
 		 */
+		
+		checkFilesExist();
 
 		displayAllTasks(DateBox1_1, date2_1, date3_1, date4_1, date5_1,
 				date6_1, date7_1, missingBox, generalTaskBox);
@@ -487,27 +489,9 @@ public class GUI {
 	 */
 	public void checkFilesExist() {
 		String currDateString = DateModifier.getCurrDate();
-		//check the normal dates 
-		for (int i = 1; i < 8; i++) {
-			fileName = currDateString + ".txt";
-			File file = new File(fileName);
-
-			if (!file.exists()) {
-				PrintWriter writer = null;
-				try {
-					writer = new PrintWriter(fileName, "UTF-8");
-				} catch (FileNotFoundException
-						| UnsupportedEncodingException e) {
-					e.printStackTrace();
-				}
-				writer.println(currDateString);
-				writer.close();
-			}
-			currDateString = DateModifier.getNextDate(currDateString);
-		}
 		
 		//check the archive file
-		fileName = "archives"+ ".txt";
+		fileName = "archives.txt";
 		File ArchivesFile = new File(fileName);
 
 		if (!ArchivesFile.exists()) {
@@ -524,7 +508,7 @@ public class GUI {
 		
 		
 		//check the general task file
-		fileName = "general"+ ".txt";
+		fileName = "general.txt";
 		File GeneralFile = new File(fileName);
 
 		if (!GeneralFile.exists()) {
@@ -555,6 +539,25 @@ public class GUI {
 			}
 			writer.println(DateModifier.getPrevDate(DateModifier.getCurrDate()));
 			writer.close();
+		}
+		
+		//check the normal dates 
+		for (int i = 1; i < 8; i++) {
+			fileName = currDateString + ".txt";
+			File file = new File(fileName);
+
+			if (!file.exists()) {
+				PrintWriter writer = null;
+				try {
+					writer = new PrintWriter(fileName, "UTF-8");
+				} catch (FileNotFoundException
+						| UnsupportedEncodingException e) {
+					e.printStackTrace();
+				}
+				writer.println(currDateString);
+				writer.close();
+			}
+			currDateString = DateModifier.getNextDate(currDateString);
 		}
 		
 	}
