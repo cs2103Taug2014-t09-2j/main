@@ -1,6 +1,10 @@
 package ido.main;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -69,26 +73,26 @@ public class Parser {
 				System.exit(0);
 			case "arc":
 				arc.saveArchives();
-				//Display Archives
-				
+				// Display Archives
+
 				break;
 			case "undo":
 				try {
-					history.undo();				
+					history.undo();
 				} catch (IndexOutOfBoundsException e) {
 					System.out.println(e);
 				}
-				
+
 				// if prev command is done
 				arc.executeCmd(-1);
-				
+
 				break;
 			case "redo":
 				history.redo();
-				
+
 				// if prev command is done
 				arc.executeCmd(1);
-				
+
 				break;
 			case "min":
 				GUI.minWindow();
@@ -113,7 +117,7 @@ public class Parser {
 			 * to the file, depending on the command
 			 */
 			String theRest = inputArr[1].trim();
-			
+
 			switch (command) {
 			case EDIT:
 				String editString[] = theRest.split(" ", 4);
@@ -207,27 +211,50 @@ public class Parser {
 
 			case ZOOM:
 				if (theRest.length() > 1) {
-
-					switch (theRest) {
-
-					case "general":
-						fileName = "general.txt";
+					if (theRest.length() == 6) {
+						fileName = theRest + ".txt";
+						File zoomFile = new File(fileName);
+						if (!zoomFile.exists()) {
+							PrintWriter writer = null;
+							try {
+								writer = new PrintWriter(fileName, "UTF-8");
+							} catch (FileNotFoundException
+									| UnsupportedEncodingException e) {
+								e.printStackTrace();
+							}
+							writer.println(theRest);
+							writer.close();
+						}
 						fileAccessor.setFileName(fileName);
 						String dateContentString = fileAccessor
 								.readFileString();
 						WarningPopUp.infoBox(dateContentString, "Zoom Result");
 						break;
-					case "missing":
+					} else {
+						switch (theRest) {
 
-						fileName = DateModifier.getPrevDate(DateModifier
-								.getCurrDate()) + ".txt";
-						fileAccessor.setFileName(fileName);
-						dateContentString = fileAccessor.readFileString();
-						WarningPopUp.infoBox(dateContentString, "Zoom Result");
-						break;
-					default:
-						WarningPopUp.infoBox("Invalid Input!", "WARNING");
-						break;
+						case "general":
+							fileName = "general.txt";
+							fileAccessor.setFileName(fileName);
+							String dateContentString = fileAccessor
+									.readFileString();
+							WarningPopUp.infoBox(dateContentString,
+									"Zoom Result");
+							break;
+						case "missing":
+
+							fileName = DateModifier.getPrevDate(DateModifier
+									.getCurrDate()) + ".txt";
+							fileAccessor.setFileName(fileName);
+							dateContentString = fileAccessor.readFileString();
+							WarningPopUp.infoBox(dateContentString,
+									"Zoom Result");
+							break;
+
+						default:
+							WarningPopUp.infoBox("Invalid Input!", "WARNING");
+							break;
+						}
 					}
 				} else {
 					// obtain the date to be zoomed in
