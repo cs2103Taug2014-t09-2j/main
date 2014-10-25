@@ -3,9 +3,12 @@ package ido.main;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -101,6 +104,81 @@ public class FileAccessor {
 			ee.printStackTrace();
 		}
 
+	}
+	
+	public void checkFilesExist() {
+		String currDateString = DateModifier.getCurrDate();
+		
+		//check the archive file
+		fileName = "archives.txt";
+		File ArchivesFile = new File(fileName);
+
+		if (!ArchivesFile.exists()) {
+			PrintWriter writer = null;
+			try {
+				writer = new PrintWriter(fileName, "UTF-8");
+			} catch (FileNotFoundException
+					| UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			writer.println("Archives");
+			writer.close();
+		}
+		
+		
+		//check the general task file
+		fileName = "general.txt";
+		File GeneralFile = new File(fileName);
+
+		if (!GeneralFile.exists()) {
+			PrintWriter writer = null;
+			try {
+				writer = new PrintWriter(fileName, "UTF-8");
+			} catch (FileNotFoundException
+					| UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			writer.println("General Tasks");
+			writer.close();
+		}
+		
+		/*
+		 * check yesterday's date for undone task
+		 */
+		fileName = DateModifier.getPrevDate(DateModifier.getCurrDate())+ ".txt";
+		File YesterdayFile = new File(fileName);
+
+		if (!YesterdayFile.exists()) {
+			PrintWriter writer = null;
+			try {
+				writer = new PrintWriter(fileName, "UTF-8");
+			} catch (FileNotFoundException
+					| UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			writer.println(DateModifier.getPrevDate(DateModifier.getCurrDate()));
+			writer.close();
+		}
+		
+		//check the normal dates 
+		for (int i = 1; i < 8; i++) {
+			fileName = currDateString + ".txt";
+			File file = new File(fileName);
+
+			if (!file.exists()) {
+				PrintWriter writer = null;
+				try {
+					writer = new PrintWriter(fileName, "UTF-8");
+				} catch (FileNotFoundException
+						| UnsupportedEncodingException e) {
+					e.printStackTrace();
+				}
+				writer.println(currDateString);
+				writer.close();
+			}
+			currDateString = DateModifier.getNextDate(currDateString);
+		}
+		
 	}
 	
 	
