@@ -241,7 +241,7 @@ public class Parser {
 							WarningPopUp.infoBox(dateContentString,
 									"Zoom Result");
 							break;
-						case "missing":
+						case "undone":
 
 							fileName = DateModifier.getPrevDate(DateModifier
 									.getCurrDate()) + ".txt";
