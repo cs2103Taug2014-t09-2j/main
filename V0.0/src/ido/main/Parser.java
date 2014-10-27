@@ -211,7 +211,8 @@ public class Parser {
 
 			case ZOOM:
 				if (theRest.length() > 1) {
-					if (theRest.length() == 6) {
+					if ((theRest.length() == 6)&&(!theRest.equals("general"))&&
+							(!theRest.equals("undone"))) {
 						fileName = theRest + ".txt";
 						File zoomFile = new File(fileName);
 						if (!zoomFile.exists()) {
@@ -250,6 +251,15 @@ public class Parser {
 							WarningPopUp.infoBox(dateContentString,
 									"Zoom Result");
 							break;
+						case "archives":
+							fileName = "archives.txt";
+							fileAccessor.setFileName(fileName);
+							dateContentString = fileAccessor
+									.readFileString();
+							WarningPopUp.infoBox(dateContentString,
+									"Zoom Result");
+							break;	
+						
 
 						default:
 							WarningPopUp.infoBox("Invalid Input!", "WARNING");
