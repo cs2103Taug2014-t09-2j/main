@@ -229,7 +229,7 @@ public class GUI {
 		generalTaskBox.setBackground(new Color(135, 206, 235));
 
 		commandBox = new JTextField();
-		commandBox.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		commandBox.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 		commandBox.setBounds(181, 19, 455, 20);
 		// prompt the user to type start
 		commandBox.setText("Please type the command here!");
