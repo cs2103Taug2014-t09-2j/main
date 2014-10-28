@@ -30,6 +30,17 @@ public class GUI {
 
 	private static JFrame frame;
 	private JTextField commandBox;
+	private static JTextArea dateBox1;
+	private static JTextArea dateBox2;
+	private static JTextArea dateBox3;
+	private static JTextArea dateBox4;
+	private static JTextArea dateBox5;
+	private static JTextArea dateBox6;
+	private static JTextArea dateBox7;
+	private static JTextArea overDueTasksBox;
+	private static JTextArea generalTasksBox;
+
+	
 	private String fileName = null;
 
 	/**
@@ -87,14 +98,14 @@ public class GUI {
 		scrollPane.setBounds(30, 64, 200, 200);
 		getFrame().getContentPane().add(scrollPane);
 
-		final JTextArea DateBox1_1 = new JTextArea();
-		scrollPane.setViewportView(DateBox1_1);
-		DateBox1_1.setWrapStyleWord(true);
-		DateBox1_1.setEditable(false);
-		DateBox1_1.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		DateBox1_1.setBorder(BorderFactory.createCompoundBorder(border,
+		dateBox1 = new JTextArea();
+		scrollPane.setViewportView(dateBox1);
+		dateBox1.setWrapStyleWord(true);
+		dateBox1.setEditable(false);
+		dateBox1.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		dateBox1.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-		DateBox1_1.setBackground(new Color(255, 215, 0));
+		dateBox1.setBackground(new Color(255, 215, 0));
 		/*
 		 * DateBox1.addMouseListener(new MouseAdapter() { public void
 		 * mouseClicked(MouseEvent arg0) { DateBox1.setSize(250, 250);
@@ -104,51 +115,51 @@ public class GUI {
 		 * DateBox1.setSize(123, 113); DateBox1.setFont(new Font("Rockwell",
 		 * Font.PLAIN, 12)); } });
 		 */
-		DateBox1_1.setLineWrap(true);
+		dateBox1.setLineWrap(true);
 
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(233, 64, 200, 200);
 		getFrame().getContentPane().add(scrollPane_1);
 
-		final JTextArea date2_1 = new JTextArea();
-		scrollPane_1.setViewportView(date2_1);
-		date2_1.setWrapStyleWord(true);
-		date2_1.setLineWrap(true);
-		date2_1.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		date2_1.setEditable(false);
-		date2_1.setBackground(new Color(255, 215, 0));
+		dateBox2 = new JTextArea();
+		scrollPane_1.setViewportView(dateBox2);
+		dateBox2.setWrapStyleWord(true);
+		dateBox2.setLineWrap(true);
+		dateBox2.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		dateBox2.setEditable(false);
+		dateBox2.setBackground(new Color(255, 215, 0));
 		// create padding inside the text area
-		date2_1.setBorder(BorderFactory.createCompoundBorder(border,
+		dateBox2.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
 		JScrollPane scrollPane_2 = new JScrollPane();
 		scrollPane_2.setBounds(436, 64, 200, 200);
 		getFrame().getContentPane().add(scrollPane_2);
 
-		final JTextArea date3_1 = new JTextArea();
-		scrollPane_2.setViewportView(date3_1);
-		date3_1.setWrapStyleWord(true);
-		date3_1.setLineWrap(true);
-		date3_1.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		date3_1.setEditable(false);
-		date3_1.setBackground(new Color(255, 215, 0));
+		dateBox3 = new JTextArea();
+		scrollPane_2.setViewportView(dateBox3);
+		dateBox3.setWrapStyleWord(true);
+		dateBox3.setLineWrap(true);
+		dateBox3.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		dateBox3.setEditable(false);
+		dateBox3.setBackground(new Color(255, 215, 0));
 		// create padding inside the text area
-		date3_1.setBorder(BorderFactory.createCompoundBorder(border,
+		dateBox3.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
 		JScrollPane scrollPane_3 = new JScrollPane();
 		scrollPane_3.setBounds(30, 266, 200, 200);
 		getFrame().getContentPane().add(scrollPane_3);
 
-		final JTextArea date4_1 = new JTextArea();
-		scrollPane_3.setViewportView(date4_1);
-		date4_1.setWrapStyleWord(true);
-		date4_1.setLineWrap(true);
-		date4_1.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		date4_1.setEditable(false);
-		date4_1.setBackground(new Color(255, 215, 0));
+		dateBox4 = new JTextArea();
+		scrollPane_3.setViewportView(dateBox4);
+		dateBox4.setWrapStyleWord(true);
+		dateBox4.setLineWrap(true);
+		dateBox4.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		dateBox4.setEditable(false);
+		dateBox4.setBackground(new Color(255, 215, 0));
 		// create padding inside the text area
-		date4_1.setBorder(BorderFactory.createCompoundBorder(border,
+		dateBox4.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
 		JScrollPane scrollPane_4 = new JScrollPane();
@@ -156,77 +167,77 @@ public class GUI {
 		getFrame().getContentPane().add(scrollPane_4);
 		// Border border = BorderFactory.createLineBorder(Color.WHITE);
 
-		final JTextArea date5_1 = new JTextArea();
-		scrollPane_4.setViewportView(date5_1);
-		date5_1.setWrapStyleWord(true);
-		date5_1.setLineWrap(true);
-		date5_1.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		date5_1.setEditable(false);
-		date5_1.setBackground(new Color(255, 215, 0));
+		dateBox5 = new JTextArea();
+		scrollPane_4.setViewportView(dateBox5);
+		dateBox5.setWrapStyleWord(true);
+		dateBox5.setLineWrap(true);
+		dateBox5.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		dateBox5.setEditable(false);
+		dateBox5.setBackground(new Color(255, 215, 0));
 		// create padding inside the text area
-		date5_1.setBorder(BorderFactory.createCompoundBorder(border,
+		dateBox5.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
 		JScrollPane scrollPane_5 = new JScrollPane();
 		scrollPane_5.setBounds(436, 266, 200, 200);
 		getFrame().getContentPane().add(scrollPane_5);
 
-		final JTextArea date6_1 = new JTextArea();
-		scrollPane_5.setViewportView(date6_1);
-		date6_1.setWrapStyleWord(true);
-		date6_1.setLineWrap(true);
-		date6_1.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		date6_1.setEditable(false);
-		date6_1.setBackground(new Color(255, 215, 0));
+		dateBox6 = new JTextArea();
+		scrollPane_5.setViewportView(dateBox6);
+		dateBox6.setWrapStyleWord(true);
+		dateBox6.setLineWrap(true);
+		dateBox6.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		dateBox6.setEditable(false);
+		dateBox6.setBackground(new Color(255, 215, 0));
 		// create padding inside the text area
-		date6_1.setBorder(BorderFactory.createCompoundBorder(border,
+		dateBox6.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
 		JScrollPane scrollPane_6 = new JScrollPane();
 		scrollPane_6.setBounds(30, 469, 200, 200);
 		getFrame().getContentPane().add(scrollPane_6);
 
-		final JTextArea date7_1 = new JTextArea();
-		scrollPane_6.setViewportView(date7_1);
-		date7_1.setWrapStyleWord(true);
-		date7_1.setLineWrap(true);
-		date7_1.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		date7_1.setEditable(false);
-		date7_1.setBackground(new Color(255, 215, 0));
+		dateBox7 = new JTextArea();
+		scrollPane_6.setViewportView(dateBox7);
+		dateBox7.setWrapStyleWord(true);
+		dateBox7.setLineWrap(true);
+		dateBox7.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		dateBox7.setEditable(false);
+		dateBox7.setBackground(new Color(255, 215, 0));
 		// create padding inside the text area
-		date7_1.setBorder(BorderFactory.createCompoundBorder(border,
+		dateBox7.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
 		JScrollPane scrollPane_7 = new JScrollPane();
 		scrollPane_7.setBounds(233, 469, 200, 200);
 		getFrame().getContentPane().add(scrollPane_7);
 
-		final JTextArea missingBox = new JTextArea();
-		scrollPane_7.setViewportView(missingBox);
-		missingBox.setWrapStyleWord(true);
-		missingBox.setLineWrap(true);
-		missingBox.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		missingBox.setEditable(false);
-		missingBox.setBorder(BorderFactory.createCompoundBorder(border,
+		overDueTasksBox = new JTextArea();
+		scrollPane_7.setViewportView(overDueTasksBox);
+		overDueTasksBox.setWrapStyleWord(true);
+		overDueTasksBox.setLineWrap(true);
+		overDueTasksBox.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		overDueTasksBox.setEditable(false);
+		overDueTasksBox.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-		missingBox.setBackground(new Color(255, 99, 71));
+		overDueTasksBox.setBackground(new Color(255, 99, 71));
 
 		JScrollPane scrollPane_8 = new JScrollPane();
 		scrollPane_8.setBounds(436, 469, 200, 200);
 		getFrame().getContentPane().add(scrollPane_8);
 		// missingBox.read(reader, this);
 
-		final JTextArea generalTaskBox = new JTextArea();
-		scrollPane_8.setViewportView(generalTaskBox);
-		generalTaskBox.setWrapStyleWord(true);
-		generalTaskBox.setText("General Tasks");
-		generalTaskBox.setLineWrap(true);
-		generalTaskBox.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		generalTaskBox.setEditable(false);
+		generalTasksBox = new JTextArea();
+		scrollPane_8.setViewportView(generalTasksBox);
+		generalTasksBox.setWrapStyleWord(true);
+		generalTasksBox.setText("General Tasks");
+		generalTasksBox.setLineWrap(true);
+		generalTasksBox.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		generalTasksBox.setEditable(false);
 		// Border border = BorderFactory.createLineBorder(Color.BLACK);
-		generalTaskBox.setBorder(BorderFactory.createCompoundBorder(border,
+		generalTasksBox.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-		generalTaskBox.setBackground(new Color(135, 206, 235));
+		generalTasksBox.setBackground(new Color(135, 206, 235));
 
 		commandBox = new JTextField();
 		commandBox.setFont(new Font("Segoe UI", Font.PLAIN, 13));
@@ -284,7 +295,7 @@ public class GUI {
 					}
 				}
 				try {
-					generalTaskBox.read(reader, this);
+					generalTasksBox.read(reader, this);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -297,7 +308,7 @@ public class GUI {
 					e.printStackTrace();
 				}
 				try {
-					missingBox.read(reader, this);
+					overDueTasksBox.read(reader, this);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -335,7 +346,7 @@ public class GUI {
 						}
 					}
 					try {
-						DateBox1_1.read(reader, this);
+						dateBox1.read(reader, this);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -353,7 +364,7 @@ public class GUI {
 						}
 					}
 					try {
-						date2_1.read(reader, this);
+						dateBox2.read(reader, this);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -371,7 +382,7 @@ public class GUI {
 						}
 					}
 					try {
-						date3_1.read(reader, this);
+						dateBox3.read(reader, this);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -389,7 +400,7 @@ public class GUI {
 						}
 					}
 					try {
-						date4_1.read(reader, this);
+						dateBox4.read(reader, this);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -407,7 +418,7 @@ public class GUI {
 						}
 					}
 					try {
-						date5_1.read(reader, this);
+						dateBox5.read(reader, this);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -425,7 +436,7 @@ public class GUI {
 						}
 					}
 					try {
-						date6_1.read(reader, this);
+						dateBox6.read(reader, this);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -443,7 +454,7 @@ public class GUI {
 						}
 					}
 					try {
-						date7_1.read(reader, this);
+						dateBox7.read(reader, this);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -465,8 +476,8 @@ public class GUI {
 		
 		fa.checkFilesExist();
 
-		displayAllTasks(DateBox1_1, date2_1, date3_1, date4_1, date5_1,
-				date6_1, date7_1, missingBox, generalTaskBox);
+		displayAllTasks(dateBox1, dateBox2, dateBox3, dateBox4, dateBox5,
+				dateBox6, dateBox7, overDueTasksBox, generalTasksBox);
 
 	}
 	
@@ -653,7 +664,7 @@ public class GUI {
 					}
 				}
 				try {
-					date7_1.read(reader, this);
+					dateBox7.read(reader, this);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
