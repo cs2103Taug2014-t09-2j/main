@@ -16,7 +16,7 @@ public class Parser {
 	private static Logger logger = Logger.getLogger("Parser");
 
 	enum CommandTypes {
-		START, ADD, EDIT, DONE, INVALID, UNDO, REDO, ZOOM, SEARCH, COPY, MIN, MAX, HELP, ARC
+		START, ADD, EDIT, DONE, INVALID, UNDO, REDO, ZOOM, SEARCH, COPY, MIN, MAX, HELP, DELETE
 	};
 
 	private static CommandTypes determineCmd(String command) {
@@ -46,8 +46,8 @@ public class Parser {
 			return CommandTypes.MAX;
 		case "help":
 			return CommandTypes.HELP;
-		case "arc":
-			return CommandTypes.ARC;
+		case "delete":
+			return CommandTypes.DELETE;
 		default:
 			return CommandTypes.INVALID;
 		}
@@ -71,11 +71,7 @@ public class Parser {
 			case "exit":
 				arc.saveArchives();
 				System.exit(0);
-			case "arc":
-				arc.saveArchives();
-				// Display Archives
-
-				break;
+			
 			case "undo":
 				try {
 					history.undo();
@@ -85,15 +81,19 @@ public class Parser {
 
 				// if prev command is done
 				arc.executeCmd(-1);
-
+				// update file whenever undo is called
+				arc.saveArchives();				
 				break;
+				
 			case "redo":
 				history.redo();
 
 				// if prev command is done
 				arc.executeCmd(1);
-
+				// update file whenever redo is called
+				arc.saveArchives();
 				break;
+				
 			case "min":
 				GUI.minWindow();
 				break;
@@ -178,7 +178,24 @@ public class Parser {
 					arc.saveArchives();
 				}
 				break;
+			case DELETE:
+				String delString[] = theRest.split(" ");
+				String delDate = IsValidDate.validateDate(delString[0]);
 
+				if (!delDate.equals("")) {
+					arc.clear();
+					arc.cmdTAECD(inputArr[0]);
+					history.clear();
+					history.checkBaseFile(delDate);
+					if (delString.length == 1) {
+						new CommandDelete(delDate, "-1").delete();
+					} else {
+						new CommandDelete(delDate, delString[1]).delete();
+					}
+					history.recordUpdatedFile(delDate);
+					arc.saveArchives();
+				}
+				break;
 			case DONE:
 				String doneString[] = theRest.split(" ");
 				String doneDate = IsValidDate.validateDate(doneString[0]);
