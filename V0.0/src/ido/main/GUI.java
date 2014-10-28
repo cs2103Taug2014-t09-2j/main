@@ -289,10 +289,8 @@ public class GUI {
 					e.printStackTrace();
 				}
 
-				String prevDateString = DateModifier.getPrevDate(DateModifier
-						.getCurrDate());
-				// read the missing task file
-				fileName = prevDateString + ".txt";
+				// read the overdue tasks file
+				fileName = "overdue.txt";
 				try {
 					reader = new BufferedReader(new FileReader(fileName));
 				} catch (FileNotFoundException e) {
@@ -503,10 +501,8 @@ public class GUI {
 			e.printStackTrace();
 		}
 
-		String prevDateString = DateModifier
-				.getPrevDate(DateModifier.getCurrDate());
-		// read the missing task file
-		fileName = prevDateString + ".txt";
+		// read the overdue tasks file
+		fileName = "overdue.txt";
 		try {
 			reader = new BufferedReader(new FileReader(fileName));
 		} catch (FileNotFoundException e) {
