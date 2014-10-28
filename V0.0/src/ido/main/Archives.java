@@ -123,7 +123,7 @@ public class Archives {
 		ArrayList<String> arcTemp = new ArrayList<String>();
 		for (int i = 0; i < arcStorageContent.size(); i++) {
 			if (i < counter) {
-				System.out.println(arcStorageContent.get(i));
+				//System.out.println(arcStorageContent.get(i));
 				arcTemp.add(arcStorageContent.get(i));
 			}
 		}
@@ -141,7 +141,7 @@ public class Archives {
 			cmdCounter++;
 			cmdMaxCounter = cmdCounter;
 		}
-		System.out.println("cmdCounter: " + cmdCounter);
+		//System.out.println("cmdCounter: " + cmdCounter);
 	}
 	
 	// Determine if need to undo/redo for previous/after cmd
@@ -149,14 +149,14 @@ public class Archives {
 		if (num == -1 && cmdCounter > 0) {
 			if (ZorO.get(cmdCounter - 1) == 1) {
 				undo();
-				System.out.println("YES UNDO");
+				//System.out.println("YES UNDO");
 			}
 			cmdCounter += num;
 
 		} else if (num == 1 && cmdCounter < cmdMaxCounter) {
 			if (ZorO.get(cmdCounter) == 1) {
 				redo();
-				System.out.println("YES REDO");
+				//System.out.println("YES REDO");
 			}
 			cmdCounter += num;
 
