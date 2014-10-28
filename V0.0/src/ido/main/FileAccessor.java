@@ -24,7 +24,6 @@ public class FileAccessor {
 	private static final String TEXT_EXTENSION = ".txt";
 	private static final String NO_EXTENSION = "";
 	private static final String LINE_FORMAT = "%1$s\n";
-	private static final String INVALID_DATE = "Invalid Date!";
 	private static final int NUM_LINES_SKIPPED = 2;
 
 	// Constructor
@@ -114,8 +113,6 @@ public class FileAccessor {
 			File file = new File(fileName);
 
 			if (!file.exists()) {
-				System.out.println(fileName +" does not exist");
-				
 				PrintWriter writer = null;
 				try {
 					writer = new PrintWriter(fileName, "UTF-8");
@@ -123,8 +120,6 @@ public class FileAccessor {
 					e.printStackTrace();
 				}
 				writer.println(startDate);
-				System.out.println(fileName +" created!");
-
 				writer.close();
 			}
 			startDate = DateModifier.getNextDate(startDate);
@@ -202,16 +197,12 @@ public class FileAccessor {
 	}
 
 	public String getStringTasksWeek() throws IOException {
-		String tasksForTheWeek = "Tasks for The Week: \n";
+		String tasksForTheWeek = "Tasks for The Week: \n \n";
 		String temp;
 			for (int i = 0; i < 7; i++) {
-				System.out.println("loop "+i + fileName);
 				tasksForTheWeek = tasksForTheWeek + this.readFileString()+ "\n";
-				System.out.println(tasksForTheWeek);
-				System.out.println("after concat");
 				String currDate = fileName.substring(0, 6);
 				this.setFileName(DateModifier.getNextDate(currDate)+".txt");
-				System.out.println("tasks week"+fileName);
 			}
 		return tasksForTheWeek;
 	}
