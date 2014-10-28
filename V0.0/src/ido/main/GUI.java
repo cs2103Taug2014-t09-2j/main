@@ -263,199 +263,11 @@ public class GUI {
 					e.printStackTrace();
 				}
 				commandBox.setText("");
-				displayAll();
-			}
-			
-			/*
-			 * This method will display the contents for each box in the UI
-			 */
-
-			public final void displayAll() {
-
-				BufferedReader reader = null;
-				fileName = "general.txt";
-				try {
-					reader = new BufferedReader(new FileReader(fileName));
-				} catch (FileNotFoundException e) {
-					try {
-						Files.createFile(Paths.get(fileName));
-						reader = new BufferedReader(new FileReader(fileName));
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
-				}
-				try {
-					generalTasksBox.read(reader, this);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-
-				// read the overdue tasks file
-				fileName = "overdue.txt";
-				try {
-					reader = new BufferedReader(new FileReader(fileName));
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				}
-				try {
-					overDueTasksBox.read(reader, this);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-
-				// loop to display all the date tasks
-				// NOTE: i starts from 1
-				String currDateString = DateModifier.getCurrDate();
-				for (int i = 1; i < 8; i++) {
-					// display 9 task starting from today's date
-					fileName = currDateString + ".txt";
-					try {
-						reader = new BufferedReader(new FileReader(fileName));
-					} catch (FileNotFoundException e) {
-						e.printStackTrace();
-					}
-					displayDateTask(i, currDateString);
-					// update the current date for the next loop
-					currDateString = DateModifier.getNextDate(currDateString);
-				}
-
-			}
-
-			public void displayDateTask(int i, String myDate) {
-				BufferedReader reader = null;
-				switch (i) {
-				case 1:
-					try {
-						reader = new BufferedReader(new FileReader(fileName));
-					} catch (FileNotFoundException e) {
-						try {
-							Files.createFile(Paths.get(fileName));
-							reader = new BufferedReader(new FileReader(fileName));
-						} catch (IOException e1) {
-							e1.printStackTrace();
-						}
-					}
-					try {
-						dateBox1.read(reader, this);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					break;
-
-				case 2:
-					try {
-						reader = new BufferedReader(new FileReader(fileName));
-					} catch (FileNotFoundException e) {
-						try {
-							Files.createFile(Paths.get(fileName));
-							reader = new BufferedReader(new FileReader(fileName));
-						} catch (IOException e1) {
-							e1.printStackTrace();
-						}
-					}
-					try {
-						dateBox2.read(reader, this);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					break;
-
-				case 3:
-					try {
-						reader = new BufferedReader(new FileReader(fileName));
-					} catch (FileNotFoundException e) {
-						try {
-							Files.createFile(Paths.get(fileName));
-							reader = new BufferedReader(new FileReader(fileName));
-						} catch (IOException e1) {
-							e1.printStackTrace();
-						}
-					}
-					try {
-						dateBox3.read(reader, this);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					break;
-
-				case 4:
-					try {
-						reader = new BufferedReader(new FileReader(fileName));
-					} catch (FileNotFoundException e) {
-						try {
-							Files.createFile(Paths.get(fileName));
-							reader = new BufferedReader(new FileReader(fileName));
-						} catch (IOException e1) {
-							e1.printStackTrace();
-						}
-					}
-					try {
-						dateBox4.read(reader, this);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					break;
-
-				case 5:
-					try {
-						reader = new BufferedReader(new FileReader(fileName));
-					} catch (FileNotFoundException e) {
-						try {
-							Files.createFile(Paths.get(fileName));
-							reader = new BufferedReader(new FileReader(fileName));
-						} catch (IOException e1) {
-							e1.printStackTrace();
-						}
-					}
-					try {
-						dateBox5.read(reader, this);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					break;
-
-				case 6:
-					try {
-						reader = new BufferedReader(new FileReader(fileName));
-					} catch (FileNotFoundException e) {
-						try {
-							Files.createFile(Paths.get(fileName));
-							reader = new BufferedReader(new FileReader(fileName));
-						} catch (IOException e1) {
-							e1.printStackTrace();
-						}
-					}
-					try {
-						dateBox6.read(reader, this);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					break;
-
-				case 7:
-					try {
-						reader = new BufferedReader(new FileReader(fileName));
-					} catch (FileNotFoundException e) {
-						try {
-							Files.createFile(Paths.get(fileName));
-							reader = new BufferedReader(new FileReader(fileName));
-						} catch (IOException e1) {
-							e1.printStackTrace();
-						}
-					}
-					try {
-						dateBox7.read(reader, this);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					break;
-				}
+				displayAllTasks();
 			}
 		});
 		getFrame().getContentPane().add(commandBox);
 		commandBox.setColumns(10);
-
-		// generalTaskBox.read(reader, this);
 
 		/*
 		 * Populate the task boxes with the data in the source files Cannot use
@@ -466,8 +278,7 @@ public class GUI {
 		
 		fa.checkFilesExist();
 
-		displayAllTasks(dateBox1, dateBox2, dateBox3, dateBox4, dateBox5,
-				dateBox6, dateBox7, overDueTasksBox, generalTasksBox);
+		displayAllTasks();
 
 	}
 	
@@ -479,11 +290,7 @@ public class GUI {
 		getFrame().setBounds(0, 0, 677, 730);
 	}	
 
-	public final void displayAllTasks(final JTextArea DateBox1_1,
-			final JTextArea date2_1, final JTextArea date3_1,
-			final JTextArea date4_1, final JTextArea date5_1,
-			final JTextArea date6_1, final JTextArea date7_1,
-			final JTextArea missingBox, final JTextArea generalTaskBox) {
+	public final void displayAllTasks() {
 		BufferedReader reader = null;
 		fileName = "general.txt";
 		try {
@@ -497,7 +304,7 @@ public class GUI {
 			}
 		}
 		try {
-			generalTaskBox.read(reader, this);
+			generalTasksBox.read(reader, this);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -510,7 +317,7 @@ public class GUI {
 			e.printStackTrace();
 		}
 		try {
-			missingBox.read(reader, this);
+			overDueTasksBox.read(reader, this);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -546,7 +353,7 @@ public class GUI {
 					}
 				}
 				try {
-					DateBox1_1.read(reader, this);
+					dateBox1.read(reader, this);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -564,7 +371,7 @@ public class GUI {
 					}
 				}
 				try {
-					date2_1.read(reader, this);
+					dateBox2.read(reader, this);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -582,7 +389,7 @@ public class GUI {
 					}
 				}
 				try {
-					date3_1.read(reader, this);
+					dateBox3.read(reader, this);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -600,7 +407,7 @@ public class GUI {
 					}
 				}
 				try {
-					date4_1.read(reader, this);
+					dateBox4.read(reader, this);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -618,7 +425,7 @@ public class GUI {
 					}
 				}
 				try {
-					date5_1.read(reader, this);
+					dateBox5.read(reader, this);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -636,7 +443,7 @@ public class GUI {
 					}
 				}
 				try {
-					date6_1.read(reader, this);
+					dateBox6.read(reader, this);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
