@@ -260,7 +260,6 @@ public class GUI {
 				try {
 					parser.processInput(commandBox.getText());
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				commandBox.setText("");

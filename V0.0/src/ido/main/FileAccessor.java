@@ -143,12 +143,12 @@ public class FileAccessor {
 		}
 		
 		/*
-		 * check yesterday's date for undone task
+		 * check overdue tasks file
 		 */
-		fileName = DateModifier.getPrevDate(DateModifier.getCurrDate())+ ".txt";
-		File YesterdayFile = new File(fileName);
+		fileName = "overdue.txt";
+		File Overdue = new File(fileName);
 
-		if (!YesterdayFile.exists()) {
+		if (!Overdue.exists()) {
 			PrintWriter writer = null;
 			try {
 				writer = new PrintWriter(fileName, "UTF-8");
@@ -156,7 +156,7 @@ public class FileAccessor {
 					| UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
-			writer.println(DateModifier.getPrevDate(DateModifier.getCurrDate()));
+			writer.println("Overdue");
 			writer.close();
 		}
 		
