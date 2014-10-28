@@ -3,8 +3,11 @@ add < date > < startTime–endTime > < task >
 edit < date > < index >  time  < newTime >
 edit < date > < index >  task < editedTask >
 edit < date > < index >  all <newTime> < editedTask >
+delete < date > 
+delete < date > < index >
 done < date > 
 done < date > < index >
+copy < date > < index > < date >
 
 For display:
 zoom <boxNumber>
@@ -13,4 +16,6 @@ search <keyword>
 Others:
 undo
 redo
+min
+max
 help
