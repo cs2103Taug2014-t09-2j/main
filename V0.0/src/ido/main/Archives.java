@@ -94,9 +94,12 @@ public class Archives {
 		if (counter > initialArcSize) {
 			counter -= counterSize.get(counterSizeIndex - 1);
 			counterSizeIndex--;
-			System.out.println("counter: " + counter);
+			// update file whenever undo is called
+			saveArchives();
+			
+			//System.out.println("counter: " + counter);
 		} else {
-			System.out.println("max undo");
+			//System.out.println("max undo");
 		}
 
 	}
@@ -106,15 +109,18 @@ public class Archives {
 		if (counter < maxCounter) {
 			counter += counterSize.get(counterSizeIndex);
 			counterSizeIndex++;
-			System.out.println("counter: " + counter);
+			// update file whenever redo is called
+			saveArchives();
+			
+			//System.out.println("counter: " + counter);
 		} else {
-			System.out.println("max redo");
+			//System.out.println("max redo");
 		}
 
 	}
 
 	// write all data from arcStorageContent into text file
-	public void saveArchives() {
+	public static void saveArchives() {
 		ArrayList<String> arcTemp = new ArrayList<String>();
 		for (int i = 0; i < arcStorageContent.size(); i++) {
 			if (i < counter) {
