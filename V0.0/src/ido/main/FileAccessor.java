@@ -15,7 +15,7 @@ import java.util.Collections;
 public class FileAccessor {
 	private String fileName;
 	private ArrayList<String> currDateTask;
-	
+
 	private static final String CONTENT_TO_DISPLAY = "%1$d. %2$s\n";
 	private static final String FILE_HEADING = "%1$s\n\n";
 	private static final String ERROR_LOCATION = "ERROR";
@@ -24,29 +24,30 @@ public class FileAccessor {
 	private static final String TEXT_EXTENSION = ".txt";
 	private static final String NO_EXTENSION = "";
 	private static final String LINE_FORMAT = "%1$s\n";
+	private static final String INVALID_DATE = "Invalid Date!";
 	private static final int NUM_LINES_SKIPPED = 2;
-	
+
 	// Constructor
 	public FileAccessor(String fileName, ArrayList<String> currDateTask) {
 		this.fileName = fileName;
 		this.currDateTask = currDateTask;
-		}
-	
+	}
+
 	public FileAccessor(String fileName) {
 		this.fileName = fileName;
 		currDateTask = new ArrayList<>();
 	}
-	
+
 	public FileAccessor() {
 		this.fileName = null;
 		this.currDateTask = null;
 	}
-	
+
 	// Mutator
-	public void setFileName(String newFileName){
-		this.fileName=newFileName;
+	public void setFileName(String newFileName) {
+		this.fileName = newFileName;
 	}
-	
+
 	public ArrayList<String> readContents() {
 		BufferedReader br = null;
 		try {
@@ -54,7 +55,7 @@ public class FileAccessor {
 			br = new BufferedReader(new FileReader(fileName));
 			int _ignore = NUM_LINES_SKIPPED;
 			while ((curr = br.readLine()) != null) {
-				if (_ignore > 0){ //ignore first 2 lines
+				if (_ignore > 0) { // ignore first 2 lines
 					_ignore -= 1;
 					continue;
 				}
@@ -69,7 +70,7 @@ public class FileAccessor {
 		}
 		return currDateTask;
 	}
-	
+
 	String readFileString() throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(fileName));
 		try {
@@ -85,7 +86,7 @@ public class FileAccessor {
 			br.close();
 		}
 	}
-	
+
 	public void writeContents() {
 		try {
 			File file = new File(fileName);
@@ -95,7 +96,8 @@ public class FileAccessor {
 			String _date = fileName.replace(TEXT_EXTENSION, NO_EXTENSION);
 			bw.write(String.format(FILE_HEADING, _date));
 			for (int i = 0; i < currDateTask.size(); i++) {
-				bw.write(String.format(CONTENT_TO_DISPLAY,i+1,currDateTask.get(i)));
+				bw.write(String.format(CONTENT_TO_DISPLAY, i + 1,
+						currDateTask.get(i)));
 			}
 			bw.close();
 		} catch (IOException ee) {
@@ -105,11 +107,11 @@ public class FileAccessor {
 		}
 
 	}
-	
+
 	public void checkFilesExist() {
 		String currDateString = DateModifier.getCurrDate();
-		
-		//check the archive file
+
+		// check the archive file
 		fileName = "archives.txt";
 		File ArchivesFile = new File(fileName);
 
@@ -117,16 +119,14 @@ public class FileAccessor {
 			PrintWriter writer = null;
 			try {
 				writer = new PrintWriter(fileName, "UTF-8");
-			} catch (FileNotFoundException
-					| UnsupportedEncodingException e) {
+			} catch (FileNotFoundException | UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
 			writer.println("Archives");
 			writer.close();
 		}
-		
-		
-		//check the general task file
+
+		// check the general task file
 		fileName = "general.txt";
 		File GeneralFile = new File(fileName);
 
@@ -134,14 +134,13 @@ public class FileAccessor {
 			PrintWriter writer = null;
 			try {
 				writer = new PrintWriter(fileName, "UTF-8");
-			} catch (FileNotFoundException
-					| UnsupportedEncodingException e) {
+			} catch (FileNotFoundException | UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
 			writer.println("General Tasks");
 			writer.close();
 		}
-		
+
 		/*
 		 * check overdue tasks file
 		 */
@@ -152,15 +151,14 @@ public class FileAccessor {
 			PrintWriter writer = null;
 			try {
 				writer = new PrintWriter(fileName, "UTF-8");
-			} catch (FileNotFoundException
-					| UnsupportedEncodingException e) {
+			} catch (FileNotFoundException | UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
 			writer.println("Overdue");
 			writer.close();
 		}
-		
-		//check the normal dates 
+
+		// check the normal dates
 		for (int i = 1; i < 8; i++) {
 			fileName = currDateString + ".txt";
 			File file = new File(fileName);
@@ -169,8 +167,7 @@ public class FileAccessor {
 				PrintWriter writer = null;
 				try {
 					writer = new PrintWriter(fileName, "UTF-8");
-				} catch (FileNotFoundException
-						| UnsupportedEncodingException e) {
+				} catch (FileNotFoundException | UnsupportedEncodingException e) {
 					e.printStackTrace();
 				}
 				writer.println(currDateString);
@@ -178,9 +175,24 @@ public class FileAccessor {
 			}
 			currDateString = DateModifier.getNextDate(currDateString);
 		}
-		
+
 	}
-	
-	
+
+	public String getStringTasksWeek(String startDate) throws IOException {
+		String tasksForTheWeek = null;
+		// validate the input date
+		IsValidDate vDate = new IsValidDate(startDate);
+		if (vDate.testValidDate()) {
+			for (int i = 0; i < 7; i++) {
+				fileName = startDate + ".txt";
+				tasksForTheWeek.concat(this.readFileString());
+				startDate = DateModifier.getNextDate(startDate);
+			}
+		} else {
+			return INVALID_DATE;
+		}
+
+		return tasksForTheWeek;
+	}
 
 }
