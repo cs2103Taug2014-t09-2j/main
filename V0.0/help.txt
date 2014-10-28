@@ -10,6 +10,7 @@ done < date > < index >
 copy < date > < index > < date >
 
 For display:
+view <start date>
 zoom <boxNumber>
 search <keyword>
 
