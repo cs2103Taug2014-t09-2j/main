@@ -14,7 +14,7 @@ public class Parser {
 	public static Archives arc = new Archives();
 	private FileAccessor fileAccessor = new FileAccessor();
 	private static Logger logger = Logger.getLogger("Parser");
-	
+
 	// needs to be launch b4 this class
 	public static OverDueTask ODTLaunch = new OverDueTask();
 
@@ -74,7 +74,7 @@ public class Parser {
 			case "exit":
 				arc.saveArchives();
 				System.exit(0);
-			
+
 			case "undo":
 				try {
 					history.undo();
@@ -85,9 +85,9 @@ public class Parser {
 				// if prev command is done
 				arc.executeCmd(-1);
 				// update file whenever undo is called
-				arc.saveArchives();				
+				arc.saveArchives();
 				break;
-				
+
 			case "redo":
 				history.redo();
 
@@ -96,7 +96,7 @@ public class Parser {
 				// update file whenever redo is called
 				arc.saveArchives();
 				break;
-				
+
 			case "min":
 				GUI.minWindow();
 				break;
@@ -183,7 +183,13 @@ public class Parser {
 				break;
 			case DELETE:
 				String delString[] = theRest.split(" ");
-				String delDate = IsValidDate.validateDate(delString[0]);
+				String delDate;
+				// Specifically for delete to by pass checking of date
+				if (delString[0].equals("overdue")) {
+					delDate = delString[0];
+				} else {
+					delDate = IsValidDate.validateDate(delString[0]);
+				}
 
 				if (!delDate.equals("")) {
 					arc.clear();
@@ -231,8 +237,8 @@ public class Parser {
 
 			case ZOOM:
 				if (theRest.length() > 1) {
-					if ((theRest.length() == 6)&&(!theRest.equals("general"))&&
-							(!theRest.equals("undone"))) {
+					if ((theRest.length() == 6) && (!theRest.equals("general"))
+							&& (!theRest.equals("undone"))) {
 						fileName = theRest + ".txt";
 						File zoomFile = new File(fileName);
 						if (!zoomFile.exists()) {
@@ -274,12 +280,10 @@ public class Parser {
 						case "archives":
 							fileName = "archives.txt";
 							fileAccessor.setFileName(fileName);
-							dateContentString = fileAccessor
-									.readFileString();
+							dateContentString = fileAccessor.readFileString();
 							WarningPopUp.infoBox(dateContentString,
 									"Zoom Result");
-							break;	
-						
+							break;
 
 						default:
 							WarningPopUp.infoBox("Invalid Input!", "WARNING");

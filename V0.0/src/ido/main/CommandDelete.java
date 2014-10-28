@@ -7,10 +7,9 @@ import java.util.ArrayList;
  * @author Benedict
  */
 
-/* 
- * This class deletes the task without archiving
- * Code from CommandDone without archive
- * 
+/*
+ * This class deletes the task without archiving Code from CommandDone without
+ * archive
  */
 
 public class CommandDelete {
@@ -22,7 +21,11 @@ public class CommandDelete {
 	// Constructor
 	// General start up of delete
 	public CommandDelete(String date, String position) {
-		this.date = IsValidDate.validateDate(date);
+		if (date.equals("overdue")) {
+			this.date = date;
+		} else {
+			this.date = IsValidDate.validateDate(date);
+		}
 		this.position = Integer.parseInt(position);
 	}
 
@@ -38,27 +41,26 @@ public class CommandDelete {
 			if (date.equals("-")) {
 				String fileName = "general.txt";
 				deleteSpecificTask(fileName);
+			} else if (date.equals("overdue")) {
+				String fileName = "overdue.txt";
+				deleteSpecificTask(fileName);
 			} else {
 				String fileName = date + ".txt";
 				deleteSpecificTask(fileName);
 			}
-			// } else if (date.equals("miss")) {
-			// String fileName = "missing.txt"; // Naming in progress
-			// deleteSpecificTask(fileName);
-			
+
 		} else { // All Task
 			if (date.equals("-")) {
 				String fileName = "general.txt";
 				deleteAllTask(fileName);
-
+			} else if (date.equals("overdue")) {
+				String fileName = "overdue.txt";
+				deleteAllTask(fileName);
 			} else {
 				String fileName = date + ".txt";
 				deleteAllTask(fileName);
 			}
-			// } else if (date.equals("miss")) {
-			// String fileName = "missing.txt"; // Naming in progress
-			// deleteAllTask(fileName);
-			
+		
 		}
 
 	}
@@ -77,7 +79,7 @@ public class CommandDelete {
 				// System.out.println("Nothing to clear");
 				WarningPopUp.infoBox("Nothing to clear", "WARNING");
 
-			} else {			
+			} else {
 				currDateTask.clear();
 				// System.out.println("Success Clear");
 
@@ -101,7 +103,7 @@ public class CommandDelete {
 		currDateTask = (new FileAccessor(fileName)).readContents();
 
 		// check if valid
-		if (position - 1 < currDateTask.size()) {			
+		if (position - 1 < currDateTask.size()) {
 			currDateTask.remove(position - 1);
 			// System.out.println("Success delete");
 
