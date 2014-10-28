@@ -107,6 +107,29 @@ public class FileAccessor {
 		}
 
 	}
+	
+	public void checkFilesExistCustom(String startDate){
+		for (int i = 0; i < 7; i++) {
+			fileName = startDate + ".txt";
+			File file = new File(fileName);
+
+			if (!file.exists()) {
+				System.out.println(fileName +" does not exist");
+				
+				PrintWriter writer = null;
+				try {
+					writer = new PrintWriter(fileName, "UTF-8");
+				} catch (FileNotFoundException | UnsupportedEncodingException e) {
+					e.printStackTrace();
+				}
+				writer.println(startDate);
+				System.out.println(fileName +" created!");
+
+				writer.close();
+			}
+			startDate = DateModifier.getNextDate(startDate);
+		}
+	}
 
 	public void checkFilesExist() {
 		String currDateString = DateModifier.getCurrDate();
@@ -178,20 +201,18 @@ public class FileAccessor {
 
 	}
 
-	public String getStringTasksWeek(String startDate) throws IOException {
-		String tasksForTheWeek = null;
-		// validate the input date
-		IsValidDate vDate = new IsValidDate(startDate);
-		if (vDate.testValidDate()) {
+	public String getStringTasksWeek() throws IOException {
+		String tasksForTheWeek = "Tasks for The Week: \n";
+		String temp;
 			for (int i = 0; i < 7; i++) {
-				fileName = startDate + ".txt";
-				tasksForTheWeek.concat(this.readFileString());
-				startDate = DateModifier.getNextDate(startDate);
+				System.out.println("loop "+i + fileName);
+				tasksForTheWeek = tasksForTheWeek + this.readFileString()+ "\n";
+				System.out.println(tasksForTheWeek);
+				System.out.println("after concat");
+				String currDate = fileName.substring(0, 6);
+				this.setFileName(DateModifier.getNextDate(currDate)+".txt");
+				System.out.println("tasks week"+fileName);
 			}
-		} else {
-			return INVALID_DATE;
-		}
-
 		return tasksForTheWeek;
 	}
 
