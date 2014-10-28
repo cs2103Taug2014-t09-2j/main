@@ -225,7 +225,7 @@ public class GUI {
 		generalTaskBox.setEditable(false);
 		// Border border = BorderFactory.createLineBorder(Color.BLACK);
 		generalTaskBox.setBorder(BorderFactory.createCompoundBorder(border,
-				BorderFactory.createEmptyBorder(10, 5, 5, 5)));
+				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 		generalTaskBox.setBackground(new Color(135, 206, 235));
 
 		commandBox = new JTextField();
