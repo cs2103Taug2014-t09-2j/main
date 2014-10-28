@@ -14,6 +14,9 @@ public class Parser {
 	public static Archives arc = new Archives();
 	private FileAccessor fileAccessor = new FileAccessor();
 	private static Logger logger = Logger.getLogger("Parser");
+	
+	// needs to be launch b4 this class
+	public static OverDueTask ODTLaunch = new OverDueTask();
 
 	enum CommandTypes {
 		START, ADD, EDIT, DONE, INVALID, UNDO, REDO, ZOOM, SEARCH, COPY, MIN, MAX, HELP, DELETE
