@@ -6,7 +6,13 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/* Add general task and missing task edit
+/**
+ * @author Benedict
+ */
+
+/*
+ * This class marks the task as done and transfers the task completed into the
+ * archives
  * 
  */
 
@@ -44,7 +50,7 @@ public class CommandDone {
 			// } else if (date.equals("miss")) {
 			// String fileName = "missing.txt"; // Naming in progress
 			// doneSpecificTask(fileName);
-			
+
 		} else { // All Task
 			if (date.equals("-")) {
 				String fileName = "general.txt";
@@ -57,7 +63,7 @@ public class CommandDone {
 			// } else if (date.equals("miss")) {
 			// String fileName = "missing.txt"; // Naming in progress
 			// doneAllTask(fileName);
-			
+
 		}
 
 	}
@@ -80,9 +86,10 @@ public class CommandDone {
 
 			} else {
 				// add to archives
-				//System.out.println("doneallsize: "+currDateTask.size());
-				Archives.addAllDoneTask(fileName.replace(".txt",""),currDateTask);
-				
+				// System.out.println("doneallsize: "+currDateTask.size());
+				Archives.addAllDoneTask(fileName.replace(".txt", ""),
+						currDateTask);
+
 				currDateTask.clear();
 				// System.out.println("Success Clear");
 
@@ -114,8 +121,9 @@ public class CommandDone {
 		// check if valid
 		if (position - 1 < currDateTask.size()) {
 			// add to archives
-			Archives.addOneDoneTask(fileName.replace(".txt",""),currDateTask.get(position - 1));
-			
+			Archives.addOneDoneTask(fileName.replace(".txt", ""),
+					currDateTask.get(position - 1));
+
 			currDateTask.remove(position - 1);
 			// System.out.println("Success delete");
 
