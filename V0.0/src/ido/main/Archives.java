@@ -97,8 +97,6 @@ public class Archives {
 		if (counter > initialArcSize) {
 			counter -= counterSize.get(counterSizeIndex - 1);
 			counterSizeIndex--;
-			// update file whenever undo is called
-			saveArchives();
 			
 			//System.out.println("counter: " + counter);
 		} else {
@@ -112,9 +110,7 @@ public class Archives {
 		if (counter < maxCounter) {
 			counter += counterSize.get(counterSizeIndex);
 			counterSizeIndex++;
-			// update file whenever redo is called
-			saveArchives();
-			
+						
 			//System.out.println("counter: " + counter);
 		} else {
 			//System.out.println("max redo");
@@ -123,7 +119,7 @@ public class Archives {
 	}
 
 	// write all data from arcStorageContent into text file
-	public static void saveArchives() {
+	public void saveArchives() {
 		ArrayList<String> arcTemp = new ArrayList<String>();
 		for (int i = 0; i < arcStorageContent.size(); i++) {
 			if (i < counter) {
@@ -136,7 +132,7 @@ public class Archives {
 
 	// Tracks the cmd for Add Edit Copy Done
 	public void cmdTAECD(String cmd) {
-		if (cmd.equals("add") || cmd.equals("edit") || cmd.equals("copy")) {
+		if (cmd.equals("add") || cmd.equals("edit") || cmd.equals("copy") || cmd.equals("delete")) {
 			ZorO.add(0);
 			cmdCounter++;
 			cmdMaxCounter = cmdCounter;
