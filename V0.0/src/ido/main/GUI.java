@@ -106,15 +106,6 @@ public class GUI {
 		dateBox1.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 		dateBox1.setBackground(new Color(255, 215, 0));
-		/*
-		 * DateBox1.addMouseListener(new MouseAdapter() { public void
-		 * mouseClicked(MouseEvent arg0) { DateBox1.setSize(250, 250);
-		 * DateBox1.setFont(new Font("Rockwell", Font.PLAIN, 20)); }
-		 * 
-		 * @Override public void mouseExited(MouseEvent e) {
-		 * DateBox1.setSize(123, 113); DateBox1.setFont(new Font("Rockwell",
-		 * Font.PLAIN, 12)); } });
-		 */
 		dateBox1.setLineWrap(true);
 
 		JScrollPane scrollPane_1 = new JScrollPane();
