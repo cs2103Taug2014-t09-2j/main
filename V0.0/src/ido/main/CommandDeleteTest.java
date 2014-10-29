@@ -20,7 +20,7 @@ import org.junit.Test;
  * Test delete commands for single task and all tasks
  */
 
-public class CommandDoneTest {
+public class CommandDeleteTest {
 
 	private static final String FILE = "211013";
 	private static final String FILETXT = FILE + ".txt";
@@ -34,7 +34,7 @@ public class CommandDoneTest {
 		test.add("2. 1");
 		test.add("3. 1");
 		(new FileAccessor(FILETXT, test)).writeContents();
-		(new CommandDone(FILE, "-1")).delete();
+		(new CommandDelete(FILE, "-1")).delete();
 		ArrayList<String> l = (new FileAccessor(FILETXT).readContents());
 		assertEquals(l.size(), 0);
 		(new File(FILETXT)).delete();
@@ -49,7 +49,7 @@ public class CommandDoneTest {
 		test.add("2. 1");
 		test.add("3. 1");
 		(new FileAccessor(FILETXT, test)).writeContents();
-		(new CommandDone("123456", "-1")).delete();
+		(new CommandDelete("123456", "-1")).delete();
 		ArrayList<String> l = (new FileAccessor(FILETXT).readContents());
 		assertEquals(l.size(), 3);
 		(new File(FILETXT)).delete();
@@ -64,7 +64,7 @@ public class CommandDoneTest {
 		test.add("2. 1");
 		test.add("3. 1");
 		(new FileAccessor(FILETXT, test)).writeContents();
-		(new CommandDone(FILE, "2")).delete();
+		(new CommandDelete(FILE, "2")).delete();
 		ArrayList<String> l = (new FileAccessor(FILETXT).readContents());
 		assertEquals(l.size(), 2);
 		(new File(FILETXT)).delete();
@@ -79,7 +79,7 @@ public class CommandDoneTest {
 		test.add("2. 1");
 		test.add("3. 1");
 		(new FileAccessor(FILETXT, test)).writeContents();
-		(new CommandDone(FILE, "4")).delete();
+		(new CommandDelete(FILE, "4")).delete();
 		ArrayList<String> l = (new FileAccessor(FILETXT).readContents());
 		assertEquals(l.size(), 3);
 		(new File(FILETXT)).delete();
