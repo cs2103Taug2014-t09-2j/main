@@ -1,4 +1,2 @@
-General Tasks
+general
 
-watch DOTA 2
-!! learn Java
