@@ -59,7 +59,11 @@ public class CommandEdit {
 			editedTask = editTask(oldTask);
 			break;
 		case "all":
-			editedTask = editAll(oldTask);
+			try {
+				editedTask = editAll(oldTask);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			break;
 		default:
 			WarningPopUp.infoBox("Please enter what you would like to modify\ntask/time/all", "ERROR!");
@@ -87,10 +91,11 @@ public class CommandEdit {
 		return String.format(CONTENT_TO_DISPLAY, keep, modification);
 	}
 	
-	public String editAll(String fileName) {
+	public String editAll(String fileName) throws Exception{
 		LOGGER.info("Edits the whole line of a specified task");
 		
 		String[] change = modification.split(" ", 2);
+		change[0] = getNewTimeStr(change[0]);
 		return String.format(CONTENT_TO_DISPLAY, change[0], change[1]);
 	}
 	
