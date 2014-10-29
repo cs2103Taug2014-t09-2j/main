@@ -41,7 +41,7 @@ public class CommandAdd {
 		// Create the name of the text file
 		String fileName = date + ".txt";
 		if (date.equals("-")){
-			fileName = "general.txt";
+			fileName = "general.txt"; // adds to general file
 		}
 		String content = "[" + time + "] " + task;
 		if (time.equals("-")){
