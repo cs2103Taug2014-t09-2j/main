@@ -95,6 +95,7 @@ public class GUI {
 		Border border = BorderFactory.createLineBorder(Color.BLACK);
 
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBorder(BorderFactory.createEmptyBorder());
 		scrollPane.setBounds(30, 64, 200, 200);
 		getFrame().getContentPane().add(scrollPane);
 
@@ -109,6 +110,7 @@ public class GUI {
 		dateBox1.setLineWrap(true);
 
 		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBorder(BorderFactory.createEmptyBorder());
 		scrollPane_1.setBounds(233, 64, 200, 200);
 		getFrame().getContentPane().add(scrollPane_1);
 
@@ -124,6 +126,7 @@ public class GUI {
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
 		JScrollPane scrollPane_2 = new JScrollPane();
+		scrollPane_2.setBorder(BorderFactory.createEmptyBorder());
 		scrollPane_2.setBounds(436, 64, 200, 200);
 		getFrame().getContentPane().add(scrollPane_2);
 
@@ -139,6 +142,7 @@ public class GUI {
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
 		JScrollPane scrollPane_3 = new JScrollPane();
+		scrollPane_3.setBorder(BorderFactory.createEmptyBorder());
 		scrollPane_3.setBounds(30, 266, 200, 200);
 		getFrame().getContentPane().add(scrollPane_3);
 
@@ -154,6 +158,7 @@ public class GUI {
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
 		JScrollPane scrollPane_4 = new JScrollPane();
+		scrollPane_4.setBorder(BorderFactory.createEmptyBorder());
 		scrollPane_4.setBounds(233, 266, 200, 200);
 		getFrame().getContentPane().add(scrollPane_4);
 		// Border border = BorderFactory.createLineBorder(Color.WHITE);
@@ -170,6 +175,7 @@ public class GUI {
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
 		JScrollPane scrollPane_5 = new JScrollPane();
+		scrollPane_5.setBorder(BorderFactory.createEmptyBorder());
 		scrollPane_5.setBounds(436, 266, 200, 200);
 		getFrame().getContentPane().add(scrollPane_5);
 
@@ -185,6 +191,7 @@ public class GUI {
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
 		JScrollPane scrollPane_6 = new JScrollPane();
+		scrollPane_6.setBorder(BorderFactory.createEmptyBorder());
 		scrollPane_6.setBounds(30, 469, 200, 200);
 		getFrame().getContentPane().add(scrollPane_6);
 
@@ -200,6 +207,7 @@ public class GUI {
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
 		JScrollPane scrollPane_7 = new JScrollPane();
+		scrollPane_7.setBorder(BorderFactory.createEmptyBorder());
 		scrollPane_7.setBounds(233, 469, 200, 200);
 		getFrame().getContentPane().add(scrollPane_7);
 
@@ -214,6 +222,7 @@ public class GUI {
 		overDueTasksBox.setBackground(new Color(255, 99, 71));
 
 		JScrollPane scrollPane_8 = new JScrollPane();
+		scrollPane_8.setBorder(BorderFactory.createEmptyBorder());
 		scrollPane_8.setBounds(436, 469, 200, 200);
 		getFrame().getContentPane().add(scrollPane_8);
 		// missingBox.read(reader, this);
