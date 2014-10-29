@@ -8,50 +8,17 @@ import java.util.Date;
 
 public class DayModifier {
 	
-	public static String getCurrDay() {
-		// obtain the current date
-		DateFormat dayFormat = new SimpleDateFormat("EEEE");
-		Date currDay = new Date();
-		String currDayStr = dayFormat.format(currDay);
-		return currDayStr;
-	}
-	
-	public static String getNextDay(String currDateStr){
-		SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
-		Calendar c = Calendar.getInstance();
+	public static String getDayOfWeek(String currDateStr) {
+		SimpleDateFormat sdf1 = new SimpleDateFormat("ddMMyy");
+		SimpleDateFormat sdf2 = new SimpleDateFormat("EEEE");
+		String dayOfWeekStr = "";
 		try {
-			c.setTime(sdf.parse(currDateStr));
+			dayOfWeekStr = sdf2.format(sdf1.parse(currDateStr));
 		} catch (ParseException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		c.add(Calendar.DATE, 1); // number of days to add
-		String nextDayStr = sdf.format(c.getTime());
-		return nextDayStr;
+		return dayOfWeekStr;
 	}
-	
-	public static String getPrevDay(String currDateStr){
-		SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
-		Calendar c = Calendar.getInstance();
-		try {
-			c.setTime(sdf.parse(currDateStr));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		c.add(Calendar.DATE, -1); // number of days to add
-		String prevDayStr = sdf.format(c.getTime()); 
-		return prevDayStr;
-	}
-	
-	public static String getParticularDay(String currDateStr, int i){
-		SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
-		Calendar c = Calendar.getInstance();
-		try {
-			c.setTime(sdf.parse(currDateStr));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		c.add(Calendar.DATE, i); // number of days to add
-		String dayStr = sdf.format(c.getTime()); 
-		return dayStr;
-	}
+
 }
