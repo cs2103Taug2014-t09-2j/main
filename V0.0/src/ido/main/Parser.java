@@ -248,10 +248,14 @@ public class Parser {
 				break;
 
 			case AGENDA:
-				FileAccessor faAgenda = new FileAccessor(theRest + ".txt");
-				faAgenda.checkFilesExistCustom(theRest);
-				GUI.addDetailedAgenda(theRest);
-				faAgenda.createAgendaForTheDate();
+				if (theRest.equals("off")) {
+					GUI.agendaOff();
+				} else {
+					FileAccessor faAgenda = new FileAccessor(theRest + ".txt");
+					faAgenda.checkFilesExistCustom(theRest);
+					GUI.addDetailedAgenda(theRest);
+					faAgenda.createAgendaForTheDate();
+				}
 				break;
 
 			case ZOOM:
