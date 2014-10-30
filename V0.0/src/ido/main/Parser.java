@@ -248,17 +248,14 @@ public class Parser {
 				break;
 
 			case AGENDA:
-				IsValidDate dateValidator = new IsValidDate(theRest);
-				if (dateValidator.testValidDate()) {
-					FileAccessor fileAccessor = new FileAccessor(theRest + ".txt");
-					GUI.addDetailedAgenda(DateModifier.getCurrDate());
-					fileAccessor.createAgendaForTheDate();
-				} else {
-					WarningPopUp.infoBox("Invalid Date!", "ERROR");
-				}
+				FileAccessor faAgenda = new FileAccessor(theRest + ".txt");
+				faAgenda.checkFilesExistCustom(theRest);
+				GUI.addDetailedAgenda(theRest);
+				faAgenda.createAgendaForTheDate();
 				break;
 
 			case ZOOM:
+				FileAccessor fileAccessor = new FileAccessor();
 				if (theRest.length() > 1) {
 					if ((theRest.length() == 6) && (!theRest.equals("general"))
 							&& (!theRest.equals("undone"))) {
