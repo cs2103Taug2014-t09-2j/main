@@ -15,36 +15,34 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class CommandAdd {
-	
+
 	private static Logger logger = Logger.getLogger("CommandAdd");
-	
+
 	String date;
 	String task;
 	String time;
 
-	public CommandAdd(String date, String time, String task){
+	public CommandAdd(String date, String time, String task) {
 		this.date = date;
-		try{
+		try {
 			this.time = IsValidTime.validateTime(time);
-		}
-		catch (Exception e){
-			WarningPopUp.infoBox("Invalid Time!",
-					"ERROR");
+		} catch (Exception e) {
+			WarningPopUp.infoBox("Invalid Time!", "ERROR");
 			e.printStackTrace();
 		}
 		this.task = task;
 	}
-	
+
 	public void addTask() {
 		logger.log(Level.INFO, "add processing");
-		
+
 		// Create the name of the text file
 		String fileName = date + ".txt";
-		if (date.equals("-")){
+		if (date.equals("-")) {
 			fileName = "general.txt"; // adds to general file
 		}
-		String content =  "[" +time + "] " + task;
-		if (time.equals("-")){
+		String content = "[" + time + "] " + task;
+		if (time.equals("-")) {
 			content = "[all-day] " + task;
 		}
 		ArrayList<String> list = new ArrayList<String>();
@@ -55,6 +53,16 @@ public class CommandAdd {
 		list.add(content);
 		(new FileAccessor(fileName, list)).writeContents();
 		
+		boolean dateOutOfBox = true;
+		for (int i = 0; i < 7; i++) {
+			if (date.equals(DateModifier.getCurrDate())) {
+				dateOutOfBox = false;
+				break;
+			}
+		}
+		if (dateOutOfBox) {
+			WarningPopUp.infoBox("Task added!", "WARNING");
+		}
 		logger.log(Level.INFO, "add complete");
 	}
 }
