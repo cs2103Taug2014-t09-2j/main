@@ -19,8 +19,7 @@ public class Parser {
 	public static OverDueTask ODTLaunch = new OverDueTask();
 
 	enum CommandTypes {
-		START, ADD, EDIT, DONE, INVALID, UNDO, REDO, ZOOM, SEARCH, COPY, 
-		MIN, MAX, HELP, DELETE, VIEW
+		START, ADD, EDIT, DONE, INVALID, UNDO, REDO, ZOOM, SEARCH, COPY, MIN, MAX, HELP, DELETE, VIEW
 	};
 
 	private static CommandTypes determineCmd(String command) {
@@ -126,19 +125,21 @@ public class Parser {
 
 			switch (command) {
 			case VIEW:
-				if(theRest.equals("today")){
-				GUI.addDetailedAgenda(DateModifier.getCurrDate());
-				System.out.println("done view");
-				}
-				else{
-				FileAccessor fa = new FileAccessor(theRest+".txt");
-				fa.checkFilesExistCustom(theRest);
-				fa.setFileName(theRest+".txt");
-				String tasksForTheWeek = fa.getStringTasksWeek();
-				WarningPopUp.infoBox(tasksForTheWeek, "View Result");
+				if (theRest.equals("today")) {
+					GUI.addDetailedAgenda(DateModifier.getCurrDate());
+					FileAccessor fa = new FileAccessor(
+							DateModifier.getCurrDate() + ".txt");
+					fa.createAgendaForTheDate();
+					System.out.println("done view");
+				} else {
+					FileAccessor fa = new FileAccessor(theRest + ".txt");
+					fa.checkFilesExistCustom(theRest);
+					fa.setFileName(theRest + ".txt");
+					String tasksForTheWeek = fa.getStringTasksWeek();
+					WarningPopUp.infoBox(tasksForTheWeek, "View Result");
 				}
 				break;
-			
+
 			case EDIT:
 				String editString[] = theRest.split(" ", 4);
 				String date = IsValidDate.validateDate(editString[0]);

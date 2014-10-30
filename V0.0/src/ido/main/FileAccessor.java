@@ -1,5 +1,7 @@
 package ido.main;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -14,6 +16,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+
+import javax.swing.JLabel;
 
 public class FileAccessor {
 	private String fileName;
@@ -89,7 +93,7 @@ public class FileAccessor {
 		}
 	}
 
-	public void writeContents()  {
+	public void writeContents() {
 		try {
 			File file = new File(fileName);
 			FileWriter fw = new FileWriter(file.getAbsoluteFile());
@@ -111,8 +115,8 @@ public class FileAccessor {
 		}
 
 	}
-	
-	public void checkFilesExistCustom(String startDate){
+
+	public void checkFilesExistCustom(String startDate) {
 		for (int i = 0; i < 7; i++) {
 			fileName = startDate + ".txt";
 			File file = new File(fileName);
@@ -204,24 +208,73 @@ public class FileAccessor {
 	public String getStringTasksWeek() throws IOException {
 		String tasksForTheWeek = "Tasks for The Week: \n \n";
 		String temp;
-			for (int i = 0; i < 7; i++) {
-				tasksForTheWeek = tasksForTheWeek + this.readFileString()+ "\n";
-				String currDate = fileName.substring(0, 6);
-				this.setFileName(DateModifier.getNextDate(currDate)+".txt");
-			}
+		for (int i = 0; i < 7; i++) {
+			tasksForTheWeek = tasksForTheWeek + this.readFileString() + "\n";
+			String currDate = fileName.substring(0, 6);
+			this.setFileName(DateModifier.getNextDate(currDate) + ".txt");
+		}
 		return tasksForTheWeek;
 	}
-	
+
 	public String reformatDate(String date) {
 		DateFormat dateFormat1 = new SimpleDateFormat("ddMMyy");
 		DateFormat dateFormat2 = new SimpleDateFormat("dd/MM/yy");
 		String newDate = new String();
 		try {
-			newDate =  dateFormat2.format(dateFormat1.parse(date));
+			newDate = dateFormat2.format(dateFormat1.parse(date));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		return newDate;
+	}
+
+	public ArrayList<String> getTasksInADay() {
+		ArrayList<String> temp = new ArrayList<String>();
+		ArrayList<String> result = new ArrayList<String>();
+		for (int i = 0; i < 24; i++) {
+			result.add("");
+		}
+		int hour1 = 0, hour2, duration;
+		temp = this.readContents();
+		for (int i = 0; i < temp.size(); i++) {
+			if (Character.isDigit(temp.get(i).charAt(4)))
+				hour1 = Integer.valueOf(temp.get(i).substring(1, 3));
+
+			if (Character.isDigit(temp.get(i).charAt(9)))
+				hour2 = Integer.valueOf(temp.get(i).substring(9, 10));
+			else
+				hour2 = hour1 + 1;
+			duration = hour2 - hour1;
+			for (int j = 0; j < duration; j++) {
+				System.out.println("adding "+temp.get(i));
+				result.add(hour1, temp.get(i));
+			}
+
+		}
+
+		return result;
+	}
+	
+	public void createAgendaForTheDate() {
+		int arrayListSize = this.readContents().size();
+		ArrayList<String> temp = new ArrayList<String>();
+		temp = this.readContents();
+		System.out.println(temp.toString());
+		int hour1 = 0, hour2, duration;
+		for (int i = 0; i < arrayListSize; i++) {
+			if (Character.isDigit(temp.get(i).charAt(1)))
+				hour1 = Integer.valueOf(temp.get(i).substring(1, 3));
+
+			if (Character.isDigit(temp.get(i).charAt(6)))
+				hour2 = Integer.valueOf(temp.get(i).substring(6, 8));
+			else
+				hour2 = hour1 + 1;
+			System.out.println("the array size "+arrayListSize);
+			duration = hour2 - hour1;
+			System.out.println( i +" inside "+ hour1 + " "+ duration + " " + hour2);
+			GUI.addTaskToAgenda(this.readContents().get(i), hour1, duration);
+		}
+
 	}
 
 }

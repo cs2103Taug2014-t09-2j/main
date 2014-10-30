@@ -4,7 +4,10 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -19,9 +22,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -43,6 +48,8 @@ public class GUI {
 	private static JTextArea dateBox7;
 	private static JTextArea overDueTasksBox;
 	private static JTextArea generalTasksBox;
+	private static JPanel agendaContainer;
+	private static JPanel panel1;
 
 	
 	private String fileName = null;
@@ -500,49 +507,49 @@ public class GUI {
 	}
 	
 	public static void addDetailedAgenda(String dateToBeDisplayed){
-		getFrame().setBounds(0, 0, 835, 730);
-		JPanel agendaContainer = new JPanel();
-		agendaContainer.setBounds(645, 20, 160, 650);
+		getFrame().setBounds(0, 0, 1080, 730);
+		agendaContainer = new JPanel();
+		agendaContainer.setBounds(645, 20, 400, 650);
 		agendaContainer.setBackground(new Color(255, 215, 0));
 		agendaContainer.setLayout(new BoxLayout(agendaContainer,BoxLayout.Y_AXIS));
 		Border border = BorderFactory.createLineBorder(Color.BLACK);
 		agendaContainer.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 		JLabel lblIdo = new JLabel(dateToBeDisplayed);
-		lblIdo.setBounds(5, 2, 10, 60);
+		//lblIdo.setBounds(5, 2, 10, 60);
 		lblIdo.setForeground(new Color(0, 0, 0));
 		lblIdo.setFont(new Font("Segoe UI", Font.PLAIN, 30));
 		agendaContainer.add(lblIdo);
 		
-		JPanel panel1 = new JPanel();
+		panel1 = new JPanel(new GridBagLayout());
 		panel1.setBackground((new Color(255, 215, 0)));
-		panel1.setBounds(5, 2, 300, 60);
-		panel1.setLayout(new GridLayout(24,1));
-		
-		JLabel agendaContent = new JLabel("test");
-		agendaContent.setBounds(5, 20, 160, 60);
-		agendaContent.setBackground(new Color(255, 0, 0));
-		agendaContent.setVisible(true);
-		agendaContent.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		panel1.add(agendaContent);
-		
-		JLabel agendaContent2 = new JLabel("");
-		agendaContent2.setBounds(5, 20, 160, 60);
-		agendaContent2.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		panel1.add(agendaContent2);
-		
-		JLabel agendaContent3 = new JLabel("test 3");
-		agendaContent3.setBounds(5, 20, 160, 60);
-		agendaContent3.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		panel1.add(agendaContent3);
-		
-		JLabel agendaContent4 = new JLabel("test 4");
-		agendaContent4.setBounds(5, 20, 160, 60);
-		agendaContent4.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		panel1.add(agendaContent4);
-		
+		panel1.setBounds(5, 2, 600, 60);
+		//panel1.setLayout(new GridLayout(24,1));
 		agendaContainer.add(panel1);
 		getFrame().getContentPane().add(agendaContainer);
+	}
+	
+	public static void addTaskToAgenda(String task,int startTime,int duration){
+		JButton agendaContent = new JButton(task);
+		//int agendaStart = 20+startTime*50;
+		//agendaContent.setBounds(10, agendaStart, 160, duration*25);
+		agendaContent.setBackground(new Color(255, 0, 0));
+		if(!agendaContent.getText().isEmpty())
+			agendaContent.setOpaque(true);
+		agendaContent.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		GridBagConstraints c = new GridBagConstraints();
+		System.out.println("grid y "+startTime);
+		c.fill = GridBagConstraints.BOTH;
+		c.anchor = GridBagConstraints.FIRST_LINE_START;
+		c.gridy = startTime;
+		c.ipady = duration*20;      //make this component tall
+		c.weightx = 1;
+		c.weighty = 1;
+		c.gridwidth = 100;
+		c.insets = new Insets(5,0,0,0);  
+		c.gridx = 0;
+		
+		panel1.add(agendaContent,c);
 	}
 	
 	public static void showHelp() throws IOException {
