@@ -126,11 +126,17 @@ public class Parser {
 
 			switch (command) {
 			case VIEW:
+				if(theRest.equals("today")){
+				GUI.addDetailedAgenda(DateModifier.getCurrDate());
+				System.out.println("done view");
+				}
+				else{
 				FileAccessor fa = new FileAccessor(theRest+".txt");
 				fa.checkFilesExistCustom(theRest);
 				fa.setFileName(theRest+".txt");
 				String tasksForTheWeek = fa.getStringTasksWeek();
 				WarningPopUp.infoBox(tasksForTheWeek, "View Result");
+				}
 				break;
 			
 			case EDIT:

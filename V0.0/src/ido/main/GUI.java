@@ -19,8 +19,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -84,7 +86,9 @@ public class GUI {
 		});
 		getFrame().setBounds(0, 0, 677, 730);
 		getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getFrame().setForeground(new Color(255,255,255));
 		getFrame().getContentPane().setLayout(null);
+		
 
 		JLabel lblIdo = new JLabel("iDO++");
 		lblIdo.setBounds(30, 2, 149, 59);
@@ -487,6 +491,27 @@ public class GUI {
 
 	public static void setFrame(JFrame frame) {
 		GUI.frame = frame;
+	}
+	
+	public static void setFrameSize(int width, int height){
+		getFrame().setBounds(0, 0, width, height);
+	}
+	
+	public static void addDetailedAgenda(String dateToBeDisplayed){
+		getFrame().setBounds(0, 0, 825, 730);
+		JPanel agendaContainer = new JPanel();
+		agendaContainer.setBounds(645, 20, 160, 650);
+		agendaContainer.setBackground(new Color(255, 215, 0));
+		agendaContainer.setLayout(new BoxLayout(agendaContainer,BoxLayout.X_AXIS));
+		agendaContainer.setVisible(true);
+		agendaContainer.setEnabled(true);
+		JLabel lblIdo = new JLabel(dateToBeDisplayed);
+		lblIdo.setBounds(5, 2, 10, 60);
+		lblIdo.setForeground(new Color(0, 0, 0));
+		lblIdo.setFont(new Font("Segoe UI", Font.PLAIN, 40));
+		getFrame().getContentPane().add(lblIdo);
+		agendaContainer.add(lblIdo);
+		getFrame().getContentPane().add(agendaContainer);
 	}
 	
 	public static void showHelp() throws IOException {
