@@ -52,6 +52,8 @@ public class CommandEdit {
 			try {
 				editedTask = editTime(oldTask);
 			} catch (Exception e) {
+				editedTask = oldTask;
+				WarningPopUp.infoBox("Invalid Time!", "ERROR");
 				e.printStackTrace();
 			}
 			break;
@@ -62,6 +64,8 @@ public class CommandEdit {
 			try {
 				editedTask = editAll(oldTask);
 			} catch (Exception e) {
+				editedTask = oldTask;
+				WarningPopUp.infoBox("Invalid Time!", "ERROR");
 				e.printStackTrace();
 			}
 			break;
