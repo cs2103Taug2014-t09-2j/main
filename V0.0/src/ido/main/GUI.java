@@ -85,7 +85,7 @@ public class GUI {
 	 */
 	private void initialize() {
 
-		setFrame(new JFrame());
+		setFrame(new JFrame("iDO++"));
 		getFrame().addWindowListener(new WindowAdapter() {
 			public void windowActivated(WindowEvent arg0) {
 				FileAccessor fa = new FileAccessor();
