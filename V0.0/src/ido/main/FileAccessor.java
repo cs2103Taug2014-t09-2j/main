@@ -117,14 +117,15 @@ public class FileAccessor {
 	}
 
 	public void checkFilesExistCustom(String startDate) {
+		String temp = fileName;
 		for (int i = 0; i < 7; i++) {
-			fileName = startDate + ".txt";
-			File file = new File(fileName);
+			temp = startDate + ".txt";
+			File file = new File(temp);
 
 			if (!file.exists()) {
 				PrintWriter writer = null;
 				try {
-					writer = new PrintWriter(fileName, "UTF-8");
+					writer = new PrintWriter(temp, "UTF-8");
 				} catch (FileNotFoundException | UnsupportedEncodingException e) {
 					e.printStackTrace();
 				}
@@ -133,6 +134,7 @@ public class FileAccessor {
 			}
 			startDate = DateModifier.getNextDate(startDate);
 		}
+		
 	}
 
 	public void checkFilesExist() {
