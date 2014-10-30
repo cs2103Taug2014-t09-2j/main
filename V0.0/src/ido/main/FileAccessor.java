@@ -9,6 +9,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -24,7 +27,7 @@ public class FileAccessor {
 	private static final String TEXT_EXTENSION = ".txt";
 	private static final String NO_EXTENSION = "";
 	private static final String LINE_FORMAT = "%1$s\n";
-	private static final int NUM_LINES_SKIPPED = 3;
+	private static final int NUM_LINES_SKIPPED = 2;
 
 	// Constructor
 	public FileAccessor(String fileName, ArrayList<String> currDateTask) {
@@ -86,16 +89,16 @@ public class FileAccessor {
 		}
 	}
 
-	public void writeContents() {
+	public void writeContents()  {
 		try {
 			File file = new File(fileName);
 			FileWriter fw = new FileWriter(file.getAbsoluteFile());
 			BufferedWriter bw = new BufferedWriter(fw);
 			Collections.sort(currDateTask);
 			String _date = fileName.replace(TEXT_EXTENSION, NO_EXTENSION);
-			
+			String formattedDate = reformatDate(_date);
 			String _dayOfWeek = DayModifier.getDayOfWeek(_date);
-			bw.write(String.format(FILE_HEADING, _dayOfWeek, _date));
+			bw.write(String.format(FILE_HEADING, _dayOfWeek, formattedDate));
 			for (int i = 0; i < currDateTask.size(); i++) {
 				bw.write(String.format(CONTENT_TO_DISPLAY, i + 1,
 						currDateTask.get(i)));
@@ -207,6 +210,18 @@ public class FileAccessor {
 				this.setFileName(DateModifier.getNextDate(currDate)+".txt");
 			}
 		return tasksForTheWeek;
+	}
+	
+	public String reformatDate(String date) {
+		DateFormat dateFormat1 = new SimpleDateFormat("ddMMyy");
+		DateFormat dateFormat2 = new SimpleDateFormat("dd/MM/yy");
+		String newDate = new String();
+		try {
+			newDate =  dateFormat2.format(dateFormat1.parse(date));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return newDate;
 	}
 
 }
