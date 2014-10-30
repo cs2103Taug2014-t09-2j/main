@@ -55,7 +55,7 @@ public class CommandAdd {
 		
 		boolean dateOutOfBox = true;
 		for (int i = 0; i < 7; i++) {
-			if (date.equals(DateModifier.getCurrDate())) {
+			if (date.equals(DateModifier.getParticularDate(DateModifier.getCurrDate(), i))) {
 				dateOutOfBox = false;
 				break;
 			}
