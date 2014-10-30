@@ -18,6 +18,7 @@ public class FileAccessor {
 
 	private static final String CONTENT_TO_DISPLAY = "%1$d. %2$s\n";
 	private static final String FILE_HEADING = "%1$s\n%2$s\n\n";
+	private static final String TODAY = "TODAY";
 	private static final String ERROR_LOCATION = "ERROR";
 	private static final String READ_ERROR = "Failure to read file %1$s!";
 	private static final String WRITE_ERROR = "Failure to write file %1$s!";
@@ -93,7 +94,11 @@ public class FileAccessor {
 			BufferedWriter bw = new BufferedWriter(fw);
 			Collections.sort(currDateTask);
 			String _date = fileName.replace(TEXT_EXTENSION, NO_EXTENSION);
-			String _dayOfWeek = DayModifier.getDayOfWeek(_date);
+			String _dayOfWeek = "";
+			if (_date.equals(DateModifier.getCurrDate()))
+				_dayOfWeek = TODAY;
+			else
+				_dayOfWeek = DayModifier.getDayOfWeek(_date);
 			bw.write(String.format(FILE_HEADING, _date, _dayOfWeek));
 			for (int i = 0; i < currDateTask.size(); i++) {
 				bw.write(String.format(CONTENT_TO_DISPLAY, i + 1,
