@@ -569,6 +569,10 @@ public class GUI {
 		GUI.maxWindow();
 	}
 	
+	public static JPanel checkAgendaActive(){
+		return agendaContainer;
+	}
+	
 	public static void showHelp() throws IOException {
 		FileAccessor fa = new FileAccessor();
 		fa.setFileName("help.txt");

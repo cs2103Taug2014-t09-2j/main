@@ -251,6 +251,9 @@ public class Parser {
 				if (theRest.equals("off")) {
 					GUI.agendaOff();
 				} else {
+					if(GUI.checkAgendaActive() != null)
+						GUI.agendaOff();
+					
 					FileAccessor faAgenda = new FileAccessor(theRest + ".txt");
 					faAgenda.checkFilesExistCustom(theRest);
 					GUI.addDetailedAgenda(theRest);
