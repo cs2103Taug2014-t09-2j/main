@@ -108,7 +108,10 @@ public class CommandEdit {
 													//date input can be 1-7
 	}
 	private String getNewTimeStr(String time) throws Exception {
-		return IsValidTime.validateTime(time);
+		String validatedTime = IsValidTime.validateTime(time);
+		if (validatedTime.equals("-"))
+			validatedTime ="all-day";
+			return validatedTime;
 	}
 	
 	private ArrayList<String> getFileContent(String fileName) {
