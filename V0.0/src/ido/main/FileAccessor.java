@@ -259,6 +259,7 @@ public class FileAccessor {
 		int arrayListSize = this.readContents().size();
 		ArrayList<String> temp = new ArrayList<String>();
 		ArrayList<Boolean> emptySlots = new ArrayList<Boolean>();
+		int startDayAgenda=0;
 		for(int i=0;i<24;i++){
 			emptySlots.add(true);
 		}
@@ -268,6 +269,10 @@ public class FileAccessor {
 		for (int i = 0; i < arrayListSize; i++) {
 			if (Character.isDigit(temp.get(i).charAt(1)))
 				hour1 = Integer.valueOf(temp.get(i).substring(1, 3));
+			
+			if(i==0){
+				startDayAgenda = hour1;
+			}
 
 			if (Character.isDigit(temp.get(i).charAt(6)))
 				hour2 = Integer.valueOf(temp.get(i).substring(6, 8));
@@ -281,7 +286,7 @@ public class FileAccessor {
 			}
 			GUI.addTaskToAgenda(this.readContents().get(i), hour1, duration);
 		}
-		for(int i=0;i<24;i++){
+		for(int i=startDayAgenda;i<24;i++){
 			if(emptySlots.get(i) == true)
 				GUI.addTaskToAgenda("", i, 1);
 		}

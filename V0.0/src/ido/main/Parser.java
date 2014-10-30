@@ -126,9 +126,10 @@ public class Parser {
 			switch (command) {
 			case VIEW:
 				if (theRest.equals("today")) {
-					GUI.addDetailedAgenda(DateModifier.getCurrDate());
+					
 					FileAccessor fa = new FileAccessor(
 							DateModifier.getCurrDate() + ".txt");
+					GUI.addDetailedAgenda(DateModifier.getCurrDate());
 					fa.createAgendaForTheDate();
 					System.out.println("done view");
 				} else {

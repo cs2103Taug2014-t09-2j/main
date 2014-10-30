@@ -97,6 +97,8 @@ public class GUI {
 		getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getFrame().setForeground(new Color(255,255,255));
 		getFrame().getContentPane().setLayout(null);
+		getFrame().getContentPane().setBackground(new Color(255, 255, 255));
+
 		
 
 		JLabel lblIdo = new JLabel("iDO++");
@@ -105,7 +107,7 @@ public class GUI {
 		lblIdo.setFont(new Font("Segoe UI", Font.PLAIN, 45));
 		getFrame().getContentPane().add(lblIdo);
 		// create padding inside the text area
-		Border border = BorderFactory.createLineBorder(Color.BLACK);
+		Border border = BorderFactory.createLineBorder(Color.WHITE);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());
@@ -512,7 +514,7 @@ public class GUI {
 		agendaContainer.setBounds(645, 20, 400, 650);
 		agendaContainer.setBackground(new Color(255, 215, 0));
 		agendaContainer.setLayout(new BoxLayout(agendaContainer,BoxLayout.Y_AXIS));
-		Border border = BorderFactory.createLineBorder(Color.BLACK);
+		Border border = BorderFactory.createLineBorder(Color.WHITE);
 		agendaContainer.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 		JLabel lblIdo = new JLabel(dateToBeDisplayed);
@@ -535,22 +537,24 @@ public class GUI {
 		//int agendaStart = 20+startTime*50;
 		//agendaContent.setBounds(10, agendaStart, 160, duration*25);
 		if(task.isEmpty()){
-		agendaContent.setBackground(new Color(255, 215, 0));
+		agendaContent.setBackground(new Color(250, 164, 98));
 		agendaContent.setOpaque(false);
-		agendaContent.setBorderPainted(true);
+		agendaContent.setBorderPainted(false);
 		}
 		else{
-			agendaContent.setBackground(new Color(255, 0, 0));
+			agendaContent.setBackground(new Color(255, 99, 71));
+			agendaContent.setBorderPainted(false);
+
 		}
 		if(!agendaContent.getText().isEmpty())
 			agendaContent.setOpaque(true);
-		agendaContent.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		agendaContent.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		GridBagConstraints c = new GridBagConstraints();
 		System.out.println("grid y "+startTime);
 		c.fill = GridBagConstraints.BOTH;
 		c.anchor = GridBagConstraints.FIRST_LINE_START;
 		c.gridy = startTime;
-		c.ipady = duration*3;      //make this component tall
+		c.ipady = duration*10;      //make this component tall
 		c.weightx = 1;
 		c.weighty = 1;
 		c.gridwidth = 100;
