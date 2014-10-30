@@ -13,6 +13,8 @@ For display:
 view <start date>
 zoom <boxNumber>
 search <keyword>
+agenda <date>
+agenda off
 
 Others:
 undo
