@@ -25,7 +25,7 @@ public class IsValidTime {
 	public static String validateTime(String time) throws Exception{
 		// TODO Throw meaningful exception messages
 		if (time.equals("-")){
-			return "[all-day] ";
+			return "-";
 		}
 		String splitted_time[] = time.split("-");
 		boolean valid = true;
