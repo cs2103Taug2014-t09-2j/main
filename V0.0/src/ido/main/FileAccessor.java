@@ -94,11 +94,8 @@ public class FileAccessor {
 			BufferedWriter bw = new BufferedWriter(fw);
 			Collections.sort(currDateTask);
 			String _date = fileName.replace(TEXT_EXTENSION, NO_EXTENSION);
-			String _dayOfWeek = "";
-			if (_date.equals(DateModifier.getCurrDate()))
-				_dayOfWeek = TODAY;
-			else
-				_dayOfWeek = DayModifier.getDayOfWeek(_date);
+			
+			String _dayOfWeek = DayModifier.getDayOfWeek(_date);
 			bw.write(String.format(FILE_HEADING, _date, _dayOfWeek));
 			for (int i = 0; i < currDateTask.size(); i++) {
 				bw.write(String.format(CONTENT_TO_DISPLAY, i + 1,
