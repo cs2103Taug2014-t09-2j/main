@@ -50,9 +50,8 @@ public class CommandAdd {
 		ArrayList<String> list = new ArrayList<String>();
 		// Check if the text file exists, if it does, add its content to
 		// a list and return the list
-		
-		list = (new FileAccessor(fileName)).readContents();
 		(new FileAccessor(fileName)).checkFilesExistCustom(date);
+		list = (new FileAccessor(fileName)).readContents();
 		list.add(content);
 		(new FileAccessor(fileName, list)).writeContents();
 		
