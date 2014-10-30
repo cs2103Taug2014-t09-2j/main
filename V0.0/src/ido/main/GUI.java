@@ -89,7 +89,7 @@ public class GUI {
 		JLabel lblIdo = new JLabel("iDO++");
 		lblIdo.setBounds(30, 2, 149, 59);
 		lblIdo.setForeground(new Color(0, 0, 0));
-		lblIdo.setFont(new Font("Bauhaus 93", Font.BOLD, 40));
+		lblIdo.setFont(new Font("Segoe UI", Font.PLAIN, 45));
 		getFrame().getContentPane().add(lblIdo);
 		// create padding inside the text area
 		Border border = BorderFactory.createLineBorder(Color.BLACK);
