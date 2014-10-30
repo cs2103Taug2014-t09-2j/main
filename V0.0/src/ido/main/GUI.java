@@ -2,7 +2,9 @@ package ido.main;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -498,19 +500,48 @@ public class GUI {
 	}
 	
 	public static void addDetailedAgenda(String dateToBeDisplayed){
-		getFrame().setBounds(0, 0, 825, 730);
+		getFrame().setBounds(0, 0, 835, 730);
 		JPanel agendaContainer = new JPanel();
 		agendaContainer.setBounds(645, 20, 160, 650);
 		agendaContainer.setBackground(new Color(255, 215, 0));
-		agendaContainer.setLayout(new BoxLayout(agendaContainer,BoxLayout.X_AXIS));
-		agendaContainer.setVisible(true);
-		agendaContainer.setEnabled(true);
+		agendaContainer.setLayout(new BoxLayout(agendaContainer,BoxLayout.Y_AXIS));
+		Border border = BorderFactory.createLineBorder(Color.BLACK);
+		agendaContainer.setBorder(BorderFactory.createCompoundBorder(border,
+				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 		JLabel lblIdo = new JLabel(dateToBeDisplayed);
 		lblIdo.setBounds(5, 2, 10, 60);
 		lblIdo.setForeground(new Color(0, 0, 0));
-		lblIdo.setFont(new Font("Segoe UI", Font.PLAIN, 40));
-		getFrame().getContentPane().add(lblIdo);
+		lblIdo.setFont(new Font("Segoe UI", Font.PLAIN, 30));
 		agendaContainer.add(lblIdo);
+		
+		JPanel panel1 = new JPanel();
+		panel1.setBackground((new Color(255, 215, 0)));
+		panel1.setBounds(5, 2, 300, 60);
+		panel1.setLayout(new GridLayout(24,1));
+		
+		JLabel agendaContent = new JLabel("test");
+		agendaContent.setBounds(5, 20, 160, 60);
+		agendaContent.setBackground(new Color(255, 0, 0));
+		agendaContent.setVisible(true);
+		agendaContent.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		panel1.add(agendaContent);
+		
+		JLabel agendaContent2 = new JLabel("");
+		agendaContent2.setBounds(5, 20, 160, 60);
+		agendaContent2.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		panel1.add(agendaContent2);
+		
+		JLabel agendaContent3 = new JLabel("test 3");
+		agendaContent3.setBounds(5, 20, 160, 60);
+		agendaContent3.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		panel1.add(agendaContent3);
+		
+		JLabel agendaContent4 = new JLabel("test 4");
+		agendaContent4.setBounds(5, 20, 160, 60);
+		agendaContent4.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		panel1.add(agendaContent4);
+		
+		agendaContainer.add(panel1);
 		getFrame().getContentPane().add(agendaContainer);
 	}
 	
