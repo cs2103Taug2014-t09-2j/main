@@ -258,6 +258,10 @@ public class FileAccessor {
 	public void createAgendaForTheDate() {
 		int arrayListSize = this.readContents().size();
 		ArrayList<String> temp = new ArrayList<String>();
+		ArrayList<Boolean> emptySlots = new ArrayList<Boolean>();
+		for(int i=0;i<24;i++){
+			emptySlots.add(true);
+		}
 		temp = this.readContents();
 		System.out.println(temp.toString());
 		int hour1 = 0, hour2, duration;
@@ -272,7 +276,14 @@ public class FileAccessor {
 			System.out.println("the array size "+arrayListSize);
 			duration = hour2 - hour1;
 			System.out.println( i +" inside "+ hour1 + " "+ duration + " " + hour2);
+			for(int j=hour1;j<duration+hour1;j++){
+				emptySlots.set(j, false);
+			}
 			GUI.addTaskToAgenda(this.readContents().get(i), hour1, duration);
+		}
+		for(int i=0;i<24;i++){
+			if(emptySlots.get(i) == true)
+				GUI.addTaskToAgenda("", i, 1);
 		}
 
 	}

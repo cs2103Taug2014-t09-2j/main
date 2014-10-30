@@ -531,9 +531,17 @@ public class GUI {
 	
 	public static void addTaskToAgenda(String task,int startTime,int duration){
 		JButton agendaContent = new JButton(task);
+		//agendaContent.setAlignmentX(11);
 		//int agendaStart = 20+startTime*50;
 		//agendaContent.setBounds(10, agendaStart, 160, duration*25);
-		agendaContent.setBackground(new Color(255, 0, 0));
+		if(task.isEmpty()){
+		agendaContent.setBackground(new Color(255, 215, 0));
+		agendaContent.setOpaque(false);
+		agendaContent.setBorderPainted(true);
+		}
+		else{
+			agendaContent.setBackground(new Color(255, 0, 0));
+		}
 		if(!agendaContent.getText().isEmpty())
 			agendaContent.setOpaque(true);
 		agendaContent.setFont(new Font("Segoe UI", Font.PLAIN, 12));
@@ -542,11 +550,11 @@ public class GUI {
 		c.fill = GridBagConstraints.BOTH;
 		c.anchor = GridBagConstraints.FIRST_LINE_START;
 		c.gridy = startTime;
-		c.ipady = duration*20;      //make this component tall
+		c.ipady = duration*3;      //make this component tall
 		c.weightx = 1;
 		c.weighty = 1;
 		c.gridwidth = 100;
-		c.insets = new Insets(5,0,0,0);  
+		c.insets = new Insets(2,0,0,0);  
 		c.gridx = 0;
 		
 		panel1.add(agendaContent,c);
