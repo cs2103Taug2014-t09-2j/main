@@ -60,6 +60,9 @@ public class CommandAdd {
 				break;
 			}
 		}
+		if(date.equals("-")){
+			dateOutOfBox = false;
+		}
 		if (dateOutOfBox) {
 			WarningPopUp.infoBox("Task added!", "WARNING");
 		}
