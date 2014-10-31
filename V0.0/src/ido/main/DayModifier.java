@@ -4,16 +4,23 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 public class DayModifier {
+	private static final String OVERDUE_TASK = "overdue";
+	private static final String GENERAL_TASK = "general";
 	
 	public static String getDayOfWeek(String currDateStr) {
+		
 		SimpleDateFormat sdf1 = new SimpleDateFormat("ddMMyy");
 		SimpleDateFormat sdf2 = new SimpleDateFormat("EEEE");
 		String dayOfWeekStr = "";
-		try {
-			dayOfWeekStr = sdf2.format(sdf1.parse(currDateStr));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
+		if (currDateStr.equals(OVERDUE_TASK)||currDateStr.equals(GENERAL_TASK)) {
+			dayOfWeekStr = currDateStr;
+		} else {
+			try {
+				dayOfWeekStr = sdf2.format(sdf1.parse(currDateStr));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
 		}
 		return dayOfWeekStr;
 	}
