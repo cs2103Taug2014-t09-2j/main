@@ -14,6 +14,7 @@ public class Parser {
 	public static Archives arc = new Archives();
 	private FileAccessor fileAccessor = new FileAccessor();
 	private static Logger logger = Logger.getLogger("Parser");
+	public static boolean verify = false;
 
 	// needs to be launch b4 this class
 	public static OverDueTask ODTLaunch = new OverDueTask();
@@ -142,7 +143,10 @@ public class Parser {
 				String modification = editString[3];
 
 				// Verify date and index before executing the command
-				if (!date.equals("")) {
+				verify = !date.equals("") && !date.equals("overdue")
+						&& !date.equals("archives");
+
+				if (verify) {
 					arc.clear();
 					arc.cmdTAECD(inputArr[0]);
 					history.clear();
@@ -168,7 +172,10 @@ public class Parser {
 				String task = addString[2];
 
 				// Verify date and index before executing the command
-				if (!date1.equals("")) {
+				verify = !date1.equals("") && !date1.equals("overdue")
+						&& !date1.equals("archives");
+
+				if (verify) {
 					arc.clear();
 					arc.cmdTAECD(inputArr[0]);
 					history.clear();
@@ -186,7 +193,13 @@ public class Parser {
 				String destdate = IsValidDate.validateDate(cpyString[2]);
 
 				// Verify date and index before executing the command
-				if (!sourcedate.equals("") && !destdate.equals("")) {
+				verify = !sourcedate.equals("")
+						&& !sourcedate.equals("overdue")
+						&& !sourcedate.equals("archives");
+				verify = !destdate.equals("") && !destdate.equals("overdue")
+						&& !destdate.equals("archives");
+
+				if (verify) {
 					arc.clear();
 					arc.cmdTAECD(inputArr[0]);
 					history.clear();
@@ -200,7 +213,7 @@ public class Parser {
 				String delString[] = theRest.split(" ");
 				String delDate = IsValidDate.validateDate(delString[0]);
 				String delIndex;
-				
+
 				if (delString.length == 1) {
 					delIndex = "-1";
 				} else {
@@ -208,7 +221,9 @@ public class Parser {
 				}
 
 				// Verify date and index before executing the command
-				if (!delDate.equals("")) {
+				verify = !delDate.equals("");
+
+				if (verify) {
 					arc.clear();
 					arc.cmdTAECD(inputArr[0]);
 					history.clear();
@@ -218,20 +233,24 @@ public class Parser {
 					arc.saveArchives();
 				}
 				break;
-				
+
 			case DONE:
 				String doneString[] = theRest.split(" ");
 				String doneDate = IsValidDate.validateDate(doneString[0]);
 				String doneIndex;
-				
+
 				if (doneString.length == 1) {
 					doneIndex = "-1";
 				} else {
+					// Verify Index
 					doneIndex = doneString[1];
 				}
 
 				// Verify date and index before executing the command
-				if (!doneDate.equals("")) {
+				verify = !doneDate.equals("") && !doneDate.equals("overdue")
+						&& !doneDate.equals("archives");
+
+				if (verify) {
 					arc.clear();
 					arc.cmdTAECD(inputArr[0]);
 					history.clear();
