@@ -35,7 +35,10 @@ public class CommandAdd {
 
 	public void addTask() {
 		logger.log(Level.INFO, "add processing");
-
+		int dateLength;
+		dateLength = date.length();
+		if (dateLength != 5)
+			WarningPopUp.infoBox("Invalid Date!", "ERROR");
 		// Create the name of the text file
 		String fileName = date + ".txt";
 		if (date.equals("-")) {
