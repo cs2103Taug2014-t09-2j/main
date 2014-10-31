@@ -26,7 +26,7 @@ public class IsValidDate {
 			Date currDate = new Date(currTime+(24*3600*1000));
 			return dateFormat.format(currDate);
 		}
-		else if (date.equals("-")) {
+		else if ((date.equals("-")) || (date.equals("archives")) || (date.equals("overdue"))) {
 			return date;
 		} else {
 			new IsValidDate(date);
