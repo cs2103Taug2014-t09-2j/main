@@ -99,9 +99,12 @@ public class FileAccessor {
 			FileWriter fw = new FileWriter(file.getAbsoluteFile());
 			BufferedWriter bw = new BufferedWriter(fw);
 			Collections.sort(currDateTask);
+			
 			String _date = fileName.replace(TEXT_EXTENSION, NO_EXTENSION);
+			
 			String formattedDate = reformatDate(_date);
 			String _dayOfWeek = DayModifier.getDayOfWeek(_date);
+			
 			bw.write(String.format(FILE_HEADING, _dayOfWeek, formattedDate));
 			for (int i = 0; i < currDateTask.size(); i++) {
 				bw.write(String.format(CONTENT_TO_DISPLAY, i + 1,
@@ -222,10 +225,14 @@ public class FileAccessor {
 		DateFormat dateFormat1 = new SimpleDateFormat("ddMMyy");
 		DateFormat dateFormat2 = new SimpleDateFormat("dd/MM/yy");
 		String newDate = new String();
-		try {
-			newDate = dateFormat2.format(dateFormat1.parse(date));
-		} catch (ParseException e) {
-			e.printStackTrace();
+		if ((date.toLowerCase()).equals("overdue")||(date.toLowerCase()).equals("general")) {
+			newDate = date;
+		} else {
+			try {
+				newDate = dateFormat2.format(dateFormat1.parse(date));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
 		}
 		return newDate;
 	}
