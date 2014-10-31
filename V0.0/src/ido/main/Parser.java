@@ -141,6 +141,7 @@ public class Parser {
 				String time = editString[2];
 				String modification = editString[3];
 
+				// Verify date and index before executing the command
 				if (!date.equals("")) {
 					arc.clear();
 					arc.cmdTAECD(inputArr[0]);
@@ -166,6 +167,7 @@ public class Parser {
 				String time1 = addString[1];
 				String task = addString[2];
 
+				// Verify date and index before executing the command
 				if (!date1.equals("")) {
 					arc.clear();
 					arc.cmdTAECD(inputArr[0]);
@@ -183,6 +185,7 @@ public class Parser {
 				String index = cpyString[1];
 				String destdate = IsValidDate.validateDate(cpyString[2]);
 
+				// Verify date and index before executing the command
 				if (!sourcedate.equals("") && !destdate.equals("")) {
 					arc.clear();
 					arc.cmdTAECD(inputArr[0]);
@@ -195,42 +198,45 @@ public class Parser {
 				break;
 			case DELETE:
 				String delString[] = theRest.split(" ");
-				String delDate;
-				// Specifically for delete to by pass checking of date
-				if (delString[0].equals("overdue")) {
-					delDate = delString[0];
+				String delDate = IsValidDate.validateDate(delString[0]);
+				String delIndex;
+				
+				if (delString.length == 1) {
+					delIndex = "-1";
 				} else {
-					delDate = IsValidDate.validateDate(delString[0]);
+					delIndex = delString[1];
 				}
 
+				// Verify date and index before executing the command
 				if (!delDate.equals("")) {
 					arc.clear();
 					arc.cmdTAECD(inputArr[0]);
 					history.clear();
 					history.checkBaseFile(delDate);
-					if (delString.length == 1) {
-						new CommandDelete(delDate, "-1").delete();
-					} else {
-						new CommandDelete(delDate, delString[1]).delete();
-					}
+					new CommandDelete(delDate, delIndex).delete();
 					history.recordUpdatedFile(delDate);
 					arc.saveArchives();
 				}
 				break;
+				
 			case DONE:
 				String doneString[] = theRest.split(" ");
 				String doneDate = IsValidDate.validateDate(doneString[0]);
+				String doneIndex;
+				
+				if (doneString.length == 1) {
+					doneIndex = "-1";
+				} else {
+					doneIndex = doneString[1];
+				}
 
+				// Verify date and index before executing the command
 				if (!doneDate.equals("")) {
 					arc.clear();
 					arc.cmdTAECD(inputArr[0]);
 					history.clear();
 					history.checkBaseFile(doneDate);
-					if (doneString.length == 1) {
-						new CommandDone(doneDate, "-1").delete();
-					} else {
-						new CommandDone(doneDate, doneString[1]).delete();
-					}
+					new CommandDone(doneDate, doneIndex).delete();
 					history.recordUpdatedFile(doneDate);
 					arc.saveArchives();
 				}
@@ -251,9 +257,9 @@ public class Parser {
 				if (theRest.equals("off")) {
 					GUI.agendaOff();
 				} else {
-					if(GUI.checkAgendaActive() != null)
+					if (GUI.checkAgendaActive() != null)
 						GUI.agendaOff();
-					
+
 					FileAccessor faAgenda = new FileAccessor(theRest + ".txt");
 					faAgenda.checkFilesExistCustom(theRest);
 					GUI.addDetailedAgenda(theRest);
