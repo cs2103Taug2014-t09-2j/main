@@ -138,7 +138,7 @@ public class Parser {
 			case EDIT:
 				String editString[] = theRest.split(" ", 4);
 				String date = IsValidDate.validateDate(editString[0]);
-				String number = editString[1];
+				String number = (new IsValidIndex(date, editString[1])).validateIndex();
 				String time = editString[2];
 				String modification = editString[3];
 
@@ -189,7 +189,7 @@ public class Parser {
 			case COPY:
 				String cpyString[] = theRest.split(" ", 3);
 				String sourcedate = IsValidDate.validateDate(cpyString[0]);
-				String index = cpyString[1];
+				String index = (new IsValidIndex(sourcedate, cpyString[1])).validateIndex();
 				String destdate = IsValidDate.validateDate(cpyString[2]);
 
 				// Verify date and index before executing the command
@@ -217,7 +217,7 @@ public class Parser {
 				if (delString.length == 1) {
 					delIndex = "-1";
 				} else {
-					delIndex = delString[1];
+					delIndex = (new IsValidIndex(delDate, delString[1])).validateIndex();
 				}
 
 				// Verify date and index before executing the command
@@ -243,7 +243,7 @@ public class Parser {
 					doneIndex = "-1";
 				} else {
 					// Verify Index
-					doneIndex = doneString[1];
+					doneIndex = (new IsValidIndex(doneDate, doneString[1])).validateIndex();
 				}
 
 				// Verify date and index before executing the command
