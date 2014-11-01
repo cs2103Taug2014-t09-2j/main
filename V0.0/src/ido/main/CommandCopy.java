@@ -18,8 +18,6 @@ public class CommandCopy {
 			new CommandAdd(destination_date, time, task).addTask();
 		}
 		catch (Exception e){
-			WarningPopUp.infoBox("Invalid Index!",
-					"ERROR");
 		}
 	}
 }
