@@ -225,8 +225,9 @@ public class FileAccessor {
 		DateFormat dateFormat1 = new SimpleDateFormat("ddMMyy");
 		DateFormat dateFormat2 = new SimpleDateFormat("dd/MM/yy");
 		String newDate = new String();
-		if ((date.toLowerCase()).equals("overdue")||(date.toLowerCase()).equals("general")) {
-			newDate = date;
+		if ((date.toLowerCase()).equals("overdue")||(date.toLowerCase()).equals("general")||(date.toLowerCase()).equals("archives")) {
+			// Must return blank string as now the day and date is displayed
+			newDate = "";
 		} else {
 			try {
 				newDate = dateFormat2.format(dateFormat1.parse(date));
