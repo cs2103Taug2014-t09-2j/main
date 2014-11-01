@@ -315,7 +315,11 @@ public class GUI {
 	}
 	
 	public static void maxWindow(){
-		getFrame().setBounds(0, 0, 1080, 730);	
+		if(agendaContainer.isVisible()){
+			getFrame().setBounds(0, 0, 1080, 730);
+		}
+		else
+			maxWindowNoAgenda();
 	}	
 
 	public final void displayAllTasks() {
