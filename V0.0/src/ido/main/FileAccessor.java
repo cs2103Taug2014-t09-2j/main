@@ -270,7 +270,7 @@ public class FileAccessor {
 		ArrayList<String> temp = new ArrayList<String>();
 		ArrayList<Boolean> emptySlots = new ArrayList<Boolean>();
 		int startDayAgenda=0;
-		for(int i=0;i<24;i++){
+		for(int i=0;i<25;i++){
 			emptySlots.add(true);
 		}
 		temp = this.readContents();
@@ -294,9 +294,10 @@ public class FileAccessor {
 			for(int j=hour1;j<duration+hour1;j++){
 				emptySlots.set(j, false);
 			}
+			
 			GUI.addTaskToAgenda(this.readContents().get(i), hour1, duration);
 		}
-		for(int i=startDayAgenda;i<24;i++){
+		for(int i=startDayAgenda;i<25;i++){
 			if(emptySlots.get(i) == true)
 				GUI.addTaskToAgenda("", i, 1);
 		}

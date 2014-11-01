@@ -550,15 +550,21 @@ public class GUI {
 		}
 		if(!agendaContent.getText().isEmpty())
 			agendaContent.setOpaque(true);
-		agendaContent.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		
+		switch (duration){
+		case 1: agendaContent.setFont(new Font("Segoe UI", Font.PLAIN, 14));break;
+		case 2: agendaContent.setFont(new Font("Segoe UI", Font.PLAIN, 20));break;
+		case 3: agendaContent.setFont(new Font("Segoe UI", Font.PLAIN, 26));break;
+		default: agendaContent.setFont(new Font("Segoe UI", Font.PLAIN, 26));
+		}
 		GridBagConstraints c = new GridBagConstraints();
 		System.out.println("grid y "+startTime);
 		c.fill = GridBagConstraints.BOTH;
 		c.anchor = GridBagConstraints.FIRST_LINE_START;
 		c.gridy = startTime;
-		c.ipady = duration*10;      //make this component tall
+		c.ipady = 1; 
 		c.weightx = 1;
-		c.weighty = 1;
+		c.weighty = duration*100;
 		c.gridwidth = 100;
 		c.insets = new Insets(2,0,0,0);  
 		c.gridx = 0;
