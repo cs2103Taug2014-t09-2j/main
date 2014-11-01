@@ -2,11 +2,9 @@ package ido.main;
 
 import java.awt.Color;
 import java.awt.EventQueue;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,8 +20,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -278,16 +274,16 @@ public class GUI {
 		commandBox.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
-
+				String startDate = DateModifier.getCurrDate();
 				//Create a parser object
 				Parser parser = new Parser();
 				try {
-					parser.processInput(commandBox.getText());
+					startDate = parser.processInput(commandBox.getText());
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 				commandBox.setText("");
-				displayAllTasks();
+				displayAllTasks(startDate);
 			}
 		});
 		getFrame().getContentPane().add(commandBox);
@@ -302,7 +298,7 @@ public class GUI {
 		
 		fa.checkFilesExist();
 
-		displayAllTasks();
+		displayAllTasks(DateModifier.getCurrDate());
 
 	}
 	
@@ -322,7 +318,7 @@ public class GUI {
 			maxWindowNoAgenda();
 	}	
 
-	public final void displayAllTasks() {
+	public final void displayAllTasks(String startDate) {
 		BufferedReader reader = null;
 		fileName = "general.txt";
 		try {
@@ -356,7 +352,7 @@ public class GUI {
 
 		// loop to display all the date tasks
 		// NOTE: i starts from 1
-		String currDateString = DateModifier.getCurrDate();
+		String currDateString = startDate;
 		
 		for (int i = 1; i < 8; i++) {
 			// display 9 task starting from today's date
