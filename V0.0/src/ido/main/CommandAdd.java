@@ -42,16 +42,16 @@ public class CommandAdd {
 	public void addTask() {
 		logger.log(Level.INFO, "add processing");
 		//checking if date is valid
-		int dateLength = date.length();
-		boolean wrongDate = false;
-		if (dateLength!=DATE_LENGTH){
-			wrongDate = true;
-			if(dateLength == BOX_VALUE){
-				wrongDate = false;
-			}	
-		}
-		if (wrongDate)
-			WarningPopUp.infoBox("Invalid Date!", "ERROR");
+//		int dateLength = date.length();
+//		boolean wrongDate = false;
+//		if (dateLength!=DATE_LENGTH){
+//			wrongDate = true;
+//			if(dateLength == BOX_VALUE){
+//				wrongDate = false;
+//			}	
+//		}
+//		if (wrongDate)
+//			WarningPopUp.infoBox("Invalid Date!", "ERROR");
 		
 		// Create the name of the text file
 		String fileName = date + ".txt";
