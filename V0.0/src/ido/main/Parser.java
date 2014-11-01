@@ -144,6 +144,7 @@ public class Parser {
 				// Verify date and index before executing the command
 				verify = !date.equals("") && !date.equals("overdue")
 						&& !date.equals("archives");
+				verify = !number.equals("");
 
 				if (verify) {
 					arc.clear();
@@ -197,6 +198,7 @@ public class Parser {
 						&& !sourcedate.equals("archives");
 				verify = !destdate.equals("") && !destdate.equals("overdue")
 						&& !destdate.equals("archives");
+				verify = !index.equals("");
 
 				if (verify) {
 					arc.clear();
@@ -215,12 +217,17 @@ public class Parser {
 
 				if (delString.length == 1) {
 					delIndex = "-1";
+					// Verify date and index before executing the command
+					verify = !delDate.equals("");
+					verify = (new IsValidIndex(delDate, delIndex)).testEmptyFile();
 				} else {
 					delIndex = (new IsValidIndex(delDate, delString[1])).validateIndex();
+					// Verify date and index before executing the command
+					verify = !delDate.equals("");
+					verify = !delIndex.equals("");
 				}
 
-				// Verify date and index before executing the command
-				verify = !delDate.equals("");
+				
 
 				if (verify) {
 					arc.clear();
@@ -240,14 +247,17 @@ public class Parser {
 
 				if (doneString.length == 1) {
 					doneIndex = "-1";
+					// Verify date and index before executing the command
+					verify = !doneDate.equals("") && !doneDate.equals("overdue")
+							&& !doneDate.equals("archives");
+					verify = (new IsValidIndex(doneDate, doneIndex)).testEmptyFile();
 				} else {
-					// Verify Index
 					doneIndex = (new IsValidIndex(doneDate, doneString[1])).validateIndex();
+					// Verify date and index before executing the command
+					verify = !doneDate.equals("") && !doneDate.equals("overdue")
+							&& !doneDate.equals("archives");
+					verify = !doneIndex.equals("");
 				}
-
-				// Verify date and index before executing the command
-				verify = !doneDate.equals("") && !doneDate.equals("overdue")
-						&& !doneDate.equals("archives");
 
 				if (verify) {
 					arc.clear();
