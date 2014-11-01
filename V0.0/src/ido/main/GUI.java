@@ -578,6 +578,10 @@ public class GUI {
 		GUI.maxWindowNoAgenda();
 	}
 	
+	public static void closeAgenda(){
+		agendaContainer.setVisible(false);
+	}
+	
 	public static JPanel checkAgendaActive(){
 		return agendaContainer;
 	}
