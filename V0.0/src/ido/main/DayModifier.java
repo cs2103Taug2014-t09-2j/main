@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 public class DayModifier {
 	private static final String OVERDUE_TASK = "overdue";
 	private static final String GENERAL_TASK = "general";
+	private static final String ARCHIVES_TASK = "archives";
 	
 	public static String getDayOfWeek(String currDateStr) {
 		
@@ -13,7 +14,7 @@ public class DayModifier {
 		SimpleDateFormat sdf2 = new SimpleDateFormat("EEEE");
 		String dayOfWeekStr = "";
 		
-		if (currDateStr.equals(OVERDUE_TASK)||currDateStr.equals(GENERAL_TASK)) {
+		if (currDateStr.equals(OVERDUE_TASK)||currDateStr.equals(GENERAL_TASK)||currDateStr.equals(ARCHIVES_TASK)) {
 			dayOfWeekStr = currDateStr;
 		} else {
 			try {
