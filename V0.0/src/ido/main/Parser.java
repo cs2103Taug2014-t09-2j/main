@@ -278,10 +278,10 @@ public class Parser {
 				} else {
 					if (GUI.checkAgendaActive() != null)
 						GUI.agendaOff();
-
-					FileAccessor faAgenda = new FileAccessor(theRest + ".txt");
-					faAgenda.checkFilesExistCustom(theRest);
-					GUI.addDetailedAgenda(theRest);
+					IsValidDate validDate = new IsValidDate(theRest);
+					FileAccessor faAgenda = new FileAccessor(validDate.validateDate(theRest) + ".txt");
+					faAgenda.checkFilesExistCustom(validDate.validateDate(theRest));
+					GUI.addDetailedAgenda(validDate.validateDate(theRest));
 					faAgenda.createAgendaForTheDate();
 				}
 				break;
