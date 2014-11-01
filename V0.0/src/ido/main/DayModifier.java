@@ -15,6 +15,10 @@ public class DayModifier {
 		String dayOfWeekStr = "";
 		
 		if (currDateStr.equals(OVERDUE_TASK)||currDateStr.equals(GENERAL_TASK)||currDateStr.equals(ARCHIVES_TASK)) {
+			// Displays starting Capital letter
+			String firstChar = currDateStr.substring(0,1);
+			String restChar = currDateStr.substring(1);
+			currDateStr = firstChar.toUpperCase() + restChar;
 			dayOfWeekStr = currDateStr;
 		} else {
 			try {
