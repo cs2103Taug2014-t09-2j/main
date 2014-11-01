@@ -18,7 +18,7 @@ import java.util.LinkedList;
 
 public class Archives {
 
-	private static final String ARCHIVESTXT = "Archives.txt";
+	private static final String ARCHIVESTXT = "archives.txt";
 	// private static final String ARCHIVES = "Archives";
 	static File file_object = new File(ARCHIVESTXT);
 
