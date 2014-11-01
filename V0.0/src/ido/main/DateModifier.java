@@ -63,4 +63,13 @@ public class DateModifier {
 		currDateString = dt; 
 		return currDateString;
 	}
+	
+	public static String getAgendaHeading(String myDate){
+		String[] months = {"January","February","March","April","May","June"
+				,"July","August","September","October","November","December"};
+		String headingDate = myDate.substring(0,2);
+		String headingMonth = months[Integer.valueOf(myDate.substring(2, 4))];
+		String headingYear = "20" + myDate.substring(4, 6);
+		return headingDate+" "+headingMonth+" "+headingYear;
+	}
 }

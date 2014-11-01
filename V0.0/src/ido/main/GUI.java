@@ -310,8 +310,12 @@ public class GUI {
 		getFrame().setBounds(0,0,450, 306);
 	}
 	
-	public static void maxWindow(){
+	public static void maxWindowNoAgenda(){
 		getFrame().setBounds(0, 0, 677, 730);
+	}
+	
+	public static void maxWindow(){
+		getFrame().setBounds(0, 0, 1080, 730);	
 	}	
 
 	public final void displayAllTasks() {
@@ -517,12 +521,10 @@ public class GUI {
 		Border border = BorderFactory.createLineBorder(Color.WHITE);
 		agendaContainer.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-		JLabel lblIdo = new JLabel(dateToBeDisplayed);
-		//lblIdo.setBounds(5, 2, 10, 60);
-		lblIdo.setForeground(new Color(0, 0, 0));
-		lblIdo.setFont(new Font("Segoe UI", Font.PLAIN, 30));
-		agendaContainer.add(lblIdo);
-		
+		JLabel agendaHeading = new JLabel(DateModifier.getAgendaHeading(dateToBeDisplayed));
+		agendaHeading.setForeground(new Color(0, 0, 0));
+		agendaHeading.setFont(new Font("Segoe UI", Font.PLAIN, 30));
+		agendaContainer.add(agendaHeading);
 		panel1 = new JPanel(new GridBagLayout());
 		panel1.setBackground((new Color(255, 215, 0)));
 		panel1.setBounds(5, 2, 600, 60);
@@ -565,8 +567,11 @@ public class GUI {
 	}
 	
 	public static void agendaOff(){
-		agendaContainer.setVisible(false);
-		GUI.maxWindow();
+		if(agendaContainer != null)
+			agendaContainer.setVisible(false);
+		else
+			WarningPopUp.infoBox("Agenda is not active!", "WARNING");
+		GUI.maxWindowNoAgenda();
 	}
 	
 	public static JPanel checkAgendaActive(){
