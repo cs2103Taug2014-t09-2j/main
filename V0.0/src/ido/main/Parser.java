@@ -62,8 +62,9 @@ public class Parser {
 
 	}
 
-	public void processInput(String input) throws IOException {
-
+	public String processInput(String input) throws IOException {
+		//set the default start date to be displayed
+		String startDateToBeDisplayed = DateModifier.getCurrDate();
 		String fileName = DateModifier.getCurrDate();
 
 		// assuming the fileName is successfully updated
@@ -127,12 +128,10 @@ public class Parser {
 			String theRest = inputArr[1].trim();
 
 			switch (command) {
-			case VIEW:
+			case VIEW:			
+				startDateToBeDisplayed = theRest;
 				FileAccessor fa = new FileAccessor(theRest + ".txt");
 				fa.checkFilesExistCustom(theRest);
-				fa.setFileName(theRest + ".txt");
-				String tasksForTheWeek = fa.getStringTasksWeek();
-				WarningPopUp.infoBox(tasksForTheWeek, "View Result");
 				break;
 
 			case EDIT:
@@ -428,5 +427,6 @@ public class Parser {
 			}
 
 		}
+		return startDateToBeDisplayed;
 	}
 }
