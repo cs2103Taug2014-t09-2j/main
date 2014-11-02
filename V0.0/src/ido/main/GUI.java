@@ -1,6 +1,7 @@
 package ido.main;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -20,6 +21,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -523,6 +525,7 @@ public class GUI {
 				BorderFactory.createEmptyBorder(5, 0, 5, 0)));
 		JLabel agendaHeading = new JLabel(DateModifier.getAgendaHeading(dateToBeDisplayed));
 		agendaHeading.setForeground(new Color(0, 0, 0));
+		agendaHeading.setAlignmentX(Component.CENTER_ALIGNMENT);
 		agendaHeading.setFont(new Font("Segoe UI", Font.PLAIN, 30));
 		agendaContainer.add(agendaHeading);
 		panel1 = new JPanel(new GridBagLayout());
