@@ -7,21 +7,21 @@ public class IsValidIndex {
 	private String index;
 
 	IsValidIndex(String filename, String index) {
+		if (filename.equals("-")) {
+			this.filename = "general";
+		}else if (filename.equals("archives")){
+			this.filename = "archives";
+		}else if (filename.equals("overdue")){
+			this.filename = "overdue";
+		}else{
 		this.filename = filename;
+		}
 		this.index = index;
 	}
 
 	public String validateIndex() {
-		List<String> data;
-		if (filename.equals("-")) {
-			data = (new FileAccessor("general.txt")).readContents();
-		} else if (filename.equals("archives.txt")) {
-			data = (new FileAccessor("archives.txt")).readContents();
-		} else if (filename.equals("overdue.txt")) {
-			data = (new FileAccessor("overdue.txt")).readContents();
-		} else {
-			data = (new FileAccessor(filename + ".txt")).readContents();
-		}
+		List<String> data = (new FileAccessor(filename + ".txt")).readContents();
+		
 		int _index = -1; // will fail
 		try {
 			_index = Integer.parseInt(index);
@@ -35,16 +35,8 @@ public class IsValidIndex {
 	}
 
 	public boolean testEmptyFile() {
-		List<String> data;
-		if (filename.equals("-")) {
-			data = (new FileAccessor("general.txt")).readContents();
-		} else if (filename.equals("archives.txt")) {
-			data = (new FileAccessor("archives.txt")).readContents();
-		} else if (filename.equals("overdue.txt")) {
-			data = (new FileAccessor("overdue.txt")).readContents();
-		} else {
-			data = (new FileAccessor(filename + ".txt")).readContents();
-		}
+		List<String> data = (new FileAccessor(filename + ".txt")).readContents();
+		
 		if (data.size() == 0) {
 			System.out.println("nothing to clear");
 			return false;
