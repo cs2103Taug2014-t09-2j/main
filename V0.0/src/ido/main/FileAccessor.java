@@ -153,8 +153,8 @@ public class FileAccessor {
 				writer = new PrintWriter(fileName, "UTF-8");
 			} catch (FileNotFoundException | UnsupportedEncodingException e) {
 				e.printStackTrace();
-			}
-			writer.println("Archives");
+			}		
+			writer.println(String.format(FILE_HEADING, "", "Archives"));
 			writer.close();
 		}
 
@@ -168,8 +168,8 @@ public class FileAccessor {
 				writer = new PrintWriter(fileName, "UTF-8");
 			} catch (FileNotFoundException | UnsupportedEncodingException e) {
 				e.printStackTrace();
-			}
-			writer.println("General Tasks");
+			}		
+			writer.println(String.format(FILE_HEADING, "", "General Tasks"));
 			writer.close();
 		}
 
@@ -186,7 +186,7 @@ public class FileAccessor {
 			} catch (FileNotFoundException | UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
-			writer.println("Overdue");
+			writer.println(String.format(FILE_HEADING, "", "Overdue Tasks"));
 			writer.close();
 		}
 
@@ -202,7 +202,9 @@ public class FileAccessor {
 				} catch (FileNotFoundException | UnsupportedEncodingException e) {
 					e.printStackTrace();
 				}
-				writer.println(currDateString);
+				String _dayOfWeek = DayModifier.getDayOfWeek(currDateString);
+				String formattedDate = reformatDate(currDateString);
+				writer.println(String.format(FILE_HEADING, _dayOfWeek, formattedDate));
 				writer.close();
 			}
 			currDateString = DateModifier.getNextDate(currDateString);
