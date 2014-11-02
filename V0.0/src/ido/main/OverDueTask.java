@@ -8,7 +8,8 @@ import java.util.ArrayList;
  */
 
 /*
- * Might need to integrate with delete and archives and undo/redo if required to modify 
+ * Might need to integrate with delete and archives and undo/redo if required to
+ * modify
  */
 
 public class OverDueTask {
@@ -23,28 +24,32 @@ public class OverDueTask {
 
 	public void updateOverDueTask() {
 		String prevDate = DateModifier.getPrevDate(DateModifier.getCurrDate());
-		String fileName = prevDate + ".txt";
-		file_object = new File(fileName);
-		if (file_object.exists()) {
-			// read the content of the previous date file, put in the list
-			prevDateTask = (new FileAccessor(fileName)).readContents();
+		
+		for (int j = 0; j < 10; j++) { // Deletes files from 10 days ago
 			
-			if (prevDateTask.size() != 0) {
-				ODTask = (new FileAccessor("overdue.txt")).readContents();
-			
-				// Transfer contents over
-				for (int i = 0; i < prevDateTask.size(); i++) {
-					ODTask.add(prevDate + " " + prevDateTask.get(i));
+			String fileName = prevDate + ".txt";
+			file_object = new File(fileName);
+			if (file_object.exists()) {
+				// read the content of the previous date file, put in the list
+				prevDateTask = (new FileAccessor(fileName)).readContents();
+
+				if (prevDateTask.size() != 0) {
+					ODTask = (new FileAccessor("overdue.txt")).readContents();
+
+					// Transfer contents over
+					for (int i = 0; i < prevDateTask.size(); i++) {
+						ODTask.add(prevDate + " " + prevDateTask.get(i));
+					}
+
+					// write in file
+					(new FileAccessor("overdue.txt", ODTask)).writeContents();
 				}
-				
-				// write in file
-				(new FileAccessor("overdue.txt", ODTask)).writeContents();
+
+				// Delete the prev date txt to save space
+				file_object.delete();
 			}
 			
-			// Not sure if working
-			// Delete the prev date txt to save space
-			file_object.delete();
-			//(new File(fileName)).delete();
+			prevDate = DateModifier.getPrevDate(prevDate);
 		}
 	}
 }
