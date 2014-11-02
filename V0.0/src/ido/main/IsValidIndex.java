@@ -12,8 +12,16 @@ public class IsValidIndex {
 	}
 
 	public String validateIndex() {
-		List<String> data = (new FileAccessor(filename + ".txt"))
-				.readContents();
+		List<String> data;
+		if (filename.equals("-")) {
+			data = (new FileAccessor("general.txt")).readContents();
+		} else if (filename.equals("archives.txt")) {
+			data = (new FileAccessor("archives.txt")).readContents();
+		} else if (filename.equals("overdue.txt")) {
+			data = (new FileAccessor("overdue.txt")).readContents();
+		} else {
+			data = (new FileAccessor(filename + ".txt")).readContents();
+		}
 		int _index = -1; // will fail
 		try {
 			_index = Integer.parseInt(index);
