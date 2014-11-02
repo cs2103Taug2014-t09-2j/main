@@ -7,9 +7,9 @@ package ido.main;
  * Also requires to remove all error messages from all command classes which modify the text file
  */
 
-public class ZVerify {
+public class Verify {
 
-	public static String input;
+	public String input;
 	public static boolean check;
 	public static String currDate;
 	public static String currIndex;
@@ -18,12 +18,15 @@ public class ZVerify {
 	public static String destDate;
 
 	// Constructor
-	public ZVerify() {
+	public Verify() {
 		input = "";
 		check = false;
 	}
 
 	// Mutator
+	void setInput(String input){
+		this.input = input;
+	}
 	void setDate(String date) {
 		currDate = date;
 	}
