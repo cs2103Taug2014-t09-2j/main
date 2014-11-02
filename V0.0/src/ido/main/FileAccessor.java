@@ -132,7 +132,9 @@ public class FileAccessor {
 				} catch (FileNotFoundException | UnsupportedEncodingException e) {
 					e.printStackTrace();
 				}
-				writer.println(startDate);
+				String _dayOfWeek = DayModifier.getDayOfWeek(startDate);
+				String formattedDate = reformatDate(startDate);
+				writer.println(String.format(FILE_HEADING, _dayOfWeek, formattedDate));
 				writer.close();
 			}
 			startDate = DateModifier.getNextDate(startDate);
