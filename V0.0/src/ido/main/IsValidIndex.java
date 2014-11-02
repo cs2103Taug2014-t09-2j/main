@@ -35,9 +35,18 @@ public class IsValidIndex {
 	}
 
 	public boolean testEmptyFile() {
-		List<String> data = (new FileAccessor(filename + ".txt"))
-				.readContents();
+		List<String> data;
+		if (filename.equals("-")) {
+			data = (new FileAccessor("general.txt")).readContents();
+		} else if (filename.equals("archives.txt")) {
+			data = (new FileAccessor("archives.txt")).readContents();
+		} else if (filename.equals("overdue.txt")) {
+			data = (new FileAccessor("overdue.txt")).readContents();
+		} else {
+			data = (new FileAccessor(filename + ".txt")).readContents();
+		}
 		if (data.size() == 0) {
+			System.out.println("nothing to clear");
 			return false;
 		} else {
 			return true;
