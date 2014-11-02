@@ -14,7 +14,8 @@ public class Parser {
 	public static Archives arc = new Archives();
 	private FileAccessor fileAccessor = new FileAccessor();
 	private static Logger logger = Logger.getLogger("Parser");
-	public static boolean verify = false;
+	public static boolean testCmd = false;
+	public static Verify verify = new Verify();
 
 	// needs to be launch b4 this class
 	public static OverDueTask ODTLaunch = new OverDueTask();
@@ -141,12 +142,12 @@ public class Parser {
 				String time = editString[2];
 				String modification = editString[3];
 
-				// Verify date and index before executing the command
-				verify = !date.equals("") && !date.equals("overdue")
+				// testCmd date and index before executing the command
+				testCmd = !date.equals("") && !date.equals("overdue")
 						&& !date.equals("archives");
-				verify = !number.equals("");
+				testCmd = !number.equals("");
 
-				if (verify) {
+				if (testCmd) {
 					arc.clear();
 					arc.cmdTAECD(inputArr[0]);
 					history.clear();
@@ -171,11 +172,11 @@ public class Parser {
 				String time1 = addString[1];
 				String task = addString[2];
 
-				// Verify date and index before executing the command
-				verify = !date1.equals("") && !date1.equals("overdue")
+				// testCmd date and index before executing the command
+				testCmd = !date1.equals("") && !date1.equals("overdue")
 						&& !date1.equals("archives");
 
-				if (verify) {
+				if (testCmd) {
 					arc.clear();
 					arc.cmdTAECD(inputArr[0]);
 					history.clear();
@@ -187,20 +188,26 @@ public class Parser {
 				break;
 
 			case COPY:
-				String cpyString[] = theRest.split(" ", 3);
-				String sourcedate = IsValidDate.validateDate(cpyString[0]);
-				String index = (new IsValidIndex(sourcedate, cpyString[1])).validateIndex();
-				String destdate = IsValidDate.validateDate(cpyString[2]);
+//				String cpyString[] = theRest.split(" ", 3);
+//				String sourcedate = IsValidDate.validateDate(cpyString[0]);
+//				String index = (new IsValidIndex(sourcedate, cpyString[1])).validateIndex();
+//				String destdate = IsValidDate.validateDate(cpyString[2]);
+//
+//				// testCmd date and index before executing the command
+//				testCmd = !sourcedate.equals("")
+//						&& !sourcedate.equals("overdue")
+//						&& !sourcedate.equals("archives");
+//				testCmd = !destdate.equals("") && !destdate.equals("overdue")
+//						&& !destdate.equals("archives");
+//				testCmd = !index.equals("");
 
-				// Verify date and index before executing the command
-				verify = !sourcedate.equals("")
-						&& !sourcedate.equals("overdue")
-						&& !sourcedate.equals("archives");
-				verify = !destdate.equals("") && !destdate.equals("overdue")
-						&& !destdate.equals("archives");
-				verify = !index.equals("");
-
-				if (verify) {
+				verify.setInput(theRest);
+				verify.processCopyString();
+				String sourcedate = verify.getCurrDate();
+				String index = verify.getCurrIndex();
+				String destdate = verify.getDestDate();
+				
+				if (testCmd) {
 					arc.clear();
 					arc.cmdTAECD(inputArr[0]);
 					history.clear();
@@ -211,25 +218,29 @@ public class Parser {
 				}
 				break;
 			case DELETE:
-				String delString[] = theRest.split(" ");
-				String delDate = IsValidDate.validateDate(delString[0]);
-				String delIndex;
+//				String delString[] = theRest.split(" ");
+//				String delDate = IsValidDate.validateDate(delString[0]);
+//				String delIndex;
+//
+//				if (delString.length == 1) {
+//					delIndex = "-1";
+//					// testCmd date and index before executing the command
+//					testCmd = !delDate.equals("");
+//					testCmd = (new IsValidIndex(delDate, delIndex)).testEmptyFile();
+//				} else {
+//					delIndex = (new IsValidIndex(delDate, delString[1])).validateIndex();
+//					// testCmd date and index before executing the command
+//					testCmd = !delDate.equals("");
+//					testCmd = !delIndex.equals("");
+//				}
 
-				if (delString.length == 1) {
-					delIndex = "-1";
-					// Verify date and index before executing the command
-					verify = !delDate.equals("");
-					verify = (new IsValidIndex(delDate, delIndex)).testEmptyFile();
-				} else {
-					delIndex = (new IsValidIndex(delDate, delString[1])).validateIndex();
-					// Verify date and index before executing the command
-					verify = !delDate.equals("");
-					verify = !delIndex.equals("");
-				}
+				verify.setInput(theRest);
+				verify.processDeleteString();
+				testCmd = verify.getCheck();
+				String delDate = verify.getCurrDate();
+				String delIndex = verify.getCurrIndex();
 
-				
-
-				if (verify) {
+				if (testCmd) {
 					arc.clear();
 					arc.cmdTAECD(inputArr[0]);
 					history.clear();
@@ -241,25 +252,31 @@ public class Parser {
 				break;
 
 			case DONE:
-				String doneString[] = theRest.split(" ");
-				String doneDate = IsValidDate.validateDate(doneString[0]);
-				String doneIndex;
+//				String doneString[] = theRest.split(" ");
+//				String doneDate = IsValidDate.validateDate(doneString[0]);
+//				String doneIndex;
+//
+//				if (doneString.length == 1) {
+//					doneIndex = "-1";
+//					// testCmd date and index before executing the command
+//					testCmd = !doneDate.equals("") && !doneDate.equals("overdue")
+//							&& !doneDate.equals("archives");
+//					testCmd = (new IsValidIndex(doneDate, doneIndex)).testEmptyFile();
+//				} else {
+//					doneIndex = (new IsValidIndex(doneDate, doneString[1])).validateIndex();
+//					// testCmd date and index before executing the command
+//					testCmd = !doneDate.equals("") && !doneDate.equals("overdue")
+//							&& !doneDate.equals("archives");
+//					testCmd = !doneIndex.equals("");
+//				}
+				
+				verify.setInput(theRest);
+				verify.processDeleteString();
+				testCmd = verify.getCheck();
+				String doneDate = verify.getCurrDate();
+				String doneIndex = verify.getCurrIndex();
 
-				if (doneString.length == 1) {
-					doneIndex = "-1";
-					// Verify date and index before executing the command
-					verify = !doneDate.equals("") && !doneDate.equals("overdue")
-							&& !doneDate.equals("archives");
-					verify = (new IsValidIndex(doneDate, doneIndex)).testEmptyFile();
-				} else {
-					doneIndex = (new IsValidIndex(doneDate, doneString[1])).validateIndex();
-					// Verify date and index before executing the command
-					verify = !doneDate.equals("") && !doneDate.equals("overdue")
-							&& !doneDate.equals("archives");
-					verify = !doneIndex.equals("");
-				}
-
-				if (verify) {
+				if (testCmd) {
 					arc.clear();
 					arc.cmdTAECD(inputArr[0]);
 					history.clear();
