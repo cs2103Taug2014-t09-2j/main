@@ -180,7 +180,9 @@ public class ZVerify {
 			if (delString.length == 1) { // Check Empty File
 				String index = "-1";
 				check = (new IsValidIndex(date, index)).testEmptyFile();
-				if (!check) {
+				if (check) {
+					setIndex(index);
+				}else{
 					WarningPopUp.infoBox("Cannot delete from empty file",
 							"WARNING");
 				}
@@ -210,8 +212,10 @@ public class ZVerify {
 			if (doneString.length == 1) { // Check Empty File
 				String index = "-1";
 				check = (new IsValidIndex(date, index)).testEmptyFile();
-				if (!check) {
-					WarningPopUp.infoBox("Cannot done from empty file",
+				if (check) {
+					setIndex(index);
+				}else{
+					WarningPopUp.infoBox("Cannot delete from empty file",
 							"WARNING");
 				}
 			} else {
