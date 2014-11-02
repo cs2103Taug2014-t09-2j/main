@@ -16,6 +16,8 @@ public class Verify {
 	public static String newTime;
 	public static String newTask;
 	public static String destDate;
+	public static String editTTA;
+	public static String editMod;
 
 	// Constructor
 	public Verify() {
@@ -24,9 +26,10 @@ public class Verify {
 	}
 
 	// Mutator
-	void setInput(String input){
+	void setInput(String input) {
 		this.input = input;
 	}
+
 	void setDate(String date) {
 		currDate = date;
 	}
@@ -45,6 +48,14 @@ public class Verify {
 
 	void setDestDate(String date) {
 		destDate = date;
+	}
+
+	void setEditTTA(String TTA) {
+		editTTA = TTA;
+	}
+	
+	void setEditMod(String mod){
+		editMod = mod;
 	}
 
 	// Accessor
@@ -72,6 +83,14 @@ public class Verify {
 		return destDate;
 	}
 
+	String getEditTTA() {
+		return editTTA;
+	}
+	
+	String getEditMod(){
+		return editMod;
+	}
+
 	// Others
 	public void processEditString() {
 		String editStr[] = input.split(" ", 4);
@@ -83,23 +102,25 @@ public class Verify {
 			if (!index.equals("")) { // Check Index
 				setIndex(index);
 				if (editStr[2].equals("time")) { // Check Time
-					String time = IsValidTime(editStr[3]); // Syntax
+					setEditTTA("time");
+					String time = IsValidTime.validateTime(editStr[3]); // Syntax
 					if (!time.equals("")) {
-						setTime(time);
+						setEditMod(time);
 						check = true;
 					} else {
 						WarningPopUp.infoBox("Invalid Time", "WARNING");
 						check = false;
 					}
 				} else if (editStr[2].equals("task")) {
-					setTask(editStr[3]);
+					setEditTTA("task");
+					setEditMod(editStr[3]);
 					check = true;
 				} else if (editStr[2].equals("all")) { // Check Time
+					setEditTTA("all");
 					String[] change = editStr[3].split(" ", 2);
-					String timeAll = IsValidTime(change[0]);
+					String timeAll = IsValidTime.validateTime(change[0]);
 					if (!timeAll.equals("")) {
-						setTime(timeAll);
-						setTask(change[1]);
+						setEditMod(editStr[3]);
 						check = true;
 					} else {
 						WarningPopUp.infoBox("Invalid Time", "WARNING");
@@ -113,11 +134,11 @@ public class Verify {
 					check = false;
 				}
 			} else {
-				WarningPopUp.infoBox("Invalid Index", "WARNING");
+				//WarningPopUp.infoBox("Invalid Index", "WARNING");
 				check = false;
 			}
 		} else {
-			WarningPopUp.infoBox("Invalid Date", "WARNING");
+			//WarningPopUp.infoBox("Invalid Date", "WARNING");
 			check = false;
 		}
 
@@ -129,7 +150,7 @@ public class Verify {
 		if (!date.equals("") && !date.equals("overdue")
 				&& !date.equals("archives")) { // Check Date
 			setDate(date);
-			String time = IsValidTime(addString[1]); // Syntax
+			String time = IsValidTime.validateTime(addString[1]); // Syntax
 			if (!time.equals("")) { // Check Time
 				setTime(time);
 				setTask(addString[2]);
@@ -139,7 +160,7 @@ public class Verify {
 				check = false;
 			}
 		} else {
-			WarningPopUp.infoBox("Invalid Date", "WARNING");
+			//WarningPopUp.infoBox("Invalid Date", "WARNING");
 			check = false;
 		}
 
@@ -161,15 +182,15 @@ public class Verify {
 					setDestDate(destdate);
 					check = true;
 				} else {
-					WarningPopUp.infoBox("Invalid Date", "WARNING");
+					//WarningPopUp.infoBox("Invalid Date", "WARNING");
 					check = false;
 				}
 			} else {
-				WarningPopUp.infoBox("Invalid Index", "WARNING");
+				//WarningPopUp.infoBox("Invalid Index", "WARNING");
 				check = false;
 			}
 		} else {
-			WarningPopUp.infoBox("Invalid Date", "WARNING");
+			//WarningPopUp.infoBox("Invalid Date", "WARNING");
 			check = false;
 		}
 
@@ -185,7 +206,7 @@ public class Verify {
 				check = (new IsValidIndex(date, index)).testEmptyFile();
 				if (check) {
 					setIndex(index);
-				}else{
+				} else {
 					WarningPopUp.infoBox("Cannot delete from empty file",
 							"WARNING");
 				}
@@ -196,12 +217,12 @@ public class Verify {
 					setIndex(index);
 					check = true;
 				} else {
-					WarningPopUp.infoBox("Invalid Index", "WARNING");
+					//WarningPopUp.infoBox("Invalid Index", "WARNING");
 					check = false;
 				}
 			}
 		} else {
-			WarningPopUp.infoBox("Invalid Date", "WARNING");
+			//WarningPopUp.infoBox("Invalid Date", "WARNING");
 			check = false;
 		}
 	}
@@ -217,7 +238,7 @@ public class Verify {
 				check = (new IsValidIndex(date, index)).testEmptyFile();
 				if (check) {
 					setIndex(index);
-				}else{
+				} else {
 					WarningPopUp.infoBox("Cannot delete from empty file",
 							"WARNING");
 				}
@@ -228,12 +249,12 @@ public class Verify {
 					setIndex(index);
 					check = true;
 				} else {
-					WarningPopUp.infoBox("Invalid Index", "WARNING");
+					//WarningPopUp.infoBox("Invalid Index", "WARNING");
 					check = false;
 				}
 			}
 		} else {
-			WarningPopUp.infoBox("Invalid Date", "WARNING");
+			//WarningPopUp.infoBox("Invalid Date", "WARNING");
 			check = false;
 		}
 	}
