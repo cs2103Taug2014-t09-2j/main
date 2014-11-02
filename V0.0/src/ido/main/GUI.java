@@ -355,7 +355,7 @@ public class GUI {
 		String currDateString = startDate;
 		
 		for (int i = 1; i < 8; i++) {
-			// display 9 task starting from today's date
+			// display 7 task starting from today's date
 			fileName = currDateString + ".txt";
 			try {
 				reader = new BufferedReader(new FileReader(fileName));
@@ -520,7 +520,7 @@ public class GUI {
 		agendaContainer.setLayout(new BoxLayout(agendaContainer,BoxLayout.Y_AXIS));
 		Border border = BorderFactory.createLineBorder(Color.WHITE);
 		agendaContainer.setBorder(BorderFactory.createCompoundBorder(border,
-				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+				BorderFactory.createEmptyBorder(5, 0, 5, 0)));
 		JLabel agendaHeading = new JLabel(DateModifier.getAgendaHeading(dateToBeDisplayed));
 		agendaHeading.setForeground(new Color(0, 0, 0));
 		agendaHeading.setFont(new Font("Segoe UI", Font.PLAIN, 30));
