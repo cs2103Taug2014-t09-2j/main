@@ -2,7 +2,7 @@ package ido.main;
 
 public class IsValidTime {
 	
-	public static String getFormattedTime(int time) throws Exception{
+	public static String getFormattedTime(int time){ // throws Exception{
 		if (time<10 && time>=0){
 			return String.format("0%d00", time);
 		}
@@ -19,10 +19,11 @@ public class IsValidTime {
 				}
 			}
 		}
-		throw new Exception("Invalid time.");
+		return ""; // Added by Benedict, to return false result 
+		//throw new Exception("Invalid time.");
 	}
 
-	public static String validateTime(String time) throws Exception{
+	public static String validateTime(String time){ // throws Exception{
 		// TODO Throw meaningful exception messages
 		if (time.equals("-")){
 			return "-";
@@ -43,7 +44,10 @@ public class IsValidTime {
 			if(splitted_time[i].length()>4){
 				valid = false;
 			}
-			splitted_time[i] = getFormattedTime(Integer.valueOf(splitted_time[i]));
+			splitted_time[i] = getFormattedTime(Integer.valueOf(splitted_time[i]));			
+			if(splitted_time[i].equals("")){// Added by Benedict, to break once an empty string is received
+				break;
+			}
 			int t = Integer.valueOf(splitted_time[i]);
 			if (old_t>=t){
 				valid = false;
@@ -56,8 +60,10 @@ public class IsValidTime {
 		}
 		if (valid){
 			return reformatted_time;
+		}else{ // Added by Benedict, to return false result 
+			return "";
 		}
-		throw new Exception("Invalid time.");
+		//throw new Exception("Invalid time.");
 	}
 	
 }
