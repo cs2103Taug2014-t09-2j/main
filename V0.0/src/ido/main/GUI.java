@@ -292,8 +292,7 @@ public class GUI {
 		commandBox.setColumns(10);
 
 		/*
-		 * Populate the task boxes with the data in the source files Cannot use
-		 * displayAll() as it is outside the commandBox actionPerformed
+		 * Populate the task boxes with the data in the source files 
 		 */
 		
 		FileAccessor fa = new FileAccessor();
