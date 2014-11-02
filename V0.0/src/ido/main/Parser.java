@@ -64,7 +64,7 @@ public class Parser {
 	}
 
 	public String processInput(String input) throws IOException {
-		//set the default start date to be displayed
+		// set the default start date to be displayed
 		String startDateToBeDisplayed = DateModifier.getCurrDate();
 		String fileName = DateModifier.getCurrDate();
 
@@ -129,23 +129,32 @@ public class Parser {
 			String theRest = inputArr[1].trim();
 
 			switch (command) {
-			case VIEW:			
+			case VIEW:
 				startDateToBeDisplayed = theRest;
 				FileAccessor fa = new FileAccessor(theRest + ".txt");
 				fa.checkFilesExistCustom(theRest);
 				break;
 
 			case EDIT:
-				String editString[] = theRest.split(" ", 4);
-				String date = IsValidDate.validateDate(editString[0]);
-				String number = (new IsValidIndex(date, editString[1])).validateIndex();
-				String time = editString[2];
-				String modification = editString[3];
+				// String editString[] = theRest.split(" ", 4);
+				// String date = IsValidDate.validateDate(editString[0]);
+				// String number = (new IsValidIndex(date,
+				// editString[1])).validateIndex();
+				// String time = editString[2];
+				// String modification = editString[3];
+				//
+				// // testCmd date and index before executing the command
+				// testCmd = !date.equals("") && !date.equals("overdue")
+				// && !date.equals("archives");
+				// testCmd = !number.equals("");
 
-				// testCmd date and index before executing the command
-				testCmd = !date.equals("") && !date.equals("overdue")
-						&& !date.equals("archives");
-				testCmd = !number.equals("");
+				verify.setInput(theRest);
+				verify.processEditString();
+				testCmd = verify.getCheck();
+				String date = verify.getCurrDate();
+				String number = verify.getCurrIndex();
+				String time = verify.getEditTTA();
+				String modification = verify.getEditMod();
 
 				if (testCmd) {
 					arc.clear();
@@ -167,14 +176,21 @@ public class Parser {
 				break;
 
 			case ADD:
-				String addString[] = theRest.split(" ", 3);
-				String date1 = IsValidDate.validateDate(addString[0]);
-				String time1 = addString[1];
-				String task = addString[2];
+				// String addString[] = theRest.split(" ", 3);
+				// String date1 = IsValidDate.validateDate(addString[0]);
+				// String time1 = addString[1];
+				// String task = addString[2];
+				//
+				// // testCmd date and index before executing the command
+				// testCmd = !date1.equals("") && !date1.equals("overdue")
+				// && !date1.equals("archives");
 
-				// testCmd date and index before executing the command
-				testCmd = !date1.equals("") && !date1.equals("overdue")
-						&& !date1.equals("archives");
+				verify.setInput(theRest);
+				verify.processAddString();
+				testCmd = verify.getCheck();
+				String date1 = verify.getCurrDate();
+				String time1 = verify.getNewTime();
+				String task = verify.getNewTask();
 
 				if (testCmd) {
 					arc.clear();
@@ -188,25 +204,27 @@ public class Parser {
 				break;
 
 			case COPY:
-//				String cpyString[] = theRest.split(" ", 3);
-//				String sourcedate = IsValidDate.validateDate(cpyString[0]);
-//				String index = (new IsValidIndex(sourcedate, cpyString[1])).validateIndex();
-//				String destdate = IsValidDate.validateDate(cpyString[2]);
-//
-//				// testCmd date and index before executing the command
-//				testCmd = !sourcedate.equals("")
-//						&& !sourcedate.equals("overdue")
-//						&& !sourcedate.equals("archives");
-//				testCmd = !destdate.equals("") && !destdate.equals("overdue")
-//						&& !destdate.equals("archives");
-//				testCmd = !index.equals("");
+				// String cpyString[] = theRest.split(" ", 3);
+				// String sourcedate = IsValidDate.validateDate(cpyString[0]);
+				// String index = (new IsValidIndex(sourcedate,
+				// cpyString[1])).validateIndex();
+				// String destdate = IsValidDate.validateDate(cpyString[2]);
+				//
+				// // testCmd date and index before executing the command
+				// testCmd = !sourcedate.equals("")
+				// && !sourcedate.equals("overdue")
+				// && !sourcedate.equals("archives");
+				// testCmd = !destdate.equals("") && !destdate.equals("overdue")
+				// && !destdate.equals("archives");
+				// testCmd = !index.equals("");
 
 				verify.setInput(theRest);
 				verify.processCopyString();
+				testCmd = verify.getCheck();
 				String sourcedate = verify.getCurrDate();
 				String index = verify.getCurrIndex();
 				String destdate = verify.getDestDate();
-				
+
 				if (testCmd) {
 					arc.clear();
 					arc.cmdTAECD(inputArr[0]);
@@ -218,21 +236,23 @@ public class Parser {
 				}
 				break;
 			case DELETE:
-//				String delString[] = theRest.split(" ");
-//				String delDate = IsValidDate.validateDate(delString[0]);
-//				String delIndex;
-//
-//				if (delString.length == 1) {
-//					delIndex = "-1";
-//					// testCmd date and index before executing the command
-//					testCmd = !delDate.equals("");
-//					testCmd = (new IsValidIndex(delDate, delIndex)).testEmptyFile();
-//				} else {
-//					delIndex = (new IsValidIndex(delDate, delString[1])).validateIndex();
-//					// testCmd date and index before executing the command
-//					testCmd = !delDate.equals("");
-//					testCmd = !delIndex.equals("");
-//				}
+				// String delString[] = theRest.split(" ");
+				// String delDate = IsValidDate.validateDate(delString[0]);
+				// String delIndex;
+				//
+				// if (delString.length == 1) {
+				// delIndex = "-1";
+				// // testCmd date and index before executing the command
+				// testCmd = !delDate.equals("");
+				// testCmd = (new IsValidIndex(delDate,
+				// delIndex)).testEmptyFile();
+				// } else {
+				// delIndex = (new IsValidIndex(delDate,
+				// delString[1])).validateIndex();
+				// // testCmd date and index before executing the command
+				// testCmd = !delDate.equals("");
+				// testCmd = !delIndex.equals("");
+				// }
 
 				verify.setInput(theRest);
 				verify.processDeleteString();
@@ -252,24 +272,26 @@ public class Parser {
 				break;
 
 			case DONE:
-//				String doneString[] = theRest.split(" ");
-//				String doneDate = IsValidDate.validateDate(doneString[0]);
-//				String doneIndex;
-//
-//				if (doneString.length == 1) {
-//					doneIndex = "-1";
-//					// testCmd date and index before executing the command
-//					testCmd = !doneDate.equals("") && !doneDate.equals("overdue")
-//							&& !doneDate.equals("archives");
-//					testCmd = (new IsValidIndex(doneDate, doneIndex)).testEmptyFile();
-//				} else {
-//					doneIndex = (new IsValidIndex(doneDate, doneString[1])).validateIndex();
-//					// testCmd date and index before executing the command
-//					testCmd = !doneDate.equals("") && !doneDate.equals("overdue")
-//							&& !doneDate.equals("archives");
-//					testCmd = !doneIndex.equals("");
-//				}
-				
+				// String doneString[] = theRest.split(" ");
+				// String doneDate = IsValidDate.validateDate(doneString[0]);
+				// String doneIndex;
+				//
+				// if (doneString.length == 1) {
+				// doneIndex = "-1";
+				// // testCmd date and index before executing the command
+				// testCmd = !doneDate.equals("") && !doneDate.equals("overdue")
+				// && !doneDate.equals("archives");
+				// testCmd = (new IsValidIndex(doneDate,
+				// doneIndex)).testEmptyFile();
+				// } else {
+				// doneIndex = (new IsValidIndex(doneDate,
+				// doneString[1])).validateIndex();
+				// // testCmd date and index before executing the command
+				// testCmd = !doneDate.equals("") && !doneDate.equals("overdue")
+				// && !doneDate.equals("archives");
+				// testCmd = !doneIndex.equals("");
+				// }
+
 				verify.setInput(theRest);
 				verify.processDeleteString();
 				testCmd = verify.getCheck();
@@ -305,8 +327,10 @@ public class Parser {
 					if (GUI.checkAgendaActive() != null)
 						GUI.closeAgenda();
 					IsValidDate validDate = new IsValidDate(theRest);
-					FileAccessor faAgenda = new FileAccessor(validDate.validateDate(theRest) + ".txt");
-					faAgenda.checkFilesExistCustom(validDate.validateDate(theRest));
+					FileAccessor faAgenda = new FileAccessor(
+							validDate.validateDate(theRest) + ".txt");
+					faAgenda.checkFilesExistCustom(validDate
+							.validateDate(theRest));
 					GUI.addDetailedAgenda(validDate.validateDate(theRest));
 					faAgenda.createAgendaForTheDate();
 				}
