@@ -1,7 +1,12 @@
 package ido.main;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -10,12 +15,12 @@ public class CommandSearch {
 	
 	private final static Logger LOGGER = Logger.getLogger(CommandSearch.class .getName());
 	
-	private static final String FILENAME_GENERAL = "general";
-	private static final String TEXT_EXTENSION = ".txt";
-	private static final String SEARCH_RESULT_GENERAL = "General %1$d. %2$s";
-	private static final String SEARCH_RESULT_DATE = "%1$s %2$d. %3$s";
-	private static final String LINE_FORMAT = "%1$s\n";
 	
+	private static final String TEXT_EXTENSION = ".txt";
+
+	private static final String SEARCH_RESULT = "%1$s %2$d. %3$s";
+	private static final String LINE_FORMAT = "%1$s\n";
+	private static final String NO_EXTENSION = "";
 	public CommandSearch() {
 	}
 	
@@ -30,70 +35,55 @@ public class CommandSearch {
 		LOGGER.setLevel(Level.INFO);
 		//The array to store the search result
 		ArrayList<String> searchResult = new ArrayList<String>();
-		
+		String current = "";
+		String fileName = "";
+		String displayedFileName = "";
 		try {
-			searchResult.addAll(searchDate());
-		} catch (FileNotFoundException e) {
-			LOGGER.warning("FileNotFoundException");
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
-		
-		try {
-			searchResult.addAll(searchGeneral());
-		} catch (FileNotFoundException e) {
+			current = new java.io.File( "." ).getCanonicalPath();
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		File dir = new File(current);
+		File[] directoryListing = dir.listFiles();
+		if (directoryListing != null) {
+			for (File child : directoryListing) {
+		    	fileName = child.getName();
+		    	
+		    	displayedFileName = fileName.replace(TEXT_EXTENSION, NO_EXTENSION);
+		    	if (isDateFile(fileName)||fileName.equals("general.txt")) {
+		    		ArrayList<String> taskList = new ArrayList<String>();
+		    		taskList = (new FileAccessor(fileName)).readContents();
+			    	for (int i=0; i<taskList.size(); i++) {
+						if (taskList.get(i).toLowerCase().contains(keyword)) {
+							String result = String.format(SEARCH_RESULT, displayedFileName, i+1, taskList.get(i));
+							searchResult.add(result);
+						}
+					}
+		    	}
+		    	
+		    	
+		    }
+		}
+		System.out.print(arrayListToString(searchResult));
 		return arrayListToString(searchResult);
 	}
-	
-	public ArrayList<String> searchGeneral() throws FileNotFoundException{
-		String fileName = FILENAME_GENERAL + TEXT_EXTENSION;
-		ArrayList<String> generalTask = new ArrayList<String>(); //generalTask contains tasks in General box
-		generalTask = (new FileAccessor(fileName)).readContents();
-		
-		ArrayList<String> searchResultGeneral = new ArrayList<String>();
-		for (int i=0; i<generalTask.size(); i++) {
-			if (generalTask.get(i).toLowerCase().contains(keyword)) {
-				String result = String.format(SEARCH_RESULT_GENERAL, i+1, generalTask.get(i));
-				searchResultGeneral.add(result);
-			}
-		}
-		return searchResultGeneral;
-	}
-	
-	public ArrayList<String> searchDate() throws FileNotFoundException{
-		ArrayList<String> searchResultDate = new ArrayList<String>();
-		ArrayList<String> dateTask = new ArrayList<String>();
-		String result = new String();
-		
-		String currDateString = DateModifier.getCurrDate();
-		for (int i=0; i<7; i++) {
-			if (!dateTask.isEmpty()) {
-				dateTask.clear();
-			}
-			String fileName = currDateString + TEXT_EXTENSION;
-			//read file content into an ArrayList
-			dateTask = (new FileAccessor(fileName)).readContents();
-			
-			//Search the content of each file, add any match to searchResultDate arraylist
-			for (int j=0; j<dateTask.size(); j++){
-				if (dateTask.get(j).toLowerCase().contains(keyword)) {
-					result = String.format(SEARCH_RESULT_DATE, currDateString, i+1, dateTask.get(j));
-					searchResultDate.add(result);
-				}
-			}
-			 currDateString = DateModifier.getNextDate(currDateString);
-		 }
-		 return searchResultDate;
-	}
-	
 	private String arrayListToString(ArrayList<String> arr) {
 		String str = new String();
 		for (int i=0; i<arr.size(); i++) {
 			str = str + String.format(LINE_FORMAT, arr.get(i));
 		}
 		return str;
+	}
+	
+	private boolean isDateFile(String fileName) {
+		SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
+		try {
+			sdf.parse(fileName);
+			return true;
+		} catch (ParseException e) {
+			return false;
+			
+		}
 	}
 }
