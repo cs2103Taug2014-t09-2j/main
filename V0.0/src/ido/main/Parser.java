@@ -321,18 +321,25 @@ public class Parser {
 				break;
 
 			case AGENDA:
-				if (theRest.equals("off")) {
-					GUI.agendaOff();
+
+				Verify verify = new Verify();
+				verify.setInput(theRest);
+				if (verify.isValidAgendaInput()) {
+					if (theRest.equals("off")) {
+						GUI.agendaOff();
+					} else {
+						if (GUI.checkAgendaActive() != null)
+							GUI.closeAgenda();
+						IsValidDate validDate = new IsValidDate(theRest);
+						FileAccessor faAgenda = new FileAccessor(
+								validDate.validateDate(theRest) + ".txt");
+						faAgenda.checkFilesExistCustom(validDate
+								.validateDate(theRest));
+						GUI.addDetailedAgenda(validDate.validateDate(theRest));
+						faAgenda.createAgendaForTheDate();
+					}
 				} else {
-					if (GUI.checkAgendaActive() != null)
-						GUI.closeAgenda();
-					IsValidDate validDate = new IsValidDate(theRest);
-					FileAccessor faAgenda = new FileAccessor(
-							validDate.validateDate(theRest) + ".txt");
-					faAgenda.checkFilesExistCustom(validDate
-							.validateDate(theRest));
-					GUI.addDetailedAgenda(validDate.validateDate(theRest));
-					faAgenda.createAgendaForTheDate();
+					WarningPopUp.infoBox("Invalid agenda input", "ERROR");
 				}
 				break;
 

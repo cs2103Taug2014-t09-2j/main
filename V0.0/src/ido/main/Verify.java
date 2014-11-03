@@ -260,43 +260,43 @@ public class Verify {
 	}
 
 	public boolean isValidAgendaInput() {
-		boolean result = false;
 		if (DateModifier.isValidDate(input)) {
 			return true;
 		} else {
 			switch (input) {
 			case "1":
-				result = true;
-				break;
+				return true;
+				
 			case "2":
-				result = true;
-				break;
+				return true;
+
 			case "3":
-				result = true;
-				break;
+				return true;
+
 			case "4":
-				result = true;
-				break;
+				return true;
+
 			case "5":
-				result = true;
-				break;
+				return true;
+
 			case "6":
-				result = true;
-				break;
+				return true;
+
 			case "7":
-				result = true;
-				break;
+				return true;
+
 			case "today":
-				result = true;
-				break;	
+				return true;
+	
 			case "tomorrow":
-				result = true;
-				break;
+				return true;
+				
+			case "off":
+				return true;
 
 			default:
-				result = false;
+				return false;
 			}
 		}
-		return result;
 	}
 }
