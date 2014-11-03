@@ -196,6 +196,12 @@ public class Parser {
 					arc.clear();
 					arc.cmdTAECD(inputArr[0]);
 					history.clear();
+					
+					File file = new File(date1+".txt");
+					if(!file.exists()){
+						file.createNewFile();
+					}
+					
 					history.checkBaseFile(date1);
 					(new CommandAdd(date1, time1, task)).addTask();
 					history.recordUpdatedFile(date1);
