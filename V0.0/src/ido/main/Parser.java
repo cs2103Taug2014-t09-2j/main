@@ -485,6 +485,7 @@ public class Parser {
 			}
 
 		}
+		
 		return startDateToBeDisplayed;
 	}
 }

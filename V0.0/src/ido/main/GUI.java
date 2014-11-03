@@ -312,7 +312,7 @@ public class GUI {
 	}
 	
 	public static void maxWindow(){
-		if(agendaContainer.isVisible()){
+		if((agendaContainer != null)&&(agendaContainer.isVisible())){
 			getFrame().setBounds(0, 0, 1080, 730);
 		}
 		else
