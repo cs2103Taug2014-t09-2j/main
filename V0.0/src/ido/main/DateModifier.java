@@ -72,4 +72,21 @@ public class DateModifier {
 		String headingYear = "20" + myDate.substring(4, 6);
 		return headingDate+" "+headingMonth+" "+headingYear;
 	}
+	
+	public static boolean isValidDate(String input){
+		if(input.length()== 6){
+			SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyy");
+			dateFormat.setLenient(false);
+			try {
+				dateFormat.parse(input.trim());
+			} catch (ParseException pe) {
+				//System.out.println("F");
+				return false;
+			}
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
 }

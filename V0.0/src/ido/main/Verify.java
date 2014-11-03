@@ -53,8 +53,8 @@ public class Verify {
 	void setEditTTA(String TTA) {
 		editTTA = TTA;
 	}
-	
-	void setEditMod(String mod){
+
+	void setEditMod(String mod) {
 		editMod = mod;
 	}
 
@@ -86,8 +86,8 @@ public class Verify {
 	String getEditTTA() {
 		return editTTA;
 	}
-	
-	String getEditMod(){
+
+	String getEditMod() {
 		return editMod;
 	}
 
@@ -134,11 +134,11 @@ public class Verify {
 					check = false;
 				}
 			} else {
-				//WarningPopUp.infoBox("Invalid Index", "WARNING");
+				// WarningPopUp.infoBox("Invalid Index", "WARNING");
 				check = false;
 			}
 		} else {
-			//WarningPopUp.infoBox("Invalid Date", "WARNING");
+			// WarningPopUp.infoBox("Invalid Date", "WARNING");
 			check = false;
 		}
 
@@ -160,7 +160,7 @@ public class Verify {
 				check = false;
 			}
 		} else {
-			//WarningPopUp.infoBox("Invalid Date", "WARNING");
+			// WarningPopUp.infoBox("Invalid Date", "WARNING");
 			check = false;
 		}
 
@@ -182,15 +182,15 @@ public class Verify {
 					setDestDate(destdate);
 					check = true;
 				} else {
-					//WarningPopUp.infoBox("Invalid Date", "WARNING");
+					// WarningPopUp.infoBox("Invalid Date", "WARNING");
 					check = false;
 				}
 			} else {
-				//WarningPopUp.infoBox("Invalid Index", "WARNING");
+				// WarningPopUp.infoBox("Invalid Index", "WARNING");
 				check = false;
 			}
 		} else {
-			//WarningPopUp.infoBox("Invalid Date", "WARNING");
+			// WarningPopUp.infoBox("Invalid Date", "WARNING");
 			check = false;
 		}
 
@@ -217,12 +217,12 @@ public class Verify {
 					setIndex(index);
 					check = true;
 				} else {
-					//WarningPopUp.infoBox("Invalid Index", "WARNING");
+					// WarningPopUp.infoBox("Invalid Index", "WARNING");
 					check = false;
 				}
 			}
 		} else {
-			//WarningPopUp.infoBox("Invalid Date", "WARNING");
+			// WarningPopUp.infoBox("Invalid Date", "WARNING");
 			check = false;
 		}
 	}
@@ -249,13 +249,54 @@ public class Verify {
 					setIndex(index);
 					check = true;
 				} else {
-					//WarningPopUp.infoBox("Invalid Index", "WARNING");
+					// WarningPopUp.infoBox("Invalid Index", "WARNING");
 					check = false;
 				}
 			}
 		} else {
-			//WarningPopUp.infoBox("Invalid Date", "WARNING");
+			// WarningPopUp.infoBox("Invalid Date", "WARNING");
 			check = false;
 		}
+	}
+
+	public boolean isValidAgendaInput() {
+		boolean result = false;
+		if (DateModifier.isValidDate(input)) {
+			return true;
+		} else {
+			switch (input) {
+			case "1":
+				result = true;
+				break;
+			case "2":
+				result = true;
+				break;
+			case "3":
+				result = true;
+				break;
+			case "4":
+				result = true;
+				break;
+			case "5":
+				result = true;
+				break;
+			case "6":
+				result = true;
+				break;
+			case "7":
+				result = true;
+				break;
+			case "today":
+				result = true;
+				break;	
+			case "tomorrow":
+				result = true;
+				break;
+
+			default:
+				result = false;
+			}
+		}
+		return result;
 	}
 }
