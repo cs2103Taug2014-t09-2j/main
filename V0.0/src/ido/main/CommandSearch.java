@@ -65,7 +65,7 @@ public class CommandSearch {
 		    	
 		    }
 		}
-		System.out.print(arrayListToString(searchResult));
+		// System.out.print(arrayListToString(searchResult));
 		return arrayListToString(searchResult);
 	}
 	private String arrayListToString(ArrayList<String> arr) {
