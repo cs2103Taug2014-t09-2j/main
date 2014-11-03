@@ -45,14 +45,6 @@ public class CommandSearch {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		try {
-			searchResult.addAll(searchPrevDate());
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
 		return arrayListToString(searchResult);
 	}
 	
@@ -69,21 +61,6 @@ public class CommandSearch {
 			}
 		}
 		return searchResultGeneral;
-	}
-	
-	public ArrayList<String> searchPrevDate() throws FileNotFoundException{
-		String prevDateString = DateModifier.getPrevDate(DateModifier.getCurrDate()) + TEXT_EXTENSION;
-		ArrayList<String> prevDateTask = new ArrayList<String>();
-		prevDateTask = (new FileAccessor(prevDateString)).readContents();
-		
-		ArrayList<String> searchResultPrevDate = new ArrayList<String>();
-		for (int i=0; i<prevDateTask.size(); i++) {
-			if (prevDateTask.get(i).toLowerCase().contains(keyword)) {
-				String result = String.format(SEARCH_RESULT_DATE, DateModifier.getPrevDate(DateModifier.getCurrDate()), i+1, prevDateTask.get(i));
-				searchResultPrevDate.add(result);
-			}
-		}
-		return searchResultPrevDate;
 	}
 	
 	public ArrayList<String> searchDate() throws FileNotFoundException{
