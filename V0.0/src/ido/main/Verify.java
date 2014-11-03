@@ -299,4 +299,48 @@ public class Verify {
 			}
 		}
 	}
+	
+	public boolean isValidViewInput() {
+		if (DateModifier.isValidDate(input)) {
+			return true;
+		} else {
+			switch (input) {
+			case "1":
+				return true;
+				
+			case "2":
+				return true;
+
+			case "3":
+				return true;
+
+			case "4":
+				return true;
+
+			case "5":
+				return true;
+
+			case "6":
+				return true;
+
+			case "7":
+				return true;
+
+			case "today":
+				return true;
+	
+			case "tomorrow":
+				return true;
+				
+			case "next week":
+				return true;
+				
+			case "next month":
+				return true;
+
+			default:
+				return false;
+			}
+		}
+	}
 }

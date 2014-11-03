@@ -130,9 +130,16 @@ public class Parser {
 
 			switch (command) {
 			case VIEW:
-				startDateToBeDisplayed = theRest;
-				FileAccessor fa = new FileAccessor(theRest + ".txt");
-				fa.checkFilesExistCustom(theRest);
+				Verify vView = new Verify();
+				vView.setInput(theRest);
+				if(vView.isValidViewInput()){
+					FileAccessor faView = new FileAccessor();
+					faView.checkFilesExistCustom(DateModifier.convertInputViewToDate(theRest));
+					startDateToBeDisplayed = DateModifier.convertInputViewToDate(theRest);
+				}
+				else{
+					WarningPopUp.infoBox("Invalid view input", "ERROR");
+				}
 				break;
 
 			case EDIT:
@@ -491,7 +498,7 @@ public class Parser {
 			}
 
 		}
-		
+		System.out.println("after all " + startDateToBeDisplayed);
 		return startDateToBeDisplayed;
 	}
 }
