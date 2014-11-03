@@ -46,7 +46,7 @@ public class CommandEditTest {
 		cmdEdit.setMod("1300-1400 have lunch with dad");
 		cmdEdit.setSpec("all");
 		String oldTask = "[1000-1200] have lunch with friends";
-		String newTask;
+		String newTask = "";
 		try {
 			newTask = cmdEdit.editAll(oldTask);
 		} catch (Exception e) {
