@@ -28,7 +28,7 @@ public class CommandSearch {
 	
 	//Mutator
 	public void setKeyword(String newKey) {
-		keyword = newKey;
+		keyword = newKey.toLowerCase();
 	}
 	
 	public String search(String key) {
