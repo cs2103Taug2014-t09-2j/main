@@ -19,8 +19,7 @@ public class CommandSearch {
 	private static final String TEXT_EXTENSION = ".txt";
 
 	private static final String SEARCH_RESULT = "%1$s %2$d. %3$s";
-	private static final String SEARCH_ONE_RESULT = "There is 1 task containing the keyword \"%1$s\"\n";
-	private static final String SEARCH_NUM_RESULT = "There are %1$d tasks containing the keyword \"%2$s\"\n";
+	private static final String NUM_RESULT = "Number of result(s): %1$d\n";
 	private static final String LINE_FORMAT = "%1$s\n";
 	private static final String NO_EXTENSION = "";
 	public CommandSearch() {
@@ -66,18 +65,18 @@ public class CommandSearch {
 		    }
 		}
 		// System.out.print(arrayListToString(searchResult));
-		return arrayListToString(searchResult);
+		if (!searchResult.isEmpty()) {
+			return arrayListToString(searchResult) + String.format(NUM_RESULT, searchResult.size());
+		} else {
+			return "Nothing found!";
+		}
+		
+		
 	}
 	private String arrayListToString(ArrayList<String> arr) {
 		String str = new String();
 		for (int i=0; i<arr.size(); i++) {
 			str = str + String.format(LINE_FORMAT, arr.get(i));
-		}
-		str = str + "\n";
-		if (arr.size()==1) {
-			str = str + String.format(SEARCH_ONE_RESULT, keyword);
-		} else {
-			str = str + String.format(SEARCH_NUM_RESULT, arr.size(), keyword);
 		}
 		return str;
 	}
