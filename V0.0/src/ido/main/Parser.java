@@ -326,11 +326,8 @@ public class Parser {
 				CommandSearch srch = new CommandSearch();
 				String searchResult = srch.search(theRest);
 				System.out.print(searchResult);
-				if (!searchResult.isEmpty()) {
-					WarningPopUp.infoBox(searchResult, "Search Result");
-				} else {
-					WarningPopUp.infoBox("Not Found!", "Search Result");
-				}
+				
+				WarningPopUp.infoBox(searchResult, "Search Result");
 				break;
 
 			case AGENDA:
