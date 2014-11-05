@@ -253,7 +253,7 @@ public class GUI {
 
 		commandBox = new JTextField();
 		commandBox.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-		commandBox.setBounds(181, 19, 455, 20);
+		commandBox.setBounds(181, 22, 455, 20);
 		// prompt the user to type start
 		commandBox.setText("Please type the command here!");
 		commandBox.addKeyListener(new KeyAdapter() {
