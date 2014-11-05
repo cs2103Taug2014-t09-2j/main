@@ -17,7 +17,7 @@ public class Parser {
 	public static boolean testCmd = false;
 	public static Verify verify = new Verify();
 
-	// needs to be launch b4 this class
+	// needs to be launch b4 this class if possible
 	public static OverDueTask ODTLaunch = new OverDueTask();
 
 	enum CommandTypes {
@@ -89,7 +89,7 @@ public class Parser {
 					System.out.println(e);
 				}
 
-				// if prev command is done
+				// Determine if previous command is done
 				arc.executeCmd(-1);
 				// update file whenever undo is called
 				arc.saveArchives();
@@ -98,7 +98,7 @@ public class Parser {
 			case "redo":
 				history.redo();
 
-				// if prev command is done
+				// Determine if earlier command is done
 				arc.executeCmd(1);
 				// update file whenever redo is called
 				arc.saveArchives();
@@ -129,45 +129,42 @@ public class Parser {
 			String theRest = inputArr[1].trim();
 
 			switch (command) {
+
 			case VIEW:
 				Verify vView = new Verify();
 				vView.setInput(theRest);
-				if(vView.isValidViewInput()){
+				if (vView.isValidViewInput()) {
 					FileAccessor faView = new FileAccessor();
-					faView.checkFilesExistCustom(DateModifier.convertInputViewToDate(theRest));
-					startDateToBeDisplayed = DateModifier.convertInputViewToDate(theRest);
-				}
-				else{
+					faView.checkFilesExistCustom(DateModifier
+							.convertInputViewToDate(theRest));
+					startDateToBeDisplayed = DateModifier
+							.convertInputViewToDate(theRest);
+				} else {
 					WarningPopUp.infoBox("Invalid view input", "ERROR");
 				}
 				break;
 
 			case EDIT:
-				// String editString[] = theRest.split(" ", 4);
-				// String date = IsValidDate.validateDate(editString[0]);
-				// String number = (new IsValidIndex(date,
-				// editString[1])).validateIndex();
-				// String time = editString[2];
-				// String modification = editString[3];
-				//
-				// // testCmd date and index before executing the command
-				// testCmd = !date.equals("") && !date.equals("overdue")
-				// && !date.equals("archives");
-				// testCmd = !number.equals("");
 
 				verify.setInput(theRest);
 				verify.processEditString();
 				testCmd = verify.getCheck();
-				String date = verify.getCurrDate();
-				String number = verify.getCurrIndex();
-				String time = verify.getEditTTA();
-				String modification = verify.getEditMod();
 
 				if (testCmd) {
+
+					// Get required information
+					String date = verify.getCurrDate();
+					String number = verify.getCurrIndex();
+					String time = verify.getEditTTA();
+					String modification = verify.getEditMod();
+
+					// Start recording of file and command
 					arc.clear();
 					arc.cmdTAECD(inputArr[0]);
 					history.clear();
 					history.checkBaseFile(date);
+
+					// Execute Command
 					try {
 						(new CommandEdit()).edit(date, number, time,
 								modification);
@@ -177,146 +174,124 @@ public class Parser {
 						logger.log(Level.WARNING, "processing error", e);
 						e.printStackTrace();
 					}
+
+					// Save current state
 					history.recordUpdatedFile(date);
 					arc.saveArchives();
 				}
 				break;
 
 			case ADD:
-				// String addString[] = theRest.split(" ", 3);
-				// String date1 = IsValidDate.validateDate(addString[0]);
-				// String time1 = addString[1];
-				// String task = addString[2];
-				//
-				// // testCmd date and index before executing the command
-				// testCmd = !date1.equals("") && !date1.equals("overdue")
-				// && !date1.equals("archives");
 
 				verify.setInput(theRest);
 				verify.processAddString();
 				testCmd = verify.getCheck();
-				String date1 = verify.getCurrDate();
-				String time1 = verify.getNewTime();
-				String task = verify.getNewTask();
 
 				if (testCmd) {
+
+					// Get required information
+					String date1 = verify.getCurrDate();
+					String time1 = verify.getNewTime();
+					String task = verify.getNewTask();
+
+					// Start recording of file and command
 					arc.clear();
 					arc.cmdTAECD(inputArr[0]);
 					history.clear();
-					
-					File file = new File(date1+".txt");
-					if(!file.exists()){
+					// Create new file before saving base file
+					File file = new File(date1 + ".txt");
+					if (!file.exists()) {
 						file.createNewFile();
 					}
-					
 					history.checkBaseFile(date1);
+
+					// Execute Command
 					(new CommandAdd(date1, time1, task)).addTask();
+
+					// Save current state
 					history.recordUpdatedFile(date1);
 					arc.saveArchives();
 				}
 				break;
 
 			case COPY:
-				// String cpyString[] = theRest.split(" ", 3);
-				// String sourcedate = IsValidDate.validateDate(cpyString[0]);
-				// String index = (new IsValidIndex(sourcedate,
-				// cpyString[1])).validateIndex();
-				// String destdate = IsValidDate.validateDate(cpyString[2]);
-				//
-				// // testCmd date and index before executing the command
-				// testCmd = !sourcedate.equals("")
-				// && !sourcedate.equals("overdue")
-				// && !sourcedate.equals("archives");
-				// testCmd = !destdate.equals("") && !destdate.equals("overdue")
-				// && !destdate.equals("archives");
-				// testCmd = !index.equals("");
 
 				verify.setInput(theRest);
 				verify.processCopyString();
 				testCmd = verify.getCheck();
-				String sourcedate = verify.getCurrDate();
-				String index = verify.getCurrIndex();
-				String destdate = verify.getDestDate();
 
 				if (testCmd) {
+
+					// Get required information
+					String sourcedate = verify.getCurrDate();
+					String index = verify.getCurrIndex();
+					String destdate = verify.getDestDate();
+
+					// Start recording of file and command
 					arc.clear();
 					arc.cmdTAECD(inputArr[0]);
 					history.clear();
 					history.checkBaseFile(destdate);
+
+					// Execute Command
 					CommandCopy.copyTask(sourcedate, index, destdate);
+
+					// Save current state
 					history.recordUpdatedFile(destdate);
 					arc.saveArchives();
 				}
 				break;
-			case DELETE:
-				// String delString[] = theRest.split(" ");
-				// String delDate = IsValidDate.validateDate(delString[0]);
-				// String delIndex;
-				//
-				// if (delString.length == 1) {
-				// delIndex = "-1";
-				// // testCmd date and index before executing the command
-				// testCmd = !delDate.equals("");
-				// testCmd = (new IsValidIndex(delDate,
-				// delIndex)).testEmptyFile();
-				// } else {
-				// delIndex = (new IsValidIndex(delDate,
-				// delString[1])).validateIndex();
-				// // testCmd date and index before executing the command
-				// testCmd = !delDate.equals("");
-				// testCmd = !delIndex.equals("");
-				// }
 
+			case DELETE:
+
+				// Get required information
 				verify.setInput(theRest);
 				verify.processDeleteString();
 				testCmd = verify.getCheck();
-				String delDate = verify.getCurrDate();
-				String delIndex = verify.getCurrIndex();
 
 				if (testCmd) {
+
+					// Get required information
+					String delDate = verify.getCurrDate();
+					String delIndex = verify.getCurrIndex();
+
+					// Start recording of file and command
 					arc.clear();
 					arc.cmdTAECD(inputArr[0]);
 					history.clear();
 					history.checkBaseFile(delDate);
+
+					// Execute Command
 					new CommandDelete(delDate, delIndex).delete();
+
+					// Save current state
 					history.recordUpdatedFile(delDate);
 					arc.saveArchives();
 				}
 				break;
 
 			case DONE:
-				// String doneString[] = theRest.split(" ");
-				// String doneDate = IsValidDate.validateDate(doneString[0]);
-				// String doneIndex;
-				//
-				// if (doneString.length == 1) {
-				// doneIndex = "-1";
-				// // testCmd date and index before executing the command
-				// testCmd = !doneDate.equals("") && !doneDate.equals("overdue")
-				// && !doneDate.equals("archives");
-				// testCmd = (new IsValidIndex(doneDate,
-				// doneIndex)).testEmptyFile();
-				// } else {
-				// doneIndex = (new IsValidIndex(doneDate,
-				// doneString[1])).validateIndex();
-				// // testCmd date and index before executing the command
-				// testCmd = !doneDate.equals("") && !doneDate.equals("overdue")
-				// && !doneDate.equals("archives");
-				// testCmd = !doneIndex.equals("");
-				// }
 
 				verify.setInput(theRest);
 				verify.processDeleteString();
 				testCmd = verify.getCheck();
-				String doneDate = verify.getCurrDate();
-				String doneIndex = verify.getCurrIndex();
 
 				if (testCmd) {
+
+					// Get required information
+					String doneDate = verify.getCurrDate();
+					String doneIndex = verify.getCurrIndex();
+					
+					// Start recording of file and command
 					arc.clear();
 					arc.cmdTAECD(inputArr[0]);
 					history.clear();
 					history.checkBaseFile(doneDate);
+					
+					// Execute Command
 					new CommandDone(doneDate, doneIndex).delete();
+					
+					// Save current state
 					history.recordUpdatedFile(doneDate);
 					arc.saveArchives();
 				}
@@ -326,7 +301,7 @@ public class Parser {
 				CommandSearch srch = new CommandSearch();
 				String searchResult = srch.search(theRest);
 				System.out.print(searchResult);
-				
+
 				WarningPopUp.infoBox(searchResult, "Search Result");
 				break;
 
@@ -334,6 +309,7 @@ public class Parser {
 
 				Verify verify = new Verify();
 				verify.setInput(theRest);
+				
 				if (verify.isValidAgendaInput()) {
 					if (theRest.equals("off")) {
 						GUI.agendaOff();
