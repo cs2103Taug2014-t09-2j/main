@@ -305,26 +305,6 @@ public class Verify {
 			return true;
 		} else {
 			switch (input) {
-			case "1":
-				return true;
-				
-			case "2":
-				return true;
-
-			case "3":
-				return true;
-
-			case "4":
-				return true;
-
-			case "5":
-				return true;
-
-			case "6":
-				return true;
-
-			case "7":
-				return true;
 
 			case "today":
 				return true;
