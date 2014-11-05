@@ -539,6 +539,7 @@ public class GUI {
 		//agendaContent.setAlignmentX(11);
 		//int agendaStart = 20+startTime*50;
 		//agendaContent.setBounds(10, agendaStart, 160, duration*25);
+		agendaContent.setWrapStyleWord(true);
 		agendaContent.setLineWrap(true);
 		Border border = BorderFactory.createEmptyBorder();
 		agendaContent.setBorder(BorderFactory.createCompoundBorder(border,
