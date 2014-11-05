@@ -24,7 +24,6 @@ import java.nio.file.Paths;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -536,18 +535,23 @@ public class GUI {
 	}
 	
 	public static void addTaskToAgenda(String task,int startTime,int duration){
-		JButton agendaContent = new JButton(task);
+		JTextArea agendaContent = new JTextArea(task);
 		//agendaContent.setAlignmentX(11);
 		//int agendaStart = 20+startTime*50;
 		//agendaContent.setBounds(10, agendaStart, 160, duration*25);
+		agendaContent.setLineWrap(true);
+		Border border = BorderFactory.createEmptyBorder();
+		agendaContent.setBorder(BorderFactory.createCompoundBorder(border,
+				BorderFactory.createEmptyBorder(5, 10, 5, 5)));
+
 		if(task.isEmpty()){
 		agendaContent.setBackground(new Color(250, 164, 98));
 		agendaContent.setOpaque(false);
-		agendaContent.setBorderPainted(false);
+		//agendaContent.paintBorder(false);
 		}
 		else{
 			agendaContent.setBackground(new Color(255, 99, 71));
-			agendaContent.setBorderPainted(false);
+			//agendaContent.setBorder(false);
 
 		}
 		if(!agendaContent.getText().isEmpty())
