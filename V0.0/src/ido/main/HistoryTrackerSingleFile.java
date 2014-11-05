@@ -7,8 +7,8 @@ import java.util.LinkedList;
  * @author Benedict
  */
 
-/* This class saves the states of a text file
- *  
+/*
+ * This class saves the states of a text file
  */
 
 public class HistoryTrackerSingleFile {
@@ -56,7 +56,7 @@ public class HistoryTrackerSingleFile {
 		historyAL.add(currDateTask);
 		counter++;
 		maxCounter = counter;
-		//System.out.println("total= " + counter);
+		// System.out.println("total= " + counter);
 	}
 
 	// Clear ALR after new command add/edit/done
@@ -70,22 +70,24 @@ public class HistoryTrackerSingleFile {
 	public void runUndo() {
 		if (counter > 1) {
 			counter--;
-			//System.out.println("U= " + counter);
-			(new FileAccessor(date, historyAL.get(counter - 1))).writeContents();
-			System.out.println("Success");
+			// System.out.println("U= " + counter);
+			(new FileAccessor(date, historyAL.get(counter - 1)))
+					.writeContents();
+			// System.out.println("Success");
 		} else {
-			System.out.println("Undo Limit");
+			// System.out.println("Undo Limit");
 		}
 	}
 
 	public void runRedo() {
 		if (counter < maxCounter) {
 			counter++;
-			//System.out.println("R= " + counter);
-			(new FileAccessor(date, historyAL.get(counter - 1))).writeContents();
-			System.out.println("Success");
+			// System.out.println("R= " + counter);
+			(new FileAccessor(date, historyAL.get(counter - 1)))
+					.writeContents();
+			// System.out.println("Success");
 		} else {
-			System.out.println("Redo Limit");
+			// System.out.println("Redo Limit");
 		}
 	}
 }
