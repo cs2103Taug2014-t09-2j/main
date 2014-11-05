@@ -517,7 +517,7 @@ public class GUI {
 		getFrame().setBounds(0, 0, 1080, 730);
 		agendaContainer = new JPanel();
 		agendaContainer.setBounds(645, 20, 400, 650);
-		agendaContainer.setBackground(new Color(255, 215, 0));
+		agendaContainer.setBackground(new Color(162, 212, 250));
 		agendaContainer.setLayout(new BoxLayout(agendaContainer,BoxLayout.Y_AXIS));
 		Border border = BorderFactory.createLineBorder(Color.WHITE);
 		agendaContainer.setBorder(BorderFactory.createCompoundBorder(border,
@@ -528,7 +528,7 @@ public class GUI {
 		agendaHeading.setFont(new Font("Segoe UI", Font.PLAIN, 30));
 		agendaContainer.add(agendaHeading);
 		panel1 = new JPanel(new GridBagLayout());
-		panel1.setBackground((new Color(255, 215, 0)));
+		panel1.setBackground((new Color(162, 212, 250)));
 		panel1.setBounds(5, 2, 600, 60);
 		//panel1.setLayout(new GridLayout(24,1));
 		agendaContainer.add(panel1);
