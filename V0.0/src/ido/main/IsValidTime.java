@@ -1,5 +1,5 @@
 package ido.main;
-
+//@author A0114813N
 public class IsValidTime {
 
 	public static String getFormattedTime(int time) { // throws Exception{
