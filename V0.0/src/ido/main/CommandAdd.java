@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+//@author A0114813N
 
 public class CommandAdd {
 
@@ -82,7 +82,7 @@ public class CommandAdd {
 			dateOutOfBox = false;
 		}
 		if (dateOutOfBox) {
-			WarningPopUp.infoBox("Task added!\n"+ content, "WARNING");
+			WarningPopUp.infoBox(content, "Task Added!");
 		}
 		logger.log(Level.INFO, "add complete");
 	}
