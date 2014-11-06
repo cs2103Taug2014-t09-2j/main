@@ -23,10 +23,12 @@ public class CommandAdd {
 	String task;
 	String time;
 	
-	private static final String ALL_DAY_TASK = "[all-day] ";
+	private static final String ALL_DAY_TASK = "[by-today] ";
 	private static final int DATE_LENGTH = 6;
 	private static final int BOX_VALUE = 1;
 	private static final int TOTAL_BOX_VALUE = 7;
+	private static final String FLOATING_CHECK = "-";
+	
 	
 	public CommandAdd(String date, String time, String task) {
 		this.date = date;
@@ -41,25 +43,14 @@ public class CommandAdd {
 
 	public void addTask() {
 		logger.log(Level.INFO, "add processing");
-		//checking if date is valid
-//		int dateLength = date.length();
-//		boolean wrongDate = false;
-//		if (dateLength!=DATE_LENGTH){
-//			wrongDate = true;
-//			if(dateLength == BOX_VALUE){
-//				wrongDate = false;
-//			}	
-//		}
-//		if (wrongDate)
-//			WarningPopUp.infoBox("Invalid Date!", "ERROR");
 		
 		// Create the name of the text file
 		String fileName = date + ".txt";
-		if (date.equals("-")) {
+		if (date.equals(FLOATING_CHECK)) {
 			fileName = "general.txt"; // adds to general file
 		}
 		String content = "[" + time + "] " + task;
-		if (time.equals("-")) {
+		if (time.equals(FLOATING_CHECK)) {
 			content = ALL_DAY_TASK + task;
 		}
 		
@@ -78,7 +69,7 @@ public class CommandAdd {
 				break;
 			}
 		}
-		if(date.equals("-")){
+		if(date.equals(FLOATING_CHECK)){
 			dateOutOfBox = false;
 		}
 		if (dateOutOfBox) {

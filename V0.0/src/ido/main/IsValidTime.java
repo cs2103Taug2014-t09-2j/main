@@ -1,7 +1,7 @@
 package ido.main;
 //@author A0114813N
 public class IsValidTime {
-
+	private static final String FLOATING_CHECK = "-";
 	public static String getFormattedTime(int time) { // throws Exception{
 		if (time < 10 && time >= 0) {
 			return String.format("0%d00", time);
@@ -22,10 +22,10 @@ public class IsValidTime {
 
 	public static String validateTime(String time) { // throws Exception{
 		// TODO Throw meaningful exception messages
-		if (time.equals("-")) {
-			return "-";
+		if (time.equals(FLOATING_CHECK)) {
+			return FLOATING_CHECK;
 		}
-		String splitted_time[] = time.split("-");
+		String splitted_time[] = time.split(FLOATING_CHECK);
 		boolean valid = true;
 		if (splitted_time.length < 1 || splitted_time.length > 2) {
 			valid = false;
@@ -57,7 +57,7 @@ public class IsValidTime {
 			old_t = t;
 			reformatted_time += splitted_time[i];
 			if (i < splitted_time.length - 1) {
-				reformatted_time += "-";
+				reformatted_time += FLOATING_CHECK;
 			}
 		}
 		if (valid) {
