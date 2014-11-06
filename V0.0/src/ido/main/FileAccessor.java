@@ -1,7 +1,5 @@
 package ido.main;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -16,8 +14,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-
-import javax.swing.JLabel;
 
 public class FileAccessor {
 	private String fileName;
@@ -77,6 +73,7 @@ public class FileAccessor {
 		return currDateTask;
 	}
 
+	//@author A0113768Y
 	String readFileString() throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(fileName));
 		try {
@@ -118,7 +115,14 @@ public class FileAccessor {
 		}
 
 	}
-
+	
+	//@author A0113768Y
+		/*
+		 * Checks the required files to be displayed by task boxes in GUI exist, 
+		 * starting from startDate. If the required files do not exist, it creates the file
+		 * Pre-cond: -
+		 * Post-cond: Required files exist/created
+		 */
 	public void checkFilesExistCustom(String startDate) {
 		String temp = fileName;
 		for (int i = 0; i < 7; i++) {
@@ -140,7 +144,14 @@ public class FileAccessor {
 		}
 		
 	}
-
+	
+	//@author A0113768Y
+	/*
+	 * Checks the required files to be displayed by task boxes in GUI exist, 
+	 * starting from today's date. If the required files do not exist, it creates the file
+	 * Pre-cond: -
+	 * Post-cond: Required files exist/created
+	 */
 	public void checkFilesExist() {
 		String currDateString = DateModifier.getCurrDate();
 
@@ -213,17 +224,6 @@ public class FileAccessor {
 
 	}
 
-	public String getStringTasksWeek() throws IOException {
-		String tasksForTheWeek = "Tasks for The Week: \n \n";
-		String temp;
-		for (int i = 0; i < 7; i++) {
-			tasksForTheWeek = tasksForTheWeek + this.readFileString() + "\n";
-			String currDate = fileName.substring(0, 6);
-			this.setFileName(DateModifier.getNextDate(currDate) + ".txt");
-		}
-		return tasksForTheWeek;
-	}
-
 	public String reformatDate(String date) {
 		DateFormat dateFormat1 = new SimpleDateFormat("ddMMyy");
 		DateFormat dateFormat2 = new SimpleDateFormat("dd/MM/yy");
@@ -241,6 +241,12 @@ public class FileAccessor {
 		return newDate;
 	}
 
+	//@author A0113768Y
+	/*
+	 * Reads the tasks in the fileName 
+	 * Pre-cond: the fileName.txt file exists
+	 * Post-cond: arrayList of tasks for the date for every hour is created
+	 */
 	public ArrayList<String> getTasksInADay() {
 		ArrayList<String> temp = new ArrayList<String>();
 		ArrayList<String> result = new ArrayList<String>();
@@ -259,7 +265,6 @@ public class FileAccessor {
 				hour2 = hour1 + 1;
 			duration = hour2 - hour1;
 			for (int j = 0; j < duration; j++) {
-				System.out.println("adding "+temp.get(i));
 				result.add(hour1, temp.get(i));
 			}
 
@@ -268,6 +273,11 @@ public class FileAccessor {
 		return result;
 	}
 	
+	/*
+	 * Transfer the tasks in the fileName to agendaContainer in GUI 
+	 * Pre-cond: the fileName.txt file exists
+	 * Post-cond: agenda for the date is created
+	 */
 	public void createAgendaForTheDate() {
 		int arrayListSize = this.readContents().size();
 		ArrayList<String> temp = new ArrayList<String>();
@@ -277,7 +287,6 @@ public class FileAccessor {
 			emptySlots.add(true);
 		}
 		temp = this.readContents();
-		System.out.println(temp.toString());
 		int hour1 = 0, hour2, duration;
 		for (int i = 0; i < arrayListSize; i++) {
 			if (Character.isDigit(temp.get(i).charAt(1)))
@@ -291,9 +300,7 @@ public class FileAccessor {
 				hour2 = Integer.valueOf(temp.get(i).substring(6, 8));
 			else
 				hour2 = hour1 + 1;
-			System.out.println("the array size "+arrayListSize);
 			duration = hour2 - hour1;
-			System.out.println( i +" inside "+ hour1 + " "+ duration + " " + hour2);
 			for(int j=hour1;j<duration+hour1;j++){
 				emptySlots.set(j, false);
 			}
