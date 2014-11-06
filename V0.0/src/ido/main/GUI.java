@@ -352,7 +352,7 @@ public class GUI {
 		// loop to display all the date tasks
 		String currDateString = startDate;
 		
-		for (int i = 0; i < 7; i++) {
+		for (int i = 1; i < 8; i++) {
 			// display 7 task starting from today's date
 			fileName = currDateString + ".txt";
 			try {
