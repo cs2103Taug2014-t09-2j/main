@@ -35,6 +35,10 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 
 public class GUI {
+	
+	private static final String HELP_HEADING = "COMMANDS";
+	private static final String ERROR_HEADING = "ERROR";
+	private static final String ERROR_AGENDA_INACTIVE = "Agenda is not active!";
 
 	private static JFrame frame;
 	private JTextField commandBox;
@@ -565,7 +569,6 @@ public class GUI {
 		default: agendaContent.setFont(new Font("Segoe UI", Font.PLAIN, 26));
 		}
 		GridBagConstraints c = new GridBagConstraints();
-		System.out.println("grid y "+startTime);
 		c.fill = GridBagConstraints.BOTH;
 		c.anchor = GridBagConstraints.FIRST_LINE_START;
 		c.gridy = startTime;
@@ -583,7 +586,7 @@ public class GUI {
 		if(agendaContainer != null)
 			agendaContainer.setVisible(false);
 		else
-			WarningPopUp.infoBox("Agenda is not active!", "WARNING");
+			WarningPopUp.infoBox(ERROR_AGENDA_INACTIVE, ERROR_HEADING);
 		GUI.maxWindowNoAgenda();
 	}
 	
@@ -599,6 +602,6 @@ public class GUI {
 		FileAccessor fa = new FileAccessor();
 		fa.setFileName("help.txt");
 		String helpString = fa.readFileString();
-		WarningPopUp.infoBox(helpString, "COMMANDS");
+		WarningPopUp.infoBox(helpString, HELP_HEADING);
 	}
 }
