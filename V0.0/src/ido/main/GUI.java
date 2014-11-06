@@ -561,6 +561,7 @@ public class GUI {
 			agendaContent.setOpaque(true);
 		
 		switch (duration){
+		case 0: agendaContent.setFont(new Font("Segoe UI", Font.PLAIN, 12));break;
 		case 1: agendaContent.setFont(new Font("Segoe UI", Font.PLAIN, 14));break;
 		case 2: agendaContent.setFont(new Font("Segoe UI", Font.PLAIN, 20));break;
 		case 3: agendaContent.setFont(new Font("Segoe UI", Font.PLAIN, 26));break;
