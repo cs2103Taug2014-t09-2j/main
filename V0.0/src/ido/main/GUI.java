@@ -239,7 +239,6 @@ public class GUI {
 		scrollPane_8.setBorder(BorderFactory.createEmptyBorder());
 		scrollPane_8.setBounds(436, 469, 200, 200);
 		getFrame().getContentPane().add(scrollPane_8);
-		// missingBox.read(reader, this);
 
 		generalTasksBox = new JTextArea();
 		scrollPane_8.setViewportView(generalTasksBox);
@@ -248,7 +247,6 @@ public class GUI {
 		generalTasksBox.setLineWrap(true);
 		generalTasksBox.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		generalTasksBox.setEditable(false);
-		// Border border = BorderFactory.createLineBorder(Color.BLACK);
 		generalTasksBox.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 		generalTasksBox.setBackground(new Color(135, 206, 235));
@@ -256,7 +254,6 @@ public class GUI {
 		commandBox = new JTextField();
 		commandBox.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 		commandBox.setBounds(181, 22, 455, 20);
-		// prompt the user to type start
 		commandBox.setText("Please type the command here!");
 		commandBox.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent arg0) {
@@ -267,7 +264,6 @@ public class GUI {
 		});
 		
 
-		// when the mouse clicks the command box, empty the command box
 		commandBox.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
 				commandBox.setText("");
@@ -341,7 +337,6 @@ public class GUI {
 			e.printStackTrace();
 		}
 
-		// read the overdue tasks file
 		fileName = "overdue.txt";
 		try {
 			reader = new BufferedReader(new FileReader(fileName));
@@ -355,10 +350,9 @@ public class GUI {
 		}
 
 		// loop to display all the date tasks
-		// NOTE: i starts from 1
 		String currDateString = startDate;
 		
-		for (int i = 1; i < 8; i++) {
+		for (int i = 0; i < 7; i++) {
 			// display 7 task starting from today's date
 			fileName = currDateString + ".txt";
 			try {
@@ -371,7 +365,6 @@ public class GUI {
 					e1.printStackTrace();
 				}
 			}
-			// BufferedReader reader = null;
 			switch (i) {
 			case 1:
 				try {
@@ -499,7 +492,6 @@ public class GUI {
 				}
 				break;
 			}
-			// update the current date for the next loop
 			currDateString = DateModifier.getNextDate(currDateString);
 		}
 	}
@@ -516,6 +508,9 @@ public class GUI {
 		getFrame().setBounds(0, 0, width, height);
 	}
 	
+	/*
+	 * Display agenda view of dateToBeDisplayed
+	 */
 	public static void addDetailedAgenda(String dateToBeDisplayed){
 		getFrame().setBounds(0, 0, 1080, 730);
 		agendaContainer = new JPanel();
@@ -533,16 +528,18 @@ public class GUI {
 		panel1 = new JPanel(new GridBagLayout());
 		panel1.setBackground((new Color(135, 206, 235)));
 		panel1.setBounds(5, 2, 600, 60);
-		//panel1.setLayout(new GridLayout(24,1));
 		agendaContainer.add(panel1);
 		getFrame().getContentPane().add(agendaContainer);
 	}
 	
+	/*
+	 * Add agenda content to agendaContainer
+	 * Pre-cond: valid task, startTime and duration
+	 * Post-cond: the task will be added according to startTime and duration
+	 */
 	public static void addTaskToAgenda(String task,int startTime,int duration){
 		JTextArea agendaContent = new JTextArea(task);
-		//agendaContent.setAlignmentX(11);
-		//int agendaStart = 20+startTime*50;
-		//agendaContent.setBounds(10, agendaStart, 160, duration*25);
+
 		agendaContent.setWrapStyleWord(true);
 		agendaContent.setLineWrap(true);
 		Border border = BorderFactory.createEmptyBorder();
@@ -552,11 +549,9 @@ public class GUI {
 		if(task.isEmpty()){
 		agendaContent.setBackground(new Color(135, 206, 235));
 		agendaContent.setOpaque(false);
-		//agendaContent.paintBorder(false);
 		}
 		else{
 			agendaContent.setBackground(new Color(255, 99, 71));
-			//agendaContent.setBorder(false);
 
 		}
 		if(!agendaContent.getText().isEmpty())
