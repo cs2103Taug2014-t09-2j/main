@@ -9,16 +9,25 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Parser {
+	
+	private static final String INVALID_COMMAND = "Invalid command!";
+	private static final String WARNING_HEADING = "WARNING";
+	private static final String ERROR_HEADING = "ERROR";
+	private static final String INVALID_VIEW_COMMAND = "Invalid view command!";
+	private static final String SEARCH_HEADING = "Search Result";
+	private static final String ZOOM_HEADING = "Zoom Result";
+	private static final String AGENDA_ERR_HEADING = "Invalid agenda input";
+	private static final String ZOOM_ERR_HEADING = "Invalid zoom input";
 
 	public static HistoryTrackerAllFiles history = new HistoryTrackerAllFiles();
 	public static Archives arc = new Archives();
-	private FileAccessor fileAccessor = new FileAccessor();
 	private static Logger logger = Logger.getLogger("Parser");
 	public static boolean testCmd = false;
 	public static Verify verify = new Verify();
 
 	enum CommandTypes {
-		START, AGENDA, ADD, EDIT, DONE, INVALID, UNDO, REDO, ZOOM, SEARCH, COPY, MIN, MAX, HELP, DELETE, VIEW
+		START, AGENDA, ADD, EDIT, DONE, INVALID, UNDO, REDO, ZOOM, 
+		SEARCH, COPY, MIN, MAX, HELP, DELETE, VIEW, EXIT
 	};
 
 	private static CommandTypes determineCmd(String command) {
@@ -54,11 +63,19 @@ public class Parser {
 			return CommandTypes.VIEW;
 		case "agenda":
 			return CommandTypes.AGENDA;
+		case "exit":
+			return CommandTypes.EXIT;
 		default:
 			return CommandTypes.INVALID;
 		}
 
 	}
+	
+	/*
+	 * Process the user input obtained from commandBox in GUI
+	 * Pre-cond: input is a string
+	 * Post-cond: calls appropriate command depending on input
+	 */
 
 	public String processInput(String input) throws IOException {
 		// set the default start date to be displayed
@@ -74,12 +91,13 @@ public class Parser {
 		String inputArr[] = input.split(" ", 2);
 		// take care of the one word input
 		if (inputArr.length == 1) {
-			switch (inputArr[0]) {
-			case "exit":
+			CommandTypes command = determineCmd(inputArr[0]);
+			switch (command) {
+			case EXIT:
 				arc.saveArchives();
 				System.exit(0);
 
-			case "undo":
+			case UNDO:
 				try {
 					history.undo();
 				} catch (IndexOutOfBoundsException e) {
@@ -92,7 +110,7 @@ public class Parser {
 				arc.saveArchives();
 				break;
 
-			case "redo":
+			case REDO:
 				history.redo();
 
 				// Determine if earlier command is done
@@ -101,20 +119,20 @@ public class Parser {
 				arc.saveArchives();
 				break;
 
-			case "min":
+			case MIN:
 				GUI.minWindow();
 				break;
 
-			case "max":
+			case MAX:
 				GUI.maxWindow();
 				break;
 
-			case "help":
+			case HELP:
 				GUI.showHelp();
 				break;
 
 			default:
-				WarningPopUp.infoBox("Invalid Input", "WARNING");
+				WarningPopUp.infoBox(INVALID_COMMAND, WARNING_HEADING);
 			}
 
 		} else {
@@ -137,7 +155,7 @@ public class Parser {
 					startDateToBeDisplayed = DateModifier
 							.convertInputViewToDate(theRest);
 				} else {
-					WarningPopUp.infoBox("Invalid view input", "ERROR");
+					WarningPopUp.infoBox(INVALID_VIEW_COMMAND, ERROR_HEADING);
 				}
 				break;
 
@@ -299,7 +317,7 @@ public class Parser {
 				String searchResult = srch.search(theRest);
 				System.out.print(searchResult);
 
-				WarningPopUp.infoBox(searchResult, "Search Result");
+				WarningPopUp.infoBox(searchResult, SEARCH_HEADING);
 				break;
 
 			case AGENDA:
@@ -322,7 +340,7 @@ public class Parser {
 						faAgenda.createAgendaForTheDate();
 					}
 				} else {
-					WarningPopUp.infoBox("Invalid agenda input", "ERROR");
+					WarningPopUp.infoBox(AGENDA_ERR_HEADING, ERROR_HEADING);
 				}
 				break;
 
@@ -347,7 +365,7 @@ public class Parser {
 						fileAccessor.setFileName(fileName);
 						String dateContentString = fileAccessor
 								.readFileString();
-						WarningPopUp.infoBox(dateContentString, "Zoom Result");
+						WarningPopUp.infoBox(dateContentString, ZOOM_HEADING);
 						break;
 					} else {
 						switch (theRest) {
@@ -358,7 +376,7 @@ public class Parser {
 							String dateContentString = fileAccessor
 									.readFileString();
 							WarningPopUp.infoBox(dateContentString,
-									"Zoom Result");
+									ZOOM_HEADING);
 							break;
 						case "undone":
 
@@ -367,18 +385,18 @@ public class Parser {
 							fileAccessor.setFileName(fileName);
 							dateContentString = fileAccessor.readFileString();
 							WarningPopUp.infoBox(dateContentString,
-									"Zoom Result");
+									ZOOM_HEADING);
 							break;
 						case "archives":
 							fileName = "archives.txt";
 							fileAccessor.setFileName(fileName);
 							dateContentString = fileAccessor.readFileString();
 							WarningPopUp.infoBox(dateContentString,
-									"Zoom Result");
+									ZOOM_HEADING);
 							break;
 
 						default:
-							WarningPopUp.infoBox("Invalid Input!", "WARNING");
+							WarningPopUp.infoBox(ZOOM_ERR_HEADING, WARNING_HEADING);
 							break;
 						}
 					}
@@ -387,7 +405,7 @@ public class Parser {
 					int dateToBeZoomed = Integer.valueOf(theRest);
 					// check the date validity
 					if (!((dateToBeZoomed > 0) && (dateToBeZoomed < 10))) {
-						WarningPopUp.infoBox("Invalid Input!", "WARNING");
+						WarningPopUp.infoBox(ZOOM_ERR_HEADING, WARNING_HEADING);
 					} else {
 						switch (dateToBeZoomed) {
 						case 1:
@@ -396,7 +414,7 @@ public class Parser {
 							String dateContentString = fileAccessor
 									.readFileString();
 							WarningPopUp.infoBox(dateContentString,
-									"Zoom Result");
+									ZOOM_HEADING);
 							break;
 
 						case 2:
@@ -405,7 +423,7 @@ public class Parser {
 							fileAccessor.setFileName(fileName);
 							dateContentString = fileAccessor.readFileString();
 							WarningPopUp.infoBox(dateContentString,
-									"Zoom Result");
+									ZOOM_HEADING);
 							break;
 
 						case 3:
@@ -414,7 +432,7 @@ public class Parser {
 							fileAccessor.setFileName(fileName);
 							dateContentString = fileAccessor.readFileString();
 							WarningPopUp.infoBox(dateContentString,
-									"Zoom Result");
+									ZOOM_HEADING);
 							break;
 						case 4:
 							fileName = DateModifier.getParticularDate(
@@ -422,7 +440,7 @@ public class Parser {
 							fileAccessor.setFileName(fileName);
 							dateContentString = fileAccessor.readFileString();
 							WarningPopUp.infoBox(dateContentString,
-									"Zoom Result");
+									ZOOM_HEADING);
 							break;
 
 						case 5:
@@ -431,7 +449,7 @@ public class Parser {
 							fileAccessor.setFileName(fileName);
 							dateContentString = fileAccessor.readFileString();
 							WarningPopUp.infoBox(dateContentString,
-									"Zoom Result");
+									ZOOM_HEADING);
 							break;
 
 						case 6:
@@ -440,7 +458,7 @@ public class Parser {
 							fileAccessor.setFileName(fileName);
 							dateContentString = fileAccessor.readFileString();
 							WarningPopUp.infoBox(dateContentString,
-									"Zoom Result");
+									ZOOM_HEADING);
 							break;
 
 						case 7:
@@ -449,11 +467,11 @@ public class Parser {
 							fileAccessor.setFileName(fileName);
 							dateContentString = fileAccessor.readFileString();
 							WarningPopUp.infoBox(dateContentString,
-									"Zoom Result");
+									ZOOM_HEADING);
 							break;
 
 						default:
-							WarningPopUp.infoBox("Invalid Input!", "WARNING");
+							WarningPopUp.infoBox(ZOOM_ERR_HEADING, ERROR_HEADING);
 							break;
 						}
 					}
@@ -462,13 +480,12 @@ public class Parser {
 
 			// other input will be displayed as invalid input
 			default:
-				WarningPopUp.infoBox("Invalid Input", "WARNING");
+				WarningPopUp.infoBox(ZOOM_ERR_HEADING, ERROR_HEADING);
 				break;
 
 			}
 
 		}
-		System.out.println("after all " + startDateToBeDisplayed);
 		return startDateToBeDisplayed;
 	}
 }
