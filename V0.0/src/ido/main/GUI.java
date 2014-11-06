@@ -298,6 +298,8 @@ public class GUI {
 		
 		FileAccessor fa = new FileAccessor();
 		
+		OverDueTask ODTLaunch = new OverDueTask();
+		
 		fa.checkFilesExist();
 
 		displayAllTasks(DateModifier.getCurrDate());

@@ -17,9 +17,6 @@ public class Parser {
 	public static boolean testCmd = false;
 	public static Verify verify = new Verify();
 
-	// needs to be launch b4 this class if possible
-	public static OverDueTask ODTLaunch = new OverDueTask();
-
 	enum CommandTypes {
 		START, AGENDA, ADD, EDIT, DONE, INVALID, UNDO, REDO, ZOOM, SEARCH, COPY, MIN, MAX, HELP, DELETE, VIEW
 	};
