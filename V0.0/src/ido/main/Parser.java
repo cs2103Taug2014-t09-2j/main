@@ -9,7 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Parser {
-	
+
 	private static final String INVALID_COMMAND = "Invalid command!";
 	private static final String WARNING_HEADING = "WARNING";
 	private static final String ERROR_HEADING = "ERROR";
@@ -26,8 +26,7 @@ public class Parser {
 	public static Verify verify = new Verify();
 
 	enum CommandTypes {
-		START, AGENDA, ADD, EDIT, DONE, INVALID, UNDO, REDO, ZOOM, 
-		SEARCH, COPY, MIN, MAX, HELP, DELETE, VIEW, EXIT
+		START, AGENDA, ADD, EDIT, DONE, INVALID, UNDO, REDO, ZOOM, SEARCH, COPY, MIN, MAX, HELP, DELETE, VIEW, EXIT
 	};
 
 	private static CommandTypes determineCmd(String command) {
@@ -70,11 +69,10 @@ public class Parser {
 		}
 
 	}
-	
+
 	/*
-	 * Process the user input obtained from commandBox in GUI
-	 * Pre-cond: input is a string
-	 * Post-cond: calls appropriate command depending on input
+	 * Process the user input obtained from commandBox in GUI Pre-cond: input is
+	 * a string Post-cond: calls appropriate command depending on input
 	 */
 
 	public String processInput(String input) throws IOException {
@@ -111,7 +109,11 @@ public class Parser {
 				break;
 
 			case REDO:
-				history.redo();
+				try {
+					history.redo();
+				} catch (IndexOutOfBoundsException e) {
+					System.out.println(e);
+				}
 
 				// Determine if earlier command is done
 				arc.executeCmd(1);
@@ -296,16 +298,16 @@ public class Parser {
 					// Get required information
 					String doneDate = verify.getCurrDate();
 					String doneIndex = verify.getCurrIndex();
-					
+
 					// Start recording of file and command
 					arc.clear();
 					arc.cmdTAECD(inputArr[0]);
 					history.clear();
 					history.checkBaseFile(doneDate);
-					
+
 					// Execute Command
 					new CommandDone(doneDate, doneIndex).delete();
-					
+
 					// Save current state
 					history.recordUpdatedFile(doneDate);
 					arc.saveArchives();
@@ -324,7 +326,7 @@ public class Parser {
 
 				Verify verify = new Verify();
 				verify.setInput(theRest);
-				
+
 				if (verify.isValidAgendaInput()) {
 					if (theRest.equals("off")) {
 						GUI.agendaOff();
@@ -396,7 +398,8 @@ public class Parser {
 							break;
 
 						default:
-							WarningPopUp.infoBox(ZOOM_ERR_HEADING, WARNING_HEADING);
+							WarningPopUp.infoBox(ZOOM_ERR_HEADING,
+									WARNING_HEADING);
 							break;
 						}
 					}
@@ -471,7 +474,8 @@ public class Parser {
 							break;
 
 						default:
-							WarningPopUp.infoBox(ZOOM_ERR_HEADING, ERROR_HEADING);
+							WarningPopUp.infoBox(ZOOM_ERR_HEADING,
+									ERROR_HEADING);
 							break;
 						}
 					}

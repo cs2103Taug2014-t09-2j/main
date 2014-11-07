@@ -3,12 +3,9 @@ package ido.main;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-/**
- * @author Benedict
- */
+//@author A0110679A 
 
-/* This class stores the individual states of the text files
- * 
+/* This class stores the individual states of the text files in sequence * 
  */
 
 public class HistoryTrackerAllFiles {
@@ -20,34 +17,40 @@ public class HistoryTrackerAllFiles {
 	int maxCounter = 0; // for modDateSeq
 
 	public HistoryTrackerAllFiles() {
+
 		storageDate = new ArrayList<String>();
 		storageContent = new ArrayList<HistoryTrackerSingleFile>();
 		modDateSeq = new LinkedList<String>();
+
 	}
 
 	public void checkBaseFile(String date) {
+
 		if (storageDate.size() == 0) { // Initial check
 			storageDate.add(date);
 			storageContent.add((new HistoryTrackerSingleFile(date)));
 
 		} else { // Check if date exist
 			int index = -1;
+
 			for (int i = 0; i < storageDate.size(); i++) {
 				if (storageDate.get(i).equals(date)) {
 					index = i;
 					break;
 				}
 			}
+
 			if (index == -1) {
 				storageDate.add(date);
 				storageContent.add(new HistoryTrackerSingleFile(date));
 			}
-			// System.out.println(index);
+
 		}
 
 	}
 
 	public void clear() {
+
 		for (int i = 0; i < storageContent.size(); i++) {
 			storageContent.get(i).clearALR();
 		}
@@ -55,29 +58,31 @@ public class HistoryTrackerAllFiles {
 			modDateSeq.removeLast();
 		}
 		maxCounter = counter;
-		// System.out.println("cleared history");
 	}
 
 	public void recordUpdatedFile(String date) {
+
 		int index = -1;
+
 		for (int i = 0; i < storageDate.size(); i++) {
 			if (storageDate.get(i).equals(date)) {
 				index = i;
 				break;
 			}
 		}
+
 		storageContent.get(index).recordUpdatedFile(date);
 		modDateSeq.add(date);
 		counter++;
 		maxCounter = counter;
-		// System.out.println("record updated" + index);
+
 	}
 
 	public void undo() throws IndexOutOfBoundsException {
 
 		int index = -1;
+
 		if (counter - 1 < 0) {
-			// System.out.println("max undo");
 			WarningPopUp.infoBox("Nothing to Undo", "WARNING");
 
 		} else {
@@ -94,20 +99,20 @@ public class HistoryTrackerAllFiles {
 				storageContent.get(index).runUndo();
 				counter--;
 			}
-			
+
 			if (index == -1) {
 				throw new IndexOutOfBoundsException("Index not found!");
 			}
-			// System.out.println(index);
 
 		}
 
 	}
 
-	public void redo() {
+	public void redo() throws IndexOutOfBoundsException {
+
 		int index = -1;
+
 		if (counter + 1 > maxCounter) {
-			// System.out.println("max redo");
 			WarningPopUp.infoBox("Nothing to Redo", "WARNING");
 
 		} else {
@@ -119,11 +124,15 @@ public class HistoryTrackerAllFiles {
 					break;
 				}
 			}
+
 			if (index != -1) {
 				storageContent.get(index).runRedo();
 				counter++;
 			}
-			// System.out.println(index);
+
+			if (index == -1) {
+				throw new IndexOutOfBoundsException("Index not found!");
+			}
 
 		}
 

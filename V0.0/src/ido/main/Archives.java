@@ -33,14 +33,17 @@ public class Archives {
 
 	// Constructor on start up
 	public Archives() {
+		
 		arcStorageContent = new ArrayList<String>();
 		counterSize = new LinkedList<Integer>();
 		loadArchives();
 		ZorO = new LinkedList<Integer>();
+		
 	}
 
+	// Read contents from file into storageContent
 	public void loadArchives() {
-		// Read contents from file into storageContent
+		
 		arcStorageContent = (new FileAccessor(ARCHIVESTXT)).readContents();
 		counter += arcStorageContent.size();
 		maxCounter = counter;
@@ -94,6 +97,7 @@ public class Archives {
 
 	// Run redo of archives
 	public static void redo() {
+		
 		if (counter < maxCounter) {
 			counter += counterSize.get(counterSizeIndex);
 			counterSizeIndex++;
@@ -132,6 +136,7 @@ public class Archives {
 
 	// Determine if need to undo/redo for previous/after cmd
 	public void executeCmd(int num) {
+		
 		if (num == -1 && cmdCounter > 0) {
 			if (ZorO.get(cmdCounter - 1) == 1) {
 				undo();
