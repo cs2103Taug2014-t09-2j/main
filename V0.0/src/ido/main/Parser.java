@@ -350,7 +350,7 @@ public class Parser {
 				FileAccessor fileAccessor = new FileAccessor();
 				if (theRest.length() > 1) {
 					if ((theRest.length() == 6) && (!theRest.equals("general"))
-							&& (!theRest.equals("undone"))) {
+							&& (!theRest.equals("overdue") && (!theRest.equals("archives")))) {
 						fileName = theRest + ".txt";
 						File zoomFile = new File(fileName);
 						if (!zoomFile.exists()) {
@@ -380,17 +380,9 @@ public class Parser {
 							WarningPopUp.infoBox(dateContentString,
 									ZOOM_HEADING);
 							break;
-						case "undone":
-
-							fileName = DateModifier.getPrevDate(DateModifier
-									.getCurrDate()) + ".txt";
-							fileAccessor.setFileName(fileName);
-							dateContentString = fileAccessor.readFileString();
-							WarningPopUp.infoBox(dateContentString,
-									ZOOM_HEADING);
-							break;
-						case "archives":
-							fileName = "archives.txt";
+							
+						case "overdue":
+							fileName = "overdue.txt";
 							fileAccessor.setFileName(fileName);
 							dateContentString = fileAccessor.readFileString();
 							WarningPopUp.infoBox(dateContentString,
