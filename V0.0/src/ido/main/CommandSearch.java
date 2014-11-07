@@ -11,7 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class CommandSearch {
-	private String keyword;
+	private String[] keyword;
 	
 	private final static Logger LOGGER = Logger.getLogger(CommandSearch.class .getName());
 	
@@ -29,7 +29,7 @@ public class CommandSearch {
 	
 	//Mutator
 	public void setKeyword(String newKey) {
-		keyword = newKey.toLowerCase();
+		keyword = newKey.toLowerCase().split(" ");
 	}
 	
 	public String search(String key) {
@@ -74,13 +74,22 @@ public class CommandSearch {
     		ArrayList<String> taskList = new ArrayList<String>();
     		taskList = (new FileAccessor(fileName)).readContents();
 	    	for (int i=0; i<taskList.size(); i++) {
-				if (taskList.get(i).toLowerCase().contains(keyword)) {
-					String result = String.format(SEARCH_RESULT, displayedFileName, i+1, taskList.get(i));
-					searchFileResult.add(result);
-				}
+	    		String task = taskList.get(i);
+	    		if (isTaskContainKeys(task)) {
+	    			String result = String.format(SEARCH_RESULT, displayedFileName, i+1, taskList.get(i));
+	    			searchFileResult.add(result);
+	    		}
 			}
     	}
 		return searchFileResult;
+	}
+	
+	private boolean isTaskContainKeys(String task) {
+		for (int i=0; i<keyword.length; i++) {
+			if (!task.toLowerCase().contains(keyword[i]))
+				return false;
+		}
+		return true;
 	}
 	
 	private String arrayListToString(ArrayList<String> arr) {
