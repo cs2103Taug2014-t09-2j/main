@@ -75,7 +75,8 @@ public class CommandSearch {
     		taskList = (new FileAccessor(fileName)).readContents();
 	    	for (int i=0; i<taskList.size(); i++) {
 	    		if (isTaskContainKeys(taskList.get(i))) {
-	    			String result = String.format(SEARCH_RESULT, displayedFileName, i+1, taskList.get(i));
+	    			String result = String.format(SEARCH_RESULT, 
+	    					displayedFileName, i+1, taskList.get(i));
 	    			searchFileResult.add(result);
 	    		}
 			}
@@ -106,9 +107,9 @@ public class CommandSearch {
 			return true;
 		} catch (ParseException e) {
 			return false;
-			
 		}
 	}
+	
 	private String getPath() {
 		String currPath = "";
 		try {
