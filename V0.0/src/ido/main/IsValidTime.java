@@ -1,7 +1,9 @@
 package ido.main;
+
 //@author A0114813N
 public class IsValidTime {
 	private static final String FLOATING_CHECK = "-";
+
 	public static String getFormattedTime(int time) { // throws Exception{
 		if (time < 10 && time >= 0) {
 			return String.format("0%d00", time);
