@@ -46,9 +46,8 @@ public class CommandSearch {
 		if (dirListing != null) {
 			for (File child : dirListing) {
 		    	fileName = child.getName();
-		    	displayedFileName = fileName.replace(TEXT_EXTENSION, NO_EXTENSION);
+		    	displayedFileName = getDisplayedFileName(fileName);
 		    	searchResult.addAll(searchFile(fileName, displayedFileName));
-		    	
 		    }
 		}
 		// System.out.print(arrayListToString(searchResult));
@@ -58,6 +57,10 @@ public class CommandSearch {
 			return "Nothing found!";
 		}
 	}
+	private String getDisplayedFileName(String fileName) {
+		return fileName.replace(TEXT_EXTENSION, NO_EXTENSION);
+	}
+	
 	private ArrayList<String> searchFile(String fileName, String displayedFileName) {
 		ArrayList<String> searchFileResult = new ArrayList<String>();
 		if (isDateFile(fileName)||fileName.equals("general.txt")) {
