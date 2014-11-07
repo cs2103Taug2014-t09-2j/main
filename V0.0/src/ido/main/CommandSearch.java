@@ -36,15 +36,12 @@ public class CommandSearch {
 		LOGGER.setLevel(Level.INFO);
 		//The array to store the search result
 		ArrayList<String> searchResult = new ArrayList<String>();
-		String current = "";
+		
 		String fileName = "";
 		String displayedFileName = "";
-		try {
-			current = new java.io.File( "." ).getCanonicalPath();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		String current = getPath();
+		
 		File dir = new File(current);
 		File[] directoryListing = dir.listFiles();
 		if (directoryListing != null) {
@@ -90,5 +87,15 @@ public class CommandSearch {
 			return false;
 			
 		}
+	}
+	private String getPath() {
+		String currPath = "";
+		try {
+			currPath = new java.io.File( "." ).getCanonicalPath();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return currPath;
 	}
 }
