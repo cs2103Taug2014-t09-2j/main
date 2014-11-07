@@ -22,6 +22,8 @@ public class CommandSearch {
 	private static final String NUM_RESULT = "Number of result(s): %1$d\n";
 	private static final String LINE_FORMAT = "%1$s\n";
 	private static final String NO_EXTENSION = "";
+	private static final String EMPTY_RESULT = "Nothing found!";
+	private static final String GENERAL_FILE = "general.txt";
 	public CommandSearch() {
 	}
 	
@@ -52,22 +54,23 @@ public class CommandSearch {
 		}
 		searchResultFinal = getResultString(searchResult);
 		return searchResultFinal;
-		
 	}
+	
 	private String getDisplayedFileName(String fileName) {
 		return fileName.replace(TEXT_EXTENSION, NO_EXTENSION);
 	}
+	
 	private String getResultString(ArrayList<String> searchResult) {
 		if (!searchResult.isEmpty()) {
 			return arrayListToString(searchResult) + String.format(NUM_RESULT, searchResult.size());
 		} else {
-			return "Nothing found!";
+			return EMPTY_RESULT;
 		}
 	}
 	
 	private ArrayList<String> searchFile(String fileName, String displayedFileName) {
 		ArrayList<String> searchFileResult = new ArrayList<String>();
-		if (isDateFile(fileName)||fileName.equals("general.txt")) {
+		if (isDateFile(fileName)||fileName.equals(GENERAL_FILE)) {
     		ArrayList<String> taskList = new ArrayList<String>();
     		taskList = (new FileAccessor(fileName)).readContents();
 	    	for (int i=0; i<taskList.size(); i++) {
