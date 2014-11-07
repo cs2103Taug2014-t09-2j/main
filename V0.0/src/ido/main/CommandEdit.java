@@ -22,6 +22,7 @@ public class CommandEdit {
 	private static final String SPEC_TIME = "time";
 	private static final String SPEC_TASK = "task";
 	private static final String SPEC_ALL = "all";
+	private static final String ASK_FOR_SPEC = "Please enter what you would like to modify\ntask/time/all";
 	public CommandEdit() {
 	}
 	
@@ -76,7 +77,7 @@ public class CommandEdit {
 			}
 			break;
 		default:
-			WarningPopUp.infoBox("Please enter what you would like to modify\ntask/time/all", ERROR);
+			WarningPopUp.infoBox(ASK_FOR_SPEC, ERROR);
 		}
 		dateTask.add(index-1, editedTask);
 		(new FileAccessor(fileName, dateTask)).writeContents();
