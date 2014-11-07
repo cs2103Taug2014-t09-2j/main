@@ -212,7 +212,7 @@ public class Verify {
 	public void processDeleteString() {
 		String delString[] = input.split(" ");
 		String date = IsValidDate.validateDate(delString[0]);
-		if (!date.equals("")) { // Check Date
+		if (!date.equals("") && !date.equals("archives")) { // Check Date
 			setDate(date);
 			if (delString.length == 1) { // Check Empty File
 				String index = "-1";
@@ -235,6 +235,10 @@ public class Verify {
 				}
 			}
 		} else {
+			// Additional pop-up not done by IsValidDate
+			if (date.equals("archives")) {
+				WarningPopUp.infoBox("Invalid Date!", "ERROR");
+			}
 			check = false;
 		}
 	}
