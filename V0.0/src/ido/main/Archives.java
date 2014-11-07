@@ -6,13 +6,19 @@ import java.util.LinkedList;
 
 //@author A0110679A 
 
-/*
- * When commandDone is activated, store task in archives 
+/* When commandDone is activated, store task in archives 
  * Undo/redo will need to remove from archives
  * Transfer archive storage to display in pop up
  * Track commands for add/edit/done for every new command
  * Clear undo part when activation of new command that modifies file
  * Store info from commandDone
+ */
+
+/* Note:
+ * Due to the individual arraylist in this class 
+ * delete is only able to remove the file contents
+ * but is unable to actually delete the contents within the arraylist
+ * therefore deleting from archives is currently unavailable through the software 
  */
 
 public class Archives {
@@ -33,17 +39,17 @@ public class Archives {
 
 	// Constructor on start up
 	public Archives() {
-		
+
 		arcStorageContent = new ArrayList<String>();
 		counterSize = new LinkedList<Integer>();
 		loadArchives();
 		ZorO = new LinkedList<Integer>();
-		
+
 	}
 
 	// Read contents from file into storageContent
 	public void loadArchives() {
-		
+
 		arcStorageContent = (new FileAccessor(ARCHIVESTXT)).readContents();
 		counter += arcStorageContent.size();
 		maxCounter = counter;
@@ -97,7 +103,7 @@ public class Archives {
 
 	// Run redo of archives
 	public static void redo() {
-		
+
 		if (counter < maxCounter) {
 			counter += counterSize.get(counterSizeIndex);
 			counterSizeIndex++;
@@ -136,7 +142,7 @@ public class Archives {
 
 	// Determine if need to undo/redo for previous/after cmd
 	public void executeCmd(int num) {
-		
+
 		if (num == -1 && cmdCounter > 0) {
 			if (ZorO.get(cmdCounter - 1) == 1) {
 				undo();
