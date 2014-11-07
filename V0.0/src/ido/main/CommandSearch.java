@@ -36,7 +36,7 @@ public class CommandSearch {
 		LOGGER.setLevel(Level.INFO);
 		//The array to store the search result
 		ArrayList<String> searchResult = new ArrayList<String>();
-		
+		String searchResultFinal = "";
 		String fileName = "";
 		String displayedFileName = ""; //displayedFileName is fileName without the .txt extension
 		
@@ -50,15 +50,19 @@ public class CommandSearch {
 		    	searchResult.addAll(searchFile(fileName, displayedFileName));
 		    }
 		}
-		// System.out.print(arrayListToString(searchResult));
+		searchResultFinal = getResultString(searchResult);
+		return searchResultFinal;
+		
+	}
+	private String getDisplayedFileName(String fileName) {
+		return fileName.replace(TEXT_EXTENSION, NO_EXTENSION);
+	}
+	private String getResultString(ArrayList<String> searchResult) {
 		if (!searchResult.isEmpty()) {
 			return arrayListToString(searchResult) + String.format(NUM_RESULT, searchResult.size());
 		} else {
 			return "Nothing found!";
 		}
-	}
-	private String getDisplayedFileName(String fileName) {
-		return fileName.replace(TEXT_EXTENSION, NO_EXTENSION);
 	}
 	
 	private ArrayList<String> searchFile(String fileName, String displayedFileName) {
