@@ -38,14 +38,13 @@ public class CommandSearch {
 		ArrayList<String> searchResult = new ArrayList<String>();
 		
 		String fileName = "";
-		String displayedFileName = "";
+		String displayedFileName = ""; //displayedFileName is fileName without the .txt extension
 		
-		String current = getPath();
+		String currPath = getPath();
+		File[] dirListing = getListFiles(currPath);
 		
-		File dir = new File(current);
-		File[] directoryListing = dir.listFiles();
-		if (directoryListing != null) {
-			for (File child : directoryListing) {
+		if (dirListing != null) {
+			for (File child : dirListing) {
 		    	fileName = child.getName();
 		    	
 		    	displayedFileName = fileName.replace(TEXT_EXTENSION, NO_EXTENSION);
@@ -97,5 +96,11 @@ public class CommandSearch {
 			e.printStackTrace();
 		}
 		return currPath;
+	}
+	
+	private File[] getListFiles(String currPath) {
+		File dir = new File(currPath);
+		File[] dirListing = dir.listFiles();
+		return dirListing;
 	}
 }
