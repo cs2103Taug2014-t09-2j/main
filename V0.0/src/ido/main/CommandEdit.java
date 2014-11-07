@@ -15,7 +15,13 @@ public class CommandEdit {
 	
 	private static final String TXT_EXTENSION = ".txt";
 	private static final String CONTENT_TO_DISPLAY = "[%1$s] %2$s";
-	
+	private static final String UNKNOWN_TIME = "-";
+	private static final String ALL_DAY_TIME = "all-day";
+	private static final String FEEDBACK_INVALID_TIME  = "Invalid Time!";
+	private static final String ERROR = "ERROR";
+	private static final String SPEC_TIME = "time";
+	private static final String SPEC_TASK = "task";
+	private static final String SPEC_ALL = "all";
 	public CommandEdit() {
 	}
 	
@@ -48,29 +54,29 @@ public class CommandEdit {
 		String editedTask = new String();
 		
 		switch (specification) {
-		case "time":
+		case SPEC_TIME:
 			try {
 				editedTask = editTime(oldTask);
 			} catch (Exception e) {
 				editedTask = oldTask;
-				WarningPopUp.infoBox("Invalid Time!", "ERROR");
+				WarningPopUp.infoBox(FEEDBACK_INVALID_TIME, ERROR);
 				e.printStackTrace();
 			}
 			break;
-		case "task":
+		case SPEC_TASK:
 			editedTask = editTask(oldTask);
 			break;
-		case "all":
+		case SPEC_ALL:
 			try {
 				editedTask = editAll(oldTask);
 			} catch (Exception e) {
 				editedTask = oldTask;
-				WarningPopUp.infoBox("Invalid Time!", "ERROR");
+				WarningPopUp.infoBox(FEEDBACK_INVALID_TIME, ERROR);
 				e.printStackTrace();
 			}
 			break;
 		default:
-			WarningPopUp.infoBox("Please enter what you would like to modify\ntask/time/all", "ERROR!");
+			WarningPopUp.infoBox("Please enter what you would like to modify\ntask/time/all", ERROR);
 		}
 		dateTask.add(index-1, editedTask);
 		(new FileAccessor(fileName, dateTask)).writeContents();
@@ -107,10 +113,11 @@ public class CommandEdit {
 		return IsValidDate.validateDate(date) + TXT_EXTENSION;//get the name of the file given the date input
 													//date input can be 1-7
 	}
+	
 	private String getNewTimeStr(String time) throws Exception {
 		String validatedTime = IsValidTime.validateTime(time);
-		if (validatedTime.equals("-"))
-			validatedTime ="all-day";
+		if (validatedTime.equals(UNKNOWN_TIME))
+			validatedTime = ALL_DAY_TIME;
 			return validatedTime;
 	}
 	
