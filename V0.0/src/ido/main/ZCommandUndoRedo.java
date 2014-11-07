@@ -6,8 +6,12 @@ package ido.main;
 //// import java.util.ArrayList;
 //import java.util.Stack;
 
-/* UNUSED
- * CONFLICTING CONDITIONS
+//@author A0110679A-unused
+
+/* 1st attempt at executing undo & redo for basic commands add,edit,delete
+ * Code was hard-coded to reverse the string
+ * Become unusable when integrating with undo & redo
+ * due to it being hard-coded
  * COMMENTED ALL TO PREVENT ERROR MSG WHEN RUNNING GUI
  */
 

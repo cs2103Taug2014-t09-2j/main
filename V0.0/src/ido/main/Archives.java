@@ -4,22 +4,20 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-/**
- * @author Benedict
- */
+//@author A0110679A 
 
 /*
- * When commandDone is activated, store task in archives undo redo will need to
- * remove from archives transfer archive storage to display in pop up, separate
- * file track commands for add/edit/done for every new command > clear undo part
- * till current b4 adding command track activation sequence for done in parser
- * store info from commandDone
+ * When commandDone is activated, store task in archives 
+ * Undo/redo will need to remove from archives
+ * Transfer archive storage to display in pop up
+ * Track commands for add/edit/done for every new command
+ * Clear undo part when activation of new command that modifies file
+ * Store info from commandDone
  */
 
 public class Archives {
 
 	private static final String ARCHIVESTXT = "archives.txt";
-	// private static final String ARCHIVES = "Archives";
 	static File file_object = new File(ARCHIVESTXT);
 
 	public static ArrayList<String> arcStorageContent;
@@ -30,8 +28,8 @@ public class Archives {
 	static int counterSizeIndex = 0;
 
 	public static LinkedList<Integer> ZorO;
-	static int cmdCounter = 0; // for track
-	static int cmdMaxCounter = 0; // for track
+	static int cmdCounter = 0; // for tracking
+	static int cmdMaxCounter = 0; // for tracking
 
 	// Constructor on start up
 	public Archives() {
@@ -44,29 +42,25 @@ public class Archives {
 	public void loadArchives() {
 		// Read contents from file into storageContent
 		arcStorageContent = (new FileAccessor(ARCHIVESTXT)).readContents();
-		// System.out.println("Archive size" + arcStorageContent.size());
 		counter += arcStorageContent.size();
 		maxCounter = counter;
 		initialArcSize = arcStorageContent.size();
-		// System.out.println("Intial Arc Size: " + initialArcSize);
 
 	}
 
-	// Resets the counter and contents to current state when new cmd mods file
+	// Resets counter & contents to current state when new command modify file
 	public void clear() {
 
-		// System.out.println("Clear= " + counter);
 		while (arcStorageContent.size() != counter) {
 			arcStorageContent.remove(arcStorageContent.size() - 1);
 		}
 		maxCounter = counter;
 		cmdMaxCounter = cmdCounter;
-		// System.out.println("cleared history");
 	}
 
 	// Add one done task
 	public static void addOneDoneTask(String date, String task) {
-		// System.out.println(date + " " + task);
+
 		arcStorageContent.add(date + " " + task);
 		counter++;
 		maxCounter = counter;
@@ -77,14 +71,15 @@ public class Archives {
 
 	// Add multiple done task
 	public static void addAllDoneTask(String date, ArrayList<String> task) {
+
 		for (int i = 0; i < task.size(); i++) {
-			// System.out.println(date + " " + task.get(i));
 			arcStorageContent.add(date + " " + task.get(i));
 		}
 		counter += task.size();
 		maxCounter = counter;
 		counterSize.add(task.size());
 		counterSizeIndex = counterSize.size();
+
 	}
 
 	// Run undo of archives
@@ -93,10 +88,6 @@ public class Archives {
 		if (counter > initialArcSize) {
 			counter -= counterSize.get(counterSizeIndex - 1);
 			counterSizeIndex--;
-
-			// System.out.println("counter: " + counter);
-		} else {
-			// System.out.println("max undo");
 		}
 
 	}
@@ -106,28 +97,26 @@ public class Archives {
 		if (counter < maxCounter) {
 			counter += counterSize.get(counterSizeIndex);
 			counterSizeIndex++;
-
-			// System.out.println("counter: " + counter);
-		} else {
-			// System.out.println("max redo");
 		}
 
 	}
 
 	// write all data from arcStorageContent into text file
 	public void saveArchives() {
+
 		ArrayList<String> arcTemp = new ArrayList<String>();
 		for (int i = 0; i < arcStorageContent.size(); i++) {
 			if (i < counter) {
-				// System.out.println(arcStorageContent.get(i));
 				arcTemp.add(arcStorageContent.get(i));
 			}
 		}
 		new FileAccessor(ARCHIVESTXT, arcTemp).writeContents();
+
 	}
 
 	// Tracks the cmd for Add Edit Copy Done
 	public void cmdTAECD(String cmd) {
+
 		if (cmd.equals("add") || cmd.equals("edit") || cmd.equals("copy")
 				|| cmd.equals("delete")) {
 			ZorO.add(0);
@@ -138,7 +127,7 @@ public class Archives {
 			cmdCounter++;
 			cmdMaxCounter = cmdCounter;
 		}
-		// System.out.println("cmdCounter: " + cmdCounter);
+
 	}
 
 	// Determine if need to undo/redo for previous/after cmd
@@ -146,14 +135,12 @@ public class Archives {
 		if (num == -1 && cmdCounter > 0) {
 			if (ZorO.get(cmdCounter - 1) == 1) {
 				undo();
-				// System.out.println("YES UNDO");
 			}
 			cmdCounter += num;
 
 		} else if (num == 1 && cmdCounter < cmdMaxCounter) {
 			if (ZorO.get(cmdCounter) == 1) {
 				redo();
-				// System.out.println("YES REDO");
 			}
 			cmdCounter += num;
 

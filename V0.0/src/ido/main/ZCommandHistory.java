@@ -3,10 +3,14 @@ package ido.main;
 //import java.util.ArrayList;
 //import java.util.Stack;
 
-/* UNUSED
- * CONFLICTING CONDITIONS
- * COMMENTED ALL TO PREVENT ERROR MSG WHEN RUNNING GUI
- */
+//@author A0110679A-unused
+
+/* 2nd attempt at executing undo & redo for basic commands add,edit,delete
+* Undo & redo is now implemented using stacks
+* Become unusable when having intermediate undo & redo as the states are not in sync
+* Too many conflicting conditions as well
+* COMMENTED ALL TO PREVENT ERROR MSG WHEN RUNNING GUI
+*/
 
 public class ZCommandHistory {
 

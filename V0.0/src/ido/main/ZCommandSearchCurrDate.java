@@ -1,9 +1,11 @@
 package ido.main;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
-/*
- * UNUSED, INITIALLY FOR COMMANDDONE/UNDOREDO
+//@author A0110679A-unused
+
+/* This class was used in conjunction with class CommandUndoRedo
+ * COMMENTED ALL TO PREVENT ERROR MSG WHEN RUNNING GUI
  */
 
 public class ZCommandSearchCurrDate {
