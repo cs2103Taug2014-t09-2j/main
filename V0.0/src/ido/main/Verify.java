@@ -138,7 +138,10 @@ public class Verify {
 				check = false;
 			}
 		} else {
-			// WarningPopUp.infoBox("Invalid Date", "WARNING");
+			// Additional pop-up not done by IsValidDate
+			if (date.equals("overdue") || date.equals("archives")) {
+				WarningPopUp.infoBox("Invalid Date!", "ERROR");
+			}
 			check = false;
 		}
 
@@ -160,7 +163,10 @@ public class Verify {
 				check = false;
 			}
 		} else {
-			// WarningPopUp.infoBox("Invalid Date", "WARNING");
+			// Additional pop-up not done by IsValidDate
+			if (date.equals("overdue") || date.equals("archives")) {
+				WarningPopUp.infoBox("Invalid Date!", "ERROR");
+			}
 			check = false;
 		}
 
@@ -182,7 +188,11 @@ public class Verify {
 					setDestDate(destdate);
 					check = true;
 				} else {
-					// WarningPopUp.infoBox("Invalid Date", "WARNING");
+					// Additional pop-up not done by IsValidDate
+					if (destdate.equals("overdue")
+							|| destdate.equals("archives")) {
+						WarningPopUp.infoBox("Invalid Date!", "ERROR");
+					}
 					check = false;
 				}
 			} else {
@@ -190,7 +200,10 @@ public class Verify {
 				check = false;
 			}
 		} else {
-			// WarningPopUp.infoBox("Invalid Date", "WARNING");
+			// Additional pop-up not done by IsValidDate
+			if (sourcedate.equals("overdue") || sourcedate.equals("archives")) {
+				WarningPopUp.infoBox("Invalid Date!", "ERROR");
+			}
 			check = false;
 		}
 
@@ -222,7 +235,6 @@ public class Verify {
 				}
 			}
 		} else {
-			// WarningPopUp.infoBox("Invalid Date", "WARNING");
 			check = false;
 		}
 	}
@@ -254,7 +266,10 @@ public class Verify {
 				}
 			}
 		} else {
-			// WarningPopUp.infoBox("Invalid Date", "WARNING");
+			// Additional pop-up not done by IsValidDate
+			if (date.equals("overdue") || date.equals("archives")) {
+				WarningPopUp.infoBox("Invalid Date!", "ERROR");
+			}
 			check = false;
 		}
 	}
@@ -266,7 +281,7 @@ public class Verify {
 			switch (input) {
 			case "1":
 				return true;
-				
+
 			case "2":
 				return true;
 
@@ -287,10 +302,10 @@ public class Verify {
 
 			case "today":
 				return true;
-	
+
 			case "tomorrow":
 				return true;
-				
+
 			case "off":
 				return true;
 
@@ -299,7 +314,7 @@ public class Verify {
 			}
 		}
 	}
-	
+
 	public boolean isValidViewInput() {
 		if (DateModifier.isValidDate(input)) {
 			return true;
@@ -308,13 +323,13 @@ public class Verify {
 
 			case "today":
 				return true;
-	
+
 			case "tomorrow":
 				return true;
-				
+
 			case "next week":
 				return true;
-				
+
 			case "next month":
 				return true;
 
