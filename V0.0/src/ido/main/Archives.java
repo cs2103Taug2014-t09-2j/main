@@ -161,6 +161,7 @@ public class Archives {
 		}
 	}
 	
+	// For the user to actually see from archives.txt
 	public void formatArcTxtFile() throws FileNotFoundException {
 		PrintWriter writer2 = new PrintWriter(file_object);
 		writer2.println("Archives ");
