@@ -298,7 +298,7 @@ public class GUI {
 		
 		FileAccessor fa = new FileAccessor();
 		
-		OverDueTask ODTLaunch = new OverDueTask();
+		OverDueTask.updateOverDueTask();
 		
 		fa.checkFilesExist();
 
