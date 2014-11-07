@@ -290,7 +290,7 @@ public class Parser {
 			case DONE:
 
 				verify.setInput(theRest);
-				verify.processDeleteString();
+				verify.processDoneString();
 				testCmd = verify.getCheck();
 
 				if (testCmd) {
