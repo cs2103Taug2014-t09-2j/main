@@ -3,9 +3,7 @@ package ido.main;
 import java.io.File;
 import java.util.ArrayList;
 
-/**
- * @author Benedict
- */
+//@author A0110679A 
 
 /*
  * This class deletes the task without archiving Code from CommandDone without
@@ -17,48 +15,42 @@ public class CommandDelete {
 	String date; // fileName
 	int position = -1;
 	File file_object = null;
+	private static final String GENERALTXT = "general.txt";
 
 	// Constructor
-	// General start up of delete
 	public CommandDelete(String date, String position) {
-		if (date.equals("overdue")) {
-			this.date = date;
-		} else {
-			this.date = IsValidDate.validateDate(date);
-		}
+		
+		this.date = IsValidDate.validateDate(date);
 		this.position = Integer.parseInt(position);
+		
 	}
-
-	// } else if (arrStr[0].equals("miss")) { // Input Missing Task
-	// setVariables(arrStr);
-	// }
-	// System.out.println("values stored");
 
 	// Mutator
 	public void delete() {
+		
 		if (position != -1) {
+			
 			// Specific task
 			if (date.equals("-")) {
-				String fileName = "general.txt";
+				String fileName = GENERALTXT;
 				deleteSpecificTask(fileName);
-			} else if (date.equals("overdue")) {
-				String fileName = "overdue.txt";
-				deleteSpecificTask(fileName);
+							
 			} else {
 				String fileName = date + ".txt";
 				deleteSpecificTask(fileName);
+				
 			}
 
 		} else { // All Task
+			
 			if (date.equals("-")) {
-				String fileName = "general.txt";
+				String fileName = GENERALTXT;
 				deleteAllTask(fileName);
-			} else if (date.equals("overdue")) {
-				String fileName = "overdue.txt";
-				deleteAllTask(fileName);
+				
 			} else {
 				String fileName = date + ".txt";
 				deleteAllTask(fileName);
+				
 			}
 		
 		}
@@ -75,21 +67,18 @@ public class CommandDelete {
 			// read the content of the file, put in the list
 			currDateTask = (new FileAccessor(fileName)).readContents();
 
-			if (currDateTask.size() == 0) {
-				// System.out.println("Nothing to clear");
+			if (currDateTask.size() == 0) {				
 				WarningPopUp.infoBox("Nothing to clear", "WARNING");
 
 			} else {
 				currDateTask.clear();
-				// System.out.println("Success Clear");
-
+				
 			}
 
 			// write in file
 			(new FileAccessor(fileName, currDateTask)).writeContents();
 
 		} else {
-			// System.out.println("Failed Clear");
 			WarningPopUp.infoBox("Unable to delete", "WARNING");
 
 		}
@@ -104,11 +93,9 @@ public class CommandDelete {
 
 		// check if valid
 		if (position - 1 < currDateTask.size()) {
-			currDateTask.remove(position - 1);
-			// System.out.println("Success delete");
+			currDateTask.remove(position - 1);			
 
 		} else {
-			// System.out.println("Failed delete");
 			WarningPopUp.infoBox("Unable to delete", "WARNING");
 
 		}

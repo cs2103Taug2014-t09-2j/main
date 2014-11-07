@@ -1,10 +1,10 @@
 package ido.main;
 
+//@author A0110679A 
+
 /*
  * This class check if the command input has correct syntax before executing the command
  * This class is a compilation of errors from all the command classes
- * If this class is to be used, have to edit IsValidTime to return "" for invalid
- * Also requires to remove all error messages from all command classes which modify the text file
  */
 
 public class Verify {

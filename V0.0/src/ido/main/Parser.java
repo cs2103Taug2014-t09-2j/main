@@ -306,7 +306,7 @@ public class Parser {
 					history.checkBaseFile(doneDate);
 
 					// Execute Command
-					new CommandDone(doneDate, doneIndex).delete();
+					new CommandDone(doneDate, doneIndex).done();
 
 					// Save current state
 					history.recordUpdatedFile(doneDate);
