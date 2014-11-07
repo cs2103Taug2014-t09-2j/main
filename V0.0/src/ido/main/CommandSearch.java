@@ -74,8 +74,7 @@ public class CommandSearch {
     		ArrayList<String> taskList = new ArrayList<String>();
     		taskList = (new FileAccessor(fileName)).readContents();
 	    	for (int i=0; i<taskList.size(); i++) {
-	    		String task = taskList.get(i);
-	    		if (isTaskContainKeys(task)) {
+	    		if (isTaskContainKeys(taskList.get(i))) {
 	    			String result = String.format(SEARCH_RESULT, displayedFileName, i+1, taskList.get(i));
 	    			searchFileResult.add(result);
 	    		}
