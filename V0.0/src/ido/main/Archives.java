@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Stack;
 
@@ -160,14 +161,15 @@ public class Archives {
 
 		}
 	}
-	
+
 	// For the user to actually see from archives.txt
 	public void formatArcTxtFile() throws FileNotFoundException {
+		Collections.sort(arcStorageContent);
 		PrintWriter writer2 = new PrintWriter(file_object);
 		writer2.println("Archives ");
 		writer2.println("----------------------------------");
 		for (int i = 0; i < arcStorageContent.size(); i++) {
-			writer2.println(arcStorageContent.get(i));
+			writer2.println((i+1) + ". " + arcStorageContent.get(i));
 		}
 		writer2.close();
 
