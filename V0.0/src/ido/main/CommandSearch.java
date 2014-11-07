@@ -46,18 +46,8 @@ public class CommandSearch {
 		if (dirListing != null) {
 			for (File child : dirListing) {
 		    	fileName = child.getName();
-		    	
-		    	displayedFileName = fileName.replace(TEXT_EXTENSION, NO_EXTENSION);
-		    	if (isDateFile(fileName)||fileName.equals("general.txt")) {
-		    		ArrayList<String> taskList = new ArrayList<String>();
-		    		taskList = (new FileAccessor(fileName)).readContents();
-			    	for (int i=0; i<taskList.size(); i++) {
-						if (taskList.get(i).toLowerCase().contains(keyword)) {
-							String result = String.format(SEARCH_RESULT, displayedFileName, i+1, taskList.get(i));
-							searchResult.add(result);
-						}
-					}
-		    	}
+		    	displayedFileName = getDisplayedFileName(fileName);
+		    	searchResult.addAll(searchFile(displayedFileName));
 		    }
 		}
 		// System.out.print(arrayListToString(searchResult));
@@ -66,9 +56,25 @@ public class CommandSearch {
 		} else {
 			return "Nothing found!";
 		}
-		
-		
 	}
+	private ArrayList<String> searchFile(String fileName) {
+		ArrayList<String> searchFileResult = new ArrayList<String>();
+		if (isDateFile(fileName)||fileName.equals("general")) {
+    		ArrayList<String> taskList = new ArrayList<String>();
+    		taskList = (new FileAccessor(fileName)).readContents();
+	    	for (int i=0; i<taskList.size(); i++) {
+				if (taskList.get(i).toLowerCase().contains(keyword)) {
+					String result = String.format(SEARCH_RESULT, fileName, i+1, taskList.get(i));
+					searchFileResult.add(result);
+				}
+			}
+    	}
+		return searchFileResult;
+	}
+	private String getDisplayedFileName(String fileName) {
+		return fileName.replace(TEXT_EXTENSION, NO_EXTENSION);
+	}
+	
 	private String arrayListToString(ArrayList<String> arr) {
 		String str = new String();
 		for (int i=0; i<arr.size(); i++) {
