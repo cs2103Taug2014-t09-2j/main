@@ -1,8 +1,11 @@
 package ido.main;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Stack;
 
 //@author A0110679A 
 
@@ -156,6 +159,17 @@ public class Archives {
 			cmdCounter += num;
 
 		}
+	}
+	
+	public void formatArcTxtFile() throws FileNotFoundException {
+		PrintWriter writer2 = new PrintWriter(file_object);
+		writer2.println("Archives ");
+		writer2.println("----------------------------------");
+		for (int i = 0; i < arcStorageContent.size(); i++) {
+			writer2.println(arcStorageContent.get(i));
+		}
+		writer2.close();
+
 	}
 
 }

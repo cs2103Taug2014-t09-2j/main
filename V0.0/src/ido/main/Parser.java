@@ -93,6 +93,7 @@ public class Parser {
 			switch (command) {
 			case EXIT:
 				arc.saveArchives();
+				arc.formatArcTxtFile();
 				System.exit(0);
 
 			case UNDO:
