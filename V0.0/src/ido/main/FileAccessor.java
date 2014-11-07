@@ -21,7 +21,7 @@ public class FileAccessor {
 
 	private static final String CONTENT_TO_DISPLAY = "%1$d. %2$s\n";
 	private static final String FILE_HEADING = "%1$s %2$s\n----------------------------------\n";
-	private static final String ERROR_LOCATION = "ERROR";
+	private static final String ERROR = "ERROR";
 	private static final String READ_ERROR = "Failure to read file %1$s!";
 	private static final String WRITE_ERROR = "Failure to write file %1$s!";
 	private static final String TEXT_EXTENSION = ".txt";
@@ -67,7 +67,7 @@ public class FileAccessor {
 			br.close();
 		} catch (IOException ee) {
 			WarningPopUp.infoBox(String.format(READ_ERROR, fileName),
-					ERROR_LOCATION);
+					ERROR);
 			ee.printStackTrace();
 		}
 		return currDateTask;
@@ -110,7 +110,7 @@ public class FileAccessor {
 			bw.close();
 		} catch (IOException ee) {
 			WarningPopUp.infoBox(String.format(WRITE_ERROR, fileName),
-					ERROR_LOCATION);
+					ERROR);
 			ee.printStackTrace();
 		}
 
