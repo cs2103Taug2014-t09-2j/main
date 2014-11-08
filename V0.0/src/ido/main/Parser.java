@@ -108,8 +108,8 @@ public class Parser {
 				arc.executeCmd(-1);
 				// update file whenever undo is called
 				arc.saveArchives();
-				if((GUI.checkAgendaActive()!=null) && (GUI.checkAgendaActive().isVisible())){
-					GUI.closeAgenda();
+				if((GUI.checkAgendaActive()!=null) && (GUI.checkAgendaActive().isVisible())
+						&&(history.getUndoFileDate().equals("-"))&&(history.getUndoFileDate().equals("overdue"))){					GUI.closeAgenda();
 					processInput("agenda " + history.getUndoFileDate());
 				}
 				break;
@@ -125,7 +125,8 @@ public class Parser {
 				arc.executeCmd(1);
 				// update file whenever redo is called
 				arc.saveArchives();
-				if((GUI.checkAgendaActive()!=null) && (GUI.checkAgendaActive().isVisible())){
+				if((GUI.checkAgendaActive()!=null) && (GUI.checkAgendaActive().isVisible())
+						&&(history.getRedoFileDate().equals("-"))&&(history.getRedoFileDate().equals("overdue"))){
 					GUI.closeAgenda();
 					processInput("agenda " + history.getRedoFileDate());
 				}
