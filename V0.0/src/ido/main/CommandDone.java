@@ -15,7 +15,8 @@ public class CommandDone {
 
 	private static Logger logger = Logger.getLogger("CommandDone");
 
-	String date; // fileName
+	String date; // fileName w/o .txt
+	String fileName; // fileName w .txt
 	int position = -1;
 	File file_object = null;
 	private static final String GENERALTXT = "general.txt";
@@ -35,23 +36,23 @@ public class CommandDone {
 			
 			// Specific task
 			if (date.equals("-")) {
-				String fileName = GENERALTXT;
-				doneSpecificTask(fileName);
+				fileName = GENERALTXT;
+				doneSpecificTask();
 				
 			} else {
-				String fileName = date + ".txt";
-				doneSpecificTask(fileName);
+				fileName = date + ".txt";
+				doneSpecificTask();
 				
 			}
 
 		} else { // All Task
 			if (date.equals("-")) {
-				String fileName = GENERALTXT;
-				doneAllTask(fileName);
+				fileName = GENERALTXT;
+				doneAllTask();
 
 			} else {
-				String fileName = date + ".txt";
-				doneAllTask(fileName);
+				fileName = date + ".txt";
+				doneAllTask();
 				
 			}
 
@@ -59,7 +60,7 @@ public class CommandDone {
 
 	}
 
-	private void doneAllTask(String fileName) {
+	private void doneAllTask() {
 		
 		ArrayList<String> currDateTask = new ArrayList<>();
 		file_object = new File(fileName);
@@ -97,7 +98,7 @@ public class CommandDone {
 
 	}
 
-	private void doneSpecificTask(String fileName) {
+	private void doneSpecificTask() {
 		ArrayList<String> currDateTask = new ArrayList<>();
 
 		logger.log(Level.INFO, "delete processing");

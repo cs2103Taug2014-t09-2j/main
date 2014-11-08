@@ -12,7 +12,8 @@ import java.util.ArrayList;
 
 public class CommandDelete {
 
-	String date; // fileName
+	String date; // fileName w/o .txt
+	String fileName; // fileName w .txt
 	int position = -1;
 	File file_object = null;
 	private static final String GENERALTXT = "general.txt";
@@ -32,24 +33,24 @@ public class CommandDelete {
 			
 			// Specific task
 			if (date.equals("-")) {
-				String fileName = GENERALTXT;
-				deleteSpecificTask(fileName);
+				fileName = GENERALTXT;
+				deleteSpecificTask();
 							
 			} else {
-				String fileName = date + ".txt";
-				deleteSpecificTask(fileName);
+				fileName = date + ".txt";
+				deleteSpecificTask();
 				
 			}
 
 		} else { // All Task
 			
 			if (date.equals("-")) {
-				String fileName = GENERALTXT;
-				deleteAllTask(fileName);
+				fileName = GENERALTXT;
+				deleteAllTask();
 				
 			} else {
-				String fileName = date + ".txt";
-				deleteAllTask(fileName);
+				fileName = date + ".txt";
+				deleteAllTask();
 				
 			}
 		
@@ -57,7 +58,7 @@ public class CommandDelete {
 
 	}
 
-	private void deleteAllTask(String fileName) {
+	private void deleteAllTask() {
 		ArrayList<String> currDateTask = new ArrayList<>();
 		file_object = new File(fileName);
 
@@ -85,7 +86,7 @@ public class CommandDelete {
 
 	}
 
-	private void deleteSpecificTask(String fileName) {
+	private void deleteSpecificTask() {
 		ArrayList<String> currDateTask = new ArrayList<>();
 
 		// read the content of the file, put in the list

@@ -5,24 +5,18 @@ import java.util.ArrayList;
 
 //@author A0110679A 
 
-/* This class reads 10 text files from previous date 
+/* This class method reads 10 text files from previous date 
  * and stores the overdue task into overdue text file 
  */
 
 public class OverDueTask {
 
-	ArrayList<String> prevDateTask = new ArrayList<>();
-	ArrayList<String> ODTask = new ArrayList<>();
-	File file_object = null;
+	static ArrayList<String> prevDateTask = new ArrayList<>();
+	static ArrayList<String> ODTask = new ArrayList<>();
+	static File file_object = null;
 	private static final String OVERDUETXT = "overdue.txt";
 
-	public OverDueTask() {
-		
-		updateOverDueTask();
-		
-	}
-
-	public void updateOverDueTask() {
+	public static void updateOverDueTask() {
 		
 		// Get initial previous date
 		String prevDate = DateModifier.getPrevDate(DateModifier.getCurrDate());

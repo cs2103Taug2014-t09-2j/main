@@ -298,7 +298,7 @@ public class GUI {
 		
 		FileAccessor fa = new FileAccessor();
 		
-		OverDueTask ODTLaunch = new OverDueTask();
+		OverDueTask.updateOverDueTask();
 		
 		fa.checkFilesExist();
 
@@ -546,6 +546,7 @@ public class GUI {
 
 		agendaContent.setWrapStyleWord(true);
 		agendaContent.setLineWrap(true);
+		agendaContent.setEditable(false);
 		Border border = BorderFactory.createEmptyBorder();
 		agendaContent.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 10, 5, 5)));
