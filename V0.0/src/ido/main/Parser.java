@@ -242,8 +242,9 @@ public class Parser {
 					// Save current state
 					history.recordUpdatedFile(date1);
 					arc.saveArchives();
-					if((GUI.checkAgendaActive()!=null) && (GUI.checkAgendaActive().isVisible())){
-						GUI.closeAgenda();
+					System.out.println(date1);
+					if((!theRest.equals("overdue"))&(GUI.checkAgendaActive()!=null) & (GUI.checkAgendaActive().isVisible())
+							&(!date1.equals("-"))){
 						processInput("agenda " + date1);
 					}
 				}
@@ -306,7 +307,9 @@ public class Parser {
 					// Save current state
 					history.recordUpdatedFile(delDate);
 					arc.saveArchives();
-					if((GUI.checkAgendaActive()!=null) && (GUI.checkAgendaActive().isVisible())){
+					System.out.println(delDate);
+					if((!delDate.equals("overdue"))&&(GUI.checkAgendaActive()!=null) && (GUI.checkAgendaActive().isVisible())
+							&&(!delDate.equals("-"))){
 						GUI.closeAgenda();
 						processInput("agenda " + delDate);
 					}
@@ -337,8 +340,8 @@ public class Parser {
 					// Save current state
 					history.recordUpdatedFile(doneDate);
 					arc.saveArchives();
-					if((GUI.checkAgendaActive()!=null) && (GUI.checkAgendaActive().isVisible())){
-						GUI.closeAgenda();
+					if((!doneDate.equals("overdue"))&&(GUI.checkAgendaActive()!=null) && (GUI.checkAgendaActive().isVisible())
+							&&(!doneDate.equals("-"))){
 						processInput("agenda " + doneDate);
 					}
 				}
