@@ -137,4 +137,8 @@ public class HistoryTrackerAllFiles {
 		}
 
 	}
+	
+	public String getCurrFileDate(){
+		return modDateSeq.get(counter);
+	}
 }
