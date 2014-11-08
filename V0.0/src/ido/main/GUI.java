@@ -53,6 +53,7 @@ public class GUI {
 	private static JTextArea generalTasksBox;
 	private static JPanel agendaContainer;
 	private static JPanel panel1;
+	private static JScrollPane scrollPaneAgenda;
 
 	
 	private String fileName = null;
@@ -533,6 +534,13 @@ public class GUI {
 		panel1.setBackground((new Color(135, 206, 235)));
 		panel1.setBounds(5, 2, 600, 60);
 		agendaContainer.add(panel1);
+		
+		scrollPaneAgenda = new JScrollPane();
+		scrollPaneAgenda.setBorder(BorderFactory.createEmptyBorder());
+		scrollPaneAgenda.setBounds(650, 65, 394, 604);
+		getFrame().getContentPane().add(scrollPaneAgenda);
+		scrollPaneAgenda.setViewportView(panel1);
+		
 		getFrame().getContentPane().add(agendaContainer);
 	}
 	
@@ -543,7 +551,6 @@ public class GUI {
 	 */
 	public static void addTaskToAgenda(String task,int startTime,int duration){
 		JTextArea agendaContent = new JTextArea(task);
-
 		agendaContent.setWrapStyleWord(true);
 		agendaContent.setLineWrap(true);
 		agendaContent.setEditable(false);
@@ -570,12 +577,12 @@ public class GUI {
 		default: agendaContent.setFont(new Font("Segoe UI", Font.PLAIN, 26));
 		}
 		GridBagConstraints c = new GridBagConstraints();
-		c.fill = GridBagConstraints.BOTH;
-		c.anchor = GridBagConstraints.FIRST_LINE_START;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		//c.anchor = GridBagConstraints.FIRST_LINE_START;
 		c.gridy = startTime;
 		c.ipady = 1; 
 		c.weightx = 1;
-		c.weighty = duration*100;
+		c.weighty = duration;
 		c.gridwidth = 100;
 		c.insets = new Insets(2,0,0,0);  
 		c.gridx = 0;
@@ -584,8 +591,10 @@ public class GUI {
 	}
 	
 	public static void agendaOff(){
-		if(agendaContainer != null)
+		if(agendaContainer != null){
 			agendaContainer.setVisible(false);
+			scrollPaneAgenda.setVisible(false);
+		}
 		else
 			WarningPopUp.infoBox(ERROR_AGENDA_INACTIVE, ERROR_HEADING);
 		GUI.maxWindowNoAgenda();
@@ -593,6 +602,7 @@ public class GUI {
 	
 	public static void closeAgenda(){
 		agendaContainer.setVisible(false);
+		scrollPaneAgenda.setVisible(false);
 	}
 	
 	public static JPanel checkAgendaActive(){
