@@ -26,12 +26,7 @@ public class CommandDelete {
 		
 	}
 
-	// Accessor
-	
-	
 	// Mutator
-	
-	// Others
 	public void delete() {
 		
 		if (position != -1) {
