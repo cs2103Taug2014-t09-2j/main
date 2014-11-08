@@ -108,6 +108,10 @@ public class Parser {
 				arc.executeCmd(-1);
 				// update file whenever undo is called
 				arc.saveArchives();
+				if((GUI.checkAgendaActive()!=null) && (GUI.checkAgendaActive().isVisible())){
+					GUI.closeAgenda();
+					processInput("agenda " + history.getCurrFileDate());
+				}
 				break;
 
 			case REDO:
@@ -121,6 +125,10 @@ public class Parser {
 				arc.executeCmd(1);
 				// update file whenever redo is called
 				arc.saveArchives();
+				if((GUI.checkAgendaActive()!=null) && (GUI.checkAgendaActive().isVisible())){
+					GUI.closeAgenda();
+					processInput("agenda " + history.getCurrFileDate());
+				}
 				break;
 
 			case MIN:
