@@ -197,6 +197,10 @@ public class Parser {
 					// Save current state
 					history.recordUpdatedFile(date);
 					arc.saveArchives();
+					if(GUI.checkAgendaActive()!=null){
+						GUI.closeAgenda();
+						processInput("agenda " + date);
+					}
 				}
 				break;
 
@@ -230,6 +234,10 @@ public class Parser {
 					// Save current state
 					history.recordUpdatedFile(date1);
 					arc.saveArchives();
+					if(GUI.checkAgendaActive()!=null){
+						GUI.closeAgenda();
+						processInput("agenda " + date1);
+					}
 				}
 				break;
 
@@ -258,6 +266,10 @@ public class Parser {
 					// Save current state
 					history.recordUpdatedFile(destdate);
 					arc.saveArchives();
+					if(GUI.checkAgendaActive()!=null){
+						GUI.closeAgenda();
+						processInput("agenda " + destdate);
+					}
 				}
 				break;
 
@@ -286,6 +298,10 @@ public class Parser {
 					// Save current state
 					history.recordUpdatedFile(delDate);
 					arc.saveArchives();
+					if(GUI.checkAgendaActive()!=null){
+						GUI.closeAgenda();
+						processInput("agenda " + delDate);
+					}
 				}
 				break;
 
@@ -313,6 +329,10 @@ public class Parser {
 					// Save current state
 					history.recordUpdatedFile(doneDate);
 					arc.saveArchives();
+					if(GUI.checkAgendaActive()!=null){
+						GUI.closeAgenda();
+						processInput("agenda " + doneDate);
+					}
 				}
 				break;
 
