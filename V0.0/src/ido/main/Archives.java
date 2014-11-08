@@ -168,7 +168,7 @@ public class Archives {
 		PrintWriter writer2 = new PrintWriter(file_object);
 		writer2.println("Archives ");
 		writer2.println("----------------------------------");
-		for (int i = 0; i < arcStorageContent.size(); i++) {
+		for (int i = 0; i < counter; i++) {
 			writer2.println((i+1) + ". " + arcStorageContent.get(i));
 		}
 		writer2.close();
