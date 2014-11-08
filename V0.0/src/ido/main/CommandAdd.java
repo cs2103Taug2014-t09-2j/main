@@ -75,7 +75,7 @@ public class CommandAdd {
 			dateOutOfBox = false;
 		}
 		if (dateOutOfBox) {
-			WarningPopUp.infoBox(content, MESSAGE_TASK);
+			WarningPopUp.infoBox(date + " " + content, MESSAGE_TASK);
 		}
 		logger.log(Level.INFO, "add complete");
 	}
