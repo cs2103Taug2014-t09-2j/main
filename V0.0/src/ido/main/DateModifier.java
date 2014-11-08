@@ -72,7 +72,7 @@ public class DateModifier {
 	/*
 	 * Returns a custom date format for agenda heading in GUI 
 	 * Pre-cond: myDate is in ddmmyy format
-	 * Post-condition: returms a date with format e.g. 01 January 2014
+	 * Post-condition: returns a date with format e.g. 01 January 2014
 	 */	
 	public static String getAgendaHeading(String myDate) {
 		String[] months = { "January", "February", "March", "April", "May",
