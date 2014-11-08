@@ -18,6 +18,7 @@ public class Verify {
 	public static String destDate;
 	public static String editTTA;
 	public static String editMod;
+	private static final String ERROR_HEADING = "ERROR";
 
 	// Constructor
 	public Verify() {
@@ -108,7 +109,7 @@ public class Verify {
 						setEditMod(time);
 						check = true;
 					} else {
-						WarningPopUp.infoBox("Invalid Time", "WARNING");
+						WarningPopUp.infoBox("Invalid Time", ERROR_HEADING);
 						check = false;
 					}
 				} else if (editStr[2].equals("task")) {
@@ -123,14 +124,14 @@ public class Verify {
 						setEditMod(editStr[3]);
 						check = true;
 					} else {
-						WarningPopUp.infoBox("Invalid Time", "WARNING");
+						WarningPopUp.infoBox("Invalid Time", ERROR_HEADING);
 						check = false;
 					}
 				} else {
 					WarningPopUp
 							.infoBox(
 									"Please enter what you would like to modify\ntask/time/all",
-									"ERROR!");
+									ERROR_HEADING);
 					check = false;
 				}
 			} else {
@@ -140,7 +141,7 @@ public class Verify {
 		} else {
 			// Additional pop-up not done by IsValidDate
 			if (date.equals("overdue") || date.equals("archives")) {
-				WarningPopUp.infoBox("Invalid Date!", "ERROR");
+				WarningPopUp.infoBox("Invalid Date!", ERROR_HEADING);
 			}
 			check = false;
 		}
@@ -159,13 +160,13 @@ public class Verify {
 				setTask(addString[2]);
 				check = true;
 			} else {
-				WarningPopUp.infoBox("Invalid Time", "WARNING");
+				WarningPopUp.infoBox("Invalid Time", ERROR_HEADING);
 				check = false;
 			}
 		} else {
 			// Additional pop-up not done by IsValidDate
 			if (date.equals("overdue") || date.equals("archives")) {
-				WarningPopUp.infoBox("Invalid Date!", "ERROR");
+				WarningPopUp.infoBox("Invalid Date!", ERROR_HEADING);
 			}
 			check = false;
 		}
@@ -191,7 +192,7 @@ public class Verify {
 					// Additional pop-up not done by IsValidDate
 					if (destdate.equals("overdue")
 							|| destdate.equals("archives")) {
-						WarningPopUp.infoBox("Invalid Date!", "ERROR");
+						WarningPopUp.infoBox("Invalid Date!", ERROR_HEADING);
 					}
 					check = false;
 				}
@@ -202,7 +203,7 @@ public class Verify {
 		} else {
 			// Additional pop-up not done by IsValidDate
 			if (sourcedate.equals("overdue") || sourcedate.equals("archives")) {
-				WarningPopUp.infoBox("Invalid Date!", "ERROR");
+				WarningPopUp.infoBox("Invalid Date!", ERROR_HEADING);
 			}
 			check = false;
 		}
@@ -221,7 +222,7 @@ public class Verify {
 					setIndex(index);
 				} else {
 					WarningPopUp.infoBox("Cannot delete from empty file",
-							"WARNING");
+							ERROR_HEADING);
 				}
 			} else {
 				String index = (new IsValidIndex(date, delString[1]))
@@ -237,7 +238,7 @@ public class Verify {
 		} else {
 			// Additional pop-up not done by IsValidDate
 			if (date.equals("archives")) {
-				WarningPopUp.infoBox("Invalid Date!", "ERROR");
+				WarningPopUp.infoBox("Invalid Date!", ERROR_HEADING);
 			}
 			check = false;
 		}
@@ -256,7 +257,7 @@ public class Verify {
 					setIndex(index);
 				} else {
 					WarningPopUp.infoBox("Cannot delete from empty file",
-							"WARNING");
+							ERROR_HEADING);
 				}
 			} else {
 				String index = (new IsValidIndex(date, doneString[1]))
@@ -272,7 +273,7 @@ public class Verify {
 		} else {
 			// Additional pop-up not done by IsValidDate
 			if (date.equals("overdue") || date.equals("archives")) {
-				WarningPopUp.infoBox("Invalid Date!", "ERROR");
+				WarningPopUp.infoBox("Invalid Date!", ERROR_HEADING);
 			}
 			check = false;
 		}
