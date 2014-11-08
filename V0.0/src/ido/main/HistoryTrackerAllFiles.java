@@ -138,7 +138,11 @@ public class HistoryTrackerAllFiles {
 
 	}
 	
-	public String getCurrFileDate(){
+	public String getUndoFileDate(){
 		return modDateSeq.get(counter);
+	}
+	
+	public String getRedoFileDate(){
+		return modDateSeq.get(counter-1);
 	}
 }

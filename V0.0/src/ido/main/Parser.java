@@ -110,7 +110,7 @@ public class Parser {
 				arc.saveArchives();
 				if((GUI.checkAgendaActive()!=null) && (GUI.checkAgendaActive().isVisible())){
 					GUI.closeAgenda();
-					processInput("agenda " + history.getCurrFileDate());
+					processInput("agenda " + history.getUndoFileDate());
 				}
 				break;
 
@@ -127,7 +127,7 @@ public class Parser {
 				arc.saveArchives();
 				if((GUI.checkAgendaActive()!=null) && (GUI.checkAgendaActive().isVisible())){
 					GUI.closeAgenda();
-					processInput("agenda " + history.getCurrFileDate());
+					processInput("agenda " + history.getRedoFileDate());
 				}
 				break;
 
