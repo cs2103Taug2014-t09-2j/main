@@ -9,7 +9,7 @@ import java.util.Date;
 public class DateModifier {
 
 	public static String getCurrDate() {
-		// obtain the current date
+		// obtain today's date
 		DateFormat dateFormat = new SimpleDateFormat("ddMMyy");
 		Date currDate = new Date();
 		String currDateString = dateFormat.format(currDate);
@@ -48,6 +48,11 @@ public class DateModifier {
 		return currDateString;
 	}
 
+	/*
+	 * Returns a date that is i away from currDateString's date
+	 * Pre-cond: currDateString is in ddmmyy format
+	 * Post-condition: returms a date with ddmmyy format
+	 */
 	public static String getParticularDate(String currDateString, int i) {
 		String dt = currDateString; // Start date
 		SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
@@ -64,6 +69,11 @@ public class DateModifier {
 		return currDateString;
 	}
 
+	/*
+	 * Returns a custom date format for agenda heading in GUI 
+	 * Pre-cond: myDate is in ddmmyy format
+	 * Post-condition: returms a date with format e.g. 01 January 2014
+	 */	
 	public static String getAgendaHeading(String myDate) {
 		String[] months = { "January", "February", "March", "April", "May",
 				"June", "July", "August", "September", "October", "November",
@@ -81,7 +91,6 @@ public class DateModifier {
 			try {
 				dateFormat.parse(input.trim());
 			} catch (ParseException pe) {
-				// System.out.println("F");
 				return false;
 			}
 			return true;
@@ -90,6 +99,11 @@ public class DateModifier {
 		}
 	}
 
+	/*
+	 * Translate the input for view command in parser into acceptable date format
+	 * Pre-cond: input is a valid for view command
+	 * Post-condition: returns a date with format e.g. 01 January 2014
+	 */	
 	public static String convertInputViewToDate(String input) {
 		String result;
 		switch (input) {
