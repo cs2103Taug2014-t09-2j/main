@@ -71,8 +71,9 @@ public class Parser {
 	}
 
 	/*
-	 * Process the user input obtained from commandBox in GUI Pre-cond: input is
-	 * a string Post-cond: calls appropriate command depending on input
+	 * Process the user input obtained from commandBox in GUI 
+	 * Pre-cond: input is a string 
+	 * Post-cond: calls appropriate command depending on input
 	 */
 
 	public String processInput(String input) throws IOException {
