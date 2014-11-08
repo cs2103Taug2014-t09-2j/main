@@ -15,6 +15,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 //@author A0114813N
+/*
+ * This class adds a task to txt. file, with the date as the name of the file.
+ * A display message is shown when a task is added to a day not in the layout 
+ * of the software.
+*/
 
 public class CommandAdd {
 	private static final String ALL_DAY_TASK = "[by-today] ";

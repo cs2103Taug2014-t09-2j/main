@@ -1,6 +1,11 @@
 package ido.main;
 
 //@author A0114813N
+/*
+ * This class helps to check if the time entered is valid. 
+ * It also reformats the time to hhmm format for standardisation
+ * 
+*/
 public class IsValidTime {
 	private static final String FLOATING_CHECK = "-";
 

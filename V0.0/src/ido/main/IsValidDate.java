@@ -6,6 +6,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 //@author A0114813N
+/*
+ * This class checks if a valid date is entered.
+ * 
+*/
+
 public class IsValidDate {
 	private static final String ERROR_HEADING = "ERROR";
 	private static final String ERROR_DATE = "Invalid Date!";

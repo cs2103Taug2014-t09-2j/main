@@ -3,6 +3,10 @@ package ido.main;
 import java.util.ArrayList;
 
 //@author A0114813N
+/*
+ * This class copies a certain task from a source date to a destination date.
+ * 
+*/
 public class CommandCopy {
 	private static final String FLOATING_CHECK = "-";
 	private static final String GENERAL_FILE = "general.txt";
