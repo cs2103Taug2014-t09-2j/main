@@ -58,9 +58,10 @@ public class CommandEdit {
 		ArrayList<String> dateTask = new ArrayList<String>();
 		dateTask = getFileContent(fileName);
 		
-		String oldTask = getTask(dateTask);//get the task to be edited given the index
+		//get the task to be edited given the index of that task
+		String oldTask = getTask(dateTask);
 		dateTask.remove(oldTask);
-		String editedTask = new String();
+		String editedTask = "";
 		
 		switch (specification) {
 		case SPEC_TIME:
@@ -118,11 +119,13 @@ public class CommandEdit {
 		return String.format(CONTENT_TO_DISPLAY, change[0], change[1]);
 	}
 	
+	//get the name of the file given the date input
+			//date input can be 1-7, which is the box number is the date is being displayed
 	private String getDateStr(String date){
-		return IsValidDate.validateDate(date) + TXT_EXTENSION;//get the name of the file given the date input
-													//date input can be 1-7
+		return IsValidDate.validateDate(date) + TXT_EXTENSION;
 	}
 	
+	// Validates the time input. If input time is not specified, the time is assumed to be all-day
 	private String getNewTimeStr(String time) throws Exception {
 		String validatedTime = IsValidTime.validateTime(time);
 		if (validatedTime.equals(UNKNOWN_TIME))
