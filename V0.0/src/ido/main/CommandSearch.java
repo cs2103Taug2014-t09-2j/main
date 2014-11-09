@@ -10,6 +10,12 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+//@author A0114076N
+/*
+* This class searches for certain input keywords. 
+* Returns task strings that contains all the keywords.
+*/
+
 public class CommandSearch {
 	private String[] keyword;
 	
@@ -24,6 +30,7 @@ public class CommandSearch {
 	private static final String NO_EXTENSION = "";
 	private static final String EMPTY_RESULT = "Nothing found!";
 	private static final String GENERAL_FILE = "general.txt";
+	
 	public CommandSearch() {
 	}
 	
@@ -69,13 +76,15 @@ public class CommandSearch {
 	}
 	
 	private ArrayList<String> searchFile(String fileName, String displayedFileName) {
+		String result = "";
 		ArrayList<String> searchFileResult = new ArrayList<String>();
+		//Only search for files whose name is the date or "general"
 		if (isDateFile(fileName)||fileName.equals(GENERAL_FILE)) {
     		ArrayList<String> taskList = new ArrayList<String>();
     		taskList = (new FileAccessor(fileName)).readContents();
 	    	for (int i=0; i<taskList.size(); i++) {
 	    		if (isTaskContainKeys(taskList.get(i))) {
-	    			String result = String.format(SEARCH_RESULT, 
+	    			result = String.format(SEARCH_RESULT, 
 	    					displayedFileName, i+1, taskList.get(i));
 	    			searchFileResult.add(result);
 	    		}
@@ -84,6 +93,7 @@ public class CommandSearch {
 		return searchFileResult;
 	}
 	
+	//Checks whether a task contains all the keywords
 	private boolean isTaskContainKeys(String task) {
 		for (int i=0; i<keyword.length; i++) {
 			if (!task.toLowerCase().contains(keyword[i]))
@@ -100,6 +110,7 @@ public class CommandSearch {
 		return str;
 	}
 	
+	//Checks whether a certain text file name contains the date
 	private boolean isDateFile(String fileName) {
 		SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
 		try {
@@ -110,6 +121,7 @@ public class CommandSearch {
 		}
 	}
 	
+	//Gets the current working directory of the program
 	private String getPath() {
 		String currPath = "";
 		try {
