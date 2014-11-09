@@ -244,8 +244,8 @@ public class Parser {
 					history.recordUpdatedFile(date1);
 					arc.saveArchives();
 					System.out.println(date1);
-					if((!theRest.equals("overdue"))&(GUI.checkAgendaActive()!=null) & (GUI.checkAgendaActive().isVisible())
-							&(!date1.equals("-"))){
+					if((!theRest.equals("overdue"))&&(GUI.checkAgendaActive()!=null) && (GUI.checkAgendaActive().isVisible())
+							&&(!date1.equals("-"))){
 						processInput("agenda " + date1);
 					}
 				}
