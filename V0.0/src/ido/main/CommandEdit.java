@@ -24,7 +24,7 @@ public class CommandEdit {
 	private static final String TXT_EXTENSION = ".txt";
 	private static final String CONTENT_TO_DISPLAY = "[%1$s] %2$s";
 	private static final String UNKNOWN_TIME = "-";
-	private static final String ALL_DAY_TIME = "all-day";
+	private static final String ALL_DAY_TIME = "by-today";
 	private static final String FEEDBACK_INVALID_TIME  = "Invalid Time!";
 	private static final String ERROR = "ERROR";
 	private static final String SPEC_TIME = "time";
