@@ -3,6 +3,12 @@ package ido.main;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+//@author A0114076N
+/*
+* This class takes in a date string and returns a reformatted display of the date.
+* The string returned is used as the heading of each storage text file.
+*/
+
 public class DayModifier {
 	private static final String OVERDUE_TASK = "overdue";
 	private static final String GENERAL_TASK = "general";
