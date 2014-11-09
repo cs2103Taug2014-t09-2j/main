@@ -12,12 +12,11 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-/**
- * @author Benedict
- */
+//@author A0110679A 
 
 /*
  * Test delete commands for single task and all tasks
+ * Verify Class supposedly clears all invalid cases
  */
 
 public class CommandDeleteTest {

@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+//@author A0110679A
+
 public class VerifyTest {
 
 	public static Verify verify = new Verify();
