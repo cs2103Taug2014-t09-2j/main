@@ -5,10 +5,18 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+//@author A0114076N
+/*
+* This class edits an existing task. 
+* Based on user specification on what to modify, the method chooses which part of the 
+* to-be-modified task string to keep and modifies the rest.
+*/
+
+
 public class CommandEdit {
 	private String date;
 	private int index;
-	private String specification;//specify whether to edit time or task
+	private String specification;
 	private String modification;
 	
 	private final static Logger LOGGER = Logger.getLogger(CommandEdit.class .getName());
