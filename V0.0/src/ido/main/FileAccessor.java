@@ -1,3 +1,4 @@
+//@author A0113768Y
 package ido.main;
 
 import java.io.BufferedReader;
@@ -32,7 +33,6 @@ public class FileAccessor {
 	private static final String LINE_FORMAT = "%1$s\n";
 	private static final int NUM_LINES_SKIPPED = 2;
 
-	// Constructor
 	public FileAccessor(String fileName, ArrayList<String> currDateTask) {
 		this.fileName = fileName;
 		this.currDateTask = currDateTask;
@@ -48,11 +48,13 @@ public class FileAccessor {
 		this.currDateTask = null;
 	}
 
-	// Mutator
 	public void setFileName(String newFileName) {
 		this.fileName = newFileName;
 	}
 
+	/*
+	 * Reads the file content and return it in a ArrayList format
+	 */
 	public ArrayList<String> readContents() {
 		BufferedReader br = null;
 		try {
@@ -75,13 +77,15 @@ public class FileAccessor {
 		return currDateTask;
 	}
 
-	// @author A0113768Y
+	//@author A0113768Y
+	/*
+	 * Reads the file content and return it in a String format
+	 */
 	String readFileString() throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(fileName));
 		try {
 			StringBuilder sb = new StringBuilder();
 			String line = br.readLine();
-
 			while (line != null) {
 				sb.append(String.format(LINE_FORMAT, line));
 				line = br.readLine();
@@ -92,15 +96,16 @@ public class FileAccessor {
 		}
 	}
 
+	/*
+	 * Write the class attribute currDateTask to fileName.txt
+	 */
 	public void writeContents() {
 		try {
 			File file = new File(fileName);
 			FileWriter fw = new FileWriter(file.getAbsoluteFile());
 			BufferedWriter bw = new BufferedWriter(fw);
 			Collections.sort(currDateTask);
-
 			String _date = fileName.replace(TEXT_EXTENSION, NO_EXTENSION);
-
 			String formattedDate = reformatDate(_date);
 			String _dayOfWeek = DayModifier.getDayOfWeek(_date);
 
@@ -117,11 +122,10 @@ public class FileAccessor {
 
 	}
 
-	// @author A0113768Y
+	//@author A0113768Y
 	/*
 	 * Checks the required files to be displayed by task boxes in GUI exist,
-	 * starting from startDate. If the required files do not exist, it creates
-	 * the file 
+	 * starting from startDate. If the required files do not exist, it creates the file 
 	 * Pre-cond: - 
 	 * Post-cond: Required files exist/created
 	 */
@@ -148,7 +152,7 @@ public class FileAccessor {
 
 	}
 
-	// @author A0113768Y
+	//@author A0113768Y
 	/*
 	 * Checks the required files to be displayed by task boxes in GUI exist,
 	 * starting from today's date. If the required files do not exist, it creates the file 
@@ -157,11 +161,8 @@ public class FileAccessor {
 	 */
 	public void checkFilesExist() {
 		String currDateString = DateModifier.getCurrDate();
-
-		// check the archive file
 		fileName = "archives.txt";
 		File ArchivesFile = new File(fileName);
-
 		if (!ArchivesFile.exists()) {
 			PrintWriter writer = null;
 			try {
@@ -172,8 +173,6 @@ public class FileAccessor {
 			writer.print(String.format(FILE_HEADING, "", "Archives"));
 			writer.close();
 		}
-
-		// check the general task file
 		fileName = "general.txt";
 		File GeneralFile = new File(fileName);
 
@@ -187,10 +186,6 @@ public class FileAccessor {
 			writer.print(String.format(FILE_HEADING, "", "General"));
 			writer.close();
 		}
-
-		/*
-		 * check overdue tasks file
-		 */
 		fileName = "overdue.txt";
 		File Overdue = new File(fileName);
 
@@ -205,7 +200,9 @@ public class FileAccessor {
 			writer.close();
 		}
 
-		// check the normal dates
+		/*
+		 * check the 7 task boxes
+		 */
 		for (int i = 1; i < 8; i++) {
 			fileName = currDateString + ".txt";
 			File file = new File(fileName);
@@ -225,7 +222,6 @@ public class FileAccessor {
 			}
 			currDateString = DateModifier.getNextDate(currDateString);
 		}
-
 	}
 
 	public String reformatDate(String date) {
@@ -247,7 +243,7 @@ public class FileAccessor {
 		return newDate;
 	}
 
-	// @author A0113768Y
+	//@author A0113768Y
 	/*
 	 * Reads the tasks in the fileName 
 	 * Pre-cond: the fileName.txt file exists
@@ -273,9 +269,7 @@ public class FileAccessor {
 			for (int j = 0; j < duration; j++) {
 				result.add(hour1, temp.get(i));
 			}
-
 		}
-
 		return result;
 	}
 
@@ -289,23 +283,18 @@ public class FileAccessor {
 		ArrayList<String> temp = new ArrayList<String>();
 		ArrayList<Boolean> emptySlots = this.CreateAgendaSlotStatus();
 		int startDayAgenda = 0;
-		temp = this.readContents();
-		
+		temp = this.readContents();		
 		int hour1 = 0, hour2, duration;
 		for (int i = 0; i < arrayListSize; i++) {
 			if (Character.isDigit(temp.get(i).charAt(1))) {
-				hour1 = Integer.valueOf(temp.get(i).substring(1, 3));
-				
+				hour1 = Integer.valueOf(temp.get(i).substring(1, 3));				
 			}
-
 			if (i == 0) {
 				startDayAgenda = hour1;
-			}
-			
+			}		
 			if (temp.get(i).charAt(1) == 'b'){
 				break;
 			}
-
 			if (Character.isDigit(temp.get(i).charAt(6)))
 				hour2 = Integer.valueOf(temp.get(i).substring(6, 8));
 			else
@@ -318,19 +307,19 @@ public class FileAccessor {
 					GUI.addTaskToAgenda(" ", j, 1);
 				}
 			}
-
 		}
-
 		if (!temp.isEmpty()) {
 			for (int i = startDayAgenda; i < 25; i++) {
 				if (emptySlots.get(i) == true)
 					GUI.addTaskToAgenda("", i, 1);
 			}
-		}
-		
-
+		}		
 	}
 	
+	/*
+	 * Checks the tasks in the date and store the timing in boolean arraylist. 
+	 * It contains hours that have tasks and the rest are free time slot. 
+	 */
 	public ArrayList<Boolean> CreateAgendaSlotStatus(){
 		ArrayList<Boolean> result = new ArrayList<Boolean>();
 		int hour1,hour2,duration;
@@ -338,12 +327,10 @@ public class FileAccessor {
 		for (int i = 0; i < 25; i++) {
 			result.add(true);
 		}
-		
 		for (int i=0; i<currDateTask.size(); i++){
 			if(Character.isDigit(currDateTask.get(i).charAt(1))){
 				hour1 = Integer.valueOf(currDateTask.get(i).substring(1, 3));
 				if (!result.get(hour1)) {
-					System.out.println("in if empty slot");
 					overlapTasksExist = true;
 				}
 				if (Character.isDigit(currDateTask.get(i).charAt(6)))
@@ -354,8 +341,7 @@ public class FileAccessor {
 				for(int j=hour1; j<duration+hour1; j++){
 					result.set(j,false);
 				}
-			}
-			
+			}	
 		}
 		if (overlapTasksExist) {
 			WarningPopUp.infoBox(OVERLAP_TASKS_AGENDA, WARNING);
