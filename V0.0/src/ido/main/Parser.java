@@ -1,3 +1,5 @@
+//@author A0113768Y
+
 package ido.main;
 
 import java.io.File;
@@ -72,23 +74,19 @@ public class Parser {
 
 	/*
 	 * Process the user input obtained from commandBox in GUI 
-	 * Pre-cond: input is a string 
+	 * Pre-cond: -
 	 * Post-cond: calls appropriate command depending on input
 	 */
 
 	public String processInput(String input) throws IOException {
-		// set the default start date to be displayed
 		String startDateToBeDisplayed = DateModifier.getCurrDate();
 		String fileName = DateModifier.getCurrDate();
 
-		// assuming the fileName is successfully updated
 		assert fileName.isEmpty() == false;
 
-		// log a message at INFO level
 		logger.log(Level.INFO, "start processing");
 
 		String inputArr[] = input.split(" ", 2);
-		// take care of the one word input
 		if (inputArr.length == 1) {
 			CommandTypes command = determineCmd(inputArr[0]);
 			switch (command) {
@@ -150,10 +148,6 @@ public class Parser {
 
 		} else {
 			CommandTypes command = determineCmd(inputArr[0]);
-			/*
-			 * take all the words in the input except the first word to be added
-			 * to the file, depending on the command
-			 */
 			String theRest = inputArr[1].trim();
 
 			switch (command) {
@@ -430,9 +424,7 @@ public class Parser {
 						}
 					}
 				} else {
-					// obtain the date to be zoomed in
 					int dateToBeZoomed = Integer.valueOf(theRest);
-					// check the date validity
 					if (!((dateToBeZoomed > 0) && (dateToBeZoomed < 10))) {
 						WarningPopUp.infoBox(ZOOM_ERR_HEADING, WARNING_HEADING);
 					} else {
@@ -508,7 +500,6 @@ public class Parser {
 				}
 				break;
 
-			// other input will be displayed as invalid input
 			default:
 				WarningPopUp.infoBox(ZOOM_ERR_HEADING, ERROR_HEADING);
 				break;
