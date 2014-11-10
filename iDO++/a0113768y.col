@@ -1,0 +1,1827 @@
+//@author: a0113768y
+
+
+
+	/**
+	 * origin: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\DateModifier.java
+	 */
+
+
+package ido.main;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+public class DateModifier {
+
+	/*
+	 * Obtain today's date in a String with ddmmyy format
+	 */
+	public static String getCurrDate() {
+		DateFormat dateFormat = new SimpleDateFormat("ddMMyy");
+		Date currDate = new Date();
+		String currDateString = dateFormat.format(currDate);
+		return currDateString;
+	}
+
+	/*
+	 * Obtain one day after the currDateString date in a String with ddmmyy format
+	 */
+	public static String getNextDate(String currDateString) {
+		String dt = currDateString; // Start date
+		SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
+		Calendar c = Calendar.getInstance();
+		try {
+			c.setTime(sdf.parse(dt));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		c.add(Calendar.DATE, 1); // number of days to add
+		dt = sdf.format(c.getTime()); // dt is now the new date
+		currDateString = dt;
+		return currDateString;
+	}
+
+	/*
+	 * Obtain one day before the currDateString date in a String with ddmmyy format
+	 */
+	public static String getPrevDate(String currDateString) {
+		String dt = currDateString; // Start date
+		SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
+		Calendar c = Calendar.getInstance();
+		try {
+			c.setTime(sdf.parse(dt));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		c.add(Calendar.DATE, -1); // number of days to add
+		dt = sdf.format(c.getTime()); // dt is now the new date
+		currDateString = dt;
+		return currDateString;
+	}
+
+	/*
+	 * Returns a date that is i away from currDateString's date
+	 * Pre-cond: currDateString is in ddmmyy format
+	 * Post-condition: returns a String date with ddmmyy format
+	 */
+	public static String getParticularDate(String currDateString, int i) {
+		String dt = currDateString; // Start date
+		SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
+		Calendar c = Calendar.getInstance();
+		try {
+			c.setTime(sdf.parse(dt));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		c.add(Calendar.DATE, i); // number of days to add
+		dt = sdf.format(c.getTime()); // dt is now the new date
+		currDateString = dt;
+		return currDateString;
+	}
+
+	/*
+	 * Returns a custom date format for agenda heading in GUI 
+	 * Pre-cond: myDate is in ddmmyy format
+	 * Post-condition: returns a date with format e.g. 01 January 2014
+	 */	
+	public static String getAgendaHeading(String myDate) {
+		String[] months = { "January", "February", "March", "April", "May",
+				"June", "July", "August", "September", "October", "November",
+				"December" };
+		String headingDate = myDate.substring(0, 2);
+		String headingMonth = months[Integer.valueOf(myDate.substring(2, 4)) - 1];
+		String headingYear = "20" + myDate.substring(4, 6);
+		return headingDate + " " + headingMonth + " " + headingYear;
+	}
+
+	/*
+	 * Validate the input as a valid date with ddmmyy format
+	 */
+	public static boolean isValidDate(String input) {
+		if (input.length() == 6) {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyy");
+			dateFormat.setLenient(false);
+			try {
+				dateFormat.parse(input.trim());
+			} catch (ParseException pe) {
+				return false;
+			}
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/*
+	 * Translate the input for view command in parser into acceptable date format
+	 * Pre-cond: input is a valid for view command
+	 * Post-condition: returns a date with format e.g. 01 January 2014
+	 */	
+	public static String convertInputViewToDate(String input) {
+		String result;
+		switch (input) {
+		case "today":
+			result = DateModifier.getCurrDate();
+			break;
+		case "tomorrow":
+			;
+		case "tomo":
+			result = DateModifier.getParticularDate(DateModifier.getCurrDate(),
+					1);break;
+		case "next week":
+			result = DateModifier.getParticularDate(DateModifier.getCurrDate(),
+					7); break;
+		case "next month":
+			result = DateModifier.getParticularDate(DateModifier.getCurrDate(),
+					30); break;
+		default:
+			result = input;
+
+		}
+		return result;
+	}
+}
+
+	// End of segment: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\DateModifier.java
+
+
+
+
+
+	/**
+	 * origin: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\FileAccessor.java
+	 */
+
+package ido.main;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class FileAccessor {
+	private String fileName;
+	private ArrayList<String> currDateTask;
+
+	private static final String CONTENT_TO_DISPLAY = "%1$d. %2$s\n";
+	private static final String FILE_HEADING = "%1$s %2$s\n----------------------------------\n";
+	private static final String ERROR = "ERROR";
+	private static final String WARNING = "WARNING";
+	private static final String OVERLAP_TASKS_AGENDA = "There may be clashing tasks in this date. \n"
+														+ "Please use ZOOM command to view more details instead.";
+	private static final String READ_ERROR = "Failure to read file %1$s!";
+	private static final String WRITE_ERROR = "Failure to write file %1$s!";
+	private static final String TEXT_EXTENSION = ".txt";
+	private static final String NO_EXTENSION = "";
+	private static final String LINE_FORMAT = "%1$s\n";
+	private static final int NUM_LINES_SKIPPED = 2;
+
+	public FileAccessor(String fileName, ArrayList<String> currDateTask) {
+		this.fileName = fileName;
+		this.currDateTask = currDateTask;
+	}
+
+	public FileAccessor(String fileName) {
+		this.fileName = fileName;
+		currDateTask = new ArrayList<>();
+	}
+
+	public FileAccessor() {
+		this.fileName = null;
+		this.currDateTask = null;
+	}
+
+	public void setFileName(String newFileName) {
+		this.fileName = newFileName;
+	}
+
+	/*
+	 * Reads the file content and return it in a ArrayList format.
+	 * It skips the file heading.
+	 */
+	public ArrayList<String> readContents() {
+		BufferedReader br = null;
+		try {
+			String curr;
+			br = new BufferedReader(new FileReader(fileName));
+			int _ignore = NUM_LINES_SKIPPED;
+			while ((curr = br.readLine()) != null) {
+				if (_ignore > 0) { // ignore first 2 lines
+					_ignore -= 1;
+					continue;
+				}
+				String lineContent = curr.split(" ", 2)[1];
+				currDateTask.add(lineContent);
+			}
+			br.close();
+		} catch (IOException ee) {
+			WarningPopUp.infoBox(String.format(READ_ERROR, fileName), ERROR);
+			ee.printStackTrace();
+		}
+		return currDateTask;
+	}
+
+	// End of segment: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\FileAccessor.java
+
+
+
+
+
+	/**
+	 * origin: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\FileAccessor.java
+	 */
+
+	/*
+	 * Reads the file content and return it in a String format
+	 */
+	String readFileString() throws IOException {
+		BufferedReader br = new BufferedReader(new FileReader(fileName));
+		try {
+			StringBuilder sb = new StringBuilder();
+			String line = br.readLine();
+			while (line != null) {
+				sb.append(String.format(LINE_FORMAT, line));
+				line = br.readLine();
+			}
+			return sb.toString();
+		} finally {
+			br.close();
+		}
+	}
+
+	/*
+	 * Write the class attribute currDateTask to fileName.txt
+	 */
+	public void writeContents() {
+		try {
+			File file = new File(fileName);
+			FileWriter fw = new FileWriter(file.getAbsoluteFile());
+			BufferedWriter bw = new BufferedWriter(fw);
+			Collections.sort(currDateTask);
+			String _date = fileName.replace(TEXT_EXTENSION, NO_EXTENSION);
+			String formattedDate = reformatDate(_date);
+			String _dayOfWeek = DayModifier.getDayOfWeek(_date);
+
+			bw.write(String.format(FILE_HEADING, _dayOfWeek, formattedDate));
+			for (int i = 0; i < currDateTask.size(); i++) {
+				bw.write(String.format(CONTENT_TO_DISPLAY, i + 1,
+						currDateTask.get(i)));
+			}
+			bw.close();
+		} catch (IOException ee) {
+			WarningPopUp.infoBox(String.format(WRITE_ERROR, fileName), ERROR);
+			ee.printStackTrace();
+		}
+
+	}
+
+	// End of segment: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\FileAccessor.java
+
+
+
+
+
+	/**
+	 * origin: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\FileAccessor.java
+	 */
+
+	/*
+	 * Checks the required files to be displayed by task boxes in GUI exist,
+	 * starting from startDate. If the required files do not exist, it creates the file 
+	 * Pre-cond: - 
+	 * Post-cond: Required files exist/created
+	 */
+	public void checkFilesExistCustom(String startDate) {
+		String temp = fileName;
+		for (int i = 0; i < 7; i++) {
+			temp = startDate + ".txt";
+			File file = new File(temp);
+			if (!file.exists()) {
+				PrintWriter writer = null;
+				try {
+					writer = new PrintWriter(temp, "UTF-8");
+				} catch (FileNotFoundException | UnsupportedEncodingException e) {
+					e.printStackTrace();
+				}
+				String _dayOfWeek = DayModifier.getDayOfWeek(startDate);
+				String formattedDate = reformatDate(startDate);
+				writer.print(String.format(FILE_HEADING, _dayOfWeek,
+						formattedDate));
+				writer.close();
+			}
+			startDate = DateModifier.getNextDate(startDate);
+		}
+
+	}
+
+	// End of segment: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\FileAccessor.java
+
+
+
+
+
+	/**
+	 * origin: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\FileAccessor.java
+	 */
+
+	/*
+	 * Checks the required files to be displayed by task boxes in GUI exist,
+	 * starting from today's date. If the required files do not exist, it creates the file 
+	 * Pre-cond: - 
+	 * Post-cond: Required files exist/created
+	 */
+	public void checkFilesExist() {
+		String currDateString = DateModifier.getCurrDate();
+		fileName = "archives.txt";
+		File ArchivesFile = new File(fileName);
+		if (!ArchivesFile.exists()) {
+			PrintWriter writer = null;
+			try {
+				writer = new PrintWriter(fileName, "UTF-8");
+			} catch (FileNotFoundException | UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			writer.print(String.format(FILE_HEADING, "", "Archives"));
+			writer.close();
+		}
+		fileName = "general.txt";
+		File GeneralFile = new File(fileName);
+
+		if (!GeneralFile.exists()) {
+			PrintWriter writer = null;
+			try {
+				writer = new PrintWriter(fileName, "UTF-8");
+			} catch (FileNotFoundException | UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			writer.print(String.format(FILE_HEADING, "", "General"));
+			writer.close();
+		}
+		fileName = "overdue.txt";
+		File Overdue = new File(fileName);
+
+		if (!Overdue.exists()) {
+			PrintWriter writer = null;
+			try {
+				writer = new PrintWriter(fileName, "UTF-8");
+			} catch (FileNotFoundException | UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			writer.print(String.format(FILE_HEADING, "", "Overdue"));
+			writer.close();
+		}
+
+		/*
+		 * check the 7 task boxes
+		 */
+		for (int i = 1; i < 8; i++) {
+			fileName = currDateString + ".txt";
+			File file = new File(fileName);
+
+			if (!file.exists()) {
+				PrintWriter writer = null;
+				try {
+					writer = new PrintWriter(fileName, "UTF-8");
+				} catch (FileNotFoundException | UnsupportedEncodingException e) {
+					e.printStackTrace();
+				}
+				String _dayOfWeek = DayModifier.getDayOfWeek(currDateString);
+				String formattedDate = reformatDate(currDateString);
+				writer.print(String.format(FILE_HEADING, _dayOfWeek,
+						formattedDate));
+				writer.close();
+			}
+			currDateString = DateModifier.getNextDate(currDateString);
+		}
+	}
+
+	public String reformatDate(String date) {
+		DateFormat dateFormat1 = new SimpleDateFormat("ddMMyy");
+		DateFormat dateFormat2 = new SimpleDateFormat("dd/MM/yy");
+		String newDate = new String();
+		if ((date.toLowerCase()).equals("overdue")
+				|| (date.toLowerCase()).equals("general")
+				|| (date.toLowerCase()).equals("archives")) {
+			// Must return blank string as now the day and date is displayed
+			newDate = "";
+		} else {
+			try {
+				newDate = dateFormat2.format(dateFormat1.parse(date));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		return newDate;
+	}
+
+	// End of segment: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\FileAccessor.java
+
+
+
+
+
+	/**
+	 * origin: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\FileAccessor.java
+	 */
+
+	/*
+	 * Reads the tasks in the fileName 
+	 * Pre-cond: the fileName.txt file exists
+	 * Post-cond: arrayList of tasks for the date for every hour is created
+	 */
+	public ArrayList<String> getTasksInADay() {
+		ArrayList<String> temp = new ArrayList<String>();
+		ArrayList<String> result = new ArrayList<String>();
+		for (int i = 0; i < 24; i++) {
+			result.add("");
+		}
+		int hour1 = 0, hour2, duration;
+		temp = this.readContents();
+		for (int i = 0; i < temp.size(); i++) {
+			if (Character.isDigit(temp.get(i).charAt(4)))
+				hour1 = Integer.valueOf(temp.get(i).substring(1, 3));
+
+			if (Character.isDigit(temp.get(i).charAt(9)))
+				hour2 = Integer.valueOf(temp.get(i).substring(9, 10));
+			else
+				hour2 = hour1 + 1;
+			duration = hour2 - hour1;
+			for (int j = 0; j < duration; j++) {
+				result.add(hour1, temp.get(i));
+			}
+		}
+		return result;
+	}
+
+	/*
+	 * Transfer the tasks in the fileName to agendaContainer in GUI 
+	 * Pre-cond: the fileName.txt file exists 
+	 * Post-cond: agenda for the date is created
+	 */
+	public void createAgendaForTheDate() {
+		int arrayListSize = this.readContents().size();
+		ArrayList<String> temp = new ArrayList<String>();
+		ArrayList<Boolean> emptySlots = this.CreateAgendaSlotStatus();
+		int startDayAgenda = 0;
+		temp = this.readContents();		
+		int hour1 = 0, hour2, duration;
+		for (int i = 0; i < arrayListSize; i++) {
+			if (Character.isDigit(temp.get(i).charAt(1))) {
+				hour1 = Integer.valueOf(temp.get(i).substring(1, 3));				
+			}
+			if (i == 0) {
+				startDayAgenda = hour1;
+			}		
+			if (temp.get(i).charAt(1) == 'b'){
+				break;
+			}
+			if (Character.isDigit(temp.get(i).charAt(6)))
+				hour2 = Integer.valueOf(temp.get(i).substring(6, 8));
+			else
+				hour2 = hour1 + 1;
+			duration = hour2 - hour1;
+			GUI.addTaskToAgenda(this.readContents().get(i), hour1, duration);
+			for (int j = hour1; j < duration + hour1; j++) {
+				emptySlots.set(j, false);
+				if (j != hour1) {
+					GUI.addTaskToAgenda(" ", j, 1);
+				}
+			}
+		}
+		if (!temp.isEmpty()) {
+			for (int i = startDayAgenda; i < 25; i++) {
+				if (emptySlots.get(i) == true)
+					GUI.addTaskToAgenda("", i, 1);
+			}
+		}		
+	}
+	
+	/*
+	 * Checks the tasks in the date and store the timing in boolean ArrayList. 
+	 * It contains hours that have tasks and the rest are free time slot. 
+	 */
+	public ArrayList<Boolean> CreateAgendaSlotStatus(){
+		ArrayList<Boolean> result = new ArrayList<Boolean>();
+		int hour1,hour2,duration;
+		boolean overlapTasksExist = false;
+		for (int i = 0; i < 25; i++) {
+			result.add(true);
+		}
+		for (int i=0; i<currDateTask.size(); i++){
+			if(Character.isDigit(currDateTask.get(i).charAt(1))){
+				hour1 = Integer.valueOf(currDateTask.get(i).substring(1, 3));
+				if (!result.get(hour1)) {
+					overlapTasksExist = true;
+				}
+				if (Character.isDigit(currDateTask.get(i).charAt(6)))
+					hour2 = Integer.valueOf(currDateTask.get(i).substring(6, 8));
+				else
+					hour2 = hour1 + 1;
+				duration = hour2 - hour1;
+				for(int j=hour1; j<duration+hour1; j++){
+					result.set(j,false);
+				}
+			}	
+		}
+		if (overlapTasksExist) {
+			WarningPopUp.infoBox(OVERLAP_TASKS_AGENDA, WARNING);
+			GUI.agendaOff();
+		}
+		return result;
+	}
+
+}
+
+	// End of segment: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\FileAccessor.java
+
+
+
+
+
+	/**
+	 * origin: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\GUI.java
+	 */
+
+
+package ido.main;
+
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.border.Border;
+
+public class GUI {
+	
+	private static final String HELP_HEADING = "COMMANDS";
+	private static final String ERROR_HEADING = "ERROR";
+	private static final String ERROR_AGENDA_INACTIVE = "Agenda is not active!";
+
+	private static JFrame frame;
+	private JTextField commandBox;
+	private static JTextArea dateBox1;
+	private static JTextArea dateBox2;
+	private static JTextArea dateBox3;
+	private static JTextArea dateBox4;
+	private static JTextArea dateBox5;
+	private static JTextArea dateBox6;
+	private static JTextArea dateBox7;
+	private static JTextArea overDueTasksBox;
+	private static JTextArea generalTasksBox;
+	private static JPanel agendaContainer;
+	private static JPanel panel1;
+	private static JScrollPane scrollPaneAgenda;
+
+	
+	private String fileName = null;
+
+	/**
+	 * Launch the application.
+	 */
+
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					GUI window = new GUI();
+					window.getFrame().setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}								
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 * 
+	 * @throws IOException
+	 */
+	public GUI() throws IOException {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+
+		setFrame(new JFrame("iDO++"));
+		getFrame().addWindowListener(new WindowAdapter() {
+			public void windowActivated(WindowEvent arg0) {
+				FileAccessor fa = new FileAccessor();
+				
+				fa.checkFilesExist();
+			}
+		});
+		getFrame().setBounds(0, 0, 677, 730);
+		getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getFrame().setForeground(new Color(255,255,255));
+		getFrame().getContentPane().setLayout(null);
+		getFrame().getContentPane().setBackground(new Color(255, 255, 255));
+
+		
+
+		JLabel lblIdo = new JLabel("iDO++");
+		lblIdo.setBounds(30, 2, 149, 59);
+		lblIdo.setForeground(new Color(0, 0, 0));
+		lblIdo.setFont(new Font("Segoe UI", Font.PLAIN, 45));
+		getFrame().getContentPane().add(lblIdo);
+		Border border = BorderFactory.createLineBorder(Color.WHITE);
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBorder(BorderFactory.createEmptyBorder());
+		scrollPane.setBounds(30, 64, 200, 200);
+		getFrame().getContentPane().add(scrollPane);
+
+		dateBox1 = new JTextArea();
+		scrollPane.setViewportView(dateBox1);
+		dateBox1.setWrapStyleWord(true);
+		dateBox1.setEditable(false);
+		dateBox1.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		dateBox1.setBorder(BorderFactory.createCompoundBorder(border,
+				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+		dateBox1.setBackground(new Color(255, 215, 0));
+		dateBox1.setLineWrap(true);
+
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBorder(BorderFactory.createEmptyBorder());
+		scrollPane_1.setBounds(233, 64, 200, 200);
+		getFrame().getContentPane().add(scrollPane_1);
+
+		dateBox2 = new JTextArea();
+		scrollPane_1.setViewportView(dateBox2);
+		dateBox2.setWrapStyleWord(true);
+		dateBox2.setLineWrap(true);
+		dateBox2.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		dateBox2.setEditable(false);
+		dateBox2.setBackground(new Color(255, 215, 0));
+		dateBox2.setBorder(BorderFactory.createCompoundBorder(border,
+				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+
+		JScrollPane scrollPane_2 = new JScrollPane();
+		scrollPane_2.setBorder(BorderFactory.createEmptyBorder());
+		scrollPane_2.setBounds(436, 64, 200, 200);
+		getFrame().getContentPane().add(scrollPane_2);
+
+		dateBox3 = new JTextArea();
+		scrollPane_2.setViewportView(dateBox3);
+		dateBox3.setWrapStyleWord(true);
+		dateBox3.setLineWrap(true);
+		dateBox3.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		dateBox3.setEditable(false);
+		dateBox3.setBackground(new Color(255, 215, 0));
+		dateBox3.setBorder(BorderFactory.createCompoundBorder(border,
+				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+
+		JScrollPane scrollPane_3 = new JScrollPane();
+		scrollPane_3.setBorder(BorderFactory.createEmptyBorder());
+		scrollPane_3.setBounds(30, 266, 200, 200);
+		getFrame().getContentPane().add(scrollPane_3);
+
+		dateBox4 = new JTextArea();
+		scrollPane_3.setViewportView(dateBox4);
+		dateBox4.setWrapStyleWord(true);
+		dateBox4.setLineWrap(true);
+		dateBox4.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		dateBox4.setEditable(false);
+		dateBox4.setBackground(new Color(255, 215, 0));
+		dateBox4.setBorder(BorderFactory.createCompoundBorder(border,
+				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+
+		JScrollPane scrollPane_4 = new JScrollPane();
+		scrollPane_4.setBorder(BorderFactory.createEmptyBorder());
+		scrollPane_4.setBounds(233, 266, 200, 200);
+		getFrame().getContentPane().add(scrollPane_4);
+
+		dateBox5 = new JTextArea();
+		scrollPane_4.setViewportView(dateBox5);
+		dateBox5.setWrapStyleWord(true);
+		dateBox5.setLineWrap(true);
+		dateBox5.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		dateBox5.setEditable(false);
+		dateBox5.setBackground(new Color(255, 215, 0));
+		dateBox5.setBorder(BorderFactory.createCompoundBorder(border,
+				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+
+		JScrollPane scrollPane_5 = new JScrollPane();
+		scrollPane_5.setBorder(BorderFactory.createEmptyBorder());
+		scrollPane_5.setBounds(436, 266, 200, 200);
+		getFrame().getContentPane().add(scrollPane_5);
+
+		dateBox6 = new JTextArea();
+		scrollPane_5.setViewportView(dateBox6);
+		dateBox6.setWrapStyleWord(true);
+		dateBox6.setLineWrap(true);
+		dateBox6.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		dateBox6.setEditable(false);
+		dateBox6.setBackground(new Color(255, 215, 0));
+		dateBox6.setBorder(BorderFactory.createCompoundBorder(border,
+				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+
+		JScrollPane scrollPane_6 = new JScrollPane();
+		scrollPane_6.setBorder(BorderFactory.createEmptyBorder());
+		scrollPane_6.setBounds(30, 469, 200, 200);
+		getFrame().getContentPane().add(scrollPane_6);
+
+		dateBox7 = new JTextArea();
+		scrollPane_6.setViewportView(dateBox7);
+		dateBox7.setWrapStyleWord(true);
+		dateBox7.setLineWrap(true);
+		dateBox7.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		dateBox7.setEditable(false);
+		dateBox7.setBackground(new Color(255, 215, 0));
+		dateBox7.setBorder(BorderFactory.createCompoundBorder(border,
+				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+
+		JScrollPane scrollPane_7 = new JScrollPane();
+		scrollPane_7.setBorder(BorderFactory.createEmptyBorder());
+		scrollPane_7.setBounds(233, 469, 200, 200);
+		getFrame().getContentPane().add(scrollPane_7);
+
+		overDueTasksBox = new JTextArea();
+		scrollPane_7.setViewportView(overDueTasksBox);
+		overDueTasksBox.setWrapStyleWord(true);
+		overDueTasksBox.setLineWrap(true);
+		overDueTasksBox.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		overDueTasksBox.setEditable(false);
+		overDueTasksBox.setBorder(BorderFactory.createCompoundBorder(border,
+				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+		overDueTasksBox.setBackground(new Color(255, 99, 71));
+
+		JScrollPane scrollPane_8 = new JScrollPane();
+		scrollPane_8.setBorder(BorderFactory.createEmptyBorder());
+		scrollPane_8.setBounds(436, 469, 200, 200);
+		getFrame().getContentPane().add(scrollPane_8);
+
+		generalTasksBox = new JTextArea();
+		scrollPane_8.setViewportView(generalTasksBox);
+		generalTasksBox.setWrapStyleWord(true);
+		generalTasksBox.setText("General Tasks");
+		generalTasksBox.setLineWrap(true);
+		generalTasksBox.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		generalTasksBox.setEditable(false);
+		generalTasksBox.setBorder(BorderFactory.createCompoundBorder(border,
+				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+		generalTasksBox.setBackground(new Color(135, 206, 235));
+
+		commandBox = new JTextField();
+		commandBox.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+		commandBox.setBounds(181, 22, 455, 20);
+		commandBox.setText("Please type the command here!");
+		commandBox.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent arg0) {
+				if(commandBox.getText().equals("Please type the command here!")){
+					commandBox.setText("");
+				}
+			}
+		});
+		
+
+		commandBox.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent arg0) {
+				commandBox.setText("");
+			}
+		});
+
+		commandBox.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+				String startDate = DateModifier.getCurrDate();
+				Parser parser = new Parser();
+				try {
+					startDate = parser.processInput(commandBox.getText());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				commandBox.setText("");
+				displayAllTasks(startDate);
+			}
+		});
+		getFrame().getContentPane().add(commandBox);
+		commandBox.setColumns(10);
+
+		/*
+		 * Populate the task boxes with the data in the source files 
+		 */
+		FileAccessor fa = new FileAccessor();
+		OverDueTask.updateOverDueTask();
+		fa.checkFilesExist();
+		displayAllTasks(DateModifier.getCurrDate());
+
+	}
+	
+	public static void minWindow(){
+		getFrame().setBounds(0,0,450, 306);
+	}
+	
+	public static void maxWindowNoAgenda(){
+		getFrame().setBounds(0, 0, 677, 730);
+	}
+	
+	public static void maxWindow(){
+		if((agendaContainer != null)&&(agendaContainer.isVisible())){
+			getFrame().setBounds(0, 0, 1080, 730);
+		}
+		else
+			maxWindowNoAgenda();
+	}	
+
+	public final void displayAllTasks(String startDate) {
+		BufferedReader reader = null;
+		fileName = "general.txt";
+		try {
+			reader = new BufferedReader(new FileReader(fileName));
+		} catch (FileNotFoundException e) {
+			try {
+				Files.createFile(Paths.get(fileName));
+				reader = new BufferedReader(new FileReader(fileName));
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+		try {
+			generalTasksBox.read(reader, this);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		fileName = "overdue.txt";
+		try {
+			reader = new BufferedReader(new FileReader(fileName));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		try {
+			overDueTasksBox.read(reader, this);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		String currDateString = startDate;
+		
+		for (int i = 1; i < 8; i++) {
+			fileName = currDateString + ".txt";
+			try {
+				reader = new BufferedReader(new FileReader(fileName));
+			} catch (FileNotFoundException e) {
+				try {
+					Files.createFile(Paths.get(fileName));
+					reader = new BufferedReader(new FileReader(fileName));
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+			switch (i) {
+			case 1:
+				try {
+					reader = new BufferedReader(new FileReader(fileName));
+				} catch (FileNotFoundException e) {
+					try {
+						Files.createFile(Paths.get(fileName));
+						reader = new BufferedReader(new FileReader(fileName));
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				}
+				try {
+					dateBox1.read(reader, this);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				break;
+
+			case 2:
+				try {
+					reader = new BufferedReader(new FileReader(fileName));
+				} catch (FileNotFoundException e) {
+					try {
+						Files.createFile(Paths.get(fileName));
+						reader = new BufferedReader(new FileReader(fileName));
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				}
+				try {
+					dateBox2.read(reader, this);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				break;
+
+			case 3:
+				try {
+					reader = new BufferedReader(new FileReader(fileName));
+				} catch (FileNotFoundException e) {
+					try {
+						Files.createFile(Paths.get(fileName));
+						reader = new BufferedReader(new FileReader(fileName));
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				}
+				try {
+					dateBox3.read(reader, this);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				break;
+
+			case 4:
+				try {
+					reader = new BufferedReader(new FileReader(fileName));
+				} catch (FileNotFoundException e) {
+					try {
+						Files.createFile(Paths.get(fileName));
+						reader = new BufferedReader(new FileReader(fileName));
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				}
+				try {
+					dateBox4.read(reader, this);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				break;
+
+			case 5:
+				try {
+					reader = new BufferedReader(new FileReader(fileName));
+				} catch (FileNotFoundException e) {
+					try {
+						Files.createFile(Paths.get(fileName));
+						reader = new BufferedReader(new FileReader(fileName));
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				}
+				try {
+					dateBox5.read(reader, this);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				break;
+
+			case 6:
+				try {
+					reader = new BufferedReader(new FileReader(fileName));
+				} catch (FileNotFoundException e) {
+					try {
+						Files.createFile(Paths.get(fileName));
+						reader = new BufferedReader(new FileReader(fileName));
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				}
+				try {
+					dateBox6.read(reader, this);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				break;
+
+			case 7:
+				try {
+					reader = new BufferedReader(new FileReader(fileName));
+				} catch (FileNotFoundException e) {
+					try {
+						Files.createFile(Paths.get(fileName));
+						reader = new BufferedReader(new FileReader(fileName));
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				}
+				try {
+					dateBox7.read(reader, this);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				break;
+			}
+			currDateString = DateModifier.getNextDate(currDateString);
+		}
+	}
+
+	public static JFrame getFrame() {
+		return frame;
+	}
+
+	public static void setFrame(JFrame frame) {
+		GUI.frame = frame;
+	}
+	
+	public static void setFrameSize(int width, int height){
+		getFrame().setBounds(0, 0, width, height);
+	}
+	
+	/*
+	 * Display agenda view of dateToBeDisplayed
+	 */
+	public static void addDetailedAgenda(String dateToBeDisplayed){
+		getFrame().setBounds(0, 0, 1080, 730);
+		agendaContainer = new JPanel();
+		agendaContainer.setBounds(645, 20, 400, 650);
+		agendaContainer.setBackground(new Color(135, 206, 235));
+		agendaContainer.setLayout(new BoxLayout(agendaContainer,BoxLayout.Y_AXIS));
+		Border border = BorderFactory.createLineBorder(Color.WHITE);
+		agendaContainer.setBorder(BorderFactory.createCompoundBorder(border,
+				BorderFactory.createEmptyBorder(5, 0, 5, 0)));
+		JLabel agendaHeading = new JLabel(DateModifier.getAgendaHeading(dateToBeDisplayed));
+		agendaHeading.setForeground(new Color(0, 0, 0));
+		agendaHeading.setAlignmentX(Component.CENTER_ALIGNMENT);
+		agendaHeading.setFont(new Font("Segoe UI", Font.PLAIN, 30));
+		agendaContainer.add(agendaHeading);
+		panel1 = new JPanel(new GridBagLayout());
+		panel1.setBackground((new Color(135, 206, 235)));
+		panel1.setBounds(5, 2, 600, 60);
+		agendaContainer.add(panel1);
+		
+		scrollPaneAgenda = new JScrollPane();
+		scrollPaneAgenda.setBorder(BorderFactory.createEmptyBorder());
+		scrollPaneAgenda.setBounds(650, 65, 394, 604);
+		getFrame().getContentPane().add(scrollPaneAgenda);
+		scrollPaneAgenda.setViewportView(panel1);
+		
+		getFrame().getContentPane().add(agendaContainer);
+	}
+	
+	/*
+	 * Add agenda content to agendaContainer
+	 * Pre-cond: valid task, startTime and duration
+	 * Post-cond: the task will be added according to startTime and duration
+	 */
+	public static void addTaskToAgenda(String task,int startTime,int duration){
+		JTextArea agendaContent = new JTextArea(task);
+		agendaContent.setWrapStyleWord(true);
+		agendaContent.setLineWrap(true);
+		agendaContent.setEditable(false);
+		Border border = BorderFactory.createEmptyBorder();
+		agendaContent.setBorder(BorderFactory.createCompoundBorder(border,
+				BorderFactory.createEmptyBorder(5, 10, 5, 5)));
+		if(task.isEmpty()){
+		agendaContent.setBackground(new Color(135, 206, 235));
+		agendaContent.setOpaque(false);
+		}
+		else{
+			agendaContent.setBackground(new Color(255, 99, 71));
+		}
+		switch (duration){
+		case 0: agendaContent.setFont(new Font("Segoe UI", Font.PLAIN, 12));break;
+		case 1: agendaContent.setFont(new Font("Segoe UI", Font.PLAIN, 14));break;
+		case 2: agendaContent.setFont(new Font("Segoe UI", Font.PLAIN, 20));break;
+		case 3: agendaContent.setFont(new Font("Segoe UI", Font.PLAIN, 26));break;
+		default: agendaContent.setFont(new Font("Segoe UI", Font.PLAIN, 26));
+		}
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.BOTH;
+		c.gridy = startTime;
+		c.ipady = 0; 
+		c.weightx = 1;
+		c.weighty = duration;
+		c.gridwidth = 100;
+		c.insets = new Insets(0,0,0,0);  
+		c.gridx = 0;
+		if(task.equals(" ")){
+			agendaContent.setBackground(new Color(255, 99, 71));
+			agendaContent.setBorder(BorderFactory.createCompoundBorder(border,
+					BorderFactory.createEmptyBorder(5,5,5,5)));
+		}
+		if(!agendaContent.getText().isEmpty())
+			agendaContent.setOpaque(true);
+		panel1.add(agendaContent,c);
+	}
+	
+	public static void agendaOff(){
+		if(agendaContainer != null){
+			agendaContainer.setVisible(false);
+			scrollPaneAgenda.setVisible(false);
+		}
+		else
+			WarningPopUp.infoBox(ERROR_AGENDA_INACTIVE, ERROR_HEADING);
+		GUI.maxWindowNoAgenda();
+	}
+	
+	public static void closeAgenda(){
+		agendaContainer.setVisible(false);
+		scrollPaneAgenda.setVisible(false);
+	}
+	
+	public static JPanel checkAgendaActive(){
+		return agendaContainer;
+	}
+	
+	public static void showHelp() throws IOException {
+		FileAccessor fa = new FileAccessor();
+		fa.setFileName("help.txt");
+		String helpString = fa.readFileString();
+		WarningPopUp.infoBox(helpString, HELP_HEADING);
+	}
+}
+
+	// End of segment: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\GUI.java
+
+
+
+
+
+	/**
+	 * origin: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\Parser.java
+	 */
+
+
+package ido.main;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class Parser {
+
+	private static final String INVALID_COMMAND = "Invalid command!";
+	private static final String WARNING_HEADING = "WARNING";
+	private static final String ERROR_HEADING = "ERROR";
+	private static final String INVALID_VIEW_COMMAND = "Invalid view command!";
+	private static final String SEARCH_HEADING = "Search Result";
+	private static final String ZOOM_HEADING = "Zoom Result";
+	private static final String AGENDA_ERR_HEADING = "Invalid agenda input";
+	private static final String ZOOM_ERR_HEADING = "Invalid zoom input";
+	private static final String UNEXPECTED_ERR_HEADING = "Unexpected Error, System will now close.";
+
+	public static HistoryTrackerAllFiles history = new HistoryTrackerAllFiles();
+	public static Archives arc = new Archives();
+	private static Logger logger = Logger.getLogger("Parser");
+	public static boolean testCmd = false;
+	public static Verify verify = new Verify();
+
+	enum CommandTypes {
+		START, AGENDA, ADD, EDIT, DONE, INVALID, UNDO, REDO, ZOOM, SEARCH, COPY, MIN, MAX, HELP, DELETE, VIEW, EXIT
+	};
+
+	private static CommandTypes determineCmd(String command) {
+
+		switch (command) {
+		case "start":
+			return CommandTypes.START;
+		case "add":
+			return CommandTypes.ADD;
+		case "done":
+			return CommandTypes.DONE;
+		case "edit":
+			return CommandTypes.EDIT;
+		case "undo":
+			return CommandTypes.UNDO;
+		case "redo":
+			return CommandTypes.REDO;
+		case "zoom":
+			return CommandTypes.ZOOM;
+		case "search":
+			return CommandTypes.SEARCH;
+		case "copy":
+			return CommandTypes.COPY;
+		case "min":
+			return CommandTypes.MIN;
+		case "max":
+			return CommandTypes.MAX;
+		case "help":
+			return CommandTypes.HELP;
+		case "delete":
+			return CommandTypes.DELETE;
+		case "view":
+			return CommandTypes.VIEW;
+		case "agenda":
+			return CommandTypes.AGENDA;
+		case "exit":
+			return CommandTypes.EXIT;
+		default:
+			return CommandTypes.INVALID;
+		}
+
+	}
+
+	/*
+	 * Process the user input obtained from commandBox in GUI Pre-cond: -
+	 * Post-cond: calls appropriate command depending on input
+	 */
+
+	public String processInput(String input) throws IOException {
+		String startDateToBeDisplayed = DateModifier.getCurrDate();
+		String fileName = DateModifier.getCurrDate();
+
+		assert fileName.isEmpty() == false;
+
+		logger.log(Level.INFO, "start processing");
+
+		String inputArr[] = input.split(" ", 2);
+		if (inputArr.length == 1) {
+			CommandTypes command = determineCmd(inputArr[0]);
+			switch (command) {
+			case EXIT:
+				arc.saveArchives();
+				arc.formatArcTxtFile();
+				System.exit(0);
+
+			case UNDO:
+				try {
+					history.undo();
+				} catch (IndexOutOfBoundsException e) {
+					System.out.println(e);
+				}
+
+				// Determine if previous command is done
+				arc.executeCmd(-1);
+				// update file whenever undo is called
+				arc.saveArchives();
+				if ((GUI.checkAgendaActive() != null)
+						&& (GUI.checkAgendaActive().isVisible())
+						&& (!history.getUndoFileDate().equals("-"))
+						&& (!history.getUndoFileDate().equals("overdue"))) {
+					GUI.closeAgenda();
+					processInput("agenda " + history.getUndoFileDate());
+				}
+				break;
+
+			case REDO:
+				try {
+					history.redo();
+				} catch (IndexOutOfBoundsException e) {
+					System.out.println(e);
+				}
+
+				// Determine if earlier command is done
+				arc.executeCmd(1);
+				// update file whenever redo is called
+				arc.saveArchives();
+				if ((GUI.checkAgendaActive() != null)
+						&& (GUI.checkAgendaActive().isVisible())
+						&& (!history.getRedoFileDate().equals("-"))
+						&& (!history.getRedoFileDate().equals("overdue"))) {
+					GUI.closeAgenda();
+					processInput("agenda " + history.getRedoFileDate());
+				}
+				break;
+
+			case MIN:
+				GUI.minWindow();
+				break;
+
+			case MAX:
+				GUI.maxWindow();
+				break;
+
+			case HELP:
+				GUI.showHelp();
+				break;
+
+			default:
+				WarningPopUp.infoBox(INVALID_COMMAND, WARNING_HEADING);
+			}
+
+		} else {
+		
+				CommandTypes command = determineCmd(inputArr[0]);
+				String theRest = inputArr[1].trim();
+
+				switch (command) {
+
+				case VIEW:
+					Verify vView = new Verify();
+					vView.setInput(theRest);
+					if (vView.isValidViewInput()) {
+						FileAccessor faView = new FileAccessor();
+						faView.checkFilesExistCustom(DateModifier
+								.convertInputViewToDate(theRest));
+						startDateToBeDisplayed = DateModifier
+								.convertInputViewToDate(theRest);
+					} else {
+						WarningPopUp.infoBox(INVALID_VIEW_COMMAND,
+								ERROR_HEADING);
+					}
+					break;
+
+				case EDIT:
+
+					verify.setInput(theRest);
+					verify.processEditString();
+					testCmd = verify.getCheck();
+
+					if (testCmd) {
+
+						// Get required information
+						String date = verify.getCurrDate();
+						String number = verify.getCurrIndex();
+						String time = verify.getEditTTA();
+						String modification = verify.getEditMod();
+
+						archivesClearToCurrState();						
+						arc.cmdTAECD(inputArr[0]);
+						history.clear();
+						history.checkBaseFile(date);
+
+						// Execute Command
+						try {
+							(new CommandEdit()).edit(date, number, time,
+									modification);
+							// editTask(date, number, time, modification);
+						} catch (IOException e) {
+							// log a message at warning level
+							logger.log(Level.WARNING, "processing error", e);
+							e.printStackTrace();
+						}
+
+						// Save current state
+						history.recordUpdatedFile(date);
+						arc.saveArchives();
+						if ((GUI.checkAgendaActive() != null)
+								&& (GUI.checkAgendaActive().isVisible())) {
+							GUI.closeAgenda();
+							processInput("agenda " + date);
+						}
+					}
+					break;
+
+				case ADD:
+
+					verify.setInput(theRest);
+					verify.processAddString();
+					testCmd = verify.getCheck();
+
+					if (testCmd) {
+
+						// Get required information
+						String date1 = verify.getCurrDate();
+						String time1 = verify.getNewTime();
+						String task = verify.getNewTask();
+
+						archivesClearToCurrState();
+						arc.cmdTAECD(inputArr[0]);
+						history.clear();
+						// Create new file before saving base file
+						File file = new File(date1 + ".txt");
+						if (!file.exists()) {
+							file.createNewFile();
+						}
+						history.checkBaseFile(date1);
+
+						// Execute Command
+						(new CommandAdd(date1, time1, task)).addTask();
+
+						// Save current state
+						history.recordUpdatedFile(date1);
+						arc.saveArchives();
+						System.out.println(date1);
+						if ((!theRest.equals("overdue"))
+								&& (GUI.checkAgendaActive() != null)
+								&& (GUI.checkAgendaActive().isVisible())
+								&& (!date1.equals("-"))) {
+							processInput("agenda " + date1);
+						}
+					}
+					break;
+
+				case COPY:
+
+					verify.setInput(theRest);
+					verify.processCopyString();
+					testCmd = verify.getCheck();
+
+					if (testCmd) {
+
+						// Get required information
+						String sourcedate = verify.getCurrDate();
+						String index = verify.getCurrIndex();
+						String destdate = verify.getDestDate();
+
+						archivesClearToCurrState();
+						arc.cmdTAECD(inputArr[0]);
+						history.clear();
+						history.checkBaseFile(destdate);
+
+						// Execute Command
+						CommandCopy.copyTask(sourcedate, index, destdate);
+
+						// Save current state
+						history.recordUpdatedFile(destdate);
+						arc.saveArchives();
+						if ((GUI.checkAgendaActive() != null)
+								&& (GUI.checkAgendaActive().isVisible())) {
+							GUI.closeAgenda();
+							processInput("agenda " + destdate);
+						}
+					}
+					break;
+
+				case DELETE:
+
+					// Get required information
+					verify.setInput(theRest);
+					verify.processDeleteString();
+					testCmd = verify.getCheck();
+
+					if (testCmd) {
+
+						// Get required information
+						String delDate = verify.getCurrDate();
+						String delIndex = verify.getCurrIndex();
+
+						archivesClearToCurrState();
+						arc.cmdTAECD(inputArr[0]);
+						history.clear();
+						history.checkBaseFile(delDate);
+
+						// Execute Command
+						new CommandDelete(delDate, delIndex).delete();
+
+						// Save current state
+						history.recordUpdatedFile(delDate);
+						arc.saveArchives();
+						System.out.println(delDate);
+						if ((!delDate.equals("overdue"))
+								&& (GUI.checkAgendaActive() != null)
+								&& (GUI.checkAgendaActive().isVisible())
+								&& (!delDate.equals("-"))) {
+							GUI.closeAgenda();
+							processInput("agenda " + delDate);
+						}
+					}
+					break;
+
+				case DONE:
+
+					verify.setInput(theRest);
+					verify.processDoneString();
+					testCmd = verify.getCheck();
+
+					if (testCmd) {
+
+						// Get required information
+						String doneDate = verify.getCurrDate();
+						String doneIndex = verify.getCurrIndex();
+
+						// Start recording of file and command
+						archivesClearToCurrState();
+						arc.cmdTAECD(inputArr[0]);
+						history.clear();
+						history.checkBaseFile(doneDate);
+
+						// Execute Command
+						new CommandDone(doneDate, doneIndex).done();
+
+						// Save current state
+						history.recordUpdatedFile(doneDate);
+						arc.saveArchives();
+						if ((!doneDate.equals("overdue"))
+								&& (GUI.checkAgendaActive() != null)
+								&& (GUI.checkAgendaActive().isVisible())
+								&& (!doneDate.equals("-"))) {
+							processInput("agenda " + doneDate);
+						}
+					}
+					break;
+
+				case SEARCH:
+					CommandSearch srch = new CommandSearch();
+					String searchResult = srch.search(theRest);
+					System.out.print(searchResult);
+
+					WarningPopUp.infoBox(searchResult, SEARCH_HEADING);
+					break;
+
+				case AGENDA:
+
+					Verify verify = new Verify();
+					verify.setInput(theRest);
+
+					if (verify.isValidAgendaInput()) {
+						if (theRest.equals("off")) {
+							GUI.agendaOff();
+						} else {
+							if (GUI.checkAgendaActive() != null)
+								GUI.closeAgenda();
+							IsValidDate validDate = new IsValidDate(theRest);
+							FileAccessor faAgenda = new FileAccessor(
+									validDate.validateDate(theRest) + ".txt");
+							faAgenda.checkFilesExistCustom(validDate
+									.validateDate(theRest));
+							GUI.addDetailedAgenda(validDate
+									.validateDate(theRest));
+							faAgenda.createAgendaForTheDate();
+						}
+					} else {
+						WarningPopUp.infoBox(AGENDA_ERR_HEADING, ERROR_HEADING);
+					}
+					break;
+
+				case ZOOM:
+					FileAccessor fileAccessor = new FileAccessor();
+					if (theRest.length() > 1) {
+						if ((theRest.length() == 6)
+								&& (!theRest.equals("general"))
+								&& (!theRest.equals("overdue") && (!theRest
+										.equals("archives")))) {
+							fileName = theRest + ".txt";
+							File zoomFile = new File(fileName);
+							if (!zoomFile.exists()) {
+								PrintWriter writer = null;
+								try {
+									writer = new PrintWriter(fileName, "UTF-8");
+								} catch (FileNotFoundException
+										| UnsupportedEncodingException e) {
+									e.printStackTrace();
+								}
+								writer.println(theRest);
+								writer.close();
+							}
+							fileAccessor.setFileName(fileName);
+							String dateContentString = fileAccessor
+									.readFileString();
+							WarningPopUp.infoBox(dateContentString,
+									ZOOM_HEADING);
+							break;
+						} else {
+							switch (theRest) {
+
+							case "general":
+								fileName = "general.txt";
+								fileAccessor.setFileName(fileName);
+								String dateContentString = fileAccessor
+										.readFileString();
+								WarningPopUp.infoBox(dateContentString,
+										ZOOM_HEADING);
+								break;
+
+							case "overdue":
+								fileName = "overdue.txt";
+								fileAccessor.setFileName(fileName);
+								dateContentString = fileAccessor
+										.readFileString();
+								WarningPopUp.infoBox(dateContentString,
+										ZOOM_HEADING);
+								break;
+
+							default:
+								WarningPopUp.infoBox(ZOOM_ERR_HEADING,
+										WARNING_HEADING);
+								break;
+							}
+						}
+					} else {
+						int dateToBeZoomed = Integer.valueOf(theRest);
+						if (!((dateToBeZoomed > 0) && (dateToBeZoomed < 10))) {
+							WarningPopUp.infoBox(ZOOM_ERR_HEADING,
+									WARNING_HEADING);
+						} else {
+							switch (dateToBeZoomed) {
+							case 1:
+								fileName = DateModifier.getCurrDate() + ".txt";
+								fileAccessor.setFileName(fileName);
+								String dateContentString = fileAccessor
+										.readFileString();
+								WarningPopUp.infoBox(dateContentString,
+										ZOOM_HEADING);
+								break;
+
+							case 2:
+								fileName = DateModifier.getParticularDate(
+										DateModifier.getCurrDate(), 1) + ".txt";
+								fileAccessor.setFileName(fileName);
+								dateContentString = fileAccessor
+										.readFileString();
+								WarningPopUp.infoBox(dateContentString,
+										ZOOM_HEADING);
+								break;
+
+							case 3:
+								fileName = DateModifier.getParticularDate(
+										DateModifier.getCurrDate(), 2) + ".txt";
+								fileAccessor.setFileName(fileName);
+								dateContentString = fileAccessor
+										.readFileString();
+								WarningPopUp.infoBox(dateContentString,
+										ZOOM_HEADING);
+								break;
+							case 4:
+								fileName = DateModifier.getParticularDate(
+										DateModifier.getCurrDate(), 3) + ".txt";
+								fileAccessor.setFileName(fileName);
+								dateContentString = fileAccessor
+										.readFileString();
+								WarningPopUp.infoBox(dateContentString,
+										ZOOM_HEADING);
+								break;
+
+							case 5:
+								fileName = DateModifier.getParticularDate(
+										DateModifier.getCurrDate(), 4) + ".txt";
+								fileAccessor.setFileName(fileName);
+								dateContentString = fileAccessor
+										.readFileString();
+								WarningPopUp.infoBox(dateContentString,
+										ZOOM_HEADING);
+								break;
+
+							case 6:
+								fileName = DateModifier.getParticularDate(
+										DateModifier.getCurrDate(), 5) + ".txt";
+								fileAccessor.setFileName(fileName);
+								dateContentString = fileAccessor
+										.readFileString();
+								WarningPopUp.infoBox(dateContentString,
+										ZOOM_HEADING);
+								break;
+
+							case 7:
+								fileName = DateModifier.getParticularDate(
+										DateModifier.getCurrDate(), 6) + ".txt";
+								fileAccessor.setFileName(fileName);
+								dateContentString = fileAccessor
+										.readFileString();
+								WarningPopUp.infoBox(dateContentString,
+										ZOOM_HEADING);
+								break;
+
+							default:
+								WarningPopUp.infoBox(ZOOM_ERR_HEADING,
+										ERROR_HEADING);
+								break;
+							}
+						}
+					}
+					break;
+
+				default:
+					WarningPopUp.infoBox(ZOOM_ERR_HEADING, ERROR_HEADING);
+					break;
+
+				}
+			
+		}
+		return startDateToBeDisplayed;
+	}
+
+	private void archivesClearToCurrState() {
+		try {
+			arc.clear();
+		} catch (Exception e) {
+			WarningPopUp.infoBox(UNEXPECTED_ERR_HEADING, ERROR_HEADING);
+			System.exit(0);
+		}
+	}
+}
+
+	// End of segment: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\Parser.java
+
+
+
+
+
+	/**
+	 * origin: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\Verify.java
+	 */
+
+	public boolean isValidAgendaInput() {
+		if (DateModifier.isValidDate(input)) {
+			return true;
+		} else {
+			switch (input) {
+			case "1":
+				return true;
+
+			case "2":
+				return true;
+
+			case "3":
+				return true;
+
+			case "4":
+				return true;
+
+			case "5":
+				return true;
+
+			case "6":
+				return true;
+
+			case "7":
+				return true;
+
+			case "today":
+				return true;
+
+			case "tomorrow":
+				return true;
+
+			case "off":
+				return true;
+
+			default:
+				return false;
+			}
+		}
+	}
+
+	public boolean isValidViewInput() {
+		if (DateModifier.isValidDate(input)) {
+			return true;
+		} else {
+			switch (input) {
+
+			case "today":
+				return true;
+
+			case "tomorrow":
+				return true;
+
+			case "next week":
+				return true;
+
+			case "next month":
+				return true;
+
+			default:
+				return false;
+			}
+		}
+	}
+}
+
+	// End of segment: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\Verify.java
+
+
+
+
+
+	/**
+	 * origin: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\WarningPopUp.java
+	 */
+
+
+package ido.main;
+import javax.swing.JOptionPane;
+
+/*
+ * A multipurpose class to display various message via pop up window
+ * Pre-cond: -
+ * Post-condition: displays a pop up window to display message
+ */	
+public class WarningPopUp {
+	
+	public static void infoBox(String infoMessage, String location){
+		JOptionPane.showMessageDialog(null, infoMessage,location, JOptionPane.INFORMATION_MESSAGE);
+	}
+
+}
+
+	// End of segment: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\WarningPopUp.java
+
+
+
+
+

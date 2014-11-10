@@ -1,0 +1,1221 @@
+//@author: a0110679a
+
+
+
+	/**
+	 * origin: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\Archives.java
+	 */
+
+
+/* When commandDone is activated, store task in archives 
+ * Undo/redo will need to remove from archives
+ * Transfer archive storage to display in pop up
+ * Track commands for add/edit/done for every new command
+ * Clear undo part when activation of new command that modifies file
+ * Store info from commandDone
+ */
+
+/* Note:
+ * Due to the individual arraylist in this class 
+ * delete is only able to remove the file contents
+ * but is unable to actually delete the contents within the arraylist
+ * therefore deleting from archives is currently unavailable through the software 
+ */
+
+public class Archives {
+
+	private static final String ARCHIVESTXT = "archives.txt";
+	static File file_object = new File(ARCHIVESTXT);
+
+	public static ArrayList<String> arcStorageContent;
+	public static LinkedList<Integer> counterSize;
+	static int counter = 0;
+	static int maxCounter = 0;
+	static int initialArcSize;
+	static int counterSizeIndex = 0;
+
+	public static LinkedList<Integer> ZorO;
+	static int cmdCounter = 0; // for tracking
+	static int cmdMaxCounter = 0; // for tracking
+
+	// Constructor on start up
+	public Archives() {
+
+		arcStorageContent = new ArrayList<String>();
+		counterSize = new LinkedList<Integer>();
+		loadArchives();
+		ZorO = new LinkedList<Integer>();
+
+	}
+
+	// Read contents from file into storageContent
+	public void loadArchives() {
+
+		arcStorageContent = (new FileAccessor(ARCHIVESTXT)).readContents();
+		counter += arcStorageContent.size();
+		maxCounter = counter;
+		initialArcSize = arcStorageContent.size();
+
+	}
+
+	// Resets counter & contents to current state when new command modify file
+	public void clear() throws IndexOutOfBoundsException {
+
+//		if(arcStorageContent.size() - 1 < 0){
+//			throw new IndexOutOfBoundsException("Index Out Of Bounds");
+//		}
+		
+		while (arcStorageContent.size() != counter) {
+			arcStorageContent.remove(arcStorageContent.size() - 1);
+		}
+		maxCounter = counter;
+		cmdMaxCounter = cmdCounter;
+	}
+
+	// Add one done task
+	public static void addOneDoneTask(String date, String task) {
+
+		arcStorageContent.add(date + " " + task);
+		counter++;
+		maxCounter = counter;
+		counterSize.add(1);
+		counterSizeIndex = counterSize.size();
+
+	}
+
+	// Add multiple done task
+	public static void addAllDoneTask(String date, ArrayList<String> task) {
+
+		for (int i = 0; i < task.size(); i++) {
+			arcStorageContent.add(date + " " + task.get(i));
+		}
+		counter += task.size();
+		maxCounter = counter;
+		counterSize.add(task.size());
+		counterSizeIndex = counterSize.size();
+
+	}
+
+	// Run undo of archives
+	public static void undo() {
+
+		if (counter > initialArcSize) {
+			counter -= counterSize.get(counterSizeIndex - 1);
+			counterSizeIndex--;
+		}
+
+	}
+
+	// Run redo of archives
+	public static void redo() {
+
+		if (counter < maxCounter) {
+			counter += counterSize.get(counterSizeIndex);
+			counterSizeIndex++;
+		}
+
+	}
+
+	// write all data from arcStorageContent into text file
+	public void saveArchives() {
+
+		ArrayList<String> arcTemp = new ArrayList<String>();
+		for (int i = 0; i < arcStorageContent.size(); i++) {
+			if (i < counter) {
+				arcTemp.add(arcStorageContent.get(i));
+			}
+		}
+		new FileAccessor(ARCHIVESTXT, arcTemp).writeContents();
+
+	}
+
+	// Tracks the cmd for Add Edit Copy Done
+	public void cmdTAECD(String cmd) {
+
+		if (cmd.equals("add") || cmd.equals("edit") || cmd.equals("copy")
+				|| cmd.equals("delete")) {
+			ZorO.add(0);
+			cmdCounter++;
+			cmdMaxCounter = cmdCounter;
+		} else if (cmd.equals("done")) {
+			ZorO.add(1);
+			cmdCounter++;
+			cmdMaxCounter = cmdCounter;
+		}
+
+	}
+
+	// Determine if need to undo/redo for previous/after cmd
+	public void executeCmd(int num) {
+
+		if (num == -1 && cmdCounter > 0) {
+			if (ZorO.get(cmdCounter - 1) == 1) {
+				undo();
+			}
+			cmdCounter += num;
+
+		} else if (num == 1 && cmdCounter < cmdMaxCounter) {
+			if (ZorO.get(cmdCounter) == 1) {
+				redo();
+			}
+			cmdCounter += num;
+
+		}
+	}
+
+	// For the user to actually see from archives.txt
+	public void formatArcTxtFile() throws FileNotFoundException {
+		Collections.sort(arcStorageContent);
+		PrintWriter writer2 = new PrintWriter(file_object);
+		writer2.println("Archives ");
+		writer2.println("----------------------------------");
+		for (int i = 0; i < counter; i++) {
+			writer2.println((i+1) + ". " + arcStorageContent.get(i));
+		}
+		writer2.close();
+
+	}
+
+}
+
+	// End of segment: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\Archives.java
+
+
+
+
+
+	/**
+	 * origin: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\CommandDelete.java
+	 */
+
+
+/*
+ * This class deletes the task without archiving Code from CommandDone without
+ * archive
+ */
+
+public class CommandDelete {
+
+	String date; // fileName w/o .txt
+	String fileName; // fileName w .txt
+	int position = -1;
+	File file_object = null;
+	private static final String GENERALTXT = "general.txt";
+	private ArrayList<String> currDateTask = new ArrayList<>();
+
+	// Constructor
+	public CommandDelete(String date, String position) {
+
+		this.date = IsValidDate.validateDate(date);
+		this.position = Integer.parseInt(position);
+
+	}
+
+	// Mutator
+	public void delete() {
+
+		if (position != -1) {
+
+			// Specific task
+			if (date.equals("-")) {
+				fileName = GENERALTXT;
+				file_object = new File(fileName);
+				deleteSpecificTask();
+
+			} else {
+				fileName = date + ".txt";
+				file_object = new File(fileName);
+				deleteSpecificTask();
+
+			}
+
+		} else { // All Task
+
+			if (date.equals("-")) {
+				fileName = GENERALTXT;
+				file_object = new File(fileName);
+				deleteAllTask();
+
+			} else {
+				fileName = date + ".txt";
+				file_object = new File(fileName);
+				deleteAllTask();
+
+			}
+
+		}
+
+	}
+
+	private void deleteAllTask() {
+
+		// Test file
+		if (file_object.exists()) {
+
+			// read the content of the file, put in the list
+			currDateTask = (new FileAccessor(fileName)).readContents();
+
+			if (currDateTask.size() == 0) {
+				WarningPopUp.infoBox("Nothing to clear", "WARNING");
+
+			} else {
+				currDateTask.clear();
+
+			}
+
+			// write in file
+			(new FileAccessor(fileName, currDateTask)).writeContents();
+
+		} else {
+			WarningPopUp.infoBox("Unable to delete", "WARNING");
+
+		}
+
+	}
+
+	private void deleteSpecificTask() {
+
+		// Test file
+		if (file_object.exists()) {
+			
+			// read the content of the file, put in the list
+			currDateTask = (new FileAccessor(fileName)).readContents();
+
+			// check if valid
+			if (position - 1 < currDateTask.size()) {
+				currDateTask.remove(position - 1);
+
+			} else {
+				WarningPopUp.infoBox("Unable to delete", "WARNING");
+
+			}
+
+			// write in file
+			(new FileAccessor(fileName, currDateTask)).writeContents();
+
+		} else {
+			WarningPopUp.infoBox("Unable to delete", "WARNING");
+
+		}
+
+	}
+}
+
+	// End of segment: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\CommandDelete.java
+
+
+
+
+
+	/**
+	 * origin: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\CommandDeleteTest.java
+	 */
+
+
+/*
+ * Test delete commands for single task and all tasks
+ * Verify Class supposedly clears all invalid cases
+ */
+
+public class CommandDeleteTest {
+
+	private static final String FILE = "211013";
+	private static final String FILETXT = FILE + ".txt";
+
+	// Valid date
+	@Test
+	public void testDeleteAll() {
+		System.out.println("test 1");
+		ArrayList<String> test = new ArrayList<>();
+		test.add("1. 1");
+		test.add("2. 1");
+		test.add("3. 1");
+		(new FileAccessor(FILETXT, test)).writeContents();
+		(new CommandDelete(FILE, "-1")).delete();
+		ArrayList<String> l = (new FileAccessor(FILETXT).readContents());
+		assertEquals(l.size(), 0);
+		(new File(FILETXT)).delete();
+	}
+	
+	// Invalid date
+	@Test
+	public void testDeleteAll2() {
+		System.out.println("test 2");
+		ArrayList<String> test = new ArrayList<>();
+		test.add("1. 1");
+		test.add("2. 1");
+		test.add("3. 1");
+		(new FileAccessor(FILETXT, test)).writeContents();
+		(new CommandDelete("123456", "-1")).delete();
+		ArrayList<String> l = (new FileAccessor(FILETXT).readContents());
+		assertEquals(l.size(), 3);
+		(new File(FILETXT)).delete();
+	}
+
+	// Valid date
+	@Test
+	public void testDeleteSingle() {
+		System.out.println("test 3");
+		ArrayList<String> test = new ArrayList<>();
+		test.add("1. 1");
+		test.add("2. 1");
+		test.add("3. 1");
+		(new FileAccessor(FILETXT, test)).writeContents();
+		(new CommandDelete(FILE, "2")).delete();
+		ArrayList<String> l = (new FileAccessor(FILETXT).readContents());
+		assertEquals(l.size(), 2);
+		(new File(FILETXT)).delete();
+	}
+	
+	// Invalid position
+	@Test
+	public void testDeleteSingle2() {
+		System.out.println("test 4");
+		ArrayList<String> test = new ArrayList<>();
+		test.add("1. 1");
+		test.add("2. 1");
+		test.add("3. 1");
+		(new FileAccessor(FILETXT, test)).writeContents();
+		(new CommandDelete(FILE, "4")).delete();
+		ArrayList<String> l = (new FileAccessor(FILETXT).readContents());
+		assertEquals(l.size(), 3);
+		(new File(FILETXT)).delete();
+	}
+}
+
+	// End of segment: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\CommandDeleteTest.java
+
+
+
+
+
+	/**
+	 * origin: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\CommandDone.java
+	 */
+
+
+/* This class deletes the completed task and archives the task * 
+ */
+
+public class CommandDone {
+
+	private static Logger logger = Logger.getLogger("CommandDone");
+
+	String date; // fileName w/o .txt
+	String fileName; // fileName w .txt
+	int position = -1;
+	File file_object = null;
+	private static final String GENERALTXT = "general.txt";
+
+	// Constructor
+	public CommandDone(String date, String position) {
+		
+		this.date = IsValidDate.validateDate(date);
+		this.position = Integer.parseInt(position);
+		
+	}
+	
+	// Mutator
+	public void done() {
+		
+		if (position != -1) {
+			
+			// Specific task
+			if (date.equals("-")) {
+				fileName = GENERALTXT;
+				doneSpecificTask();
+				
+			} else {
+				fileName = date + ".txt";
+				doneSpecificTask();
+				
+			}
+
+		} else { // All Task
+			if (date.equals("-")) {
+				fileName = GENERALTXT;
+				doneAllTask();
+
+			} else {
+				fileName = date + ".txt";
+				doneAllTask();
+				
+			}
+
+		}
+
+	}
+
+	private void doneAllTask() {
+		
+		ArrayList<String> currDateTask = new ArrayList<>();
+		file_object = new File(fileName);
+
+		logger.log(Level.INFO, "delete processing");
+
+		// Test file
+		if (file_object.exists()) {
+
+			// read the content of the file, put in the list
+			currDateTask = (new FileAccessor(fileName)).readContents();
+
+			if (currDateTask.size() == 0) {
+				WarningPopUp.infoBox("Nothing to clear", "WARNING");
+
+			} else {
+				// add to archives
+				Archives.addAllDoneTask(fileName.replace(".txt", ""),
+						currDateTask);
+				currDateTask.clear();
+				
+			}
+
+			// write in file
+			(new FileAccessor(fileName, currDateTask)).writeContents();
+
+		} else {
+			WarningPopUp.infoBox("Unable to delete", "WARNING");
+
+			logger.log(Level.WARNING, "processing error");
+
+		}
+
+		logger.log(Level.INFO, "delete complete");
+
+	}
+
+	private void doneSpecificTask() {
+		ArrayList<String> currDateTask = new ArrayList<>();
+
+		logger.log(Level.INFO, "delete processing");
+
+		// read the content of the file, put in the list
+		currDateTask = (new FileAccessor(fileName)).readContents();
+
+		// check if valid
+		if (position - 1 < currDateTask.size()) {
+			// add to archives
+			Archives.addOneDoneTask(fileName.replace(".txt", ""),
+					currDateTask.get(position - 1));
+			currDateTask.remove(position - 1);
+
+		} else {
+			WarningPopUp.infoBox("Unable to delete", "WARNING");
+
+			logger.log(Level.WARNING, "processing error");
+
+		}
+
+		// write in file
+		(new FileAccessor(fileName, currDateTask)).writeContents();
+
+		logger.log(Level.INFO, "delete complete");
+
+	}
+
+}
+
+	// End of segment: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\CommandDone.java
+
+
+
+
+
+	/**
+	 * origin: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\HistoryTrackerAllFiles.java
+	 */
+
+
+/* This class stores the individual states of the text files in sequence * 
+ */
+
+public class HistoryTrackerAllFiles {
+
+	public ArrayList<String> storageDate;
+	public ArrayList<HistoryTrackerSingleFile> storageContent;
+	public LinkedList<String> modDateSeq;
+	int counter = 0; // for modDateSeq
+	int maxCounter = 0; // for modDateSeq
+
+	public HistoryTrackerAllFiles() {
+
+		storageDate = new ArrayList<String>();
+		storageContent = new ArrayList<HistoryTrackerSingleFile>();
+		modDateSeq = new LinkedList<String>();
+
+	}
+
+	public void checkBaseFile(String date) {
+
+		if (storageDate.size() == 0) { // Initial check
+			storageDate.add(date);
+			storageContent.add((new HistoryTrackerSingleFile(date)));
+
+		} else { // Check if date exist
+			int index = -1;
+
+			for (int i = 0; i < storageDate.size(); i++) {
+				if (storageDate.get(i).equals(date)) {
+					index = i;
+					break;
+				}
+			}
+
+			if (index == -1) {
+				storageDate.add(date);
+				storageContent.add(new HistoryTrackerSingleFile(date));
+			}
+
+		}
+
+	}
+
+	public void clear() {
+
+		for (int i = 0; i < storageContent.size(); i++) {
+			storageContent.get(i).clearALR();
+		}
+		while (modDateSeq.size() != counter) {
+			modDateSeq.removeLast();
+		}
+		maxCounter = counter;
+	}
+
+	public void recordUpdatedFile(String date) {
+
+		int index = -1;
+
+		for (int i = 0; i < storageDate.size(); i++) {
+			if (storageDate.get(i).equals(date)) {
+				index = i;
+				break;
+			}
+		}
+
+		storageContent.get(index).recordUpdatedFile(date);
+		modDateSeq.add(date);
+		counter++;
+		maxCounter = counter;
+
+	}
+
+	public void undo() throws IndexOutOfBoundsException {
+
+		int index = -1;
+
+		if (counter - 1 < 0) {
+			WarningPopUp.infoBox("Nothing to Undo", "WARNING");
+
+		} else {
+			String date = modDateSeq.get(counter - 1);
+
+			for (int i = 0; i < storageDate.size(); i++) {
+				if (storageDate.get(i).equals(date)) {
+					index = i;
+					break;
+				}
+			}
+
+			if (index != -1) {
+				storageContent.get(index).runUndo();
+				counter--;
+			}
+
+			if (index == -1) {
+				throw new IndexOutOfBoundsException("Index not found!");
+			}
+
+		}
+
+	}
+
+	public void redo() throws IndexOutOfBoundsException {
+
+		int index = -1;
+
+		if (counter + 1 > maxCounter) {
+			WarningPopUp.infoBox("Nothing to Redo", "WARNING");
+
+		} else {
+			String date = modDateSeq.get(counter);
+
+			for (int i = 0; i < storageDate.size(); i++) {
+				if (storageDate.get(i).equals(date)) {
+					index = i;
+					break;
+				}
+			}
+
+			if (index != -1) {
+				storageContent.get(index).runRedo();
+				counter++;
+			}
+
+			if (index == -1) {
+				throw new IndexOutOfBoundsException("Index not found!");
+			}
+
+		}
+
+	}
+	
+	public String getUndoFileDate(){
+		return modDateSeq.get(counter);
+	}
+	
+	public String getRedoFileDate(){
+		return modDateSeq.get(counter-1);
+	}
+}
+
+	// End of segment: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\HistoryTrackerAllFiles.java
+
+
+
+
+
+	/**
+	 * origin: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\HistoryTrackerSingleFile.java
+	 */
+
+
+/* This class saves the states of a text file
+ */
+
+public class HistoryTrackerSingleFile {
+
+	public LinkedList<ArrayList<String>> historyAL;
+	int counter = 0; // Position where the current file is
+	int maxCounter = 0; // Max Counter when there is no new add/edit/done
+						// command
+	String date;
+	private static final String GENERALTXT = "general.txt";
+
+	// Set Base file Here
+	public HistoryTrackerSingleFile(String date) {
+		
+		historyAL = new LinkedList<ArrayList<String>>();
+		
+		if (date.equals("-")) {
+			this.date = GENERALTXT;
+		} else {
+			this.date = date + ".txt";
+		}
+		
+		recordBaseFile(date);
+	}
+
+	public void recordBaseFile(String date) {
+		
+		String fileName = "";
+		
+		if (date.equals("-")) {
+			fileName = GENERALTXT;
+		} else {
+			fileName = date + ".txt";
+		}
+		
+		ArrayList<String> currDateTask = new ArrayList<>();
+		currDateTask = (new FileAccessor(fileName)).readContents();
+		historyAL.add(currDateTask);
+		counter++;
+		maxCounter = counter;
+	}
+
+	public void recordUpdatedFile(String date) {
+		
+		String fileName = "";
+		
+		if (date.equals("-")) {
+			fileName = "general.txt";
+		} else {
+			fileName = date + ".txt";
+		}
+		
+		ArrayList<String> currDateTask = new ArrayList<>();
+		currDateTask = (new FileAccessor(fileName)).readContents();
+		historyAL.add(currDateTask);
+		counter++;
+		maxCounter = counter;
+		
+	}
+
+	// Clear ALR after new command add/edit/done
+	public void clearALR() {
+		
+		while (historyAL.size() != counter) {
+			historyAL.removeLast();
+		}
+		
+	}
+
+	public void runUndo() {
+		
+		if (counter > 1) {
+			counter--;			
+			(new FileAccessor(date, historyAL.get(counter - 1)))
+					.writeContents();
+		}
+		
+	}
+
+	public void runRedo() {
+		
+		if (counter < maxCounter) {
+			counter++;			
+			(new FileAccessor(date, historyAL.get(counter - 1)))
+					.writeContents();			
+		}
+		
+	}
+}
+
+	// End of segment: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\HistoryTrackerSingleFile.java
+
+
+
+
+
+	/**
+	 * origin: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\OverDueTask.java
+	 */
+
+
+/* This class method reads 10 text files from previous date 
+ * and stores the overdue task into overdue text file 
+ */
+
+public class OverDueTask {
+
+	static ArrayList<String> prevDateTask = new ArrayList<>();
+	static ArrayList<String> ODTask = new ArrayList<>();
+	static File file_object = null;
+	private static final String OVERDUETXT = "overdue.txt";
+
+	public static void updateOverDueTask() {
+		
+		// Get initial previous date
+		String prevDate = DateModifier.getPrevDate(DateModifier.getCurrDate());
+
+		for (int j = 0; j < 10; j++) { // Deletes files from 10 days ago
+
+			String fileName = prevDate + ".txt";
+			file_object = new File(fileName);
+			
+			if (file_object.exists()) {
+				
+				// read the content of the previous date file, put in the list
+				prevDateTask = (new FileAccessor(fileName)).readContents();
+
+				if (prevDateTask.size() != 0) {
+					ODTask = (new FileAccessor(OVERDUETXT)).readContents();
+
+					// Transfer contents over
+					for (int i = 0; i < prevDateTask.size(); i++) {
+						ODTask.add(prevDate + " " + prevDateTask.get(i));
+					}
+
+					// write in file
+					(new FileAccessor(OVERDUETXT, ODTask)).writeContents();
+				}
+
+				// Delete the previous date text file to save space
+				file_object.delete();
+			}
+
+			// Get previous date from the previous date for the next loop
+			prevDate = DateModifier.getPrevDate(prevDate);
+			
+		}
+	}
+}
+
+	// End of segment: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\OverDueTask.java
+
+
+
+
+
+	/**
+	 * origin: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\Verify.java
+	 */
+
+
+/*
+ * This class check if the command input has correct syntax before executing the command
+ * This class is a compilation of errors from all the command classes
+ */
+
+public class Verify {
+
+	public String input;
+	public static boolean check;
+	public static String currDate;
+	public static String currIndex;
+	public static String newTime;
+	public static String newTask;
+	public static String destDate;
+	public static String editTTA;
+	public static String editMod;
+	private static final String ERROR_HEADING = "ERROR";
+
+	// Constructor
+	public Verify() {
+		input = "";
+		check = false;
+	}
+
+	// Mutator
+	void setInput(String input) {
+		this.input = input;
+	}
+
+	void setDate(String date) {
+		currDate = date;
+	}
+
+	void setIndex(String index) {
+		currIndex = index;
+	}
+
+	void setTime(String time) {
+		newTime = time;
+	}
+
+	void setTask(String task) {
+		newTask = task;
+	}
+
+	void setDestDate(String date) {
+		destDate = date;
+	}
+
+	void setEditTTA(String TTA) {
+		editTTA = TTA;
+	}
+
+	void setEditMod(String mod) {
+		editMod = mod;
+	}
+
+	// Accessor
+	String getCurrDate() {
+		return currDate;
+	}
+
+	String getCurrIndex() {
+		return currIndex;
+	}
+
+	String getNewTime() {
+		return newTime;
+	}
+
+	String getNewTask() {
+		return newTask;
+	}
+
+	boolean getCheck() {
+		return check;
+	}
+
+	String getDestDate() {
+		return destDate;
+	}
+
+	String getEditTTA() {
+		return editTTA;
+	}
+
+	String getEditMod() {
+		return editMod;
+	}
+
+	// Others
+	public void processEditString() {
+		String editStr[] = input.split(" ", 4);
+		String date = IsValidDate.validateDate(editStr[0]);
+		if (!date.equals("") && !date.equals("overdue")
+				&& !date.equals("archives")) { // Check Date
+			setDate(date);
+			String index = (new IsValidIndex(date, editStr[1])).validateIndex();
+			if (!index.equals("")) { // Check Index
+				setIndex(index);
+				if (editStr[2].equals("time")) { // Check Time
+					setEditTTA("time");
+					String time = IsValidTime.validateTime(editStr[3]); // Syntax
+					if (!time.equals("")) {
+						setEditMod(time);
+						check = true;
+					} else {
+						WarningPopUp.infoBox("Invalid Time", ERROR_HEADING);
+						check = false;
+					}
+				} else if (editStr[2].equals("task")) {
+					setEditTTA("task");
+					setEditMod(editStr[3]);
+					check = true;
+				} else if (editStr[2].equals("all")) { // Check Time
+					setEditTTA("all");
+					String[] change = editStr[3].split(" ", 2);
+					String timeAll = IsValidTime.validateTime(change[0]);
+					if (!timeAll.equals("")) {
+						setEditMod(editStr[3]);
+						check = true;
+					} else {
+						WarningPopUp.infoBox("Invalid Time", ERROR_HEADING);
+						check = false;
+					}
+				} else {
+					WarningPopUp
+							.infoBox(
+									"Please enter what you would like to modify\ntask/time/all",
+									ERROR_HEADING);
+					check = false;
+				}
+			} else {
+				// WarningPopUp.infoBox("Invalid Index", "WARNING");
+				check = false;
+			}
+		} else {
+			// Additional pop-up not done by IsValidDate
+			if (date.equals("overdue") || date.equals("archives")) {
+				WarningPopUp.infoBox("Invalid Date!", ERROR_HEADING);
+			}
+			check = false;
+		}
+
+	}
+
+	public void processAddString() {
+		String addString[] = input.split(" ", 3);
+		String date = IsValidDate.validateDate(addString[0]);
+		if (!date.equals("") && !date.equals("overdue")
+				&& !date.equals("archives")) { // Check Date
+			setDate(date);
+			String time = IsValidTime.validateTime(addString[1]); // Syntax
+			if (!time.equals("")) { // Check Time
+				setTime(time);
+				setTask(addString[2]);
+				check = true;
+			} else {
+				WarningPopUp.infoBox("Invalid Time", ERROR_HEADING);
+				check = false;
+			}
+		} else {
+			// Additional pop-up not done by IsValidDate
+			if (date.equals("overdue") || date.equals("archives")) {
+				WarningPopUp.infoBox("Invalid Date!", ERROR_HEADING);
+			}
+			check = false;
+		}
+
+	}
+
+	public void processCopyString() {
+		String cpyString[] = input.split(" ", 3);
+		String sourcedate = IsValidDate.validateDate(cpyString[0]);
+		if (!sourcedate.equals("") && !sourcedate.equals("overdue")
+				&& !sourcedate.equals("archives")) { // Check Date
+			setDate(sourcedate);
+			String index = (new IsValidIndex(sourcedate, cpyString[1]))
+					.validateIndex();
+			if (!index.equals("")) { // Check Index
+				setIndex(index);
+				String destdate = IsValidDate.validateDate(cpyString[2]);
+				if (!destdate.equals("") && !destdate.equals("overdue")
+						&& !destdate.equals("archives")) { // Check Date
+					setDestDate(destdate);
+					check = true;
+				} else {
+					// Additional pop-up not done by IsValidDate
+					if (destdate.equals("overdue")
+							|| destdate.equals("archives")) {
+						WarningPopUp.infoBox("Invalid Date!", ERROR_HEADING);
+					}
+					check = false;
+				}
+			} else {
+				// WarningPopUp.infoBox("Invalid Index", "WARNING");
+				check = false;
+			}
+		} else {
+			// Additional pop-up not done by IsValidDate
+			if (sourcedate.equals("overdue") || sourcedate.equals("archives")) {
+				WarningPopUp.infoBox("Invalid Date!", ERROR_HEADING);
+			}
+			check = false;
+		}
+
+	}
+
+	public void processDeleteString() {
+		String delString[] = input.split(" ");
+		String date = IsValidDate.validateDate(delString[0]);
+		if (!date.equals("") && !date.equals("archives")) { // Check Date
+			setDate(date);
+			if (delString.length == 1) { // Check Empty File
+				String index = "-1";
+				check = (new IsValidIndex(date, index)).testEmptyFile();
+				if (check) {
+					setIndex(index);
+				} else {
+					WarningPopUp.infoBox("Cannot delete from empty file",
+							ERROR_HEADING);
+				}
+			} else {
+				String index = (new IsValidIndex(date, delString[1]))
+						.validateIndex();
+				if (!index.equals("")) {// Check Index
+					setIndex(index);
+					check = true;
+				} else {
+					// WarningPopUp.infoBox("Invalid Index", "WARNING");
+					check = false;
+				}
+			}
+		} else {
+			// Additional pop-up not done by IsValidDate
+			if (date.equals("archives")) {
+				WarningPopUp.infoBox("Invalid Date!", ERROR_HEADING);
+			}
+			check = false;
+		}
+	}
+
+	public void processDoneString() {
+		String doneString[] = input.split(" ");
+		String date = IsValidDate.validateDate(doneString[0]);
+		if (!date.equals("") && !date.equals("overdue")
+				&& !date.equals("archives")) { // Check Date
+			setDate(date);
+			if (doneString.length == 1) { // Check Empty File
+				String index = "-1";
+				check = (new IsValidIndex(date, index)).testEmptyFile();
+				if (check) {
+					setIndex(index);
+				} else {
+					WarningPopUp.infoBox("Cannot delete from empty file",
+							ERROR_HEADING);
+				}
+			} else {
+				String index = (new IsValidIndex(date, doneString[1]))
+						.validateIndex();
+				if (!index.equals("")) { // Check Index
+					setIndex(index);
+					check = true;
+				} else {
+					// WarningPopUp.infoBox("Invalid Index", "WARNING");
+					check = false;
+				}
+			}
+		} else {
+			// Additional pop-up not done by IsValidDate
+			if (date.equals("overdue") || date.equals("archives")) {
+				WarningPopUp.infoBox("Invalid Date!", ERROR_HEADING);
+			}
+			check = false;
+		}
+	}
+
+	// End of segment: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\Verify.java
+
+
+
+
+
+	/**
+	 * origin: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\VerifyTest.java
+	 */
+
+
+public class VerifyTest {
+
+	public static Verify verify = new Verify();
+	public static boolean valid;
+
+	@Test
+	public void testAdd() {
+		verify.setInput("230114 - test");
+		verify.processAddString();
+		valid = verify.getCheck();
+		assertTrue(valid);
+
+		verify.setInput("230114 1-2 test");
+		verify.processAddString();
+		valid = verify.getCheck();
+		assertTrue(valid);
+
+		verify.setInput("230114 223-23 test");
+		verify.processAddString();
+		valid = verify.getCheck();
+		assertTrue(valid);
+
+		verify.setInput("230114 123456 test");
+		verify.processAddString();
+		valid = verify.getCheck();
+		assertFalse(valid);
+
+		verify.setInput("123456 - test");
+		verify.processAddString();
+		valid = verify.getCheck();
+		assertFalse(valid);
+	}
+
+	@Test
+	public void testEdit() {
+		verify.setInput("1 1 time -");
+		verify.processEditString();
+		valid = verify.getCheck();
+		assertTrue(valid);
+
+		verify.setInput("1 1 task test");
+		verify.processEditString();
+		valid = verify.getCheck();
+		assertTrue(valid);
+
+		verify.setInput("1 1 all 2-3 test");
+		verify.processEditString();
+		valid = verify.getCheck();
+		assertTrue(valid);
+
+		verify.setInput("1 1 hello -");
+		verify.processEditString();
+		valid = verify.getCheck();
+		assertFalse(valid);
+	}
+
+	@Test
+	public void testDoneNDelete() {
+		verify.setInput("1");
+		verify.processDeleteString();
+		valid = verify.getCheck();
+		assertTrue(valid);
+
+		verify.setInput("- 1");
+		verify.processDoneString();
+		valid = verify.getCheck();
+		assertTrue(valid);
+	}
+
+	@Test
+	public void testCopy() {
+		verify.setInput("1 1 2");
+		verify.processCopyString();
+		valid = verify.getCheck();
+		assertTrue(valid);
+
+		verify.setInput("- 1 -");
+		verify.processCopyString();
+		valid = verify.getCheck();
+		assertTrue(valid);
+
+	}
+}
+
+	// End of segment: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\VerifyTest.java
+
+
+
+
+

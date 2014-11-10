@@ -1,0 +1,409 @@
+//@author: a0114813n
+
+
+
+	/**
+	 * origin: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\CommandAdd.java
+	 */
+
+/*
+ * This class adds a task to txt. file, with the date as the name of the file.
+ * A display message is shown when a task is added to a day not in the layout 
+ * of the software.
+*/
+
+public class CommandAdd {
+	private static final String ALL_DAY_TASK = "[by-today] ";
+	private static final int DATE_LENGTH = 6;
+	private static final int BOX_VALUE = 1;
+	private static final int TOTAL_BOX_VALUE = 7;
+	private static final String FLOATING_CHECK = "-";
+	private static final String ERROR_HEADING = "ERROR";
+	private static final String ERROR_TIME = "Invalid Time!";
+	private static final String MESSAGE_TASK = "Task Added!";
+	private static Logger logger = Logger.getLogger("CommandAdd");
+
+	String date;
+	String task;
+	String time;
+
+	public CommandAdd(String date, String time, String task) {
+		this.date = date;
+		try {
+			this.time = IsValidTime.validateTime(time);
+		} catch (Exception e) {
+			WarningPopUp.infoBox(ERROR_TIME, ERROR_HEADING);
+			e.printStackTrace();
+		}
+		this.task = task;
+	}
+
+	public void addTask() {
+		logger.log(Level.INFO, "add processing");
+
+		// Create the name of the text file
+		String fileName = date + ".txt";
+		if (date.equals(FLOATING_CHECK)) {
+			fileName = "general.txt"; // adds to general file
+		}
+		String content = "[" + time + "] " + task;
+		if (time.equals(FLOATING_CHECK)) {
+			content = ALL_DAY_TASK + task;
+		}
+
+		ArrayList<String> list = new ArrayList<String>();
+		// Check if the text file exists, if it does, add its content to
+		// a list and return the list
+		(new FileAccessor(fileName)).checkFilesExistCustom(date);
+		list = (new FileAccessor(fileName)).readContents();
+		list.add(content);
+		(new FileAccessor(fileName, list)).writeContents();
+
+		boolean dateOutOfBox = true;
+		for (int i = 0; i < TOTAL_BOX_VALUE; i++) {
+			if (date.equals(DateModifier.getParticularDate(
+					DateModifier.getCurrDate(), i))) {
+				dateOutOfBox = false;
+				break;
+			}
+		}
+		if (date.equals(FLOATING_CHECK)) {
+			dateOutOfBox = false;
+		}
+		if (dateOutOfBox) {
+			WarningPopUp.infoBox(date + " " + content, MESSAGE_TASK);
+		}
+		logger.log(Level.INFO, "add complete");
+	}
+}
+
+	// End of segment: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\CommandAdd.java
+
+
+
+
+
+	/**
+	 * origin: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\CommandAddTest.java
+	 */
+
+/**
+	// End of segment: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\CommandAddTest.java
+
+
+
+
+
+	/**
+	 * origin: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\CommandCopy.java
+	 */
+
+/*
+ * This class copies a certain task from a source date to a destination date.
+ * 
+*/
+public class CommandCopy {
+	private static final String FLOATING_CHECK = "-";
+	private static final String GENERAL_FILE = "general.txt";
+	private static final String TXT_EXTENSION = ".txt";
+	private static final String ALL_DAY_TASK = "by-today";
+
+	public static void copyTask(String source_date, String index,
+			String destination_date) {
+
+		ArrayList<String> files;
+		if (source_date.equals(FLOATING_CHECK)) {
+			files = new FileAccessor(GENERAL_FILE).readContents();
+		} else {
+			files = new FileAccessor(source_date + TXT_EXTENSION)
+					.readContents();
+		}
+		try {
+			String line = files.get(Integer.valueOf(index) - 1);
+			String[] splitter = line.split("]");
+			String time = splitter[0].substring(1);
+			if (time.equals(ALL_DAY_TASK)) {
+				time = FLOATING_CHECK;
+			}
+			String task = line.substring(splitter[0].length() + 2); // ']' and
+																	// ' '
+			new CommandAdd(destination_date, time, task).addTask();
+		} catch (Exception e) {
+		}
+	}
+}
+
+	// End of segment: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\CommandCopy.java
+
+
+
+
+
+	/**
+	 * origin: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\IsValidDate.java
+	 */
+
+/*
+ * This class checks if a valid date is entered.
+ * 
+*/
+
+public class IsValidDate {
+	private static final String ERROR_HEADING = "ERROR";
+	private static final String ERROR_DATE = "Invalid Date!";
+	private static final String ARCHIVES_CHECK = "archives";
+	private static final String OVERDUE_CHECK = "overdue";
+	private static final String FLOATING_CHECK = "-";
+	private static final String DATE_FORMAT = "ddMMyy";
+	private static final String TODAY_CHECK = "today";
+	private static final String TOMORROW_CHECK = "tomorrow";
+
+	static String date;
+
+	public IsValidDate(String test) {
+		date = test;
+	}
+
+	public static String validateDate(String date) {
+		if (date.toLowerCase().equals(TODAY_CHECK)) {
+			DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+			Date currDate = new Date();
+			return dateFormat.format(currDate);
+		} else if (date.toLowerCase().equals(TOMORROW_CHECK)) {
+			DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+			long currTime = new Date().getTime();
+			Date currDate = new Date(currTime + (24 * 3600 * 1000));
+			return dateFormat.format(currDate);
+		} else if ((date.equals(FLOATING_CHECK))
+				|| (date.equals(ARCHIVES_CHECK))
+				|| (date.equals(OVERDUE_CHECK))) {
+			return date;
+		} else {
+			new IsValidDate(date);
+			if (IsValidDate.testValidDate()) {
+				return date;
+			}
+		}
+		try {
+			int box = Integer.valueOf(date);
+			if (box >= 1 && box <= 7) {
+				DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+				Date currDate = new Date();
+				return DateModifier.getParticularDate(
+						dateFormat.format(currDate), box - 1);
+			}
+		} catch (Exception e) {
+			// do nothing
+		}
+		WarningPopUp.infoBox(ERROR_DATE, ERROR_HEADING);
+		return "";
+	}
+
+	public static boolean testValidDate() {
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+		dateFormat.setLenient(false);
+		try {
+			dateFormat.parse(date.trim());
+		} catch (ParseException pe) {
+			// System.out.println("F");
+			return false;
+		}
+		return true;
+	}
+}
+
+	// End of segment: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\IsValidDate.java
+
+
+
+
+
+	/**
+	 * origin: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\IsValidDateTest.java
+	 */
+
+public class IsValidDateTest {
+
+	@Test
+	public void testExecutedCommands() {
+
+		String test1today1 = IsValidDate.validateDate("today");
+		String test1today2 = DateModifier.getCurrDate();
+		assertEquals(test1today1, test1today2);
+
+		String test2tomorrow1 = IsValidDate.validateDate("tomorrow");
+		String test2tomorrow2 = DateModifier.getNextDate(DateModifier
+				.getCurrDate());
+		assertEquals(test2tomorrow1, test2tomorrow2);
+
+		//Known issue, but code does not receive this input
+		 boolean test3 = new
+		 IsValidDate("1. today is 221014").testValidDate();
+		 //Should return false
+		 assertFalse(test3);
+
+	}
+}
+
+	// End of segment: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\IsValidDateTest.java
+
+
+
+
+
+	/**
+	 * origin: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\IsValidIndex.java
+	 */
+
+public class IsValidIndex {
+	private String filename;
+	private String index;
+
+	IsValidIndex(String filename, String index) {
+		if (filename.equals("-")) {
+			this.filename = "general";
+		}else if (filename.equals("archives")){
+			this.filename = "archives";
+		}else if (filename.equals("overdue")){
+			this.filename = "overdue";
+		}else{
+		this.filename = filename;
+		}
+		this.index = index;
+	}
+
+	public String validateIndex() {
+		List<String> data = (new FileAccessor(filename + ".txt")).readContents();
+		
+		int _index = -1; // will fail
+		try {
+			_index = Integer.parseInt(index);
+		} catch (Exception e) {
+			// do nothing
+		}
+		if (_index > 0 && _index <= data.size())
+			return index;
+		WarningPopUp.infoBox("Invalid Index!", "ERROR");
+		return ""; // does not do shit
+	}
+
+	public boolean testEmptyFile() {
+		List<String> data = (new FileAccessor(filename + ".txt")).readContents();
+		
+		if (data.size() == 0) {
+			System.out.println("nothing to clear");
+			return false;
+		} else {
+			return true;
+		}
+	}
+}
+
+	// End of segment: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\IsValidIndex.java
+
+
+
+
+
+	/**
+	 * origin: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\IsValidTime.java
+	 */
+
+/*
+ * This class helps to check if the time entered is valid. 
+ * It also reformats the time to hhmm format for standardisation
+ * 
+*/
+public class IsValidTime {
+	private static final String FLOATING_CHECK = "-";
+
+	public static String getFormattedTime(int time) { // throws Exception{
+		if (time < 10 && time >= 0) {
+			return String.format("0%d00", time);
+		} else if (time <= 24 && time >= 0) {
+			return String.format("%d00", time);
+		} else if (time >= 100 && time <= 2400) {
+			if (time % 100 < 60 && time % 100 >= 0) {
+				if (time >= 1000) {
+					return String.format("%d", time);
+				} else {
+					return String.format("0%d", time);
+				}
+			}
+		}
+		return ""; // Added to return false result
+		// throw new Exception("Invalid time.");
+	}
+
+	public static String validateTime(String time) { // throws Exception{
+		// TODO Throw meaningful exception messages
+		if (time.equals(FLOATING_CHECK)) {
+			return FLOATING_CHECK;
+		}
+		String splitted_time[] = time.split(FLOATING_CHECK);
+		boolean valid = true;
+		if (splitted_time.length < 1 || splitted_time.length > 2) {
+			valid = false;
+		}
+		if (time.length() > 0) {
+			if (time.charAt(time.length() - 1) == '-') {
+				valid = false;
+			}
+		}
+		String reformatted_time = "";
+		int old_t = -1; // 1 character shorter will allow it to be always be on
+						// top
+		for (int i = 0; i < splitted_time.length; i++) {
+			if (splitted_time[i].length() > 4) {
+				valid = false;
+			}
+			splitted_time[i] = getFormattedTime(Integer
+					.valueOf(splitted_time[i]));
+
+			// Added to break once an empty string is received
+			if (splitted_time[i].equals("")) {
+				break;
+			}
+
+			int t = Integer.valueOf(splitted_time[i]);
+			if (old_t >= t) {
+				valid = false;
+			}
+			old_t = t;
+			reformatted_time += splitted_time[i];
+			if (i < splitted_time.length - 1) {
+				reformatted_time += FLOATING_CHECK;
+			}
+		}
+		if (valid) {
+			return reformatted_time;
+		} else { // Added to return false result
+			return "";
+		}
+		// throw new Exception("Invalid time.");
+	}
+
+}
+
+	// End of segment: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\IsValidTime.java
+
+
+
+
+
+	/**
+	 * origin: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\IsValidTimeTest.java
+	 */
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+/**
+	// End of segment: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\IsValidTimeTest.java
+
+
+
+
+

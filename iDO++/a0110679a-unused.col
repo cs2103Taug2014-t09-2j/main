@@ -1,0 +1,458 @@
+//@author: a0110679a-unused
+
+
+
+	/**
+	 * origin: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\ZCommandHistory.java
+	 */
+
+
+/* 2nd attempt at executing undo & redo for basic commands add,edit,delete
+* Undo & redo is now implemented using stacks
+* Become unusable when having intermediate undo & redo as the states are not in sync
+* Too many conflicting conditions as well
+* COMMENTED ALL TO PREVENT ERROR MSG WHEN RUNNING GUI
+*/
+
+public class ZCommandHistory {
+
+//	// For Undo
+//	public Stack<String> historyDate;
+//	public Stack<ArrayList<String>> historyAL;
+//
+//	// For Redo
+//	public Stack<String> historyDateR;
+//	public Stack<ArrayList<String>> historyALR;
+//
+//	public Stack<String> historyCmd;
+//
+//	// public int bugCounter = 0;
+//
+//	public CommandHistory() {
+//		historyDate = new Stack<String>();
+//		historyAL = new Stack<ArrayList<String>>();
+//		historyDateR = new Stack<String>();
+//		historyALR = new Stack<ArrayList<String>>();
+//		historyCmd = new Stack<String>();
+//
+//	}
+//
+//	// Record Base file
+//	public void recordBaseFile(String date) {
+//		if (historyDate.empty()) {
+//			String fileName = date + ".txt";
+//			ArrayList<String> currDateTask = new ArrayList<>();
+//			currDateTask = (new ReadFile(fileName)).readContents();
+//			historyDate.push(fileName);
+//			historyAL.push(currDateTask);
+//		}
+//	}
+//
+//	// Record updated file after the done,add,edit method
+//	public void recordUpdatedFile(String date) {
+//		String fileName = date + ".txt";
+//		ArrayList<String> currDateTask = new ArrayList<>();
+//		currDateTask = (new ReadFile(fileName)).readContents();
+//		historyDate.push(fileName);
+//		historyAL.push(currDateTask);
+//		// System.out.println(currDateTask.size());
+//
+//	}
+//
+//	// Track commands: ignore zoom, search
+//	public void trackCmd(String cmd) {
+//		String[] arrStr = cmd.split(" ", 2);
+//		//System.out.println(arrStr[0]);
+//		if (!arrStr[0].equals("zoom") && !arrStr[0].equals("search")) {
+//			historyCmd.push(cmd);
+//			//System.out.println("added!");
+//		}
+//	}
+//
+//	// Clear DateR & ALR after new command add/edit/done
+//	public void clearDateRALR() {
+//		while (!historyDateR.empty()) {
+//			historyDateR.pop();
+//		}
+//		while (!historyALR.empty()) {
+//			historyALR.pop();
+//		}
+//
+//	}
+//
+//	// every new command requires saving of the current state of the file
+////	public void getOriginalState() {
+////		if (historyCmd.size() > 1) {
+////			String checkNewCmd = historyCmd.pop();
+////			String checkUndoRedo = historyCmd.pop();
+////			historyCmd.push(checkUndoRedo);
+////			historyCmd.push(checkNewCmd);
+////			if ((checkUndoRedo.equals("undo") || checkUndoRedo.equals("redo"))
+////					&& (!checkNewCmd.equals("undo") || !checkNewCmd
+////							.equals("redo"))) {
+////				historyDate.push(historyDateR.pop());
+////				historyAL.push(historyALR.pop());
+////			}
+////		}
+////	}
+//
+//	// every new command after undo results in a duplicate old file
+//	// so have to pop once from Date & AL
+//	// public void checkPrevPrevNcheckPrev() {
+//	// if (historyCmd.size() > 1) {
+//	// String original = historyCmd.pop();
+//	// String checker = historyCmd.pop();
+//	// historyCmd.push(checker);
+//	// historyCmd.push(original);
+//	// if ((original.equals("undo") || original.equals("redo"))
+//	// && (!checker.equals("undo") || !checker.equals("redo"))) {
+//	// historyDate.pop();
+//	// historyAL.pop();
+//	// }
+//	//
+//	// }
+//	// }
+//
+//	// Check prev prev command if undo or redo
+//	// public boolean checkPrevPrev(Stack<String> historyCmd) {
+//	// if (historyCmd.size() != 0) {
+//	// String original = historyCmd.pop();
+//	// String checker = historyCmd.pop();
+//	// historyCmd.push(checker);
+//	// historyCmd.push(original);
+//	// if (checker.equals("undo") || checker.equals("redo")) {
+//	// return false;
+//	// }
+//	// return true;
+//	// } else {
+//	// return false;
+//	// }
+//	// }
+//
+//	public void runHistoryUndo() {
+//
+//		// For start of every non-consecutive undo
+//		// If prev prev command is not undo/redo
+//		// if (checkPrevPrev(historyCmd)) {
+//		// if (historyDateR.empty()) {
+//		// String fileName = historyDate.pop();
+//		// historyDate.push(fileName);
+//		// ArrayList<String> currDateTask = new ArrayList<>();
+//		// currDateTask = (new ReadFile(fileName)).readContents();
+//		// historyDateR.push(fileName);
+//		// historyALR.push(currDateTask);
+//		//
+//		// }
+//		//
+//		// }
+//
+//		if (historyDateR.empty()) {
+//			historyDateR.push(historyDate.pop());
+//			historyALR.push(historyAL.pop());
+//		}
+//
+//		if (!historyDate.empty()) {
+//			String fileName = historyDate.pop();
+//			ArrayList<String> currDateTask = new ArrayList<>();
+//			// System.out.println(currDateTask.size());
+//			currDateTask = historyAL.pop();
+//			(new WriteFile(fileName, currDateTask)).writeContents();
+//			historyDateR.push(fileName);
+//			historyALR.push(currDateTask);
+//
+//		} else {
+//			System.out.println("Undo Limit");
+//
+//		}
+//	}
+//
+//	public void runHistoryRedo() {
+//
+//		if (historyDate.empty()) {
+//			historyDate.push(historyDateR.pop());
+//			historyAL.push(historyALR.pop());
+//		}
+//
+//		if (!historyDateR.empty()) {
+//			String fileName = historyDateR.pop();
+//			ArrayList<String> currDateTask = new ArrayList<>();
+//			// System.out.println(currDateTask.size());
+//			currDateTask = historyALR.pop();
+//			(new WriteFile(fileName, currDateTask)).writeContents();
+//			historyDate.push(fileName);
+//			historyAL.push(currDateTask);
+//
+//		} else {
+//			System.out.println("Redo Limit");
+//
+//		}
+//
+//	}
+
+}
+
+	// End of segment: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\ZCommandHistory.java
+
+
+
+
+
+	/**
+	 * origin: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\ZCommandSearchCurrDate.java
+	 */
+
+
+/* This class was used in conjunction with class CommandUndoRedo
+ * COMMENTED ALL TO PREVENT ERROR MSG WHEN RUNNING GUI
+ */
+
+public class ZCommandSearchCurrDate {
+
+//	String date;
+//	String time;
+//	String task;
+//	String position;
+//	ArrayList<String> currDateTask;
+//
+//	// For CommandAdd
+//	// Assume 
+//	public CommandSearchCurrDate(String date, String time, String task) {
+//		currDateTask = new ArrayList<>();
+//		this.date = date;
+//		this.time = time;
+//		this.task = task;
+//	}
+//	
+//	public CommandSearchCurrDate(String date, String position) {
+//		currDateTask = new ArrayList<>();
+//		this.date = date;
+//		this.position = position;
+//	}
+//
+//	public int searchStringPosition() {
+//		int arrLine = 0;
+//		currDateTask = (new ReadFile(date + ".txt")).readContents();
+//		for (int i = 0; i < currDateTask.size(); i++) {
+//			if(currDateTask.get(i).contains(time) && currDateTask.get(i).contains(task)){
+//				arrLine = i+1;
+//				break;
+//			}
+//		}
+//		return arrLine;
+//	}
+//	
+//	public String searchString() {
+//		currDateTask = (new ReadFile(date + ".txt")).readContents();
+//		System.out.println(currDateTask.get(Integer.parseInt(position)-1));
+//		return currDateTask.get(Integer.parseInt(position)-1);
+//	}
+}
+
+	// End of segment: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\ZCommandSearchCurrDate.java
+
+
+
+
+
+	/**
+	 * origin: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\ZCommandUndoRedo.java
+	 */
+
+
+/* 1st attempt at executing undo & redo for basic commands add,edit,delete
+ * Code was hard-coded to reverse the string
+ * Become unusable when integrating with undo & redo
+ * due to it being hard-coded
+ * COMMENTED ALL TO PREVENT ERROR MSG WHEN RUNNING GUI
+ */
+
+public class ZCommandUndoRedo {
+
+//	public Stack<String> undoHistory;
+//	public Stack<String> redoHistory;
+//	public Stack<String> executedUndoHistory;
+//
+//	public CommandUndoRedo() {
+//		undoHistory = new Stack<String>();
+//		redoHistory = new Stack<String>();
+//		executedUndoHistory = new Stack<String>();
+//	}
+//
+//	public void storeOriginalCommand(String command, String remain) {
+//		redoHistory.push((command + " " + remain).trim());
+//
+//	}
+//
+//	public void runRedo() {
+//		if (redoHistory.size() > undoHistory.size()) {
+//			String input = redoHistory.pop();
+//			String[] arrInput = input.split(" ", 2);
+//			if ((new IsValidDate(arrInput[1]).testValidDate())) {
+//				try {
+//					(new CommandDone(arrInput[1])).clearDateTaskAll();
+//				} catch (FileNotFoundException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//				int counter = Integer.parseInt(executedUndoHistory.pop());
+//				for (int i = 0; i < counter; i++) {
+//					undoHistory.push(executedUndoHistory.pop());
+//				}
+//				undoHistory.push(Integer.toString(counter));
+//
+//			} else if (arrInput[0].equals("done")) {
+//				String[] arrStrDS = arrInput[1].split(" ", 2);
+//				(new CommandDone(arrStrDS[0], arrStrDS[1]))
+//						.clearDateTaskSpecific();
+//				undoHistory.push(executedUndoHistory.pop());
+//
+//			} else if (arrInput[0].equals("edit")) {
+//				String[] arrStrE = arrInput[1].split(" ", 4);
+//				try {
+//					(new CommandEdit(arrStrE[0], arrStrE[1], arrStrE[2],
+//							arrStrE[3])).edit();
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//				undoHistory.push(executedUndoHistory.pop());
+//
+//			} else if (arrInput[0].equals("add")) {
+//				String[] arrStrAdd = arrInput[1].split(" ", 3);
+//				try {
+//					(new CommandAdd(arrStrAdd[0], arrStrAdd[1], arrStrAdd[2]))
+//							.addTask();
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//				undoHistory.push(executedUndoHistory.pop());
+//
+//			}
+//
+//		} else {
+//			System.out.println("Failed Redo");
+//		}
+//
+//	}
+//
+//	public void copyAddCommandToReverse(String date, String time, String task) {
+//		int arrLine = (new CommandSearchCurrDate(date, time, task))
+//				.searchStringPosition();
+//		// System.out.println("done " + date + " " + arrLine);
+//		undoHistory.push("done " + date + " " + arrLine);
+//
+//	}
+//
+//	public void copyDoneSpecificCommandToReverse(String date, String position) {
+//		ArrayList<String> currDateTask = new ArrayList<>();
+//		currDateTask = (new ReadFile(date + ".txt")).readContents();
+//		int location = Integer.parseInt(position);
+//		String str = currDateTask.get(location - 1);
+//		String[] arrStr = str.split(" ", 2);
+//		// System.out.println("add " + date + " " +
+//		// arrStr[0].substring(1,arrStr[0].length()-1) + " " + arrStr[1]);
+//		undoHistory.push("add " + date + " "
+//				+ arrStr[0].substring(1, arrStr[0].length() - 1) + " "
+//				+ arrStr[1]);
+//	}
+//
+//	public void copyDoneAllCommandToReverse(String date) {
+//		ArrayList<String> currDateTask = new ArrayList<>();
+//		currDateTask = (new ReadFile(date + ".txt")).readContents();
+//		int originalSize = currDateTask.size();
+//		if (currDateTask.size() != 0) {
+//			for (int i = 0; i < originalSize; i++) {
+//				String[] arrStr = (currDateTask.get(i)).split(" ", 2);
+//				// System.out.println(date + " " +
+//				// arrStr[0].substring(1,arrStr[0].length()-1) + " " +
+//				// arrStr[1]);
+//				undoHistory.push(date + " "
+//						+ arrStr[0].substring(1, arrStr[0].length() - 1) + " "
+//						+ arrStr[1]);
+//			}
+//			undoHistory.push(Integer.toString(originalSize));
+//		}
+//	}
+//
+//	public void copyEditCommandToReverse(String date, String position,
+//			String choice, String update, String oldInfo) {
+//		// Store old Info
+//		// Store new position
+//		int newindex = 0;
+//		String[] arrStr = oldInfo.split(" ", 2); // contains old time and task
+//		// System.out.println("1 " + arrStr[0] + " 2 " + arrStr[1]);
+//		if (choice.equals("time")) {
+//			newindex = (new CommandSearchCurrDate(date, update, arrStr[1]))
+//					.searchStringPosition();
+//			// System.out.println("edit " + date + " " + newindex + " " + choice
+//			// + " " + arrStr[0].substring(1,arrStr[0].length()-1));
+//			undoHistory.push("edit " + date + " " + newindex + " " + choice
+//					+ " " + arrStr[0].substring(1, arrStr[0].length() - 1));
+//		} else if (choice.equals("task")) {
+//			newindex = (new CommandSearchCurrDate(date, arrStr[0].substring(1,
+//					arrStr[0].length() - 1), update)).searchStringPosition();
+//			undoHistory.push("edit " + date + " " + newindex + " " + choice
+//					+ " " + arrStr[1]);
+//		} else if (choice.equals("all")) {
+//			String[] arrStr2 = update.split(" ", 2);
+//			newindex = (new CommandSearchCurrDate(date, arrStr2[0], arrStr2[1]))
+//					.searchStringPosition();
+//			// System.out.println("edit " + date + " " + newindex + " " + choice
+//			// + " " + arrStr[0].substring(1,arrStr[0].length()-1) + " " +
+//			// arrStr[1]);
+//			undoHistory.push("edit " + date + " " + newindex + " " + choice
+//					+ " " + arrStr[0].substring(1, arrStr[0].length() - 1)
+//					+ " " + arrStr[1]);
+//		}
+//	}
+//
+//	// Print command to be executed
+//	public void runUndo() throws IOException {
+//		if (!undoHistory.isEmpty()) {
+//			String checkStr = undoHistory.pop();
+//			if (checkStr.length() == 1) {
+//				// For done all only, adds back in to date.txt
+//				int popNo = Integer.parseInt(checkStr);
+//				for (int i = 0; i < popNo; i++) {
+//					// String[] arrStr = undoHistory.pop().split(" ", 3);
+//					String str = undoHistory.pop();
+//					executedUndoHistory.push(str);
+//					String[] arrStr = str.split(" ", 3);
+//					(new CommandAdd(arrStr[0], arrStr[1], arrStr[2])).addTask();
+//				}
+//				executedUndoHistory.push(checkStr);
+//			} else {
+//				executedUndoHistory.push(checkStr);
+//				// For other commands
+//				String[] arrStr = checkStr.split(" ", 2);
+//				// System.out.println(arrStr[0]);
+//				if (arrStr[0].equals("done")) {
+//					String[] arrStrDS = arrStr[1].split(" ", 2);
+//					(new CommandDone(arrStrDS[0], arrStrDS[1]))
+//							.clearDateTaskSpecific();
+//				} else if (arrStr[0].equals("add")) {
+//					String[] arrStrAdd = arrStr[1].split(" ", 3);
+//					(new CommandAdd(arrStrAdd[0], arrStrAdd[1], arrStrAdd[2]))
+//							.addTask();
+//				} else if (arrStr[0].equals("edit")) {
+//					String[] arrStrE = arrStr[1].split(" ", 4);
+//					// System.out.println(arrStrE[0] + arrStrE[1] + arrStrE[2] +
+//					// arrStrE[3]);
+//					(new CommandEdit(arrStrE[0], arrStrE[1], arrStrE[2],
+//							arrStrE[3])).edit();
+//				}
+//			}
+//		} else {
+//			// Unable to undo
+//			System.out.println("Undo failed");
+//		}
+//	}
+}
+
+	// End of segment: C:\Users\MadeRaditya\git\main3\iDO++\src\ido\main\ZCommandUndoRedo.java
+
+
+
+
+
