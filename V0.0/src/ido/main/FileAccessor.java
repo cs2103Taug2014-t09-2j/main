@@ -284,22 +284,17 @@ public class FileAccessor {
 	 * Post-cond: agenda for the date is created
 	 */
 	public void createAgendaForTheDate() {
-		boolean overlapTasksExist = false;
 		int arrayListSize = this.readContents().size();
 		ArrayList<String> temp = new ArrayList<String>();
-		ArrayList<Boolean> emptySlots = new ArrayList<Boolean>();
+		ArrayList<Boolean> emptySlots = this.CreateAgendaSlotStatus();
 		int startDayAgenda = 0;
-		for (int i = 0; i < 25; i++) {
-			emptySlots.add(true);
-		}
 		temp = this.readContents();
+		
 		int hour1 = 0, hour2, duration;
 		for (int i = 0; i < arrayListSize; i++) {
 			if (Character.isDigit(temp.get(i).charAt(1))) {
 				hour1 = Integer.valueOf(temp.get(i).substring(1, 3));
-				if (!emptySlots.get(hour1)) {
-					overlapTasksExist = true;
-				}
+				
 			}
 
 			if (i == 0) {
@@ -331,10 +326,40 @@ public class FileAccessor {
 					GUI.addTaskToAgenda("", i, 1);
 			}
 		}
+		
+
+	}
+	
+	public ArrayList<Boolean> CreateAgendaSlotStatus(){
+		ArrayList<Boolean> result = new ArrayList<Boolean>();
+		int hour1,hour2,duration;
+		boolean overlapTasksExist = false;
+		for (int i = 0; i < 25; i++) {
+			result.add(true);
+		}
+		
+		for (int i=0; i<currDateTask.size(); i++){
+			if(Character.isDigit(currDateTask.get(i).charAt(1))){
+				hour1 = Integer.valueOf(currDateTask.get(i).substring(1, 3));
+				if (!result.get(hour1)) {
+					System.out.println("in if empty slot");
+					overlapTasksExist = true;
+				}
+				if (Character.isDigit(currDateTask.get(i).charAt(6)))
+					hour2 = Integer.valueOf(currDateTask.get(i).substring(6, 8));
+				else
+					hour2 = hour1 + 1;
+				duration = hour2 - hour1;
+				for(int j=hour1; j<duration+hour1; j++){
+					result.set(j,false);
+				}
+			}
+			
+		}
 		if (overlapTasksExist) {
 			WarningPopUp.infoBox(OVERLAP_TASKS_AGENDA, WARNING);
 		}
-
+		return result;
 	}
 
 }
