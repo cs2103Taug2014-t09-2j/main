@@ -301,11 +301,14 @@ public class FileAccessor {
 			else
 				hour2 = hour1 + 1;
 			duration = hour2 - hour1;
+			GUI.addTaskToAgenda(this.readContents().get(i), hour1, duration);
 			for(int j=hour1;j<duration+hour1;j++){
 				emptySlots.set(j, false);
+				if(j!=hour1){
+					GUI.addTaskToAgenda(" ", j, 1);
+				}
 			}
 			
-			GUI.addTaskToAgenda(this.readContents().get(i), hour1, duration);
 		}
 		for(int i=startDayAgenda;i<25;i++){
 			if(emptySlots.get(i) == true)
