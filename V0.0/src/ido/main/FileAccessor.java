@@ -25,7 +25,7 @@ public class FileAccessor {
 	private static final String ERROR = "ERROR";
 	private static final String WARNING = "WARNING";
 	private static final String OVERLAP_TASKS_AGENDA = "There may be clashing tasks in this date. \n"
-														+ "Please use zoom command instead.";
+														+ "Please use zoom command to view more details instead.";
 	private static final String READ_ERROR = "Failure to read file %1$s!";
 	private static final String WRITE_ERROR = "Failure to write file %1$s!";
 	private static final String TEXT_EXTENSION = ".txt";
@@ -317,7 +317,7 @@ public class FileAccessor {
 	}
 	
 	/*
-	 * Checks the tasks in the date and store the timing in boolean arraylist. 
+	 * Checks the tasks in the date and store the timing in boolean ArrayList. 
 	 * It contains hours that have tasks and the rest are free time slot. 
 	 */
 	public ArrayList<Boolean> CreateAgendaSlotStatus(){
