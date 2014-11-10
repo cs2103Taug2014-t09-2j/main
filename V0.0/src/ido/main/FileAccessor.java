@@ -68,14 +68,13 @@ public class FileAccessor {
 			}
 			br.close();
 		} catch (IOException ee) {
-			WarningPopUp.infoBox(String.format(READ_ERROR, fileName),
-					ERROR);
+			WarningPopUp.infoBox(String.format(READ_ERROR, fileName), ERROR);
 			ee.printStackTrace();
 		}
 		return currDateTask;
 	}
 
-	//@author A0113768Y
+	// @author A0113768Y
 	String readFileString() throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(fileName));
 		try {
@@ -98,12 +97,12 @@ public class FileAccessor {
 			FileWriter fw = new FileWriter(file.getAbsoluteFile());
 			BufferedWriter bw = new BufferedWriter(fw);
 			Collections.sort(currDateTask);
-			
+
 			String _date = fileName.replace(TEXT_EXTENSION, NO_EXTENSION);
-			
+
 			String formattedDate = reformatDate(_date);
 			String _dayOfWeek = DayModifier.getDayOfWeek(_date);
-			
+
 			bw.write(String.format(FILE_HEADING, _dayOfWeek, formattedDate));
 			for (int i = 0; i < currDateTask.size(); i++) {
 				bw.write(String.format(CONTENT_TO_DISPLAY, i + 1,
@@ -111,20 +110,18 @@ public class FileAccessor {
 			}
 			bw.close();
 		} catch (IOException ee) {
-			WarningPopUp.infoBox(String.format(WRITE_ERROR, fileName),
-					ERROR);
+			WarningPopUp.infoBox(String.format(WRITE_ERROR, fileName), ERROR);
 			ee.printStackTrace();
 		}
 
 	}
-	
-	//@author A0113768Y
-		/*
-		 * Checks the required files to be displayed by task boxes in GUI exist, 
-		 * starting from startDate. If the required files do not exist, it creates the file
-		 * Pre-cond: -
-		 * Post-cond: Required files exist/created
-		 */
+
+	// @author A0113768Y
+	/*
+	 * Checks the required files to be displayed by task boxes in GUI exist,
+	 * starting from startDate. If the required files do not exist, it creates
+	 * the file Pre-cond: - Post-cond: Required files exist/created
+	 */
 	public void checkFilesExistCustom(String startDate) {
 		String temp = fileName;
 		for (int i = 0; i < 7; i++) {
@@ -139,20 +136,20 @@ public class FileAccessor {
 				}
 				String _dayOfWeek = DayModifier.getDayOfWeek(startDate);
 				String formattedDate = reformatDate(startDate);
-				writer.print(String.format(FILE_HEADING, _dayOfWeek, formattedDate));
+				writer.print(String.format(FILE_HEADING, _dayOfWeek,
+						formattedDate));
 				writer.close();
 			}
 			startDate = DateModifier.getNextDate(startDate);
 		}
-		
+
 	}
-	
-	//@author A0113768Y
+
+	// @author A0113768Y
 	/*
-	 * Checks the required files to be displayed by task boxes in GUI exist, 
-	 * starting from today's date. If the required files do not exist, it creates the file
-	 * Pre-cond: -
-	 * Post-cond: Required files exist/created
+	 * Checks the required files to be displayed by task boxes in GUI exist,
+	 * starting from today's date. If the required files do not exist, it
+	 * creates the file Pre-cond: - Post-cond: Required files exist/created
 	 */
 	public void checkFilesExist() {
 		String currDateString = DateModifier.getCurrDate();
@@ -167,7 +164,7 @@ public class FileAccessor {
 				writer = new PrintWriter(fileName, "UTF-8");
 			} catch (FileNotFoundException | UnsupportedEncodingException e) {
 				e.printStackTrace();
-			}		
+			}
 			writer.print(String.format(FILE_HEADING, "", "Archives"));
 			writer.close();
 		}
@@ -182,7 +179,7 @@ public class FileAccessor {
 				writer = new PrintWriter(fileName, "UTF-8");
 			} catch (FileNotFoundException | UnsupportedEncodingException e) {
 				e.printStackTrace();
-			}		
+			}
 			writer.print(String.format(FILE_HEADING, "", "General"));
 			writer.close();
 		}
@@ -218,7 +215,8 @@ public class FileAccessor {
 				}
 				String _dayOfWeek = DayModifier.getDayOfWeek(currDateString);
 				String formattedDate = reformatDate(currDateString);
-				writer.print(String.format(FILE_HEADING, _dayOfWeek, formattedDate));
+				writer.print(String.format(FILE_HEADING, _dayOfWeek,
+						formattedDate));
 				writer.close();
 			}
 			currDateString = DateModifier.getNextDate(currDateString);
@@ -230,7 +228,9 @@ public class FileAccessor {
 		DateFormat dateFormat1 = new SimpleDateFormat("ddMMyy");
 		DateFormat dateFormat2 = new SimpleDateFormat("dd/MM/yy");
 		String newDate = new String();
-		if ((date.toLowerCase()).equals("overdue")||(date.toLowerCase()).equals("general")||(date.toLowerCase()).equals("archives")) {
+		if ((date.toLowerCase()).equals("overdue")
+				|| (date.toLowerCase()).equals("general")
+				|| (date.toLowerCase()).equals("archives")) {
 			// Must return blank string as now the day and date is displayed
 			newDate = "";
 		} else {
@@ -243,10 +243,9 @@ public class FileAccessor {
 		return newDate;
 	}
 
-	//@author A0113768Y
+	// @author A0113768Y
 	/*
-	 * Reads the tasks in the fileName 
-	 * Pre-cond: the fileName.txt file exists
+	 * Reads the tasks in the fileName Pre-cond: the fileName.txt file exists
 	 * Post-cond: arrayList of tasks for the date for every hour is created
 	 */
 	public ArrayList<String> getTasksInADay() {
@@ -274,32 +273,31 @@ public class FileAccessor {
 
 		return result;
 	}
-	
+
 	/*
-	 * Transfer the tasks in the fileName to agendaContainer in GUI 
-	 * Pre-cond: the fileName.txt file exists
-	 * Post-cond: agenda for the date is created
+	 * Transfer the tasks in the fileName to agendaContainer in GUI Pre-cond:
+	 * the fileName.txt file exists Post-cond: agenda for the date is created
 	 */
 	public void createAgendaForTheDate() {
 		boolean overlapTasksExist = false;
 		int arrayListSize = this.readContents().size();
 		ArrayList<String> temp = new ArrayList<String>();
 		ArrayList<Boolean> emptySlots = new ArrayList<Boolean>();
-		int startDayAgenda=0;
-		for(int i=0;i<25;i++){
+		int startDayAgenda = 0;
+		for (int i = 0; i < 25; i++) {
 			emptySlots.add(true);
 		}
 		temp = this.readContents();
 		int hour1 = 0, hour2, duration;
 		for (int i = 0; i < arrayListSize; i++) {
-			if (Character.isDigit(temp.get(i).charAt(1))){
+			if (Character.isDigit(temp.get(i).charAt(1))) {
 				hour1 = Integer.valueOf(temp.get(i).substring(1, 3));
-				if(!emptySlots.get(hour1)){
+				if (!emptySlots.get(hour1)) {
 					overlapTasksExist = true;
 				}
 			}
-			
-			if(i==0){
+
+			if (i == 0) {
 				startDayAgenda = hour1;
 			}
 
@@ -309,20 +307,22 @@ public class FileAccessor {
 				hour2 = hour1 + 1;
 			duration = hour2 - hour1;
 			GUI.addTaskToAgenda(this.readContents().get(i), hour1, duration);
-			for(int j=hour1;j<duration+hour1;j++){
+			for (int j = hour1; j < duration + hour1; j++) {
 				emptySlots.set(j, false);
-				if(j!=hour1){
+				if (j != hour1) {
 					GUI.addTaskToAgenda(" ", j, 1);
 				}
 			}
 
-			
 		}
-		for(int i=startDayAgenda;i<25;i++){
-			if(emptySlots.get(i) == true)
-				GUI.addTaskToAgenda("", i, 1);
+
+		if (!temp.isEmpty()) {
+			for (int i = startDayAgenda; i < 25; i++) {
+				if (emptySlots.get(i) == true)
+					GUI.addTaskToAgenda("", i, 1);
+			}
 		}
-		if(overlapTasksExist){
+		if (overlapTasksExist) {
 			WarningPopUp.infoBox(OVERLAP_TASKS_AGENDA, WARNING);
 		}
 
