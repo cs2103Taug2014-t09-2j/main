@@ -345,6 +345,7 @@ public class FileAccessor {
 		}
 		if (overlapTasksExist) {
 			WarningPopUp.infoBox(OVERLAP_TASKS_AGENDA, WARNING);
+			GUI.agendaOff();
 		}
 		return result;
 	}
