@@ -565,13 +565,6 @@ public class GUI {
 		else{
 			agendaContent.setBackground(new Color(255, 99, 71));
 		}
-		if(task.equals(" ")){
-			agendaContent.setBackground(new Color(255, 99, 71));
-			agendaContent.setBorder(BorderFactory.createCompoundBorder(border,
-					BorderFactory.createEmptyBorder(5,5,5,5)));
-		}
-		if(!agendaContent.getText().isEmpty())
-			agendaContent.setOpaque(true);
 		
 		switch (duration){
 		case 0: agendaContent.setFont(new Font("Segoe UI", Font.PLAIN, 12));break;
@@ -581,15 +574,23 @@ public class GUI {
 		default: agendaContent.setFont(new Font("Segoe UI", Font.PLAIN, 26));
 		}
 		GridBagConstraints c = new GridBagConstraints();
-		c.fill = GridBagConstraints.HORIZONTAL;
+		c.fill = GridBagConstraints.BOTH;
 		//c.anchor = GridBagConstraints.FIRST_LINE_START;
 		c.gridy = startTime;
-		c.ipady = 1; 
+		c.ipady = 0; 
 		c.weightx = 1;
 		c.weighty = duration;
 		c.gridwidth = 100;
 		c.insets = new Insets(0,0,0,0);  
 		c.gridx = 0;
+		
+		if(task.equals(" ")){
+			agendaContent.setBackground(new Color(255, 99, 71));
+			agendaContent.setBorder(BorderFactory.createCompoundBorder(border,
+					BorderFactory.createEmptyBorder(5,5,5,5)));
+		}
+		if(!agendaContent.getText().isEmpty())
+			agendaContent.setOpaque(true);
 		
 		panel1.add(agendaContent,c);
 	}
