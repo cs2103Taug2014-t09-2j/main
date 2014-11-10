@@ -120,7 +120,9 @@ public class FileAccessor {
 	/*
 	 * Checks the required files to be displayed by task boxes in GUI exist,
 	 * starting from startDate. If the required files do not exist, it creates
-	 * the file Pre-cond: - Post-cond: Required files exist/created
+	 * the file 
+	 * Pre-cond: - 
+	 * Post-cond: Required files exist/created
 	 */
 	public void checkFilesExistCustom(String startDate) {
 		String temp = fileName;
@@ -148,8 +150,9 @@ public class FileAccessor {
 	// @author A0113768Y
 	/*
 	 * Checks the required files to be displayed by task boxes in GUI exist,
-	 * starting from today's date. If the required files do not exist, it
-	 * creates the file Pre-cond: - Post-cond: Required files exist/created
+	 * starting from today's date. If the required files do not exist, it creates the file 
+	 * Pre-cond: - 
+	 * Post-cond: Required files exist/created
 	 */
 	public void checkFilesExist() {
 		String currDateString = DateModifier.getCurrDate();
@@ -245,7 +248,8 @@ public class FileAccessor {
 
 	// @author A0113768Y
 	/*
-	 * Reads the tasks in the fileName Pre-cond: the fileName.txt file exists
+	 * Reads the tasks in the fileName 
+	 * Pre-cond: the fileName.txt file exists
 	 * Post-cond: arrayList of tasks for the date for every hour is created
 	 */
 	public ArrayList<String> getTasksInADay() {
@@ -275,8 +279,9 @@ public class FileAccessor {
 	}
 
 	/*
-	 * Transfer the tasks in the fileName to agendaContainer in GUI Pre-cond:
-	 * the fileName.txt file exists Post-cond: agenda for the date is created
+	 * Transfer the tasks in the fileName to agendaContainer in GUI 
+	 * Pre-cond: the fileName.txt file exists 
+	 * Post-cond: agenda for the date is created
 	 */
 	public void createAgendaForTheDate() {
 		boolean overlapTasksExist = false;
