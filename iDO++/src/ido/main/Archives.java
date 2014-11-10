@@ -64,9 +64,9 @@ public class Archives {
 	// Resets counter & contents to current state when new command modify file
 	public void clear() throws IndexOutOfBoundsException {
 
-		if(arcStorageContent.size() - 1 < 0){
-			throw new IndexOutOfBoundsException("Index Out Of Bounds");
-		}
+//		if(arcStorageContent.size() - 1 < 0){
+//			throw new IndexOutOfBoundsException("Index Out Of Bounds");
+//		}
 		
 		while (arcStorageContent.size() != counter) {
 			arcStorageContent.remove(arcStorageContent.size() - 1);
