@@ -23,7 +23,8 @@ public class FileAccessor {
 	private static final String FILE_HEADING = "%1$s %2$s\n----------------------------------\n";
 	private static final String ERROR = "ERROR";
 	private static final String WARNING = "WARNING";
-	private static final String OVERLAP_TASKS_AGENDA = "There may be clashing tasks in this date";
+	private static final String OVERLAP_TASKS_AGENDA = "There may be clashing tasks in this date. \n"
+														+ "Please use zoom command instead.";
 	private static final String READ_ERROR = "Failure to read file %1$s!";
 	private static final String WRITE_ERROR = "Failure to write file %1$s!";
 	private static final String TEXT_EXTENSION = ".txt";
