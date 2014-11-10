@@ -1,3 +1,5 @@
+//@author A0113768Y
+
 package ido.main;
 
 import java.text.DateFormat;
@@ -8,14 +10,19 @@ import java.util.Date;
 
 public class DateModifier {
 
+	/*
+	 * Obtain today's date in a String with ddmmyy format
+	 */
 	public static String getCurrDate() {
-		// obtain today's date
 		DateFormat dateFormat = new SimpleDateFormat("ddMMyy");
 		Date currDate = new Date();
 		String currDateString = dateFormat.format(currDate);
 		return currDateString;
 	}
 
+	/*
+	 * Obtain one day after the currDateString date in a String with ddmmyy format
+	 */
 	public static String getNextDate(String currDateString) {
 		String dt = currDateString; // Start date
 		SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
@@ -32,6 +39,9 @@ public class DateModifier {
 		return currDateString;
 	}
 
+	/*
+	 * Obtain one day before the currDateString date in a String with ddmmyy format
+	 */
 	public static String getPrevDate(String currDateString) {
 		String dt = currDateString; // Start date
 		SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
@@ -51,7 +61,7 @@ public class DateModifier {
 	/*
 	 * Returns a date that is i away from currDateString's date
 	 * Pre-cond: currDateString is in ddmmyy format
-	 * Post-condition: returms a date with ddmmyy format
+	 * Post-condition: returns a String date with ddmmyy format
 	 */
 	public static String getParticularDate(String currDateString, int i) {
 		String dt = currDateString; // Start date
@@ -84,6 +94,9 @@ public class DateModifier {
 		return headingDate + " " + headingMonth + " " + headingYear;
 	}
 
+	/*
+	 * Validate the input as a valid date with ddmmyy format
+	 */
 	public static boolean isValidDate(String input) {
 		if (input.length() == 6) {
 			SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyy");
