@@ -40,5 +40,27 @@ public class CommandAddTest {
 		
 		
 	}
+	
+	@Test
+	public void test2() {
+		try {
+			String filename = "a2";
+			BufferedWriter bw = (new BufferedWriter(new FileWriter((new File(filename+".txt")).getAbsoluteFile())));
+			bw.write("010101\n\n1. [by-today] Complete homework\n");
+			bw.close();
+			(new CommandAdd(filename,"-","Complete homework")).addTask();
+			ArrayList<String> l = (new FileAccessor(filename+".txt").readContents());
+			for (int i=0;i<l.size();i++){
+				System.out.println(l.get(i));
+			}
+			assertEquals(l.get(0),"[by-today] Complete homework");
+			assertEquals(l.get(1),"[by-today] Complete homework");
+			(new File(filename+".txt")).delete();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
 
 }
