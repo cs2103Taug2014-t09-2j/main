@@ -22,6 +22,8 @@ public class FileAccessor {
 	private static final String CONTENT_TO_DISPLAY = "%1$d. %2$s\n";
 	private static final String FILE_HEADING = "%1$s %2$s\n----------------------------------\n";
 	private static final String ERROR = "ERROR";
+	private static final String WARNING = "WARNING";
+	private static final String OVERLAP_TASKS_AGENDA = "There may be clashing tasks in this date";
 	private static final String READ_ERROR = "Failure to read file %1$s!";
 	private static final String WRITE_ERROR = "Failure to write file %1$s!";
 	private static final String TEXT_EXTENSION = ".txt";
@@ -279,6 +281,7 @@ public class FileAccessor {
 	 * Post-cond: agenda for the date is created
 	 */
 	public void createAgendaForTheDate() {
+		boolean overlapTasksExist = false;
 		int arrayListSize = this.readContents().size();
 		ArrayList<String> temp = new ArrayList<String>();
 		ArrayList<Boolean> emptySlots = new ArrayList<Boolean>();
@@ -289,8 +292,12 @@ public class FileAccessor {
 		temp = this.readContents();
 		int hour1 = 0, hour2, duration;
 		for (int i = 0; i < arrayListSize; i++) {
-			if (Character.isDigit(temp.get(i).charAt(1)))
+			if (Character.isDigit(temp.get(i).charAt(1))){
 				hour1 = Integer.valueOf(temp.get(i).substring(1, 3));
+				if(!emptySlots.get(hour1)){
+					overlapTasksExist = true;
+				}
+			}
 			
 			if(i==0){
 				startDayAgenda = hour1;
@@ -308,11 +315,15 @@ public class FileAccessor {
 					GUI.addTaskToAgenda(" ", j, 1);
 				}
 			}
+
 			
 		}
 		for(int i=startDayAgenda;i<25;i++){
 			if(emptySlots.get(i) == true)
 				GUI.addTaskToAgenda("", i, 1);
+		}
+		if(overlapTasksExist){
+			WarningPopUp.infoBox(OVERLAP_TASKS_AGENDA, WARNING);
 		}
 
 	}

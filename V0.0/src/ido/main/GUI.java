@@ -568,7 +568,7 @@ public class GUI {
 		if(task.equals(" ")){
 			agendaContent.setBackground(new Color(255, 99, 71));
 			agendaContent.setBorder(BorderFactory.createCompoundBorder(border,
-					BorderFactory.createEmptyBorder(5, 10, 5, 5)));
+					BorderFactory.createEmptyBorder(5,5,5,5)));
 		}
 		if(!agendaContent.getText().isEmpty())
 			agendaContent.setOpaque(true);
