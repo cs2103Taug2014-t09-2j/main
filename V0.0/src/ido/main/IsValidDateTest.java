@@ -20,13 +20,11 @@ public class IsValidDateTest {
 				.getCurrDate());
 		assertEquals(test2tomorrow1, test2tomorrow2);
 
-		// Known issue, but code does not receive this input
-		// boolean test3 = new
-		// IsValidDate("1. today is 221014").testValidDate();
-		// Should return false
-		// assertTrue(test3);
+		//Known issue, but code does not receive this input
+		 boolean test3 = new
+		 IsValidDate("1. today is 221014").testValidDate();
+		 //Should return false
+		 assertFalse(test3);
 
-		boolean test4 = new IsValidDate("221014").testValidDate();
-		assertFalse(test4);
 	}
 }

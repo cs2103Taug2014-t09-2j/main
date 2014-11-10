@@ -27,31 +27,6 @@ public class IsValidTimeTest {
 			e.printStackTrace();
 		}
 		
-// passes test when exception is thrown
-		boolean fail = false;
-		try {
-			IsValidTime.getFormattedTime(299);
-			fail = true;
-		} catch (Exception e) {}
-		try {
-			IsValidTime.getFormattedTime(180);
-			fail = true;
-		} catch (Exception e) {}
-		try {
-			IsValidTime.getFormattedTime(11111);
-			fail = true;
-		} catch (Exception e) {}
-		try {
-			IsValidTime.getFormattedTime(2500); //boundary
-			fail = true;
-		} catch (Exception e) {}
-		try {
-			IsValidTime.getFormattedTime(-1); // boundary
-			fail = true;
-		} catch (Exception e) {}
-		if (fail) {
-			fail("fails to fail");
-		}
 	}
 
 	@Test
@@ -64,25 +39,6 @@ public class IsValidTimeTest {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		boolean fail = false;
-		try {
-			IsValidTime.validateTime("");
-			fail = true;
-		}
-		catch (Exception e) {}
-		try {
-			IsValidTime.validateTime("000000000001"); //value testing
-			fail = true;
-		}
-		catch (Exception e) {}
-		try {
-			IsValidTime.validateTime("299");
-			fail = true;
-		}
-		catch (Exception e) {}
-		if (fail) {
-			fail("fails to fail");
 		}
 	}
 }
