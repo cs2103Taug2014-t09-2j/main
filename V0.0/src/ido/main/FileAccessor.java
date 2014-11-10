@@ -300,6 +300,10 @@ public class FileAccessor {
 			if (i == 0) {
 				startDayAgenda = hour1;
 			}
+			
+			if (temp.get(i).charAt(1) == 'b'){
+				break;
+			}
 
 			if (Character.isDigit(temp.get(i).charAt(6)))
 				hour2 = Integer.valueOf(temp.get(i).substring(6, 8));
