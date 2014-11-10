@@ -110,7 +110,6 @@ public class GUI {
 		lblIdo.setForeground(new Color(0, 0, 0));
 		lblIdo.setFont(new Font("Segoe UI", Font.PLAIN, 45));
 		getFrame().getContentPane().add(lblIdo);
-		// create padding inside the text area
 		Border border = BorderFactory.createLineBorder(Color.WHITE);
 
 		JScrollPane scrollPane = new JScrollPane();
@@ -140,7 +139,6 @@ public class GUI {
 		dateBox2.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		dateBox2.setEditable(false);
 		dateBox2.setBackground(new Color(255, 215, 0));
-		// create padding inside the text area
 		dateBox2.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
@@ -156,7 +154,6 @@ public class GUI {
 		dateBox3.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		dateBox3.setEditable(false);
 		dateBox3.setBackground(new Color(255, 215, 0));
-		// create padding inside the text area
 		dateBox3.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
@@ -172,7 +169,6 @@ public class GUI {
 		dateBox4.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		dateBox4.setEditable(false);
 		dateBox4.setBackground(new Color(255, 215, 0));
-		// create padding inside the text area
 		dateBox4.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
@@ -180,7 +176,6 @@ public class GUI {
 		scrollPane_4.setBorder(BorderFactory.createEmptyBorder());
 		scrollPane_4.setBounds(233, 266, 200, 200);
 		getFrame().getContentPane().add(scrollPane_4);
-		// Border border = BorderFactory.createLineBorder(Color.WHITE);
 
 		dateBox5 = new JTextArea();
 		scrollPane_4.setViewportView(dateBox5);
@@ -189,7 +184,6 @@ public class GUI {
 		dateBox5.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		dateBox5.setEditable(false);
 		dateBox5.setBackground(new Color(255, 215, 0));
-		// create padding inside the text area
 		dateBox5.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
@@ -205,7 +199,6 @@ public class GUI {
 		dateBox6.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		dateBox6.setEditable(false);
 		dateBox6.setBackground(new Color(255, 215, 0));
-		// create padding inside the text area
 		dateBox6.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
@@ -221,7 +214,6 @@ public class GUI {
 		dateBox7.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		dateBox7.setEditable(false);
 		dateBox7.setBackground(new Color(255, 215, 0));
-		// create padding inside the text area
 		dateBox7.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
@@ -279,7 +271,6 @@ public class GUI {
 
 			public void actionPerformed(ActionEvent arg0) {
 				String startDate = DateModifier.getCurrDate();
-				//Create a parser object
 				Parser parser = new Parser();
 				try {
 					startDate = parser.processInput(commandBox.getText());
@@ -296,13 +287,9 @@ public class GUI {
 		/*
 		 * Populate the task boxes with the data in the source files 
 		 */
-		
 		FileAccessor fa = new FileAccessor();
-		
 		OverDueTask.updateOverDueTask();
-		
 		fa.checkFilesExist();
-
 		displayAllTasks(DateModifier.getCurrDate());
 
 	}
@@ -354,11 +341,9 @@ public class GUI {
 			e.printStackTrace();
 		}
 
-		// loop to display all the date tasks
 		String currDateString = startDate;
 		
 		for (int i = 1; i < 8; i++) {
-			// display 7 task starting from today's date
 			fileName = currDateString + ".txt";
 			try {
 				reader = new BufferedReader(new FileReader(fileName));
@@ -557,7 +542,6 @@ public class GUI {
 		Border border = BorderFactory.createEmptyBorder();
 		agendaContent.setBorder(BorderFactory.createCompoundBorder(border,
 				BorderFactory.createEmptyBorder(5, 10, 5, 5)));
-
 		if(task.isEmpty()){
 		agendaContent.setBackground(new Color(135, 206, 235));
 		agendaContent.setOpaque(false);
@@ -565,7 +549,6 @@ public class GUI {
 		else{
 			agendaContent.setBackground(new Color(255, 99, 71));
 		}
-		
 		switch (duration){
 		case 0: agendaContent.setFont(new Font("Segoe UI", Font.PLAIN, 12));break;
 		case 1: agendaContent.setFont(new Font("Segoe UI", Font.PLAIN, 14));break;
@@ -575,7 +558,6 @@ public class GUI {
 		}
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
-		//c.anchor = GridBagConstraints.FIRST_LINE_START;
 		c.gridy = startTime;
 		c.ipady = 0; 
 		c.weightx = 1;
@@ -583,7 +565,6 @@ public class GUI {
 		c.gridwidth = 100;
 		c.insets = new Insets(0,0,0,0);  
 		c.gridx = 0;
-		
 		if(task.equals(" ")){
 			agendaContent.setBackground(new Color(255, 99, 71));
 			agendaContent.setBorder(BorderFactory.createCompoundBorder(border,
@@ -591,7 +572,6 @@ public class GUI {
 		}
 		if(!agendaContent.getText().isEmpty())
 			agendaContent.setOpaque(true);
-		
 		panel1.add(agendaContent,c);
 	}
 	
